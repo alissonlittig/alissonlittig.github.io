@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tallyroom</title>
+<meta name="description" content="Point of sale and stock for small shops. Scan, sell and always know what is on the shelf.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B3D;--ink:#121A2E;--bg:#F4F6FB;--line:#DDE3EF;--muted:#56607A;--orange:#FF6B35;--ok:#1C8A5B;--warn:#C2410C}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Schibsted Grotesk",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.ribbon{background:var(--navy);color:#C8D2EA;font-size:13px;text-align:center;padding:8px 16px}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font-weight:900;font-size:22px;text-decoration:none;color:var(--navy);letter-spacing:-.5px}
+.logo b{color:var(--orange)}
+nav a{margin-left:24px;text-decoration:none;color:var(--ink);font-weight:500}
+.hero{padding:48px 0 96px;display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
+h1{font-size:clamp(42px,6vw,74px);line-height:.98;font-weight:900;letter-spacing:-2px;color:var(--navy)}
+.lede{margin-top:20px;font-size:19px;color:var(--muted);max-width:42ch}
+.btn{display:inline-block;margin-top:28px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:10px;border:0;font:inherit;font-weight:700;cursor:pointer}
+.btn:hover{background:#E85A26}
+.btn.alt{background:var(--navy)}
+/* app mock */
+.app{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 40px 80px -40px rgba(13,27,61,.45);overflow:hidden}
+.app-top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.app-top strong{color:var(--navy)}
+.app-body{padding:20px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:var(--bg);border-radius:12px;padding:14px}
+.kpi small{color:var(--muted);font-size:13px}
+.kpi b{display:block;font-size:24px;color:var(--navy)}
+.stock{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
+.stock td{padding:10px 4px;border-bottom:1px solid var(--line)}
+.stock td:last-child{text-align:right;font-weight:700}
+.level{height:6px;border-radius:3px;background:var(--line);width:110px;overflow:hidden}
+.level i{display:block;height:100%;background:var(--ok);transition:width .4s,background-color .4s}
+.low td:last-child{color:var(--warn)}
+.low .level i{background:var(--warn)}
+.scan-row{display:flex;gap:10px;align-items:center;margin-top:16px}
+.scan-row .btn{margin:0;padding:11px 18px}
+#toast{font-size:14px;color:var(--muted)}
+section{padding:96px 0}
+h2{font-size:clamp(32px,4vw,50px);line-height:1.02;font-weight:900;letter-spacing:-1px;color:var(--navy);max-width:20ch}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:44px}
+.feat h3{font-size:20px;color:var(--navy)}
+.feat p{color:var(--muted);margin-top:6px}
+.dark{background:var(--navy);color:#E3E8F4}
+.dark h2{color:#fff}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px;max-width:860px}
+.tier{border:1px solid #2C3B63;border-radius:20px;padding:32px}
+.tier.main{background:#fff;color:var(--ink);border-color:#fff}
+.tier h3{font-size:20px}
+.tier .p{font-size:52px;font-weight:900;line-height:1;margin:12px 0;letter-spacing:-1px}
+.tier .p small{font-size:18px;font-weight:500}
+.tier ul{padding-left:20px;margin-top:12px}
+.tier li{margin:6px 0}
+.tier:not(.main) li{color:#B8C3DD}
+footer{padding:40px 0;color:var(--muted);font-size:14px}
+@media (max-width:900px){.hero,.prices{grid-template-columns:1fr}.feat{grid-template-columns:1fr}nav a:not(:last-child){display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ribbon">Concept project: a fictional brand designed by Alisson Littig for his portfolio.</div>
+<div class="wrap">
+  <header><a class="logo" href="#">tally<b>room</b></a><nav><a href="#features">Features</a><a href="#pricing">Pricing</a></nav></header>
+  <div class="hero">
+    <div>
+      <h1>Your shop counts itself.</h1>
+      <p class="lede">Tallyroom is a point of sale and stock system for small shops. Every sale updates the shelf count, so you reorder before a bestseller runs out.</p>
+      <a class="btn" href="#pricing">Start a free trial</a>
+    </div>
+    <div class="app" aria-label="Product preview">
+      <div class="app-top"><strong>Main store</strong><span>Today</span></div>
+      <div class="app-body">
+        <div class="kpis">
+          <div class="kpi"><small>Sales</small><b id="sales">$1,284</b></div>
+          <div class="kpi"><small>Orders</small><b id="orders">47</b></div>
+          <div class="kpi"><small>Low stock</small><b id="lowc">1</b></div>
+        </div>
+        <table class="stock" id="stock"></table>
+        <div class="scan-row"><button class="btn alt" id="scan">Scan a sale</button><span id="toast" aria-live="polite">Try it: each scan sells one item.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="features" style="background:#fff">
+  <div class="wrap">
+    <h2>Built for the counter, not the back office</h2>
+    <div class="feat">
+      <div><h3>Scan and sell</h3><p>Use any USB barcode reader or the phone camera. Split payments and instalments are one tap.</p></div>
+      <div><h3>Reorder alerts</h3><p>Set a minimum for each product and get a list of what to buy before the weekend rush.</p></div>
+      <div><h3>Close the day in a minute</h3><p>Cash count, card totals and staff commissions add up on their own at closing time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="pricing">
+  <div class="wrap">
+    <h2>One price per store. No setup fee.</h2>
+    <div class="prices">
+      <div class="tier main"><h3>Store</h3><p class="p">$29<small>/month</small></p><ul><li>Unlimited sales and products</li><li>Stock and reorder alerts</li><li>3 staff logins</li></ul><a class="btn" href="#">Start a free trial</a></div>
+      <div class="tier"><h3>Multi-store</h3><p class="p">$24<small>/store/month</small></p><ul><li>Everything in Store</li><li>Transfer stock between shops</li><li>Combined reports</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>Tallyroom is a fictional brand. Landing page designed by Alisson Littig as a SaaS example.</footer></div>
+
+<script>
+var items=[{n:'Matte lipstick, Rose',q:14,max:20},{n:'Daily sunscreen 50',q:3,max:24},{n:'Repair hair mask',q:9,max:12},{n:'Vitamin C serum',q:17,max:18}];
+var sales=1284,orders=47,price=[18,32,24,41];
+function draw(){
+  var low=0;
+  document.getElementById('stock').innerHTML=items.map(function(it){
+    var isLow=it.q<=4; if(isLow)low++;
+    return '<tr class="'+(isLow?'low':'')+'"><td>'+it.n+'</td><td><div class="level"><i style="width:'+Math.round(it.q/it.max*100)+'%"></i></div></td><td>'+it.q+'</td></tr>';
+  }).join('');
+  document.getElementById('lowc').textContent=low;
+  document.getElementById('sales').textContent='$'+sales.toLocaleString('en-US');
+  document.getElementById('orders').textContent=orders;
+}
+document.getElementById('scan').addEventListener('click',function(){
+  var i=Math.floor(Math.random()*items.length),it=items[i],t=document.getElementById('toast');
+  if(it.q===0){t.textContent=it.n+' is out of stock. Time to reorder.';return}
+  it.q--;sales+=price[i];orders++;draw();
+  t.textContent=it.q<=4?'Sold 1. '+it.n+' is running low.':'Sold 1 '+it.n+'.';
+});
+draw();
+</script>
+</body>
+</html>

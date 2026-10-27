@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lume Contábil</title>
+<meta name="description" content="Contabilidade online para pequenas empresas de Curitiba, com atendimento de gente de verdade.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--pine:#1F3B34;--pine2:#2E5249;--sky:#E3ECEE;--sun:#E8B04B;--ink:#13221E;--muted:#4F625C;--white:#fff}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Albert Sans",system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:17px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.ribbon{background:var(--ink);color:#DDE8E4;font-size:13px;text-align:center;padding:8px 16px}
+.hero{background:var(--pine);color:#F2F6F4;position:relative;overflow:hidden}
+.hero svg.trees{position:absolute;right:-40px;bottom:-4px;width:min(620px,70vw);height:auto;opacity:.95;pointer-events:none}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative}
+.logo{font-weight:800;font-size:22px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:14px;height:14px;border-radius:50%;background:var(--sun);display:inline-block;box-shadow:0 0 0 6px rgba(232,176,75,.25)}
+header a.link{color:#fff;font-weight:500;text-decoration:none}
+.hero-body{position:relative;padding:72px 0 140px;max-width:600px}
+h1{font-size:clamp(40px,5.6vw,68px);line-height:1.04;font-weight:800;letter-spacing:-1px}
+.lede{margin-top:20px;font-size:19px;color:#C9D8D3;max-width:46ch}
+.btn{display:inline-block;margin-top:30px;background:var(--sun);color:var(--ink);font-weight:800;text-decoration:none;padding:16px 28px;border-radius:12px}
+.btn:hover{background:#F2C46C}
+section{padding:96px 0}
+h2{font-size:clamp(30px,3.8vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.5px;max-width:20ch}
+.sub{color:var(--muted);margin-top:12px;max-width:58ch}
+.inc{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;margin-top:40px}
+.inc div{padding:22px 0;border-bottom:1px solid #D6E1DD}
+.inc h3{font-size:19px}
+.inc p{color:var(--muted);margin-top:4px}
+.steps{background:var(--sky)}
+.steps ol{list-style:none;padding:0;margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+.steps li{counter-increment:s;background:#fff;border-radius:18px;padding:28px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--pine);color:#fff;font-weight:800;margin-bottom:16px}
+.steps h3{font-size:18px}
+.steps p{color:var(--muted);font-size:15px;margin-top:6px}
+/* simulador de plano */
+.picker{margin-top:40px;display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start}
+.opts{display:grid;gap:12px}
+.opt{display:block;text-align:left;width:100%;font:inherit;border:2px solid #D6E1DD;background:#fff;border-radius:14px;padding:18px 20px;cursor:pointer}
+.opt b{display:block;font-size:18px}
+.opt span{color:var(--muted);font-size:15px}
+.opt[aria-pressed="true"]{border-color:var(--pine);background:#F2F7F5}
+.plan{background:var(--pine);color:#fff;border-radius:22px;padding:36px}
+.plan .price{font-size:58px;font-weight:800;line-height:1;margin:10px 0 4px}
+.plan .price small{font-size:20px;font-weight:500}
+.plan ul{margin-top:20px;padding-left:20px;color:#C9D8D3}
+.plan li{margin:6px 0}
+.local{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.local .card{border:2px solid var(--pine);border-radius:22px;padding:32px}
+footer{background:var(--ink);color:#9FB4AD;padding:40px 0;font-size:14px}
+@media (max-width:860px){.inc,.picker,.local{grid-template-columns:1fr}.steps ol{grid-template-columns:1fr 1fr}.hero-body{padding-bottom:200px}}
+@media (max-width:520px){.steps ol{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="ribbon">Projeto conceito: marca fictícia criada por Alisson Littig para portfólio.</div>
+
+<div class="hero">
+  <svg class="trees" viewBox="0 0 620 300" aria-hidden="true">
+    <!-- araucárias: tronco reto e copa em taça, a árvore de Curitiba -->
+    <g fill="#16302A">
+      <rect x="148" y="90" width="8" height="210"/><path d="M60 120 Q152 40 244 120 Q152 92 60 120Z"/><path d="M84 92 Q152 34 220 92 Q152 70 84 92Z"/>
+      <rect x="418" y="40" width="10" height="260"/><path d="M300 80 Q423 -20 546 80 Q423 46 300 80Z"/><path d="M334 46 Q423 -24 512 46 Q423 20 334 46Z"/>
+    </g>
+    <g fill="#284A42">
+      <rect x="280" y="140" width="6" height="160"/><path d="M216 162 Q283 104 350 162 Q283 142 216 162Z"/>
+      <rect x="560" y="120" width="6" height="180"/><path d="M500 146 Q563 92 626 146 Q563 128 500 146Z"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <header><a class="logo" href="#"><i></i>Lume Contábil</a><a class="link" href="#planos">Planos</a></header>
+    <div class="hero-body">
+      <h1>Contabilidade online, com contador que atende o telefone.</h1>
+      <p class="lede">Abertura de empresa, impostos, folha e pró-labore para pequenas empresas de Curitiba e região. Tudo pelo celular, e uma reunião presencial quando você precisar.</p>
+      <a class="btn" href="#planos">Ver quanto custa</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>O que está incluso em todos os planos</h2>
+    <div class="inc">
+      <div><h3>Impostos em dia</h3><p>Guias calculadas e enviadas antes do vencimento, com aviso no WhatsApp.</p></div>
+      <div><h3>Folha e pró-labore</h3><p>Holerites, férias e encargos do seu time, sem planilha paralela.</p></div>
+      <div><h3>Notas fiscais</h3><p>Ajuda para emitir a nota certa e conferência todo mês.</p></div>
+      <div><h3>Relatório do mês</h3><p>Faturamento, impostos pagos e resultado em uma página que você lê em 2 minutos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="steps">
+  <div class="wrap">
+    <h2>Trocar de contador leva uma semana</h2>
+    <ol>
+      <li><h3>Você conversa com a gente</h3><p>Uma chamada de 20 minutos para entender a sua empresa.</p></li>
+      <li><h3>Pedimos os documentos</h3><p>A equipe fala direto com o contador antigo para você não perder tempo.</p></li>
+      <li><h3>Conferimos tudo</h3><p>Revisamos os últimos meses e avisamos se houver pendência.</p></li>
+      <li><h3>Começamos o mês</h3><p>Primeiras guias e o primeiro relatório já pela Lume.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="planos">
+  <div class="wrap">
+    <h2>Escolha o tipo da sua empresa</h2>
+    <p class="sub">O preço depende do regime e do tamanho do time. Toque na opção que é a sua.</p>
+    <div class="picker">
+      <div class="opts" role="group" aria-label="Tipo de empresa">
+        <button class="opt" aria-pressed="true" data-p="129" data-n="MEI" data-i="Declaração anual|Guia mensal do DAS|Ajuda para virar ME quando crescer"><b>MEI</b><span>Até o limite de faturamento do MEI, com até 1 funcionário</span></button>
+        <button class="opt" aria-pressed="false" data-p="349" data-n="Serviços no Simples" data-i="Tudo do MEI|Pró-labore dos sócios|Folha de até 3 funcionários"><b>Serviços no Simples</b><span>Consultório, agência, estúdio, prestador</span></button>
+        <button class="opt" aria-pressed="false" data-p="489" data-n="Comércio no Simples" data-i="Tudo de Serviços|Controle de estoque fiscal|Folha de até 8 funcionários"><b>Comércio no Simples</b><span>Loja física, e-commerce, distribuidora</span></button>
+      </div>
+      <div class="plan" aria-live="polite">
+        <p id="pn">MEI</p>
+        <p class="price">R$ <span id="pp">129</span><small>/mês</small></p>
+        <ul id="pi"></ul>
+        <a class="btn" href="#">Falar com um contador</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap local">
+    <div><h2>Online, mas pertinho</h2><p class="sub">A equipe atende em horário comercial pelo WhatsApp, e-mail e vídeo. Para quem prefere olho no olho, tem reunião presencial agendada em Curitiba.</p></div>
+    <div class="card"><h3 style="font-size:22px">Atendimento</h3><p class="sub">Segunda a sexta, das 8h às 18h. Resposta no WhatsApp em até 2 horas úteis.</p></div>
+  </div>
+</section>
+
+<footer><div class="wrap">Lume Contábil é uma marca fictícia. Página criada por Alisson Littig como exemplo de landing page para escritório de contabilidade.</div></footer>
+
+<script>
+function pick(b){
+  document.querySelectorAll('.opt').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+  document.getElementById('pn').textContent=b.dataset.n;
+  document.getElementById('pp').textContent=b.dataset.p;
+  document.getElementById('pi').innerHTML=b.dataset.i.split('|').map(function(t){return '<li>'+t+'</li>'}).join('');
+}
+document.querySelectorAll('.opt').forEach(function(b){b.addEventListener('click',function(){pick(b)})});
+pick(document.querySelector('.opt'));
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planilha Viva</title>
+<meta name="description" content="Curso online: o controle financeiro do seu pequeno negócio em 21 dias, numa planilha que você entende.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#17704A;--deep:#0F3D2A;--paper:#FBFCFA;--grid:#DCE5DF;--ink:#16211B;--muted:#55635A;--flag:#E2A72E}
+*{box-sizing:border-box;margin:0}
+body{font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
+:focus-visible{outline:3px solid var(--flag);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.ribbon{background:var(--ink);color:#E6EFE9;font-size:13px;text-align:center;padding:8px 16px}
+/* o papel quadriculado é o fundo da página inteira do hero */
+.hero{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;border-bottom:1px solid var(--grid)}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:"IBM Plex Sans Condensed";font-size:22px;color:var(--green);text-decoration:none}
+.logo span{color:var(--ink)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:56px 0 88px}
+h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(42px,6vw,76px);line-height:1;letter-spacing:-1px}
+.lede{margin-top:20px;font-size:19px;color:var(--muted);max-width:44ch}
+.btn{display:inline-block;margin-top:28px;background:var(--green);color:#fff;text-decoration:none;font-weight:700;padding:16px 28px;border-radius:8px}
+.btn:hover{background:var(--deep)}
+.note{font-size:14px;color:var(--muted);margin-top:12px}
+/* a planilha de demonstração */
+.sheet{background:#fff;border:1px solid #B9C7BF;border-radius:10px;box-shadow:0 24px 48px -28px rgba(15,61,42,.45);overflow:hidden;font-size:15px}
+.sheet .bar{background:var(--deep);color:#CFE3D7;padding:10px 16px;font-size:13px;display:flex;justify-content:space-between}
+.sheet table{width:100%;border-collapse:collapse}
+.sheet th,.sheet td{border-bottom:1px solid var(--grid);padding:12px 16px;text-align:left}
+.sheet td:last-child,.sheet th:last-child{text-align:right;font-family:"IBM Plex Mono",monospace}
+.sheet input{width:9ch;font:inherit;font-family:"IBM Plex Mono",monospace;text-align:right;border:1px solid #B9C7BF;border-radius:4px;padding:4px 6px;background:#F3F8F5}
+.sheet tr.total td{font-weight:700;background:#EFF6F1}
+.sheet tr.total td:last-child{color:var(--green)}
+.sheet tr.total.neg td:last-child{color:#B3261E}
+.sheet caption{caption-side:bottom;text-align:left;padding:12px 16px;font-size:14px;color:var(--muted)}
+section{padding:96px 0}
+h2{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(32px,4vw,48px);line-height:1.05;max-width:22ch}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px}
+.cols h3{font-size:19px}
+.cols p{color:var(--muted);margin-top:6px}
+.weeks{margin-top:40px;border-top:2px solid var(--ink)}
+.week{display:grid;grid-template-columns:160px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--grid)}
+.week b{font-family:"IBM Plex Mono",monospace;color:var(--green);font-weight:500}
+.week h3{font-size:21px}
+.week p{color:var(--muted);margin-top:4px}
+.offer{background:var(--deep);color:#EAF3EE}
+.offer-box{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.offer ul{margin-top:24px;padding-left:20px}
+.offer li{margin:8px 0;color:#CFE3D7}
+.price{background:#fff;color:var(--ink);border-radius:14px;padding:36px;text-align:center}
+.price .old{color:var(--muted);text-decoration:line-through}
+.price .now{font-family:"IBM Plex Sans Condensed";font-size:64px;line-height:1;margin:6px 0;color:var(--green)}
+.price .btn{display:block}
+details{border-bottom:1px solid var(--grid);padding:20px 0}
+summary{font-weight:700;cursor:pointer;font-size:18px}
+details p{color:var(--muted);margin-top:10px;max-width:70ch}
+footer{padding:40px 0;font-size:14px;color:var(--muted)}
+@media (max-width:860px){.hero-grid,.offer-box{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.week{grid-template-columns:1fr;gap:4px}}
+</style>
+</head>
+<body>
+<div class="ribbon">Projeto conceito: marca fictícia criada por Alisson Littig para portfólio.</div>
+
+<div class="hero">
+  <div class="wrap">
+    <header><a class="logo" href="#">Planilha<span>Viva</span></a><a class="btn" style="margin:0;padding:10px 18px" href="#oferta">Quero entrar</a></header>
+    <div class="hero-grid">
+      <div>
+        <h1>Saiba se a sua empresa dá lucro sem esperar o contador.</h1>
+        <p class="lede">Um curso de 21 dias para donos de pequenos negócios montarem o próprio controle financeiro: fluxo de caixa, custos e resultado do mês, numa planilha que você entende.</p>
+        <a class="btn" href="#oferta">Garantir minha vaga</a>
+        <p class="note">Aulas curtas, gravadas, para assistir no celular.</p>
+      </div>
+      <div class="sheet">
+        <div class="bar"><span>resultado_outubro.xlsx</span><span>edite os números</span></div>
+        <table>
+          <caption>Mude os valores e veja o resultado do mês na hora. É assim que fica a sua planilha no fim do curso.</caption>
+          <thead><tr><th>Linha</th><th>R$</th></tr></thead>
+          <tbody>
+            <tr><td>Vendas do mês</td><td><input id="v" inputmode="numeric" value="42000" aria-label="Vendas do mês"></td></tr>
+            <tr><td>Custo das mercadorias</td><td><input id="c" inputmode="numeric" value="21500" aria-label="Custo das mercadorias"></td></tr>
+            <tr><td>Despesas fixas</td><td><input id="f" inputmode="numeric" value="12800" aria-label="Despesas fixas"></td></tr>
+            <tr class="total" id="row"><td>Lucro do mês</td><td id="l"></td></tr>
+            <tr><td>Margem</td><td id="m"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Feito para quem vende bem e mesmo assim termina o mês sem saber para onde foi o dinheiro</h2>
+    <div class="cols">
+      <div><h3>Loja e comércio</h3><p>Separe o que é venda do que é lucro e pare de usar o caixa da loja como conta pessoal.</p></div>
+      <div><h3>Prestador de serviço</h3><p>Descubra quanto custa cada hora sua e se o preço que você cobra paga as contas.</p></div>
+      <div><h3>Quem está começando</h3><p>Monte o controle certo desde o primeiro mês, sem precisar de sistema caro.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>O que você faz em cada semana</h2>
+    <div class="weeks">
+      <div class="week"><b>Dias 1 a 7</b><div><h3>Fluxo de caixa</h3><p>Lance entradas e saídas do jeito certo e veja o saldo dos próximos 30 dias.</p></div></div>
+      <div class="week"><b>Dias 8 a 14</b><div><h3>Custos e preço</h3><p>Separe custo fixo de variável e confira se cada produto ou serviço se paga.</p></div></div>
+      <div class="week"><b>Dias 15 a 21</b><div><h3>Resultado do mês</h3><p>Monte a sua DRE simples e saiba o lucro de verdade, todo mês, em 15 minutos.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="offer" id="oferta">
+  <div class="wrap offer-box">
+    <div>
+      <h2>Tudo o que vem no curso</h2>
+      <ul>
+        <li>21 aulas curtas, de até 12 minutos</li>
+        <li>A planilha completa, pronta para usar</li>
+        <li>Modelos de fluxo de caixa, precificação e DRE</li>
+        <li>Acesso por 12 meses, no computador e no celular</li>
+      </ul>
+    </div>
+    <div class="price">
+      <p class="old">De R$ 397</p>
+      <p class="now">R$ 197</p>
+      <p>ou 12x de R$ 19,70</p>
+      <a class="btn" href="#">Garantir minha vaga</a>
+      <p class="note">7 dias para pedir o dinheiro de volta, sem perguntas.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Perguntas frequentes</h2>
+    <div style="margin-top:32px">
+      <details><summary>Preciso saber Excel?</summary><p>Não. A primeira aula mostra tudo o que você vai usar. A planilha funciona no Excel e no Google Planilhas.</p></details>
+      <details><summary>Serve para MEI?</summary><p>Serve. O controle é o mesmo; muda só o tamanho dos números.</p></details>
+      <details><summary>Quanto tempo por dia?</summary><p>Uns 20 minutos: a aula e o exercício do dia.</p></details>
+      <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias para pedir o reembolso integral.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>Planilha Viva é uma marca fictícia. Página criada por Alisson Littig como exemplo de landing page de curso online.</footer></div>
+
+<script>
+var fmt=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:0});
+function n(id){return Number(document.getElementById(id).value.replace(/\D/g,''))||0}
+function calc(){
+  var v=n('v'),lucro=v-n('c')-n('f');
+  document.getElementById('l').textContent=fmt.format(lucro);
+  document.getElementById('m').textContent=v?(lucro/v*100).toFixed(1).replace('.',',')+'%':'—';
+  document.getElementById('row').classList.toggle('neg',lucro<0);
+}
+['v','c','f'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
+calc();
+</script>
+</body>
+</html>

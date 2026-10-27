@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alisson Littig</title>
+<meta name="description" content="Sites, landing pages, sistemas e automações para pequenas empresas, construídos com IA. Websites, landing pages, systems and automations for small businesses, built with AI.">
+<meta property="og:title" content="Alisson Littig">
+<meta property="og:description" content="Sites, landing pages, sistemas e automações para pequenas empresas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#15132E; --night2:#211E45; --fog:#EEF0F5; --paper:#FFFFFF;
+  --ink:#1A1D2B; --muted:#5A5F75; --cobalt:#4C5BFF; --amber:#FFB547;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Archivo,system-ui,sans-serif;font-stretch:100%;color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+/* idioma: cada texto existe nas duas línguas e o CSS mostra uma */
+html[data-lang="pt"] [lang="en"],html[data-lang="en"] [lang="pt"]{display:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.display{font-stretch:125%;font-weight:850;letter-spacing:-.02em;line-height:.92}
+
+/* abertura escura */
+.hero{background:radial-gradient(1200px 600px at 80% -10%,#2E2A6B 0%,transparent 60%),var(--night);color:#ECEBFA;overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+.name{font-stretch:125%;font-weight:800;font-size:18px;text-decoration:none;letter-spacing:.01em}
+.lang{display:flex;border:1px solid #4A4680;border-radius:999px;padding:3px}
+.lang button{font:inherit;font-size:14px;font-weight:700;color:#B9B6E3;background:none;border:0;padding:6px 14px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#ECEBFA;color:var(--night)}
+.hero h1{font-size:clamp(46px,8.2vw,124px);margin-top:72px;max-width:12ch}
+.hero .lede{margin-top:28px;max-width:52ch;font-size:20px;color:#BEBBE6}
+.hero .cta{display:inline-block;margin-top:34px;background:var(--cobalt);color:#fff;text-decoration:none;font-weight:700;padding:16px 28px;border-radius:12px}
+.hero .cta:hover{background:#3A48E8}
+/* palco: as páginas de verdade, ao vivo, em perspectiva */
+.stage{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:80px 0 -60px;perspective:1600px}
+.stage a{display:block;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);transform:rotateX(14deg) translateY(var(--y,0));transform-origin:bottom center;transition:transform .5s cubic-bezier(.2,.8,.2,1);text-decoration:none}
+.stage a:nth-child(2){--y:-28px}.stage a:nth-child(3){--y:-12px}.stage a:nth-child(4){--y:-36px}
+.stage a:hover{transform:rotateX(0) translateY(-48px)}
+.shot{position:relative;aspect-ratio:10/16;overflow:hidden;background:var(--fog)}
+.shot iframe{position:absolute;top:0;left:0;width:1280px;height:2048px;border:0;transform-origin:0 0;pointer-events:none}
+.stage .label{display:block;padding:12px 14px;font-size:14px;font-weight:700;color:var(--ink)}
+.hero-pad{height:120px}
+
+/* trabalhos: claro e calmo */
+section{padding:120px 0}
+h2{font-size:clamp(34px,5vw,64px)}
+.intro{color:var(--muted);max-width:58ch;margin-top:16px;font-size:19px}
+.work{margin-top:72px;display:grid;gap:96px}
+.item{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
+.item:nth-child(even) .frame{order:2}
+.frame{display:block;border-radius:20px;overflow:hidden;background:var(--fog);box-shadow:0 30px 60px -36px rgba(21,19,46,.5);text-decoration:none}
+.frame .bar{display:flex;gap:6px;padding:12px 14px;background:#E4E7EF}
+.frame .bar i{width:10px;height:10px;border-radius:50%;background:#C5CAD8}
+.frame .shot{aspect-ratio:16/10}
+.frame .shot iframe{height:800px}
+.kind{color:var(--cobalt);font-weight:700;font-size:15px}
+.item h3{font-stretch:125%;font-weight:800;font-size:clamp(26px,3vw,36px);line-height:1.05;margin-top:6px}
+.item p{color:var(--muted);margin-top:14px}
+.open{display:inline-block;margin-top:22px;font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--cobalt);padding-bottom:2px}
+
+.systems{background:var(--fog)}
+.sys{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
+.sys article{background:#fff;border-radius:22px;padding:36px}
+.sys .big{font-stretch:125%;font-weight:850;font-size:clamp(40px,5vw,60px);line-height:1;color:var(--night)}
+.sys h3{font-size:22px;margin-top:18px}
+.sys p{color:var(--muted);margin-top:8px}
+
+.steps{list-style:none;padding:0;margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
+.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:18px}
+.steps li::before{content:counter(s);font-stretch:125%;font-weight:850;font-size:40px;line-height:1;color:var(--cobalt);display:block;margin-bottom:12px}
+.steps h3{font-size:19px}
+.steps p{color:var(--muted);margin-top:6px;font-size:16px}
+
+/* contato: volta ao escuro */
+.contact{background:var(--night);color:#ECEBFA}
+.contact h2{max-width:14ch}
+.links{margin-top:48px;display:grid;gap:4px;max-width:720px}
+.links a{display:flex;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid #37336A;text-decoration:none;font-size:clamp(18px,2.4vw,26px);font-weight:700}
+.links a span:last-child{color:#9E9AD6;font-weight:500;font-size:16px;align-self:center}
+.links a:hover{color:var(--amber)}
+.foot{padding:56px 0 32px;color:#8C88C4;font-size:14px}
+
+@media (max-width:900px){
+  .stage{grid-template-columns:1fr 1fr}
+  .stage a:nth-child(n+3){display:none}
+  .item,.sys{grid-template-columns:1fr;gap:28px}
+  .item:nth-child(even) .frame{order:0}
+  .steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px){.steps{grid-template-columns:1fr}.hero h1{margin-top:40px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.stage a{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="name" href="#">Alisson Littig</a>
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button data-l="pt" aria-pressed="true">PT</button><button data-l="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+    <h1 class="display"><span lang="pt">Sites e sistemas que trabalham por você.</span><span lang="en">Websites and systems that do the work.</span></h1>
+    <p class="lede"><span lang="pt">Landing pages, sites, sistemas de gestão e automações para pequenas empresas. Construo com inteligência artificial, entrego rápido e continuo por perto depois que vai ao ar.</span><span lang="en">Landing pages, websites, business systems and automations for small companies. I build with AI, ship fast and stay around after launch.</span></p>
+    <a class="cta" href="#contato"><span lang="pt">Pedir um orçamento</span><span lang="en">Get a quote</span></a>
+    <div class="stage" aria-label="Projetos">
+      <a href="projetos/alta-estima/"><div class="shot"><iframe src="projetos/alta-estima/" title="Alta Estima" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Alta Estima</span></a>
+      <a href="projetos/planilha-viva/"><div class="shot"><iframe src="projetos/planilha-viva/" title="Planilha Viva" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Planilha Viva</span></a>
+      <a href="projetos/lume-contabil/"><div class="shot"><iframe src="projetos/lume-contabil/" title="Lume Contábil" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Lume Contábil</span></a>
+      <a href="projetos/tallyroom/"><div class="shot"><iframe src="projetos/tallyroom/" title="Tallyroom" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Tallyroom</span></a>
+    </div>
+  </div>
+  <div class="hero-pad"></div>
+</header>
+
+<main>
+<section id="trabalhos">
+  <div class="wrap">
+    <h2 class="display"><span lang="pt">Trabalhos</span><span lang="en">Work</span></h2>
+    <p class="intro"><span lang="pt">Uma proposta para uma loja real e três marcas fictícias, cada uma com um problema diferente para resolver. Abra e mexa: todas funcionam.</span><span lang="en">One proposal for a real store and three fictional brands, each solving a different problem. Open them and click around: they all work.</span></p>
+    <div class="work">
+      <div class="item">
+        <a class="frame" href="projetos/alta-estima/" aria-label="Abrir Alta Estima"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe src="projetos/alta-estima/" title="Alta Estima" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
+        <div>
+          <span class="kind"><span lang="pt">Site institucional, varejo</span><span lang="en">Business website, retail</span></span>
+          <h3>Alta Estima Cosméticos</h3>
+          <p lang="pt">Proposta de site para uma rede de cosméticos com duas lojas em Governador Valadares (MG), que hoje vende pelo WhatsApp e Instagram. O visitante escolhe um tom de batom e o site inteiro muda de cor junto.</p>
+          <p lang="en">Website proposal for a two-store cosmetics retailer in Brazil that sells through WhatsApp and Instagram. Pick a lipstick shade and the whole site changes colour with it.</p>
+          <a class="open" href="projetos/alta-estima/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
+        </div>
+      </div>
+      <div class="item">
+        <a class="frame" href="projetos/planilha-viva/" aria-label="Abrir Planilha Viva"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe src="projetos/planilha-viva/" title="Planilha Viva" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
+        <div>
+          <span class="kind"><span lang="pt">Página de vendas, curso online</span><span lang="en">Sales page, online course</span></span>
+          <h3>Planilha Viva</h3>
+          <p lang="pt">Página de lançamento para um curso de finanças de pequenos negócios. A planilha do topo é de verdade: o visitante digita os números e vê o lucro do mês na hora.</p>
+          <p lang="en">Launch page for a small-business finance course. The spreadsheet at the top is live: visitors type their numbers and see the month's profit instantly.</p>
+          <a class="open" href="projetos/planilha-viva/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
+        </div>
+      </div>
+      <div class="item">
+        <a class="frame" href="projetos/lume-contabil/" aria-label="Abrir Lume Contábil"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe src="projetos/lume-contabil/" title="Lume Contábil" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
+        <div>
+          <span class="kind"><span lang="pt">Landing page, serviço local</span><span lang="en">Landing page, local service</span></span>
+          <h3>Lume Contábil</h3>
+          <p lang="pt">Escritório de contabilidade online em Curitiba. As araucárias do topo situam a marca na cidade, e o cliente descobre o preço do plano em um toque.</p>
+          <p lang="en">Online accounting firm in Curitiba, Brazil. The araucaria trees place the brand in the city, and visitors find their plan price in one tap.</p>
+          <a class="open" href="projetos/lume-contabil/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
+        </div>
+      </div>
+      <div class="item">
+        <a class="frame" href="projetos/tallyroom/" aria-label="Open Tallyroom"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe src="projetos/tallyroom/" title="Tallyroom" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
+        <div>
+          <span class="kind"><span lang="pt">Landing page de SaaS, em inglês</span><span lang="en">SaaS landing page, in English</span></span>
+          <h3>Tallyroom</h3>
+          <p lang="pt">Página de um sistema de vendas e estoque para lojas pequenas. Cada clique em "Scan a sale" vende um item e mostra o estoque baixando.</p>
+          <p lang="en">Page for a point-of-sale and stock product for small shops. Each "Scan a sale" click sells an item and shows the stock going down.</p>
+          <a class="open" href="projetos/tallyroom/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="systems">
+  <div class="wrap">
+    <h2 class="display"><span lang="pt">Sistemas em uso</span><span lang="en">Systems in daily use</span></h2>
+    <p class="intro"><span lang="pt">Além de sites, construo os sistemas que rodam a empresa por dentro.</span><span lang="en">Beyond websites, I build the systems that run a business from the inside.</span></p>
+    <div class="sys">
+      <article>
+        <p class="big">180 mil+</p>
+        <h3><span lang="pt">Vitrine ERP: vendas e gestão para varejo</span><span lang="en">Vitrine ERP: sales and management for retail</span></h3>
+        <p lang="pt">Ponto de venda e gestão usado todos os dias nas duas lojas de uma rede de cosméticos, com mais de 180 mil vendas registradas. Fechamento de caixa, comissões, metas e DRE automática.</p>
+        <p lang="en">Point of sale and management system used daily in both stores of a cosmetics retailer, with over 180,000 sales recorded. Cash closing, commissions, targets and an automatic income statement.</p>
+        <a class="open" href="https://github.com/alissonlittig/vitrine-erp"><span lang="pt">Ver a demo no GitHub</span><span lang="en">See the demo on GitHub</span></a>
+      </article>
+      <article>
+        <p class="big">DRE</p>
+        <h3><span lang="pt">Sistema financeiro para produtora audiovisual</span><span lang="en">Finance system for a video production company</span></h3>
+        <p lang="pt">Clientes, eventos, fluxo de caixa, custos fixos e aportes dos sócios num só lugar, com a DRE gerada a partir dos lançamentos. Online, com acesso por sócio.</p>
+        <p lang="en">Clients, events, cash flow, fixed costs and partner contributions in one place, with the income statement generated from the entries. Online, with a login for each partner.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="display"><span lang="pt">Como funciona</span><span lang="en">How it works</span></h2>
+    <ol class="steps">
+      <li><h3><span lang="pt">Você conta o que precisa</span><span lang="en">You tell me what you need</span></h3><p><span lang="pt">Por mensagem ou numa chamada curta: o negócio, o público e o que a página precisa fazer.</span><span lang="en">By message or a short call: the business, the audience and what the page has to do.</span></p></li>
+      <li><h3><span lang="pt">Primeira versão</span><span lang="en">First version</span></h3><p><span lang="pt">Você recebe um link para ver funcionando, no computador e no celular.</span><span lang="en">You get a link to see it working, on desktop and mobile.</span></p></li>
+      <li><h3><span lang="pt">Ajustes</span><span lang="en">Revisions</span></h3><p><span lang="pt">Textos, cores e seções mudam até ficar do jeito certo.</span><span lang="en">Copy, colours and sections change until it is right.</span></p></li>
+      <li><h3><span lang="pt">No ar</span><span lang="en">Launch</span></h3><p><span lang="pt">Publico no seu domínio e sigo por perto para manutenção e novas páginas.</span><span lang="en">I publish it on your domain and stay around for maintenance and new pages.</span></p></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="contact" id="contato">
+  <section>
+    <div class="wrap">
+      <h2 class="display"><span lang="pt">Vamos colocar o seu no ar?</span><span lang="en">Shall we put yours online?</span></h2>
+      <div class="links">
+        <a href="mailto:alissondelittig@gmail.com"><span>alissondelittig@gmail.com</span><span lang="pt">E-mail</span><span lang="en">Email</span></a>
+        <a href="https://www.linkedin.com/in/alisson-littig/"><span>LinkedIn</span><span>/in/alisson-littig</span></a>
+        <a href="https://github.com/alissonlittig"><span>GitHub</span><span>/alissonlittig</span></a>
+      </div>
+      <p class="foot"><span lang="pt">Curitiba, Brasil. Atendo clientes de qualquer lugar, em português e inglês.</span><span lang="en">Curitiba, Brazil. Working with clients anywhere, in English and Portuguese.</span></p>
+    </div>
+  </section>
+</footer>
+
+<script>
+// idioma: lembra a escolha; na primeira visita segue o navegador
+(function(){
+  var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
+  var lang=saved||((navigator.language||'pt').toLowerCase().indexOf('pt')===0?'pt':'en');
+  function set(l){
+    document.documentElement.dataset.lang=l;
+    document.documentElement.lang=l==='pt'?'pt-BR':'en';
+    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l?'true':'false')});
+    try{localStorage.setItem('lang',l)}catch(e){}
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});
+  set(lang);
+})();
+// as prévias são as páginas reais renderizadas em 1280px e reduzidas para caber no quadro
+(function(){
+  var ro=new ResizeObserver(function(entries){entries.forEach(function(e){
+    var f=e.target.querySelector('iframe'); if(f) f.style.transform='scale('+(e.contentRect.width/1280)+')';
+  })});
+  document.querySelectorAll('.shot').forEach(function(s){ro.observe(s)});
+})();
+</script>
+</body>
+</html>
