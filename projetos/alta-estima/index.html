@@ -65,13 +65,15 @@ h2{font-size:clamp(34px,4.4vw,58px);margin-top:10px}
 h1{font-size:clamp(52px,7.6vw,118px);color:var(--deep)}
 .hero p{font-size:19px;color:var(--muted);max-width:40ch;margin-top:22px}
 .hero .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-.mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1.3fr 1fr 1fr;border-left:1.5px solid var(--ink)}
-.mosaic span{display:flex;align-items:flex-end;padding:14px;font-weight:800;font-size:14px}
-.mosaic span:nth-child(1){grid-column:span 2;background:var(--green);color:var(--deep);font-family:var(--serif);font-size:30px;font-weight:600;line-height:1}
-.mosaic span:nth-child(2){background:#C2414B;color:#fff}
-.mosaic span:nth-child(3){background:var(--leaf);color:var(--deep)}
-.mosaic span:nth-child(4){background:#E9C9B8}
-.mosaic span:nth-child(5){background:var(--ink);color:#fff}
+.hero-photo{position:relative;border-left:1.5px solid var(--ink);min-height:520px;margin:0;overflow:hidden}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-photo figcaption{position:absolute;left:0;bottom:0;max-width:85%;background:var(--green);color:var(--deep);font-weight:800;font-size:14px;padding:12px 16px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1.5px solid var(--ink)}
+.strip a{position:relative;display:block;aspect-ratio:4/5;max-width:100%;overflow:hidden;text-decoration:none}
+.strip a+a{border-left:1.5px solid var(--ink)}
+.strip img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.strip a:hover img{transform:scale(1.05)}
+.strip span{position:absolute;left:0;bottom:0;background:var(--paper);font-family:var(--serif);font-size:22px;font-weight:600;padding:8px 14px;border-top:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}
 
 /* faixa de pedido rápido */
 .quick{background:var(--ink);color:#fff;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:22px clamp(20px,4vw,64px)}
@@ -137,7 +139,10 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
   .mbar .brand{font-size:26px}
   .mbar .social a{width:40px;height:40px}
   .hero,.stores{grid-template-columns:1fr}
-  .mosaic{border-left:0;border-top:1.5px solid var(--ink);min-height:300px}
+  .hero-photo{border-left:0;border-top:1.5px solid var(--ink);min-height:380px}
+  .strip{grid-template-columns:1fr 1fr}
+  .strip a:nth-child(3){border-left:0}
+  .strip a:nth-child(n+3){border-top:1.5px solid var(--ink)}
   .showcase{grid-template-columns:1fr 1fr}
   .prod,.prod.wide{grid-column:span 1}
   .shelf{grid-template-columns:1fr}
@@ -200,10 +205,18 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
           <a class="btn ink" href="#produtos">Ver produtos</a>
         </div>
       </div>
-      <div class="mosaic" aria-hidden="true">
-        <span>Maquiagem</span><span>Batons</span><span>Skincare</span><span>Cabelos</span><span>Perfumaria</span>
-      </div>
+      <figure class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1595550912256-b24059bb08e8?w=1100&q=80&auto=format&fit=crop" alt="Mulher com batom vermelho e máscara de cílios">
+        <figcaption>Batons, bases e máscaras: a maquiagem completa nas duas lojas.</figcaption>
+      </figure>
     </section>
+
+    <div class="strip" aria-label="Categorias em destaque">
+      <a href="#produtos"><img loading="lazy" src="https://images.unsplash.com/photo-1631214499500-2e34edcaccfe?w=700&q=75&auto=format&fit=crop" alt="Quatro tons de batom"><span>Batons</span></a>
+      <a href="#produtos"><img loading="lazy" src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=700&q=75&auto=format&fit=crop" alt="Produtos de maquiagem variados"><span>Maquiagem</span></a>
+      <a href="#produtos"><img loading="lazy" src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=700&q=75&auto=format&fit=crop" alt="Frascos de skincare"><span>Skincare</span></a>
+      <a href="#produtos"><img loading="lazy" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=700&q=75&auto=format&fit=crop" alt="Pincéis e produtos de maquiagem"><span>Pincéis e acessórios</span></a>
+    </div>
 
     <div class="quick">
       <strong>Pedido rápido</strong>
@@ -262,7 +275,7 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
 
     <footer class="pad" style="padding-block:24px">
       <span>Alta Estima Cosméticos · Governador Valadares, MG</span>
-      <span>Site feito por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span>
+      <span>Fotos: <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a> · Site feito por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span>
     </footer>
   </main>
 </div>
