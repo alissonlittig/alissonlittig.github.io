@@ -20,6 +20,7 @@
   --rule:#1018121f;
   --serif:Fraunces,Georgia,serif;
   --sans:Manrope,system-ui,sans-serif;
+  --r:14px;  /* cantos levemente arredondados da metade de baixo */
 }
 *{box-sizing:border-box;margin:0;border-radius:0}
 [hidden]{display:none!important}
@@ -32,13 +33,16 @@ svg{display:block}
 .frame{display:grid;grid-template-columns:340px 1fr;min-height:100vh}
 
 /* painel da loja */
-.panel{position:sticky;top:0;height:100vh;background:var(--deep);color:#E4F2E7;display:flex;flex-direction:column;padding:32px 28px;gap:28px;overflow-y:auto}
+.panel{position:sticky;top:0;height:100vh;background:var(--deep);color:#E4F2E7;display:flex;flex-direction:column;padding:32px 28px;gap:22px;overflow-y:auto}
 .brand{font-family:var(--serif);font-weight:800;font-size:44px;line-height:.9;color:#fff;text-decoration:none;letter-spacing:-.02em}
-.brand small{display:block;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-top:10px}
+.brand small{display:block;font-family:var(--serif);font-size:19px;font-weight:400;font-style:italic;letter-spacing:0;color:var(--green);margin-top:10px}
 .menu{display:flex;flex-direction:column;border-top:1px solid #ffffff2a}
-.menu a{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #ffffff2a;text-decoration:none;font-weight:700}
+.menu a{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #ffffff2a;text-decoration:none;font-weight:700}
 .menu a::after{content:"";width:8px;height:8px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);align-self:center;opacity:.5}
 .menu a:hover{color:var(--green)}
+.menu em{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--green);color:var(--deep);padding:3px 8px;border-radius:99px;margin-left:auto;margin-right:12px}
+.hours{border:1px solid #ffffff2a;border-radius:12px;padding:14px 16px;font-size:14px;color:#B9D6BF}
+.hours b{display:block;font-family:var(--serif);font-size:22px;font-weight:600;color:#fff}
 .social{display:flex;gap:10px}
 .social a{width:46px;height:46px;display:grid;place-items:center;border:1.5px solid #ffffff40;color:#fff}
 .social a:hover{background:var(--green);border-color:var(--green);color:var(--deep)}
@@ -55,7 +59,7 @@ main{min-width:0}
 h1,h2{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;line-height:.98;text-wrap:balance}
 h2{font-size:clamp(34px,4.4vw,58px);margin-top:10px}
 .sub{color:var(--muted);max-width:56ch;margin-top:14px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 22px;background:var(--green);color:var(--deep);font:inherit;font-weight:800;text-decoration:none;border:0;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 22px;border-radius:10px;background:var(--green);color:var(--deep);font:inherit;font-weight:800;text-decoration:none;border:0;cursor:pointer}
 .btn:hover{background:#18a84b}
 .btn svg{width:20px;height:20px}
 .btn.ink{background:var(--ink);color:#fff}
@@ -67,8 +71,13 @@ h1{font-size:clamp(52px,7.6vw,118px);color:var(--deep)}
 .hero p{font-size:19px;color:var(--muted);max-width:40ch;margin-top:22px}
 .hero .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .hero-photo{position:relative;border-left:1.5px solid var(--ink);min-height:520px;margin:0;overflow:hidden}
-.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
-.hero-photo figcaption{position:absolute;left:0;bottom:0;max-width:85%;background:var(--green);color:var(--deep);font-weight:800;font-size:14px;padding:12px 16px}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s}
+.hero-photo img.on{opacity:1}
+.dots{position:absolute;top:10px;right:10px;display:flex;gap:4px;z-index:2}
+.dots button{width:30px;height:24px;border:0;padding:0;background:none;cursor:pointer}
+.dots button::before{content:"";display:block;height:5px;border-radius:3px;background:#ffffffb0;box-shadow:0 1px 3px #0005}
+.dots button[aria-current="true"]::before{background:var(--green)}
+.hero-photo figcaption{z-index:2;position:absolute;left:0;bottom:0;max-width:85%;background:var(--green);color:var(--deep);font-weight:800;font-size:14px;padding:12px 16px}
 .strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1.5px solid var(--ink)}
 .strip a{position:relative;display:block;aspect-ratio:4/5;max-width:100%;overflow:hidden;text-decoration:none}
 .strip a+a{border-left:1.5px solid var(--ink)}
@@ -79,13 +88,13 @@ h1{font-size:clamp(52px,7.6vw,118px);color:var(--deep)}
 /* faixa de pedido rápido */
 .quick{background:var(--ink);color:#fff;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:22px clamp(20px,4vw,64px)}
 .quick strong{font-family:var(--serif);font-size:22px;font-weight:600;margin-right:6px}
-.chip{border:1.5px solid #ffffff55;background:transparent;color:#fff;padding:9px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.chip{border-radius:8px;border:1.5px solid #ffffff55;background:transparent;color:#fff;padding:9px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--deep)}
 .quick .btn{margin-left:auto}
 
 /* vitrine de marcas: grade editorial com bordas finas */
-.showcase{display:grid;grid-template-columns:repeat(6,1fr);border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink);margin-top:36px}
-.prod{grid-column:span 2;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);padding:22px;display:flex;flex-direction:column;gap:6px;min-height:230px;background:var(--paper)}
+.showcase{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:36px}
+.prod{grid-column:span 2;border:1.5px solid var(--ink);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:6px;min-height:230px;background:var(--paper)}
 .prod.wide{grid-column:span 3}
 .prod .brandname{font-family:var(--serif);font-size:34px;font-weight:800;line-height:1;letter-spacing:-.02em}
 .prod p{color:var(--muted);font-size:15px}
@@ -95,40 +104,52 @@ h1{font-size:clamp(52px,7.6vw,118px);color:var(--deep)}
 .prod:nth-child(4){background:var(--deep);color:#fff}.prod:nth-child(4) p{color:#B9D6BF}.prod:nth-child(4) .ask{color:#fff}
 
 /* catálogo em prateleiras */
-.shelves{margin-top:36px;border-top:1.5px solid var(--ink)}
+.shelves{margin-top:36px;border:1.5px solid var(--ink);border-radius:var(--r);padding:0 20px;background:#fff}
+.shelf:last-child{border-bottom:0}
 .shelf{display:grid;grid-template-columns:200px 1fr;border-bottom:1.5px solid var(--ink)}
 .shelf h3{font-family:var(--serif);font-size:24px;font-weight:600;padding:18px 18px 18px 0;border-right:1.5px solid var(--ink)}
 .row{display:flex;flex-wrap:wrap;gap:8px;padding:14px 0 14px 18px;align-content:center}
-.tagbtn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--ink);background:transparent;padding:8px 12px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink)}
+.tagbtn{border-radius:8px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--ink);background:transparent;padding:8px 12px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;color:var(--ink)}
 .tagbtn::before{content:"+";font-weight:800}
 .tagbtn[aria-pressed="true"]{background:var(--ink);color:#fff}
 .tagbtn[aria-pressed="true"]::before{content:"✓"}
 
 /* promoções */
-.promo{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;border:1.5px solid var(--ink);padding:24px;margin-top:28px;background:var(--leaf)}
+.promo{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;border:1.5px solid var(--ink);padding:24px;margin-top:28px;background:var(--leaf);border-radius:var(--r)}
 .promo .stamp{font-family:var(--serif);font-weight:800;font-size:44px;line-height:.9;color:var(--deep)}
 .promo h3{font-size:20px}
 .promo p{color:var(--muted)}
 
 /* lojas */
-.stores{display:grid;grid-template-columns:1fr 1fr;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink);margin-top:36px}
-.store{border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.stores{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.store{border:1.5px solid var(--ink);border-radius:var(--r);overflow:hidden;background:#fff}
 .store iframe{display:block;width:100%;height:280px;border:0;filter:saturate(.75)}
-.store div{padding:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.store>div{padding:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .store h3{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1}
 .store p{color:var(--muted);margin-top:6px}
+.store p b{color:var(--deep)}
 .store a{font-weight:800;text-decoration:none;border-bottom:2px solid var(--green)}
 
-.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:30px;border-top:1.5px solid var(--ink)}
-.ways div{padding:22px 22px 22px 0}
-.ways div+div{padding-left:22px;border-left:1.5px solid var(--ink)}
+.ways{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+.ways div{padding:22px;border:1.5px solid var(--ink);border-radius:var(--r)}
+.ways .next{background:var(--deep);color:#fff;border-color:var(--deep)}
+.ways .next p{color:#B9D6BF}
 .ways h3{font-size:18px}
 .ways p{color:var(--muted);margin-top:6px;font-size:15px}
 
 footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
 
+/* faixa de marcas passando */
+.marquee{overflow:hidden;border-block:1.5px solid var(--ink);background:#fff;padding:18px 0}
+.marquee p{padding:0 clamp(20px,4vw,64px) 12px;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.track{display:flex;width:max-content;animation:roll 70s linear infinite}
+.marquee:hover .track,.marquee:focus-within .track{animation-play-state:paused}
+.track a{margin-right:12px;font-family:var(--serif);font-size:26px;font-weight:600;padding:8px 22px;border:1.5px solid var(--ink);border-radius:99px;text-decoration:none;white-space:nowrap}
+.track a:hover{background:var(--green);border-color:var(--green)}
+@keyframes roll{to{transform:translateX(-50%)}}
+
 /* lista de pedido */
-.cart{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;gap:14px;background:var(--ink);color:#fff;padding:8px 8px 8px 18px;box-shadow:8px 8px 0 var(--green)}
+.cart{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;gap:14px;background:var(--ink);color:#fff;padding:8px 8px 8px 18px;box-shadow:8px 8px 0 var(--green);border-radius:12px}
 .cart span{font-weight:800;font-size:15px}
 
 /* topo do celular (o painel vira barra) */
@@ -149,14 +170,13 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
   .shelf{grid-template-columns:1fr}
   .shelf h3{border-right:0;padding:16px 0 0}
   .row{padding:10px 0 16px}
-  .ways{grid-template-columns:1fr}
-  .ways div+div{padding-left:0;border-left:0;border-top:1.5px solid var(--ink)}
+  .ways{grid-template-columns:1fr 1fr}
   .promo{grid-template-columns:1fr}
   .quick .btn{margin-left:0}
   .cart{left:16px;right:16px;justify-content:space-between}
 }
-@media (max-width:520px){.showcase{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (max-width:520px){.showcase,.ways{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-photo img{transition:none}.track{animation:none;width:auto;flex-wrap:wrap;gap:8px 0;padding:0 clamp(20px,4vw,64px)}.track [aria-hidden]{display:none}}
 </style>
 </head>
 <body>
@@ -169,13 +189,16 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
 
 <div class="frame">
   <aside class="panel" aria-label="Alta Estima">
-    <a class="brand" href="#inicio">Alta<br>Estima<small>Cosméticos · Valadares</small></a>
+    <a class="brand" href="#inicio">Alta<br>Estima<small>realçando a sua beleza</small></a>
     <nav class="menu" aria-label="Seções">
+      <a href="#inicio">Início</a>
       <a href="#vitrine">Vitrine</a>
+      <a href="#marcas">Marcas</a>
       <a href="#produtos">Produtos</a>
       <a href="#promocoes">Promoções</a>
-      <a href="#lojas">Lojas</a>
+      <a href="#lojas">Lojas e horário</a>
       <a href="#comprar">Como comprar</a>
+      <a href="#loja-online">Loja online <em>em breve</em></a>
     </nav>
     <a class="wa-line" data-wa="Olá! Vim pelo site da Alta Estima." href="#"><svg><use href="#i-wa"/></svg>(33) 98813-7703</a>
     <div class="social">
@@ -183,6 +206,7 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
       <a href="https://www.instagram.com/alta_estima_gv/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
       <a href="https://www.facebook.com/alta.estima" target="_blank" rel="noopener" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
     </div>
+    <div class="hours">Horário de funcionamento<b>7h30 às 18h</b></div>
     <div class="addr"><b>Lojas</b>Rua Quintino Bocaiúva, 676<br>Rua Israel Pinheiro, 3381</div>
   </aside>
 
@@ -198,17 +222,22 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
 
     <section class="hero" id="inicio">
       <div class="pad">
-        <span class="label">Governador Valadares, MG</span>
-        <h1>Beleza de prateleira cheia.</h1>
-        <p>Maquiagem, cabelos, skincare e perfumaria em duas lojas na cidade. Veja o que a gente tem e peça pelo WhatsApp.</p>
+        <span class="label">Loja de cosméticos em Governador Valadares</span>
+        <h1>Realçando a sua beleza.</h1>
+        <p>Maquiagem, cabelos, skincare e perfumaria em duas lojas, abertas das 7h30 às 18h. Veja o que a gente tem e peça pelo WhatsApp.</p>
         <div class="actions">
           <a class="btn" data-wa="Olá! Vim pelo site da Alta Estima." href="#"><svg><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a>
           <a class="btn ink" href="#produtos">Ver produtos</a>
         </div>
       </div>
-      <figure class="hero-photo">
-        <img src="https://images.unsplash.com/photo-1676439977206-b5ffdfc03da2?w=1000&q=80&auto=format&fit=crop" alt="Mulher passando batom vermelho">
-        <figcaption>Batons, bases e máscaras: a maquiagem completa nas duas lojas.</figcaption>
+      <figure class="hero-photo" id="slides" aria-label="Fotos em destaque">
+        <img style="object-position:center 25%" src="https://images.unsplash.com/photo-1676439977206-b5ffdfc03da2?w=1000&q=80&auto=format&fit=crop" alt="Mulher passando batom vermelho" data-cap="Batons, bases e máscaras: a maquiagem completa nas duas lojas.">
+        <img src="https://images.unsplash.com/photo-1717160675643-53a7a2ebaa9f?w=1000&q=80&auto=format&fit=crop" alt="Mulher lavando o cabelo no lavatório do salão" data-cap="Shampoos, máscaras e tratamentos para todo tipo de cabelo.">
+        <img style="object-position:center 30%" src="https://images.unsplash.com/photo-1599847896696-7e19dbd9d2e8?w=1000&q=80&auto=format&fit=crop" alt="Mulher sorrindo e mostrando um frasco de sérum" data-cap="Séruns, hidratantes e protetor solar para a sua rotina.">
+        <img style="object-position:center 20%" src="https://images.unsplash.com/photo-1546877625-cb8c71916608?w=1000&q=80&auto=format&fit=crop" alt="Mulher sorrindo com as mãos nos cabelos" data-cap="Finalizadores e coloração com as marcas que você já conhece.">
+        <img style="object-position:center 30%" src="https://images.unsplash.com/photo-1702312686957-572286d28e11?w=1000&q=80&auto=format&fit=crop" alt="Mulher de toalha passando creme no rosto" data-cap="Cremes e hidratantes para cuidar da pele todo dia.">
+        <figcaption id="slide-cap"></figcaption>
+        <div class="dots" id="dots"></div>
       </figure>
     </section>
 
@@ -232,7 +261,12 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
       <div class="showcase" id="showcase"></div>
     </section>
 
-    <section class="pad" id="produtos" style="padding-top:0">
+    <div class="marquee" id="marcas" aria-label="Marcas">
+      <p>Marcas famosas · toque para perguntar</p>
+      <div class="track" id="track"></div>
+    </div>
+
+    <section class="pad" id="produtos">
       <span class="label">Produtos</span>
       <h2>Monte sua lista</h2>
       <p class="sub">Toque no que procura. No fim, mande a lista inteira pelo WhatsApp e a equipe confirma marcas, cores e preços.</p>
@@ -248,17 +282,18 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
     <section class="pad" id="lojas" style="padding-top:0">
       <span class="label">Lojas</span>
       <h2>Duas lojas em Valadares</h2>
+      <p class="sub">As duas abrem das 7h30 às 18h.</p>
       <div class="stores">
         <article class="store">
           <iframe title="Mapa da loja da Rua Quintino Bocaiúva" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps?q=Rua%20Quintino%20Bocai%C3%BAva%2C%20676%2C%20Governador%20Valadares%20-%20MG&output=embed"></iframe>
-          <div><div><h3>Quintino</h3><p>Rua Quintino Bocaiúva, 676</p></div>
+          <div><div><h3>Quintino</h3><p>Rua Quintino Bocaiúva, 676<br><b>7h30 às 18h</b></p></div>
           <a href="https://www.google.com/maps/search/?api=1&query=Rua%20Quintino%20Bocai%C3%BAva%2C%20676%2C%20Governador%20Valadares%20-%20MG" target="_blank" rel="noopener">Como chegar</a></div>
         </article>
         <article class="store">
           <iframe title="Mapa da loja da Rua Israel Pinheiro" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps?q=Rua%20Israel%20Pinheiro%2C%203381%2C%20Governador%20Valadares%20-%20MG&output=embed"></iframe>
-          <div><div><h3>Israel Pinheiro</h3><p>Rua Israel Pinheiro, 3381</p></div>
+          <div><div><h3>Israel Pinheiro</h3><p>Rua Israel Pinheiro, 3381<br><b>7h30 às 18h</b></p></div>
           <a href="https://www.google.com/maps/search/?api=1&query=Rua%20Israel%20Pinheiro%2C%203381%2C%20Governador%20Valadares%20-%20MG" target="_blank" rel="noopener">Como chegar</a></div>
         </article>
       </div>
@@ -271,6 +306,7 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
         <div><h3>Pelo WhatsApp</h3><p>Monte a lista no site ou mande a foto do produto. A equipe confirma o estoque e combina entrega ou retirada.</p></div>
         <div><h3>Pelo Instagram</h3><p>Lançamentos e promoções aparecem primeiro em @alta_estima_gv.</p></div>
         <div><h3>Na loja</h3><p>Teste as cores, peça indicação e leve na hora, em qualquer uma das duas lojas.</p></div>
+        <div class="next" id="loja-online"><h3>Pelo site · em breve</h3><p>Logo você vai poder escolher, pagar e acompanhar o pedido direto por aqui.</p></div>
       </div>
     </section>
 
@@ -299,6 +335,9 @@ var SHOWCASE=[
   {marca:'Bio Extratus',texto:'Shampoos, condicionadores e máscaras capilares.',cat:'Cabelos'}
 ];
 
+// Faixa de marcas (só nomes, sem logotipo). Para trocar, edite esta lista.
+var MARCAS=['Natura','O Boticário','Eudora','Avon','L\'Oréal Paris','Elseve','Koleston','Colorama','Risqué','Dailus','Maybelline','Ruby Rose','Vult','Nivea','Dove','Monange','Haskell','Bio Extratus','Salon Line','Seda','Pantene','Garnier','Neutrogena'];
+
 // Promoções: lista vazia mostra o convite para o Instagram.
 var PROMOS=[];
 
@@ -314,6 +353,21 @@ var CATALOG={
 };
 
 document.querySelectorAll('[data-wa]').forEach(function(a){a.href=wa(a.dataset.wa);a.target='_blank';a.rel='noopener'});
+
+// faixa de marcas: a lista vai duas vezes para o giro não ter emenda; a cópia fica escondida do leitor de tela
+var tr=document.getElementById('track');
+[0,1].forEach(function(copy){MARCAS.forEach(function(m){
+  var a=document.createElement('a');a.textContent=m;a.href=wa('Olá! Vi no site: vocês têm produtos '+m+'?');a.target='_blank';a.rel='noopener';
+  if(copy){a.setAttribute('aria-hidden','true');a.tabIndex=-1}
+  tr.appendChild(a);
+})});
+
+// fotos da abertura passando sozinhas
+var imgs=[].slice.call(document.querySelectorAll('#slides img')),cap=document.getElementById('slide-cap'),dots=document.getElementById('dots'),cur=0,timer;
+imgs.forEach(function(im,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Foto '+(i+1));b.onclick=function(){clearInterval(timer);show(i)};dots.appendChild(b)});
+function show(i){imgs[cur].classList.remove('on');dots.children[cur].removeAttribute('aria-current');cur=i;imgs[i].classList.add('on');dots.children[i].setAttribute('aria-current','true');cap.textContent=imgs[i].dataset.cap}
+show(0);
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)timer=setInterval(function(){show((cur+1)%imgs.length)},5000);
 
 // pedido rápido
 var chosen=[],qc=document.getElementById('quick-chips');
