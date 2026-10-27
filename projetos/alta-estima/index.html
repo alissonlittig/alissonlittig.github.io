@@ -22,6 +22,7 @@
   --sans:Manrope,system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;border-radius:0}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.55;font-size:16px}
 a{color:inherit}
@@ -66,7 +67,7 @@ h1{font-size:clamp(52px,7.6vw,118px);color:var(--deep)}
 .hero p{font-size:19px;color:var(--muted);max-width:40ch;margin-top:22px}
 .hero .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .hero-photo{position:relative;border-left:1.5px solid var(--ink);min-height:520px;margin:0;overflow:hidden}
-.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
 .hero-photo figcaption{position:absolute;left:0;bottom:0;max-width:85%;background:var(--green);color:var(--deep);font-weight:800;font-size:14px;padding:12px 16px}
 .strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1.5px solid var(--ink)}
 .strip a{position:relative;display:block;aspect-ratio:4/5;max-width:100%;overflow:hidden;text-decoration:none}
@@ -206,7 +207,7 @@ footer{border-top:1.5px solid var(--ink);display:flex;justify-content:space-betw
         </div>
       </div>
       <figure class="hero-photo">
-        <img src="https://images.unsplash.com/photo-1595550912256-b24059bb08e8?w=1100&q=80&auto=format&fit=crop" alt="Mulher com batom vermelho e máscara de cílios">
+        <img src="https://images.unsplash.com/photo-1676439977206-b5ffdfc03da2?w=1000&q=80&auto=format&fit=crop" alt="Mulher passando batom vermelho">
         <figcaption>Batons, bases e máscaras: a maquiagem completa nas duas lojas.</figcaption>
       </figure>
     </section>
