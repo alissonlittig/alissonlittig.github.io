@@ -4,8 +4,8 @@ var WA='5533988137703';
 var ROOT=document.documentElement.dataset.root||'./';
 
 var LOJAS=[
-  {id:'quintino',nome:'Loja Quintino',end:'Rua Quintino Bocaiúva, 676',hora:'7h30 às 18h'},
-  {id:'israel',nome:'Loja Israel Pinheiro',end:'Rua Israel Pinheiro, 3381',hora:'8h às 18h'}
+  {id:'quintino',nome:'Loja Quintino',end:'Rua Quintino Bocaiúva, 676',hora:'seg. a sáb., 7h30 às 18h'},
+  {id:'israel',nome:'Loja Israel Pinheiro',end:'Rua Israel Pinheiro, 3381',hora:'seg. a sáb., 8h às 18h'}
 ];
 
 // Categorias: a chave "cor" aponta para as variáveis --cat-* do style.css.
@@ -221,7 +221,7 @@ function renderCheckout(body,foot){
     '<div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" autocomplete="name" required maxlength="60"><span class="err" id="e-nome" hidden>Escreva o seu nome.</span></div>'+
     '<fieldset><legend>Como quer receber</legend><div class="opts">'+
       LOJAS.map(function(l){return '<label class="opt"><input type="radio" name="receber" value="'+l.id+'"><span>Retirar na '+l.nome+'<small>'+l.end+' · '+l.hora+'</small></span></label>'}).join('')+
-      '<label class="opt"><input type="radio" name="receber" value="entrega"><span>Entrega em casa<small>Taxa e horário combinados no WhatsApp</small></span></label>'+
+      '<label class="opt"><input type="radio" name="receber" value="entrega"><span>Entrega em casa<small>Toda Governador Valadares · taxa e horário no WhatsApp</small></span></label>'+
     '</div><span class="err" id="e-receber" hidden>Escolha retirada ou entrega.</span></fieldset>'+
     '<div id="f-ender" hidden class="form">'+
       '<div class="field"><label for="f-rua">Rua e número</label><input id="f-rua" name="rua" autocomplete="street-address" maxlength="90"><span class="err" id="e-rua" hidden>Escreva a rua e o número.</span></div>'+
