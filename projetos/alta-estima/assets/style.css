@@ -371,3 +371,7 @@ html[data-motion="reduce"] .track [aria-hidden]{display:none}
 @media (max-width:600px){.link{display:inline-block;padding-block:12px;margin-block:-12px;background-position:0 calc(100% - 10px)}}
 .motion-toggle{white-space:nowrap}
 @media (max-width:600px){#prateleira .tag:nth-child(n+5){display:none}}
+/* reserva o espaço da grade até o JS preencher, para o rodapé não pular (CLS) */
+#grade:empty{min-height:100vh}
+#prateleira:empty{min-height:680px}
+@media (max-width:600px){#prateleira:empty{min-height:1000px}}
