@@ -205,7 +205,7 @@ h2.display{font-size:clamp(40px,5.4vw,76px)}
 .store .info{padding:22px;display:grid;grid-template-columns:1fr auto;gap:14px 20px;align-items:end}
 .store h3{font-family:var(--serif);font-size:36px;line-height:1}
 .store address{font-style:normal;color:var(--muted);margin-top:6px}
-.store .hrs{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px dashed var(--line);font-size:15px}
+.store .hrs{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;padding-top:14px;border-top:1px dashed var(--line);font-size:15px}
 .store .hrs b{font-family:var(--mono);font-size:18px}
 @media (max-width:900px){.stores{grid-template-columns:1fr}.store iframe{height:220px}}
 

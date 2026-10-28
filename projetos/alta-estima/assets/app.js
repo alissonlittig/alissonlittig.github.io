@@ -4,8 +4,8 @@ var WA='5533988137703';
 var ROOT=document.documentElement.dataset.root||'./';
 
 var LOJAS=[
-  {id:'quintino',nome:'Loja Quintino',end:'Rua Quintino Bocaiúva, 676',hora:'seg. a sáb., 7h30 às 18h'},
-  {id:'israel',nome:'Loja Israel Pinheiro',end:'Rua Israel Pinheiro, 3381',hora:'seg. a sáb., 8h às 18h'}
+  {id:'quintino',nome:'Loja Quintino',end:'Rua Quintino Bocaiúva, 676',hora:'seg. a sex. 7h30 às 18h, sáb. até 13h'},
+  {id:'israel',nome:'Loja Israel Pinheiro',end:'Rua Israel Pinheiro, 3381',hora:'seg. a sex. 8h às 18h, sáb. até 13h'}
 ];
 
 // Categorias: a chave "cor" aponta para as variáveis --cat-* do style.css.
