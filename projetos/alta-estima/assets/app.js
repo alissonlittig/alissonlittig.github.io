@@ -72,47 +72,47 @@ var PRODUTOS=[
 
 var MARCAS=['Natura','O Boticário','Eudora','Avon','L\'Oréal Paris','Elseve','Koleston','Colorama','Risqué','Dailus','Maybelline','Ruby Rose','Vult','Nivea','Dove','Monange','Haskell','Bio Extratus','Salon Line','Skala','Seda','Pantene','Garnier','Neutrogena'];
 
-/* Fotos ilustrativas: um produto real de cada tipo. O arquivo fica em assets/produtos/<id>.webp;
-   o texto é o nome do produto que aparece na foto. */
+/* Fotos ilustrativas: um produto real por marca de cada tipo, passando no cartão.
+   Cada foto: [marca, nome do produto na foto, arquivo em assets/produtos/<arquivo>.webp]. */
 var FOTOS={
-  'base':'Base Líquida Ruby Rose Feels Mel 030 29ml',
-  'corretivo':'Corretivo Líquido Vult HD B-126 8ml',
-  'batom':'Batom Matte Lips Rosé Vult 3,8g',
-  'gloss':'Gloss Labial Ruby Rose Shine 75 2,1ml',
-  'mascara-cilios':'Máscara de Cílios Maybelline Sky High à Prova D’água 2,9g',
-  'delineador':'Delineador Líquido Preto Vult 2,5ml',
-  'paleta':'Paleta de Sombras Ruby Rose The Glow 11g',
-  'po':'Pó Compacto Vult Basic PC12 9g',
-  'blush':'Blush Natural Ruby Rose Mini Pêssego 9,4g',
-  'pinceis':'Pincel LF80 para Base Melu by Ruby Rose',
-  'limpeza':'Gel de Limpeza Facial Neutrogena Deep Clean Grapefruit 150g',
-  'agua-micelar':'Água Micelar Nivea Micellair Expert Bifásica 200ml',
-  'hidratante-facial':'Creme Nutritivo Hidratante Facial Nivea 100g',
-  'serum':'Sérum Booster Antimanchas Garnier Uniform & Matte Vitamina C 30ml',
-  'protetor':'Protetor Solar Facial Neutrogena Sun Fresh FPS 70 40g',
-  'mascara-facial':'Máscara Facial Ruby Rose Liftmask Ice Rose 50g',
-  'shampoo':'Shampoo Elseve Reparação Total 5 Química 400ml',
-  'condicionador':'Condicionador Elseve Reparação Total 5 Química 200ml',
-  'mascara-capilar':'Máscara Capilar Haskell Quina Rosa 300g',
-  'creme-pentear':'Creme de Pentear Salon Line Hidratação Profunda 1kg',
-  'finalizador':'Óleo Extraordinário Elseve 100ml',
-  'coloracao':'Coloração Koleston 77 Marrom Dourado',
-  'escova':'Escova de Cabelo Oval Marco Boni',
-  'perfume-f':'Deo Colônia Velvet Cristal Eudora 100ml',
-  'perfume-m':'Deo Colônia Pulse Action Eudora 100ml',
-  'body-splash':'Spray Perfumado Instance Baunilha Eudora 200ml',
-  'desodorante':'Desodorante Aerosol Nivea Sem Perfume 150ml',
-  'hidratante-corpo':'Loção Hidratante Nivea Milk Pele Extrasseca 400ml',
-  'sabonete':'Sabonete em Barra Dove Original 90g',
-  'oleo-corpo':'Óleo Sérum Corporal Dove 150ml',
-  'esfoliante':'Esfoliante Corporal para o Banho Nivea 200ml',
-  'depilacao':'Cera Depilatória Depil Bella Mel e Aloe Vera 100g',
-  'esmalte':'Esmalte Cremoso Risqué Gabriela 8ml',
-  'base-unha':'Base Fortalecedora Risqué Care 8ml',
-  'removedor':'Removedor de Esmalte Risqué Care 100ml',
-  'alicate':'Alicate de Cutícula Mundial Classic 522',
-  'kit-pronto':'Kit Eudora Club 6 (deo colônia + loção hidratante)',
-  'kit-montado':'Nécessaire com 3 produtos'
+  'base':[['Ruby Rose','Base Líquida Ruby Rose Feels Mel 030 29ml','base'],['Vult','Base Líquida Vult Mega Matte V150 26ml','base--vult'],['Maybelline','Base Líquida Maybelline Fit Me Fresh Tint 30ml','base--maybelline']],
+  'corretivo':[['Ruby Rose','Corretivo Líquido Melu by Ruby Rose ME110 3,5ml','corretivo--ruby-rose'],['Vult','Corretivo Líquido Vult HD B-126 8ml','corretivo'],['Dailus','Corretivo Líquido Dailus Bye Bye Olheira 4,5ml','corretivo--dailus']],
+  'batom':[['Ruby Rose','Batom Líquido Ruby Rose Mood Desire 01','batom--ruby-rose'],['Vult','Batom Matte Lips Rosé Vult 3,8g','batom'],['Dailus','Batom Dailus Vegano 02 Doce 3,5g','batom--dailus'],['Avon','Batom Avon Ultra Color Matte FPS 30 Malva Rosado','batom--avon']],
+  'gloss':[['Ruby Rose','Gloss Labial Ruby Rose Shine 75 2,1ml','gloss'],['Dailus','Lip Gloss Incolor Dailus 3ml','gloss--dailus']],
+  'mascara-cilios':[['Maybelline','Máscara de Cílios Maybelline Sky High à Prova D’água 2,9g','mascara-cilios'],['Vult','Máscara de Cílios Vult Super Fix 10g','mascara-cilios--vult'],['Ruby Rose','Máscara de Cílios Melu by Ruby Rose Peel Off Selfie','mascara-cilios--ruby-rose']],
+  'delineador':[['Vult','Delineador Líquido Preto Vult 2,5ml','delineador'],['Dailus','Caneta Delineadora Preta Dailus 1,2ml','delineador--dailus'],['Ruby Rose','Delineador Líquido Preto Ruby Rose 5,8ml','delineador--ruby-rose']],
+  'paleta':[['Ruby Rose','Paleta de Sombras Ruby Rose The Glow 11g','paleta'],['Vult','Paleta de Sombras Vult Essent Rose','paleta--vult']],
+  'po':[['Vult','Pó Compacto Vult Basic PC12 9g','po'],['Ruby Rose','Pó Compacto Ruby Rose Blow Blurry','po--ruby-rose'],['Dailus','Pó Compacto Dailus Vegano D5 10g','po--dailus']],
+  'blush':[['Ruby Rose','Blush Natural Ruby Rose Mini Pêssego 9,4g','blush'],['Vult','Blush Compacto Vult Malva Matte 3g','blush--vult']],
+  'pinceis':[['Ruby Rose','Pincel LF80 para Base Melu by Ruby Rose','pinceis'],['Macrilan','Pincel Cônico Macrilan Linha A A29','pinceis--macrilan']],
+  'limpeza':[['Neutrogena','Gel de Limpeza Facial Neutrogena Deep Clean Grapefruit 150g','limpeza'],['Nivea','Gel de Limpeza Facial Nivea Efeito Matte 150ml','limpeza--nivea'],['Garnier','Gel de Limpeza Facial Garnier Antioleosidade Vitamina C 150g','limpeza--garnier']],
+  'agua-micelar':[['Garnier','Água Micelar Garnier Antioleosidade 400ml','agua-micelar--garnier'],['Nivea','Água Micelar Nivea Micellair Expert Bifásica 200ml','agua-micelar'],['L’Oréal Paris','Água Micelar L’Oréal Paris 5 em 1 200ml','agua-micelar--l-oreal-paris']],
+  'hidratante-facial':[['Nivea','Creme Nutritivo Hidratante Facial Nivea 100g','hidratante-facial'],['Neutrogena','Creme Facial Neutrogena Face Care Intensive Matte 100g','hidratante-facial--neutrogena'],['Garnier','Hidratante Facial Garnier Salicílico Toque Seco 85g','hidratante-facial--garnier']],
+  'serum':[['Garnier','Sérum Booster Antimanchas Garnier Uniform & Matte Vitamina C 30ml','serum'],['L’Oréal Paris','Sérum Revitalift Hialurônico L’Oréal Paris 15ml','serum--l-oreal-paris']],
+  'protetor':[['Neutrogena','Protetor Solar Facial Neutrogena Sun Fresh FPS 70 40g','protetor'],['Nivea','Protetor Solar Facial Nivea Sun Toque Seco FPS 70 40ml','protetor--nivea'],['Garnier','Protetor Solar Facial Garnier Uniform & Matte FPS 30 40g','protetor--garnier']],
+  'mascara-facial':[['Garnier','Máscara Facial em Tecido Garnier Hidra Bomb Romã 32g','mascara-facial--garnier'],['Ruby Rose','Máscara Facial Ruby Rose Liftmask Ice Rose 50g','mascara-facial']],
+  'shampoo':[['Elseve','Shampoo Elseve Reparação Total 5 Química 400ml','shampoo'],['Pantene','Shampoo Pantene Bambu Nutre e Cresce 400ml','shampoo--pantene'],['Seda','Shampoo Seda Ceramidas 325ml','shampoo--seda'],['Haskell','Shampoo Haskell Murumuru 300ml','shampoo--haskell'],['Bio Extratus','Shampoo Bio Extratus Equilíbrio 250ml','shampoo--bio-extratus']],
+  'condicionador':[['Elseve','Condicionador Elseve Reparação Total 5 Química 200ml','condicionador'],['Pantene','Condicionador Pantene Pro-V Hidratação 175ml','condicionador--pantene'],['Seda','Condicionador Seda Ceramidas 325ml','condicionador--seda'],['Bio Extratus','Condicionador Bio Extratus Tutano 250ml','condicionador--bio-extratus']],
+  'mascara-capilar':[['Haskell','Máscara Capilar Haskell Quina Rosa 300g','mascara-capilar'],['Bio Extratus','Máscara Capilar Bio Extratus Tutano Ceramidas 1kg','mascara-capilar--bio-extratus'],['Salon Line','Máscara Salon Line Meu Liso Antifrizz 300g','mascara-capilar--salon-line'],['Skala','Máscara Capilar Skala Brasil Reconstrução 450g','mascara-capilar--skala']],
+  'creme-pentear':[['Salon Line','Creme de Pentear Salon Line Hidratação Profunda 1kg','creme-pentear'],['Skala','Creme de Pentear Skala 3 em 1 Uva 500g','creme-pentear--skala'],['Seda','Creme para Pentear Seda Toque de Seda 300ml','creme-pentear--seda']],
+  'finalizador':[['Elseve','Óleo Extraordinário Elseve 100ml','finalizador'],['Haskell','Óleo Nutritivo Haskell Infusão de Óleos 100ml','finalizador--haskell'],['Salon Line','Óleo Salon Line Multy Milagres Maracujá e Argan 50ml','finalizador--salon-line']],
+  'coloracao':[['Koleston','Coloração Koleston 77 Marrom Dourado','coloracao'],['L’Oréal Paris','Coloração Imédia Excellence 6.0 Louro Escuro','coloracao--l-oreal-paris'],['Garnier','Coloração Garnier Nutrisse 366 Ameixa','coloracao--garnier']],
+  'escova':[['Marco Boni','Escova de Cabelo Oval Marco Boni','escova']],
+  'perfume-f':[['Eudora','Deo Colônia Velvet Cristal Eudora 100ml','perfume-f'],['O Boticário','Perfume Feminino O Boticário Liz Flora 100ml','perfume-f--o-boticario'],['Natura','Perfume Feminino Natura Luna Clássico 75ml','perfume-f--natura'],['Avon','Perfume Feminino Avon Candid 50ml','perfume-f--avon']],
+  'perfume-m':[['Eudora','Deo Colônia Pulse Action Eudora 100ml','perfume-m'],['O Boticário','Perfume Masculino O Boticário Coffee Addictive 100ml','perfume-m--o-boticario'],['Natura','Deo Parfum Natura Essencial Clássico Masculino 100ml','perfume-m--natura'],['Avon','Perfume Masculino Avon Perceive 100ml','perfume-m--avon']],
+  'body-splash':[['Eudora','Spray Perfumado Instance Baunilha Eudora 200ml','body-splash'],['O Boticário','Body Splash O Boticário Nativa Spa Lilac 200ml','body-splash--o-boticario']],
+  'desodorante':[['Nivea','Desodorante Aerosol Nivea Sem Perfume 150ml','desodorante'],['Dove','Desodorante Dove Stick Original 45g','desodorante--dove'],['Monange','Desodorante Aerosol Monange Anti Invisível 150ml','desodorante--monange']],
+  'hidratante-corpo':[['Nivea','Loção Hidratante Nivea Milk Pele Extrasseca 400ml','hidratante-corpo'],['Dove','Sérum Hidratante Corporal Dove Niacinamida 450g','hidratante-corpo--dove'],['Monange','Creme Hidratante Monange Iogurte com Aveia 200ml','hidratante-corpo--monange']],
+  'sabonete':[['Dove','Sabonete em Barra Dove Original 90g','sabonete'],['Nivea','Sabonete Nivea Bath Care Aveia 90g','sabonete--nivea'],['Natura','Sabonetes Natura Tododia Camomila e Lavanda','sabonete--natura']],
+  'oleo-corpo':[['Natura','Óleo Trifásico Corporal Natura Ekos Castanha 200ml','oleo-corpo--natura'],['Dove','Óleo Sérum Corporal Dove 150ml','oleo-corpo']],
+  'esfoliante':[['Nivea','Esfoliante Corporal para o Banho Nivea 200ml','esfoliante']],
+  'depilacao':[['Depil Bella','Cera Depilatória Depil Bella Mel e Aloe Vera 100g','depilacao']],
+  'esmalte':[['Risqué','Esmalte Cremoso Risqué Gabriela 8ml','esmalte'],['Colorama','Esmalte Cremoso Colorama 8ml','esmalte--colorama'],['Dailus','Esmalte Dailus 8ml','esmalte--dailus']],
+  'base-unha':[['Risqué','Base Fortalecedora Risqué Care 8ml','base-unha'],['Colorama','Base Fortalecedora Colorama','base-unha--colorama']],
+  'removedor':[['Risqué','Removedor de Esmalte Risqué Care 100ml','removedor']],
+  'alicate':[['Mundial','Alicate de Cutícula Mundial Classic 522','alicate']],
+  'kit-pronto':[['Eudora','Kit Eudora Club 6 (deo colônia + loção hidratante)','kit-pronto']],
+  'kit-montado':[['','Nécessaire com 3 produtos','kit-montado']]
 };
 
 /* utilidades */
@@ -331,17 +331,53 @@ function paint(){
 }
 function bump(){$$('.bag-btn').forEach(function(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')})}
 
+/* fotos das marcas passando: só nos cartões visíveis, um terço por vez a cada segundo,
+   para no mouse/foco, depois de um clique na marca e no "Reduzir movimento" */
+var galeria=[],vistos=typeof IntersectionObserver!=='undefined'?new IntersectionObserver(function(es){es.forEach(function(e){e.target._vis=e.isIntersecting})}):null;
+var tick=0;
+setInterval(function(){
+  tick++;if(reduced()||document.hidden)return;
+  galeria.forEach(function(a,i){
+    if(!vistos)a._vis=true;
+    if(a._vis&&!a._hold&&!a._over&&!a.hidden&&(tick+i)%3===0)a._go((a._k+1)%a._n);
+  });
+},1000);
+function watch(a){
+  if(vistos)vistos.observe(a);
+  a.addEventListener('mouseenter',function(){a._over=true});a.addEventListener('mouseleave',function(){a._over=false});
+  a.addEventListener('focusin',function(){a._over=true});a.addEventListener('focusout',function(){a._over=false});
+}
+
 /* etiqueta de prateleira */
 function tag(p){
   var c=catOf(p.cat);
   var a=el('article',{class:'tag','data-id':p.id,style:'--tc:var(--cat-'+c.cor+')'});
-  var f=FOTOS[p.id];
-  a.innerHTML=(f?'<div class="ph"><img loading="lazy" width="480" height="360"></div>':'')+'<div class="top"><span class="cat"></span><h3></h3></div>'+
-    '<div class="body"><p></p>'+(p.marcas.length?'<span class="brands"><b>Marcas:</b> </span>':'')+(f?'<span class="ex"></span>':'')+
+  var f=FOTOS[p.id]||[];
+  a.innerHTML=(f.length?'<div class="ph"><span class="who" aria-hidden="true"></span></div>':'')+'<div class="top"><span class="cat"></span><h3></h3></div>'+
+    '<div class="body"><p></p>'+(p.marcas.length?'<span class="brands"><b>Marcas:</b> </span>':'')+(f.length?'<span class="ex" aria-live="polite"></span>':'')+
     '<div class="foot"><span class="price"></span><span class="act"></span></div></div>';
-  if(f){var im=$('img',a);im.src=ROOT+'assets/produtos/'+p.id+'.webp';im.alt=f;$('.ex',a).textContent='Na foto: '+f}
   $('.cat',a).textContent=p.cat;$('h3',a).textContent=p.nome;$('p',a).textContent=p.desc;
-  if(p.marcas.length)$('.brands',a).appendChild(document.createTextNode(p.marcas.join(', ')));
+  // marcas com foto viram botões que trocam a foto; as outras ficam só no texto
+  var br=$('.brands',a),btns=[];
+  p.marcas.forEach(function(m,i){
+    if(i)br.appendChild(document.createTextNode(', '));
+    var k=-1;f.forEach(function(x,j){if(x[0]===m.replace("'",'’'))k=j});
+    if(k<0){br.appendChild(document.createTextNode(m));return}
+    var b=el('button',{type:'button',class:'mk','aria-pressed':'false',text:m,'aria-label':'Ver foto de '+p.nome+' '+m});
+    b.onclick=function(){a._go(k,true)};btns[k]=b;br.appendChild(b);
+  });
+  if(f.length){
+    var ph=$('.ph',a),imgs=f.map(function(x){var im=el('img',{loading:'lazy',width:'480',height:'360',alt:x[1],src:ROOT+'assets/produtos/'+x[2]+'.webp'});ph.appendChild(im);return im});
+    a._n=f.length;
+    a._go=function(k,user){
+      if(user)a._hold=true;
+      imgs.forEach(function(im,j){im.classList.toggle('on',j===k)});
+      btns.forEach(function(b,j){b&&b.setAttribute('aria-pressed',j===k)});
+      $('.who',a).textContent=f[k][0];$('.ex',a).textContent='Na foto: '+f[k][1];a._k=k;
+    };
+    a._go(0);
+    if(f.length>1){galeria.push(a);watch(a)}
+  }
   $('.price',a).innerHTML=p.preco?'<b>'+money(p.preco)+'</b>à vista na loja':'Preço<b>no WhatsApp</b>';
   paintTag(a);
   return a;
