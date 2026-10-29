@@ -413,3 +413,4 @@ html[data-motion="reduce"] .track [aria-hidden]{display:none}
 .brands .mk{font:inherit;font-size:14px;color:var(--ink);background:none;border:0;padding:6px 0;margin:-6px 0;cursor:pointer;text-decoration:underline;text-decoration-color:#0E1A1340;text-underline-offset:3px}
 .brands .mk:hover{text-decoration-color:var(--green)}
 .brands .mk[aria-pressed="true"]{font-weight:800;text-decoration-color:var(--green);text-decoration-thickness:2px}
+@media (max-width:600px){.brands .mk{display:inline-block;min-height:44px;min-width:44px;padding:12px 2px;margin:-12px 0;text-align:center}}
