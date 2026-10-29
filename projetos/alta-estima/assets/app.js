@@ -57,7 +57,7 @@ var PRODUTOS=[
 
   {id:'hidratante-corpo',nome:'Hidratante corporal',cat:'Corpo e banho',desc:'Pele seca, extrasseca ou normal.',marcas:['Nivea','Dove','Monange'],destaque:true},
   {id:'sabonete',nome:'Sabonete',cat:'Corpo e banho',desc:'Em barra ou líquido, hidratante ou esfoliante.',marcas:['Dove','Nivea','Natura']},
-  {id:'oleo-corpo',nome:'Óleo corporal',cat:'Corpo e banho',desc:'Hidratação e brilho depois do banho.',marcas:['Monange','Natura']},
+  {id:'oleo-corpo',nome:'Óleo corporal',cat:'Corpo e banho',desc:'Hidratação e brilho depois do banho.',marcas:['Monange','Natura','Dove']},
   {id:'esfoliante',nome:'Esfoliante',cat:'Corpo e banho',desc:'Para corpo e pés.',marcas:['Nivea','Monange']},
   {id:'depilacao',nome:'Cera e depilação',cat:'Corpo e banho',desc:'Cera roll-on, quente, fria e lâminas.',marcas:['Depil Bella']},
 
@@ -71,6 +71,49 @@ var PRODUTOS=[
 ];
 
 var MARCAS=['Natura','O Boticário','Eudora','Avon','L\'Oréal Paris','Elseve','Koleston','Colorama','Risqué','Dailus','Maybelline','Ruby Rose','Vult','Nivea','Dove','Monange','Haskell','Bio Extratus','Salon Line','Skala','Seda','Pantene','Garnier','Neutrogena'];
+
+/* Fotos ilustrativas: um produto real de cada tipo. O arquivo fica em assets/produtos/<id>.webp;
+   o texto é o nome do produto que aparece na foto. */
+var FOTOS={
+  'base':'Base Líquida Ruby Rose Feels Mel 030 29ml',
+  'corretivo':'Corretivo Líquido Vult HD B-126 8ml',
+  'batom':'Batom Matte Lips Rosé Vult 3,8g',
+  'gloss':'Gloss Labial Ruby Rose Shine 75 2,1ml',
+  'mascara-cilios':'Máscara de Cílios Maybelline Sky High à Prova D’água 2,9g',
+  'delineador':'Delineador Líquido Preto Vult 2,5ml',
+  'paleta':'Paleta de Sombras Ruby Rose The Glow 11g',
+  'po':'Pó Compacto Vult Basic PC12 9g',
+  'blush':'Blush Natural Ruby Rose Mini Pêssego 9,4g',
+  'pinceis':'Pincel LF80 para Base Melu by Ruby Rose',
+  'limpeza':'Gel de Limpeza Facial Neutrogena Deep Clean Grapefruit 150g',
+  'agua-micelar':'Água Micelar Nivea Micellair Expert Bifásica 200ml',
+  'hidratante-facial':'Creme Nutritivo Hidratante Facial Nivea 100g',
+  'serum':'Sérum Booster Antimanchas Garnier Uniform & Matte Vitamina C 30ml',
+  'protetor':'Protetor Solar Facial Neutrogena Sun Fresh FPS 70 40g',
+  'mascara-facial':'Máscara Facial Ruby Rose Liftmask Ice Rose 50g',
+  'shampoo':'Shampoo Elseve Reparação Total 5 Química 400ml',
+  'condicionador':'Condicionador Elseve Reparação Total 5 Química 200ml',
+  'mascara-capilar':'Máscara Capilar Haskell Quina Rosa 300g',
+  'creme-pentear':'Creme de Pentear Salon Line Hidratação Profunda 1kg',
+  'finalizador':'Óleo Extraordinário Elseve 100ml',
+  'coloracao':'Coloração Koleston 77 Marrom Dourado',
+  'escova':'Escova de Cabelo Oval Marco Boni',
+  'perfume-f':'Deo Colônia Velvet Cristal Eudora 100ml',
+  'perfume-m':'Deo Colônia Pulse Action Eudora 100ml',
+  'body-splash':'Spray Perfumado Instance Baunilha Eudora 200ml',
+  'desodorante':'Desodorante Aerosol Nivea Sem Perfume 150ml',
+  'hidratante-corpo':'Loção Hidratante Nivea Milk Pele Extrasseca 400ml',
+  'sabonete':'Sabonete em Barra Dove Original 90g',
+  'oleo-corpo':'Óleo Sérum Corporal Dove 150ml',
+  'esfoliante':'Esfoliante Corporal para o Banho Nivea 200ml',
+  'depilacao':'Cera Depilatória Depil Bella Mel e Aloe Vera 100g',
+  'esmalte':'Esmalte Cremoso Risqué Gabriela 8ml',
+  'base-unha':'Base Fortalecedora Risqué Care 8ml',
+  'removedor':'Removedor de Esmalte Risqué Care 100ml',
+  'alicate':'Alicate de Cutícula Mundial Classic 522',
+  'kit-pronto':'Kit Eudora Club 6 (deo colônia + loção hidratante)',
+  'kit-montado':'Nécessaire com 3 produtos'
+};
 
 /* utilidades */
 function $(s,c){return (c||document).querySelector(s)}
@@ -292,10 +335,11 @@ function bump(){$$('.bag-btn').forEach(function(b){b.classList.remove('bump');vo
 function tag(p){
   var c=catOf(p.cat);
   var a=el('article',{class:'tag','data-id':p.id,style:'--tc:var(--cat-'+c.cor+')'});
-  a.innerHTML='<div class="top">'+(p.foto?'<div class="ph"><img loading="lazy" alt="" width="400" height="300"></div>':'')+'<span class="cat"></span><h3></h3></div>'+
-    '<div class="body"><p></p>'+(p.marcas.length?'<span class="brands"><b>Marcas:</b> </span>':'')+
+  var f=FOTOS[p.id];
+  a.innerHTML=(f?'<div class="ph"><img loading="lazy" width="480" height="360"></div>':'')+'<div class="top"><span class="cat"></span><h3></h3></div>'+
+    '<div class="body"><p></p>'+(p.marcas.length?'<span class="brands"><b>Marcas:</b> </span>':'')+(f?'<span class="ex"></span>':'')+
     '<div class="foot"><span class="price"></span><span class="act"></span></div></div>';
-  if(p.foto)$('img',a).src=p.foto;
+  if(f){var im=$('img',a);im.src=ROOT+'assets/produtos/'+p.id+'.webp';im.alt=f;$('.ex',a).textContent='Na foto: '+f}
   $('.cat',a).textContent=p.cat;$('h3',a).textContent=p.nome;$('p',a).textContent=p.desc;
   if(p.marcas.length)$('.brands',a).appendChild(document.createTextNode(p.marcas.join(', ')));
   $('.price',a).innerHTML=p.preco?'<b>'+money(p.preco)+'</b>à vista na loja':'Preço<b>no WhatsApp</b>';
