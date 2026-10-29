@@ -414,3 +414,89 @@ html[data-motion="reduce"] .track [aria-hidden]{display:none}
 .brands .mk:hover{text-decoration-color:var(--green)}
 .brands .mk[aria-pressed="true"]{font-weight:800;text-decoration-color:var(--green);text-decoration-thickness:2px}
 @media (max-width:600px){.brands .mk{display:inline-block;min-height:44px;min-width:44px;padding:12px 2px;margin:-12px 0;text-align:center}}
+
+/* ===== Remodelação verde (30/10): verde floresta =====
+   Marca d'água = cabelo do logo. */
+:root{
+  --ink:#0B2A1B;
+  --forest:#063720;
+  --night:#04261A;
+  --cream:#F6F3EC;
+  --on-green:#CFE8D6;
+  --accent-light:#9FDCB8;
+}
+body{background:var(--paper)}
+/* papel creme com grão nas partes claras; o grão fica bem fraco */
+
+
+/* faixas verdes */
+.verde{position:relative;color:var(--cream);background-color:var(--deep);
+  background-image:url(cabelo.svg),radial-gradient(120% 90% at 85% 10%,#0d5a34 0%,transparent 60%);
+  background-repeat:no-repeat,no-repeat;background-size:520px auto,auto;background-position:right -60px bottom -160px,0 0}
+.verde .lead,.verde .hint{color:var(--on-green)}
+.verde .display em{color:var(--accent-light)}
+.verde .kicker{color:var(--accent-light)}
+.verde .kicker::before{background:var(--accent-light)}
+.verde .btn{background:var(--cream);color:var(--deep)}
+.verde .btn:hover{background:#fff}
+.verde .btn.wa{background:var(--green);color:var(--night)}
+.verde .btn.wa:hover{background:#56c98a}
+.verde .btn.line{background:transparent;color:var(--cream);border-color:var(--cream)}
+.verde .btn.line:hover{background:var(--cream);color:var(--deep)}
+.verde .link{color:var(--cream)}
+.verde :focus-visible{outline-color:#fff}
+
+/* topo: faixa de horário e cabeçalho verdes, logo claro */
+.topbar{background:var(--night);border-bottom:1px solid #ffffff14}
+.head{background-color:var(--forest);border-bottom:1px solid #ffffff1f;color:var(--cream)}
+.head :focus-visible{outline-color:#fff}
+.nav a{color:var(--cream)}
+.nav a:hover{background:#ffffff1a}
+.nav a[aria-current="page"]{background:var(--cream);color:var(--deep)}
+.bag-btn{background:transparent;border-color:var(--cream);color:var(--cream)}
+.bag-btn:hover{background:#ffffff14}
+.bag-btn .n[data-zero]{background:#ffffff26;color:var(--cream)}
+.menu-btn{border-color:var(--cream);color:var(--cream)}
+@media (max-width:900px){
+  .nav.open{background:var(--forest)}
+  .nav.open a{border-bottom-color:#ffffff1f}
+  .nav.open a[aria-current="page"]{background:none;color:var(--accent-light)}
+}
+
+/* abertura verde */
+.hero.verde{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(48px,6vw,88px)}
+.hero.verde .facts{border-top-color:#ffffff2e;color:var(--on-green)}
+.hero.verde .facts b{color:var(--cream)}
+.hero.verde .stage{box-shadow:0 30px 60px -30px #000a;outline:1px solid #ffffff24;outline-offset:10px}
+
+/* faixa das marcas verde */
+.marquee.verde{border-block:0;background-size:420px auto,auto;background-position:left -80px top -120px,0 0}
+.marquee.verde .track a{border-color:#ffffff59;color:var(--cream)}
+.marquee.verde .track a:hover{background:var(--green);border-color:var(--green);color:var(--night)}
+
+/* "como comprar" em verde-claro com grão */
+.folha{background-color:var(--leaf)}
+.folha .howto .num{color:var(--deep)}
+
+/* loja: cabeçalho da página em verde */
+.shop-head.verde{padding-bottom:clamp(36px,5vw,56px)}
+.tools{background:var(--paper)}
+
+/* cartões: borda verde-escura, topo de etiqueta com grão */
+.tag{border-color:var(--ink)}
+
+/* promo e rodapé no verde mais fundo */
+.promo{background-color:var(--forest);background-image:url(cabelo.svg);background-repeat:no-repeat;background-size:360px auto;background-position:right -40px center}
+.foot-site{background-color:var(--night);color:var(--on-green)}
+
+@media (max-width:600px){
+  .verde{background-size:340px auto,auto;background-position:right -90px bottom -120px,0 0}
+}
+/* ajustes: grão suave nas superfícies claras e legenda legível */
+.stage figcaption{color:var(--ink)}
+
+/* prateleiras da página inicial passando fotos */
+.cats a{background:var(--tc,#d9cfc4)}
+.cats a img{position:absolute;inset:0;opacity:0;transition:opacity .7s ease,transform .6s var(--ease)}
+.cats a img.on{opacity:1}
+.cats a img.pk{inset:6% 6% 18%;width:88%;height:76%;object-fit:contain;mix-blend-mode:multiply}

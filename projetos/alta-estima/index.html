@@ -37,7 +37,7 @@
 
 <header class="head">
   <div class="wrap">
-    <a class="logo" href="./" aria-label="Alta Estima, página inicial"><img src="assets/logo.svg" alt="Alta Estima" width="139" height="92"></a>
+    <a class="logo" href="./" aria-label="Alta Estima, página inicial"><img src="assets/logo-claro.svg" alt="Alta Estima" width="139" height="92"></a>
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="./" aria-current="page">Início</a>
       <a href="loja/">Loja online</a>
@@ -51,7 +51,7 @@
 </header>
 
 <main id="conteudo">
-  <section class="hero">
+  <section class="hero verde">
     <div class="wrap">
       <div>
         <h1 class="display">Realçando <em>a sua beleza.</em></h1>
@@ -83,10 +83,10 @@
     <div class="wrap">
       <div class="sec-head"><div><span class="kicker">Prateleiras</span><h2 class="display" id="t-cats">O que você <em>procura hoje?</em></h2></div><a class="link" href="loja/">Ver a loja inteira</a></div>
       <div class="cats">
-        <a href="loja/?cat=Maquiagem"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=72&auto=format&fit=crop" alt=""><span>Maquiagem</span></a>
-        <a href="loja/?cat=Skincare"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&q=72&auto=format&fit=crop" alt=""><span>Skincare</span></a>
-        <a href="loja/?cat=Cabelos"><img loading="lazy" width="600" height="800" style="object-position:center 30%" src="https://images.unsplash.com/photo-1702312686957-572286d28e11?w=600&q=72&auto=format&fit=crop" alt=""><span>Cabelos e corpo</span></a>
-        <a href="loja/?cat=Maquiagem&amp;q=batom"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1631214499500-2e34edcaccfe?w=600&q=72&auto=format&fit=crop" alt=""><span>Batons</span></a>
+        <a href="loja/?cat=Maquiagem" data-vitrine="base,paleta,mascara-cilios,po,blush,corretivo" style="--tc:var(--cat-maquiagem)"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=72&auto=format&fit=crop" alt=""><span>Maquiagem</span></a>
+        <a href="loja/?cat=Skincare" data-vitrine="serum,protetor,limpeza,agua-micelar,hidratante-facial,mascara-facial" style="--tc:var(--cat-skincare)"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&q=72&auto=format&fit=crop" alt=""><span>Skincare</span></a>
+        <a href="loja/?cat=Cabelos" data-vitrine="shampoo,mascara-capilar,creme-pentear,finalizador,hidratante-corpo,oleo-corpo" style="--tc:var(--cat-cabelos)"><img loading="lazy" width="600" height="800" style="object-position:center 30%" src="https://images.unsplash.com/photo-1702312686957-572286d28e11?w=600&q=72&auto=format&fit=crop" alt=""><span>Cabelos e corpo</span></a>
+        <a href="loja/?cat=Maquiagem&amp;q=batom" data-vitrine="batom*,gloss*" style="--tc:var(--cat-maquiagem)"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1631214499500-2e34edcaccfe?w=600&q=72&auto=format&fit=crop" alt=""><span>Batons</span></a>
       </div>
     </div>
   </section>
@@ -103,13 +103,13 @@
     </div>
   </section>
 
-  <section class="marquee" id="marcas" aria-labelledby="t-marcas">
+  <section class="marquee verde" id="marcas" aria-labelledby="t-marcas">
     <h2 class="sr" id="t-marcas">Marcas</h2>
     <div class="track" id="track"></div>
     <p class="hint">Algumas das marcas das lojas. Toque numa marca para perguntar pelo WhatsApp.</p>
   </section>
 
-  <section class="sec" id="comprar" aria-labelledby="t-comprar">
+  <section class="sec folha" id="comprar" aria-labelledby="t-comprar">
     <div class="wrap">
       <div class="sec-head"><div><span class="kicker">Como comprar</span><h2 class="display" id="t-comprar">Do site para o <em>balcão.</em></h2></div></div>
       <ol class="howto">

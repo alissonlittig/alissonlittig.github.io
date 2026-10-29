@@ -404,6 +404,25 @@ function paintTag(a){
 }
 
 /* ---------- início ---------- */
+// prateleiras da página inicial: a foto de clima e depois os produtos daquela prateleira passando
+// data-vitrine="id" usa a 1ª foto do produto; "id*" usa as fotos de todas as marcas
+$$('.cats a[data-vitrine]').forEach(function(a){
+  var fotos=[];
+  a.dataset.vitrine.split(',').forEach(function(t){
+    var todas=t.slice(-1)==='*',id=todas?t.slice(0,-1):t,f=FOTOS[id]||[];
+    (todas?f:f.slice(0,1)).forEach(function(x){fotos.push(x)});
+  });
+  var imgs=[$('img',a)];
+  fotos.forEach(function(x){
+    var im=el('img',{class:'pk',loading:'lazy',width:'480',height:'360',alt:'',src:ROOT+'assets/produtos/'+x[2]+'.webp'});
+    a.insertBefore(im,$('span',a));imgs.push(im);
+  });
+  imgs[0].classList.add('on');
+  a._n=imgs.length;a._k=0;
+  a._go=function(k){imgs.forEach(function(im,j){im.classList.toggle('on',j===k)});a._k=k};
+  if(a._n>1){galeria.push(a);watch(a)}
+});
+
 var shelf=$('#prateleira');
 if(shelf)PRODUTOS.filter(function(p){return p.destaque}).slice(0,8).forEach(function(p){shelf.appendChild(tag(p))});
 
