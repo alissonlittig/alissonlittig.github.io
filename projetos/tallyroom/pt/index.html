@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tallyroom: caixa e estoque para lojas pequenas</title>
+<meta name="description" content="Cada venda atualiza a contagem da prateleira. Reponha antes de o mais vendido acabar. Marca fictícia, exemplo de portfólio.">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/tallyroom/pt/">
+<link rel="alternate" hreflang="pt" href="https://alissonlittig.github.io/projetos/tallyroom/pt/">
+<link rel="alternate" hreflang="en" href="https://alissonlittig.github.io/projetos/tallyroom/">
+<meta property="og:type" content="website"><meta property="og:title" content="Tallyroom: caixa e estoque para lojas pequenas"><meta property="og:description" content="Cada venda atualiza a contagem da prateleira. Reponha antes de o mais vendido acabar. Marca fictícia, exemplo de portfólio.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/tallyroom/assets/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="theme-color" content="#F2ECDF">
+<link rel="icon" href="/projetos/tallyroom/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/projetos/tallyroom/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/projetos/tallyroom/assets/style.css">
+<script>(function(){try{var s=localStorage.getItem('tr-lang'),p=document.documentElement.lang,o='/projetos/tallyroom/';if(s&&s!==p&&(s==='pt'||s==='en'))location.replace(o);else if(!s&&true&&p==='en'&&/^pt/i.test(navigator.language))location.replace(o)}catch(e){}document.documentElement.classList.add('js')})()</script>
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<div class="ribbon">Projeto de conceito: marca fictícia criada por Alisson Littig para o portfólio. <a href="/">Voltar ao portfólio</a></div>
+<header class="hd"><div class="wrap">
+<a class="logo" href="/projetos/tallyroom/pt/" aria-label="Tallyroom, início"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 6V26M13 6V26M19 6V26M25 6V26" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M3 23L29 9" stroke="#C2321A" stroke-width="3.2" stroke-linecap="round"/></svg>tallyroom</a>
+<button class="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+<nav class="nav" id="nav" aria-label="Principal"><a href="/projetos/tallyroom/pt/produto/">Produto</a><a href="/projetos/tallyroom/pt/como-funciona/">Como funciona</a><a href="/projetos/tallyroom/pt/precos/">Preços</a><a href="/projetos/tallyroom/pt/sobre/">Sobre</a><a href="/projetos/tallyroom/pt/contato/">Contato</a><a class="btn sm" href="/projetos/tallyroom/pt/contato/#trial" style="color:#fff;margin-left:6px">Teste grátis</a><div class="lang" role="group" aria-label="Idioma"><a href="/projetos/tallyroom/" hreflang="en" lang="en">EN</a><a href="/projetos/tallyroom/pt/" hreflang="pt" lang="pt" aria-current="true">PT</a></div></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+<div class="hero-grid">
+<div>
+<p class="eyebrow">Caixa e estoque para lojas pequenas</p>
+<h1>Sua loja se <em>conta</em> sozinha.</h1>
+<p class="lede">Cada venda tira um da contagem da prateleira. Você vê o que repor antes de o mais vendido acabar, não depois.</p>
+<div class="cta"><a class="btn" href="/projetos/tallyroom/pt/contato/#trial">Começar teste grátis</a><a class="btn ghost" href="/projetos/tallyroom/pt/produto/">Ver o produto</a></div>
+</div>
+<div class="till" id="till" role="group" aria-label="Demonstração do caixa">
+<div class="till-top"><span>Loja principal</span><span>Dados de exemplo</span></div>
+<div class="till-body">
+<div class="kpis"><div class="kpi"><small>Vendas hoje</small><b id="k-sales">0</b></div><div class="kpi"><small>Vendas</small><b id="k-tix">0</b></div><div class="kpi"><small>Estoque baixo</small><b id="k-low">0</b></div></div>
+<ul class="stock" id="stock"></ul>
+<div class="reorder" id="reorder" aria-live="polite"></div>
+<div class="till-foot"><button class="btn ink sm" id="scan" type="button">Simular venda</button><button class="btn ghost sm" id="reset" type="button">Zerar</button><span class="msg" id="msg" aria-live="polite"></span></div>
+</div></div>
+</div>
+<div class="photo rv" style="margin-top:clamp(32px,5vw,72px);aspect-ratio:21/9"><picture><source type="image/avif" srcset="/projetos/tallyroom/assets/img/d-640.avif 640w, /projetos/tallyroom/assets/img/d-1280.avif 1280w" sizes="(min-width:1240px) 1240px, 100vw"><source type="image/webp" srcset="/projetos/tallyroom/assets/img/d-640.webp 640w, /projetos/tallyroom/assets/img/d-1280.webp 1280w" sizes="(min-width:1240px) 1240px, 100vw"><img src="/projetos/tallyroom/assets/img/d-1280.webp" width="1280" height="851" alt="Uma lojinha de esquina acesa à noite, com uma pessoa andando lá dentro" class="" loading="lazy" decoding="async"></picture><p class="cap"><a href="https://commons.wikimedia.org/wiki/File:DZ6_0567_A_small_brightly_lit_corner_shop_and_outdoor_seating_area_at_night_with_a_lone_pedestrian_walking_past_under_a_glowing_red_sign.jpg" rel="noopener">Foto: PattayaPatrol</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener">CC BY-SA 4.0</a>, Wikimedia Commons</p></div>
+</div></section>
+
+<section><div class="wrap">
+<p class="eyebrow rv">Uma terça no balcão (exemplo)</p>
+<h2 class="rv" style="max-width:18ch">Ninguém conta na mão.</h2>
+<div class="ledger" role="list">
+<div class="lrow" role="listitem"><span class="t">08:30</span><span class="e">Abre a loja<small>A contagem de ontem à noite já está na tela. Sem passear de prancheta de manhã.</small></span><span class="c" data-tally="3" aria-label="3 itens vendidos até agora"><svg class="tally" viewBox="0 0 28 24" width="28" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">10:15</span><span class="e">Sai um cabo USB-C. Restam três.<small>Entra na lista de reposição. A tela diz 3, não mais ou menos 3.</small></span><span class="c" data-tally="8" aria-label="8 itens vendidos até agora"><svg class="tally" viewBox="0 0 68 24" width="68" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">13:00</span><span class="e">Hora do almoço, dois celulares lendo<small>Os dois alimentam a mesma contagem. Dinheiro e cartão ficam em totais separados.</small></span><span class="c" data-tally="14" aria-label="14 itens vendidos até agora"><svg class="tally" viewBox="0 0 116 24" width="116" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21M67 3V21M40 20L70 5M83 3V21M91 3V21M99 3V21M107 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">16:40</span><span class="e">O fornecedor liga<small>Você lê a lista de reposição: sete itens, cada um com a quantidade a comprar.</small></span><span class="c" data-tally="21" aria-label="21 itens vendidos até agora"><svg class="tally" viewBox="0 0 172 24" width="172" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21M67 3V21M40 20L70 5M83 3V21M91 3V21M99 3V21M107 3V21M80 20L110 5M123 3V21M131 3V21M139 3V21M147 3V21M120 20L150 5M163 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">19:50</span><span class="e">Fecha o dia<small>Contagem do dinheiro, total do cartão, retiradas. Se o caixa não bate, você vê quanto falta.</small></span><span class="c" data-tally="28" aria-label="28 itens vendidos até agora"><svg class="tally" viewBox="0 0 228 24" width="228" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21M67 3V21M40 20L70 5M83 3V21M91 3V21M99 3V21M107 3V21M80 20L110 5M123 3V21M131 3V21M139 3V21M147 3V21M120 20L150 5M163 3V21M171 3V21M179 3V21M187 3V21M160 20L190 5M203 3V21M211 3V21M219 3V21"/></svg></span></div>
+</div></div></section>
+
+<section style="background:var(--paper2)"><div class="wrap split">
+<div class="sticky rv"><p class="eyebrow">O que faz</p><h2>Feito para o balcão, não para o escritório</h2>
+<p class="lede" style="margin-top:20px">Quatro tarefas, uma tela. Nada para instalar no caixa.</p></div>
+<div class="fl rv">
+<div class="fi"><span class="n">01</span><div><h3>Leia e venda</h3><p>Qualquer leitor USB funciona, ou a câmera do celular. Divida a venda entre dinheiro e cartão, ou em parcelas, com um toque.</p><a class="more" href="/projetos/tallyroom/pt/produto/#sell">Como a venda funciona</a></div></div>
+<div class="fi"><span class="n">02</span><div><h3>Uma contagem que anda sozinha</h3><p>Cada venda tira um. Uma entrega devolve. O número na tela é o número na prateleira.</p><a class="more" href="/projetos/tallyroom/pt/produto/#stock">Como a contagem se mantém certa</a></div></div>
+<div class="fi"><span class="n">03</span><div><h3>Lista de reposição antes do fim de semana</h3><p>Defina um mínimo por produto. Quando a contagem chega nele, o item entra numa lista com a quantidade a comprar.</p></div></div>
+<div class="fi"><span class="n">04</span><div><h3>Feche o dia em um minuto</h3><p>Dinheiro, cartão e retiradas se somam sozinhos. Se o caixa não bate, você vê a diferença antes de trancar a loja.</p><a class="more" href="/projetos/tallyroom/pt/produto/#close">Teste a calculadora de fechamento</a></div></div>
+</div></div></section>
+
+<section class="band"><picture><source type="image/avif" srcset="/projetos/tallyroom/assets/img/e-640.avif 640w, /projetos/tallyroom/assets/img/e-1280.avif 1280w" sizes="100vw"><source type="image/webp" srcset="/projetos/tallyroom/assets/img/e-640.webp 640w, /projetos/tallyroom/assets/img/e-1280.webp 1280w" sizes="100vw"><img src="/projetos/tallyroom/assets/img/e-1280.webp" width="1280" height="721" alt="Uma mulher numa barraca de frutas, arrumando frutas e liquidificadores" class="" loading="lazy" decoding="async"></picture><div class="wrap"><h2 class="rv">Cabe no balcão que você já tem.</h2><p class="cap"><a href="https://commons.wikimedia.org/wiki/File:Woman_Vendor_at_Fruit_Stall_-_Thursday_Market_-_Narvarte_-_Mexico_City_-_Mexico.jpg" rel="noopener">Foto: Adam Jones</a>, <a href="https://creativecommons.org/licenses/by/2.0" rel="noopener">CC BY 2.0</a>, Wikimedia Commons</p></div></section>
+
+<section><div class="wrap">
+<p class="eyebrow rv">Para começar</p><h2 class="rv" style="max-width:16ch">Funcionando em uma tarde</h2>
+<div class="steps rv">
+<div class="step"><span class="big">1</span><h3>Traga seus produtos</h3><p>Cole uma planilha ou digite. Os códigos de barras são lidos uma vez.</p></div>
+<div class="step"><span class="big">2</span><h3>Conte a prateleira</h3><p>Uma volta com o celular define os números iniciais.</p></div>
+<div class="step"><span class="big">3</span><h3>Venda como sempre</h3><p>Leia, receba, entregue o recibo.</p></div>
+<div class="step"><span class="big">4</span><h3>Reponha pela lista</h3><p>Ligue para o fornecedor com quantidades, não com palpites.</p></div>
+</div>
+<p style="margin-top:32px"><a class="btn ghost" href="/projetos/tallyroom/pt/como-funciona/">Ver cada passo</a></p>
+</div></section>
+
+<section class="dark"><div class="wrap">
+<p class="eyebrow rv">Preços</p><h2 class="rv" style="max-width:18ch">Um preço por loja. Sem taxa de instalação.</h2>
+<div class="plans rv">
+<div class="plan main"><h3>Loja</h3><p class="price">R$ 79<small> /mês</small></p><ul><li>Vendas e produtos ilimitados</li><li>Contagem e lista de reposição</li><li>3 acessos de equipe</li></ul><a class="btn" href="/projetos/tallyroom/pt/contato/#trial">Começar teste grátis</a></div>
+<div class="plan"><h3>Várias lojas</h3><p class="price">R$ 65<small> /loja/mês</small></p><ul><li>Tudo do plano Loja</li><li>Transfira estoque entre lojas</li><li>Relatórios combinados</li></ul><a class="btn ghost" href="/projetos/tallyroom/pt/precos/">Comparar planos</a></div>
+</div>
+<p class="credit" style="color:#9AA397;margin-top:18px">Preços de exemplo de um produto fictício.</p>
+</div></section>
+<section class="dark"><div class="wrap two" style="align-items:end">
+<div class="rv"><p class="eyebrow">Comece</p><h2>Teste com as vendas da semana passada.</h2></div>
+<div class="rv"><p class="lede">Trinta dias grátis, sem cartão. Traga as vendas da semana passada e veja a contagem da prateleira se acertar.</p>
+<div class="cta"><a class="btn" href="/projetos/tallyroom/pt/contato/#trial">Começar teste grátis</a><a class="btn ghost" href="/projetos/tallyroom/pt/precos/">Ver preços</a></div></div>
+</div></section>
+</main>
+<footer class="ft"><div class="wrap">
+<div class="grid">
+<div><a class="logo" href="/projetos/tallyroom/pt/"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 6V26M13 6V26M19 6V26M25 6V26" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M3 23L29 9" stroke="#C2321A" stroke-width="3.2" stroke-linecap="round"/></svg>tallyroom</a><p>Caixa e estoque para lojas pequenas. Cada venda atualiza a contagem da prateleira.</p></div>
+<div><h2>Produto</h2><a href="/projetos/tallyroom/pt/produto/">O que faz</a><a href="/projetos/tallyroom/pt/como-funciona/">Como funciona</a><a href="/projetos/tallyroom/pt/precos/">Preços</a></div>
+<div><h2>Empresa</h2><a href="/projetos/tallyroom/pt/sobre/">Sobre</a><a href="/projetos/tallyroom/pt/contato/">Contato</a><a href="/projetos/tallyroom/pt/sobre/#credits">Créditos das fotos</a></div>
+<div><h2>Legal</h2><a href="/projetos/tallyroom/pt/privacidade/">Como usamos seus dados</a><a href="/">Alisson Littig, portfólio</a></div>
+</div>
+<p class="fine">Tallyroom é uma marca fictícia. Nomes, preços e funções são exemplos feitos para um portfólio. Sem clientes reais, sem dados reais.</p>
+</div></footer>
+<script src="/projetos/tallyroom/assets/app.js" defer></script>
+</body></html>
