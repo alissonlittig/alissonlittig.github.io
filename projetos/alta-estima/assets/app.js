@@ -162,7 +162,7 @@ function setQty(id,q){
   else{bag.push({id:id,q:1,obs:''});justAdded=id}
   save();
 }
-var justAdded=null;
+var justAdded=null,fichaSync=null;
 function save(){store.set(KEY,bag);paint()}
 function totalItems(){return bag.reduce(function(s,i){return s+i.q},0)}
 
@@ -170,7 +170,7 @@ var drawer,scrim,lastFocus,view='list';
 function buildDrawer(){
   scrim=el('div',{class:'scrim',hidden:''});
   drawer=el('aside',{class:'bag',id:'sacola',role:'dialog','aria-modal':'true','aria-labelledby':'bag-title',hidden:''});
-  drawer.innerHTML='<div class="bag-head"><h2 id="bag-title">Sua sacola</h2><button class="x" type="button" aria-label="Fechar sacola">×</button></div><div class="bag-body"></div><div class="bag-foot"></div>';
+  drawer.innerHTML='<div class="bag-grip" aria-hidden="true"></div><div class="bag-head"><h2 id="bag-title">Sua sacola</h2><button class="x" type="button" aria-label="Fechar sacola">×</button></div><div class="bag-body"></div><div class="bag-foot"></div>';
   document.body.appendChild(scrim);document.body.appendChild(drawer);
   scrim.addEventListener('click',closeBag);
   $('.x',drawer).addEventListener('click',closeBag);
@@ -226,10 +226,13 @@ function renderBag(){
     var p=prod(item.id);
     var li=el('li',{class:'r-item'});
     if(item.id!==justAdded)li.style.animation='none';
-    li.innerHTML='<div class="r-row"><span><span class="r-name"></span><br><span class="r-cat"></span></span><span class="r-q"></span></div>'+
+    li.innerHTML='<div class="r-row"><span class="r-img"></span><span class="r-txt"><span class="r-name"></span><br><span class="r-cat"></span></span><span class="r-q"></span></div>'+
       '<label class="sr" for="obs-'+p.id+'">Cor, tom ou marca de '+p.nome+'</label><input class="r-note" id="obs-'+p.id+'" maxlength="80" placeholder="Cor, tom ou marca (opcional)">'+
       '<div class="r-ctrl"><span class="step"><button type="button" aria-label="Tirar um">−</button><output aria-live="polite"></output><button type="button" aria-label="Pôr mais um">+</button></span><button type="button" class="r-del">Remover</button></div>';
     $('.r-name',li).textContent=p.nome;$('.r-cat',li).textContent=p.cat;
+    var ft=(FOTOS[p.id]||[])[0];
+    if(ft)$('.r-img',li).appendChild(el('img',{width:'480',height:'360',alt:'',src:ROOT+'assets/produtos/'+ft[2]+'.webp'}));
+    else $('.r-img',li).hidden=true;
     $('.r-q',li).textContent=(p.preco?money(p.preco*item.q):'x'+item.q);
     $('output',li).textContent=item.q;
     var note=$('.r-note',li);note.value=item.obs||'';
@@ -274,26 +277,41 @@ function renderCheckout(body,foot){
       ['Pix','Cartão','Dinheiro'].map(function(p){return '<label class="opt"><input type="radio" name="pag" value="'+p+'"><span>'+p+'</span></label>'}).join('')+
     '</div></fieldset>'+
     '<div class="field"><label for="f-obs">Observação (opcional)</label><textarea id="f-obs" name="obs" maxlength="300" placeholder="Ex.: é para presente, quero retirar depois das 17h"></textarea></div>'+
+    '<div class="field prev"><span class="lb" id="prev-t">Mensagem que será enviada</span><div class="zap-prev" id="prev-msg" role="region" aria-labelledby="prev-t"></div></div>'+
     '<p class="lgpd">Seus dados vão só na mensagem para o WhatsApp da loja, para preparar o pedido. O site não envia nada para outro lugar. <a href="'+ROOT+'privacidade/">Como usamos seus dados</a></p>';
   body.appendChild(f);
   // repõe o que a pessoa já tinha digitado (fica só neste aparelho)
   ['nome','rua','bairro','obs'].forEach(function(k){if(form[k])f.elements[k].value=form[k]});
   ['receber','pag'].forEach(function(k){if(form[k]){var r=$('input[name="'+k+'"][value="'+form[k]+'"]',f);r&&(r.checked=true)}});
-  function sync(){$('#f-ender',f).hidden=f.elements.receber.value!=='entrega'}
+  function prever(){$('#prev-msg',f).textContent=msgText(f,'será gerada ao enviar')}
+  function sync(){$('#f-ender',f).hidden=f.elements.receber.value!=='entrega';prever()}
   sync();
   f.addEventListener('change',sync);
-  f.addEventListener('input',function(){['nome','rua','bairro','obs','receber','pag'].forEach(function(k){form[k]=f.elements[k].value});store.set('ae-dados',form)});
+  f.addEventListener('input',function(){['nome','rua','bairro','obs','receber','pag'].forEach(function(k){form[k]=f.elements[k].value});store.set('ae-dados',form);syncPref();prever()});
   $('.back',f).onclick=function(){view='list';renderBag()};
   f.addEventListener('submit',function(e){e.preventDefault();send(f)});
 
   foot.innerHTML='';
   var b=el('button',{class:'btn wa block',type:'button'});
-  b.innerHTML='<svg aria-hidden="true"><use href="#i-wa"/></svg>Enviar pedido pelo WhatsApp';
+  b.innerHTML='<svg aria-hidden="true"><use href="#i-wa"/></svg>Enviar no WhatsApp';
   b.onclick=function(){send(f)};
   foot.appendChild(b);
   foot.appendChild(el('p',{class:'note',text:'A equipe confirma preço e estoque antes de fechar.'}));
 }
 function err(f,name,on){var i=f.elements[name],m=$('#e-'+name,f);if(m)m.hidden=!on;if(i&&i.setAttribute)i.setAttribute('aria-invalid',on?'true':'false');return on}
+/* o texto da mensagem: a prévia e o envio usam esta mesma função */
+function msgText(f,sn){
+  var v=function(k){return (f.elements[k].value||'').trim()},rec=f.elements.receber.value;
+  var lines=['Olá! Pedido pelo site da Alta Estima (senha '+sn+'):',''];
+  bag.forEach(function(i){var p=prod(i.id);lines.push('• '+i.q+'x '+p.nome+(i.obs?' ('+i.obs.trim()+')':''))});
+  lines.push('','Nome: '+v('nome'));
+  if(rec==='entrega')lines.push('Entrega: '+v('rua')+', '+v('bairro'));
+  else LOJAS.forEach(function(l){if(l.id===rec)lines.push('Retirada: '+l.nome+' ('+l.end+')')});
+  if(f.elements.pag.value)lines.push('Pagamento: '+f.elements.pag.value);
+  if(v('obs'))lines.push('Obs.: '+v('obs'));
+  lines.push('','Pode confirmar preço e estoque?');
+  return lines.join('\n');
+}
 function send(f){
   var v=function(k){return (f.elements[k].value||'').trim()};
   var bad=[];
@@ -305,15 +323,7 @@ function send(f){
 
   // senha de balcão: letra + hora e minuto do pedido, para a cliente citar na conversa
   var d=new Date();senha='ABCDEFGHJKLMNPRSTUVWXYZ'.charAt(Math.floor(Math.random()*23))+'-'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0');
-  var lines=['Olá! Pedido pelo site da Alta Estima (senha '+senha+'):',''];
-  bag.forEach(function(i){var p=prod(i.id);lines.push('• '+i.q+'x '+p.nome+(i.obs?' ('+i.obs.trim()+')':''))});
-  lines.push('','Nome: '+v('nome'));
-  if(rec==='entrega')lines.push('Entrega: '+v('rua')+', '+v('bairro'));
-  else LOJAS.forEach(function(l){if(l.id===rec)lines.push('Retirada: '+l.nome+' ('+l.end+')')});
-  if(f.elements.pag.value)lines.push('Pagamento: '+f.elements.pag.value);
-  if(v('obs'))lines.push('Obs.: '+v('obs'));
-  lines.push('','Pode confirmar preço e estoque?');
-  var url=wa(lines.join('\n'));
+  var url=wa(msgText(f,senha));
 
   var w=window.open(url,'_blank','noopener');
   if(!w)location.href=url;
@@ -326,12 +336,13 @@ function paint(){
   var n=totalItems();
   $$('.bag-btn .n').forEach(function(c){c.textContent=n;if(n)c.removeAttribute('data-zero');else c.setAttribute('data-zero','')});
   $$('.bag-btn').forEach(function(b){b.setAttribute('aria-label','Sacola, '+n+(n===1?' item':' itens'))});
-  $$('.tag[data-id]').forEach(paintTag);
+  $$('.item[data-id]').forEach(paintItem);
+  if(fichaSync)fichaSync();
   renderBag();
 }
 function bump(){$$('.bag-btn').forEach(function(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')})}
 
-/* fotos das marcas passando: só nos cartões visíveis, um terço por vez a cada segundo,
+/* fotos das marcas passando: só nos itens visíveis, um terço por vez a cada segundo,
    para no mouse/foco, depois de um clique na marca e no "Reduzir movimento" */
 var galeria=[],vistos=typeof IntersectionObserver!=='undefined'?new IntersectionObserver(function(es){es.forEach(function(e){e.target._vis=e.isIntersecting})}):null;
 var tick=0;
@@ -348,46 +359,49 @@ function watch(a){
   a.addEventListener('focusin',function(){a._over=true});a.addEventListener('focusout',function(){a._over=false});
 }
 
-/* etiqueta de prateleira */
-function tag(p){
-  var c=catOf(p.cat);
-  var a=el('article',{class:'tag','data-id':p.id,style:'--tc:var(--cat-'+c.cor+')'});
-  var f=FOTOS[p.id]||[];
-  a.innerHTML=(f.length?'<div class="ph"><span class="who" aria-hidden="true"></span></div>':'')+'<div class="top"><span class="cat"></span><h3></h3></div>'+
-    '<div class="body"><p></p>'+(p.marcas.length?'<span class="brands"><b>Marcas:</b> </span>':'')+(f.length?'<span class="ex" aria-live="polite"></span>':'')+
-    '<div class="foot"><span class="price"></span><span class="act"></span></div></div>';
-  $('.cat',a).textContent=p.cat;$('h3',a).textContent=p.nome;$('p',a).textContent=p.desc;
-  // marcas com foto viram botões que trocam a foto; as outras ficam só no texto
-  var br=$('.brands',a),btns=[];
-  p.marcas.forEach(function(m,i){
-    if(i)br.appendChild(document.createTextNode(', '));
-    var k=-1;f.forEach(function(x,j){if(x[0]===m.replace("'",'’'))k=j});
-    if(k<0){br.appendChild(document.createTextNode(m));return}
-    var b=el('button',{type:'button',class:'mk','aria-pressed':'false',text:m,'aria-label':'Ver foto de '+p.nome+' '+m});
-    b.onclick=function(){a._go(k,true)};btns[k]=b;br.appendChild(b);
+/* item de lista da loja (foto à esquerda). A ficha do produto (fase 2b) abre por window.abrirFicha(id), se existir. */
+function fichaDe(id){if(window.abrirFicha)window.abrirFicha(id)}
+function sameBrand(a,b){return String(a).replace(/[’']/g,"'")===String(b).replace(/[’']/g,"'")}
+function item(p){
+  var c=catOf(p.cat),f=FOTOS[p.id]||[];
+  var a=el('article',{class:'item','data-id':p.id,style:'--tc:var(--cat-'+c.cor+')'});
+  a.innerHTML='<button type="button" class="item-foto" aria-label="Ver detalhes de '+p.nome.replace(/"/g,'')+'"></button>'+
+    '<div class="item-info"><span class="item-marca"></span><button type="button" class="item-nome"></button><div class="item-marcas" role="group"></div></div>'+
+    '<div class="item-acao"><span class="item-preco"></span><span class="act"></span></div>';
+  var nome=$('.item-nome',a);nome.textContent=p.nome;nome.onclick=function(){fichaDe(p.id)};
+  $('.item-foto',a).onclick=function(){fichaDe(p.id)};
+  // marcas com foto viram chips que trocam a foto
+  var box=$('.item-marcas',a),btns=[];
+  box.setAttribute('aria-label','Marcas de '+p.nome);
+  p.marcas.forEach(function(m){
+    var k=-1;f.forEach(function(x,j){if(sameBrand(x[0],m))k=j});
+    if(k<0)return;
+    var b=el('button',{type:'button',class:'mk-chip','aria-pressed':'false',text:m,'aria-label':'Ver foto de '+p.nome+' '+m});
+    b.onclick=function(){a._go(k,true)};btns[k]=b;box.appendChild(b);
   });
+  if(!box.firstChild)box.hidden=true;
   if(f.length){
-    var ph=$('.ph',a),imgs=f.map(function(x){var im=el('img',{loading:'lazy',width:'480',height:'360',alt:x[1],src:ROOT+'assets/produtos/'+x[2]+'.webp'});ph.appendChild(im);return im});
+    var ph=$('.item-foto',a),imgs=f.map(function(x){var im=el('img',{loading:'lazy',width:'480',height:'360',alt:x[1],src:ROOT+'assets/produtos/'+x[2]+'.webp'});ph.appendChild(im);return im});
     a._n=f.length;
     a._go=function(k,user){
       if(user)a._hold=true;
       imgs.forEach(function(im,j){im.classList.toggle('on',j===k)});
       btns.forEach(function(b,j){b&&b.setAttribute('aria-pressed',j===k)});
-      $('.who',a).textContent=f[k][0];$('.ex',a).textContent='Na foto: '+f[k][1];a._k=k;
+      var m=$('.item-marca',a);m.textContent=f[k][0];m.hidden=!f[k][0];a._k=k;
     };
     a._go(0);
     if(f.length>1){galeria.push(a);watch(a)}
   }
-  $('.price',a).innerHTML=p.preco?'<b>'+money(p.preco)+'</b>à vista na loja':'Preço<b>no WhatsApp</b>';
-  paintTag(a);
+  $('.item-preco',a).innerHTML=p.preco?'<b>'+money(p.preco)+'</b> à vista na loja':'Preço no WhatsApp';
+  paintItem(a);
   return a;
 }
-function paintTag(a){
+function paintItem(a){
   var id=a.dataset.id,p=prod(id),q=qty(id),act=$('.act',a);
   var had=act.firstChild&&act.contains(document.activeElement)?document.activeElement:null,wasStep=had&&had.closest('.step');
   act.innerHTML='';
   if(!q){
-    var b=el('button',{class:'add',type:'button',text:'Adicionar','aria-label':'Adicionar '+p.nome+' à sacola'});
+    var b=el('button',{class:'item-mais',type:'button','aria-label':'Adicionar '+p.nome+' à sacola'});
     b.onclick=function(){setQty(id,1);bump();var s=$('.step button:last-child',a);s&&s.focus()};
     act.appendChild(b);
     if(had)b.focus();
@@ -403,20 +417,130 @@ function paintTag(a){
   }
 }
 
+
+/* ---------- ficha do produto: painel de baixo no celular, janela no PC ---------- */
+var fScrim,fBox,fId,fK=0,fN=1,fLast,fOpen=false;
+function combinaCom(id){
+  var out=[];
+  function add(l){l.forEach(function(x){if(x!==id&&prod(x)&&out.indexOf(x)<0)out.push(x)})}
+  (window.ROTINAS||[]).forEach(function(r){if(r.passos.indexOf(id)>-1)add(r.passos)});
+  (window.NECESSIDADES||[]).forEach(function(n){if(n.produtos.indexOf(id)>-1)add(n.produtos)});
+  return out.slice(0,4);
+}
+function buildFicha(){
+  fScrim=el('div',{class:'ficha-scrim',hidden:''});
+  fBox=el('div',{class:'ficha',role:'dialog','aria-modal':'true','aria-labelledby':'ficha-titulo',hidden:'',tabindex:'-1'});
+  document.body.appendChild(fScrim);document.body.appendChild(fBox);
+  fScrim.addEventListener('click',closeFicha);
+  fBox.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){e.stopPropagation();closeFicha();return}
+    if(e.key!=='Tab')return;
+    var f=$$('button,a[href],input,select,textarea',fBox).filter(function(x){return !x.disabled&&x.offsetParent!==null});
+    if(!f.length)return;
+    if(e.shiftKey&&(document.activeElement===f[0]||document.activeElement===fBox)){e.preventDefault();f[f.length-1].focus()}
+    else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}
+  });
+}
+function renderFicha(p){
+  var f=FOTOS[p.id]||[],c=catOf(p.cat);
+  fBox.style.setProperty('--tc','var(--cat-'+c.cor+')');
+  fBox.innerHTML='<div class="ficha-grip" aria-hidden="true"></div>'+
+    '<div class="ficha-head"><span class="ficha-kick"></span><button class="x" type="button" aria-label="Fechar">×</button></div>'+
+    '<div class="ficha-body"><div class="ficha-galeria"><div class="ficha-foto"></div><p class="ficha-leg"></p><div class="ficha-chips" role="group" aria-label="Marcas disponíveis"></div></div>'+
+    '<div class="ficha-info"><h2 id="ficha-titulo"></h2><p class="ficha-desc"></p><p class="ficha-preco"></p>'+
+    '<section class="ficha-como"><h3>Como usar</h3><p class="ficha-como-t"></p><p class="ficha-aviso">Orientação geral. Siga sempre a embalagem.</p></section>'+
+    '<section class="ficha-comb"><h3>Combina com</h3><ul class="ficha-comb-l"></ul></section>'+
+    '<a class="btn line block ficha-wa" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Perguntar sobre este produto no WhatsApp</a></div></div>'+
+    '<div class="ficha-foot"><span class="step"><button type="button" aria-label="Tirar um">−</button><output aria-live="polite">1</output><button type="button" aria-label="Pôr mais um">+</button></span><button class="btn block ficha-add" type="button">Adicionar à sacola</button></div>';
+  $('.x',fBox).onclick=closeFicha;
+  $('#ficha-titulo',fBox).textContent=p.nome;
+  $('.ficha-desc',fBox).textContent=p.desc;
+  $('.ficha-preco',fBox).textContent=p.preco?money(p.preco)+' à vista na loja':'Preço no WhatsApp';
+  var foto=$('.ficha-foto',fBox),chips=$('.ficha-chips',fBox),imgs=[],btns=[];
+  f.forEach(function(x,j){
+    imgs.push(foto.appendChild(el('img',{width:'480',height:'360',alt:x[1],src:ROOT+'assets/produtos/'+x[2]+'.webp'})));
+    if(f.length>1&&x[0]){
+      var b=el('button',{type:'button',class:'mk-chip','aria-pressed':'false',text:x[0],'aria-label':'Ver foto de '+p.nome+' '+x[0]});
+      b.onclick=function(){pick(j)};btns[j]=b;chips.appendChild(b);
+    }
+  });
+  if(!chips.firstChild)chips.hidden=true;
+  if(!f.length)foto.hidden=true;
+  var wa1=$('.ficha-wa',fBox);
+  function pick(k){
+    fK=k;var x=f[k];
+    imgs.forEach(function(im,j){im.classList.toggle('on',j===k)});
+    btns.forEach(function(b,j){b&&b.setAttribute('aria-pressed',j===k)});
+    var br=x?x[0]:'';
+    $('.ficha-kick',fBox).textContent=p.cat+(br?' · '+br:'');
+    $('.ficha-leg',fBox).textContent=x?'Foto ilustrativa: '+x[1]:'';
+    wa1.href=wa('Olá! Tenho uma dúvida sobre '+p.nome+(br?' ('+br+')':'')+'.');
+  }
+  pick(Math.min(fK,Math.max(f.length-1,0)));
+  var cu=window.COMO_USAR&&COMO_USAR[p.id];
+  if(cu)$('.ficha-como-t',fBox).textContent=cu;else $('.ficha-como',fBox).hidden=true;
+  var cb=combinaCom(p.id),ul=$('.ficha-comb-l',fBox);
+  if(!cb.length)$('.ficha-comb',fBox).hidden=true;
+  cb.forEach(function(id2){
+    var q2=prod(id2),f2=(FOTOS[id2]||[])[0],li=el('li',{class:'comb','data-id':id2});
+    li.innerHTML='<span class="comb-img"></span><span class="comb-txt"><b></b><small></small></span><button type="button" class="comb-mais"></button>';
+    if(f2)$('.comb-img',li).appendChild(el('img',{width:'480',height:'360',alt:'',src:ROOT+'assets/produtos/'+f2[2]+'.webp'}));
+    $('b',li).textContent=q2.nome;
+    var mb=$('.comb-mais',li);mb.setAttribute('aria-label','Adicionar '+q2.nome+' à sacola');mb.textContent='+';
+    mb.onclick=function(){setQty(id2,qty(id2)+1);bump()};
+    ul.appendChild(li);
+  });
+  var out=$('output',fBox),sb=$$('.ficha-foot .step button',fBox);
+  fN=1;
+  sb[0].onclick=function(){fN=Math.max(1,fN-1);out.textContent=fN};
+  sb[1].onclick=function(){fN=Math.min(99,fN+1);out.textContent=fN};
+  $('.ficha-add',fBox).onclick=fichaAdd;
+  fichaSync=function(){
+    $$('.comb',fBox).forEach(function(li){var n=qty(li.dataset.id);$('small',li).textContent=n?'Na sacola: '+n:''});
+  };
+  fichaSync();
+}
+function fichaAdd(){
+  var f=FOTOS[fId]||[],br=(f[fK]&&f[fK][0])||'',it=null;
+  bag.forEach(function(i){if(i.id===fId)it=i});
+  if(it){it.q=Math.min(it.q+fN,99);if(!it.obs&&br)it.obs=br}
+  else{bag.push({id:fId,q:fN,obs:br});justAdded=fId}
+  closeFicha();save();bump();
+}
+window.abrirFicha=function(id){
+  var p=prod(id);if(!p||fOpen)return;
+  if(!fBox)buildFicha();
+  fLast=document.activeElement;fId=id;
+  var it=$('.item[data-id="'+id+'"]');fK=(it&&it._k)||0;
+  renderFicha(p);
+  fScrim.hidden=false;fBox.hidden=false;fOpen=true;
+  fBox.scrollTop=0;$('.ficha-body',fBox).scrollTop=0;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){if(fOpen){fScrim.classList.add('show');fBox.classList.add('show')}})});
+  document.body.style.overflow='hidden';
+  setTimeout(function(){if(fOpen)$('.x',fBox).focus()},30);
+};
+function closeFicha(){
+  if(!fOpen)return;fOpen=false;fichaSync=null;
+  fScrim.classList.remove('show');fBox.classList.remove('show');
+  document.body.style.overflow='';
+  setTimeout(function(){if(!fOpen){fScrim.hidden=true;fBox.hidden=true}},reduced()?0:280);
+  if(fLast&&fLast.focus)fLast.focus();
+}
+
 /* ---------- início ---------- */
-// prateleiras da página inicial: a foto de clima e depois os produtos daquela prateleira passando
-// data-vitrine="id" usa a 1ª foto do produto; "id*" usa as fotos de todas as marcas
-$$('.cats a[data-vitrine]').forEach(function(a){
-  var fotos=[];
+// prateleiras: fotos dos produtos passando. data-vitrine="id" usa a 1ª foto do produto; "id*" usa as de todas as marcas
+$$('a.prat[data-vitrine]').forEach(function(a){
+  var box=$('.prat-img',a),fotos=[];
+  if(!box)return;
   a.dataset.vitrine.split(',').forEach(function(t){
     var todas=t.slice(-1)==='*',id=todas?t.slice(0,-1):t,f=FOTOS[id]||[];
     (todas?f:f.slice(0,1)).forEach(function(x){fotos.push(x)});
   });
-  var imgs=[$('img',a)];
-  fotos.forEach(function(x){
-    var im=el('img',{class:'pk',loading:'lazy',width:'480',height:'360',alt:'',src:ROOT+'assets/produtos/'+x[2]+'.webp'});
-    a.insertBefore(im,$('span',a));imgs.push(im);
+  var imgs=fotos.map(function(x){
+    var im=el('img',{loading:'lazy',width:'480',height:'360',alt:'',src:ROOT+'assets/produtos/'+x[2]+'.webp'});
+    box.appendChild(im);return im;
   });
+  if(!imgs.length)return;
   imgs[0].classList.add('on');
   a._n=imgs.length;a._k=0;
   a._go=function(k){imgs.forEach(function(im,j){im.classList.toggle('on',j===k)});a._k=k};
@@ -424,54 +548,111 @@ $$('.cats a[data-vitrine]').forEach(function(a){
 });
 
 var shelf=$('#prateleira');
-if(shelf)PRODUTOS.filter(function(p){return p.destaque}).slice(0,8).forEach(function(p){shelf.appendChild(tag(p))});
+if(shelf)PRODUTOS.filter(function(p){return p.destaque}).slice(0,6).forEach(function(p){shelf.appendChild(item(p))});
 
-var track=$('#track');
-if(track)[0,1].forEach(function(copy){MARCAS.forEach(function(m){
-  var a=el('a',{href:wa('Olá! Vi no site: vocês têm produtos '+m+'?'),target:'_blank',rel:'noopener',text:m});
-  if(copy){a.setAttribute('aria-hidden','true');a.tabIndex=-1}
-  track.appendChild(a);
-})});
+// compre por necessidade
+var NEC_COR={'pele-oleosa':'skincare','cachos':'cabelos','make-dia':'maquiagem','unhas':'unhas','corpo':'corpo','presente':'presentes'};
+var necBox=$('#necessidades-lista');
+if(necBox&&window.NECESSIDADES)NECESSIDADES.forEach(function(n){
+  var a=el('a',{class:'nec-card',href:ROOT+'loja/?nec='+encodeURIComponent(n.id),style:'--tc:var(--cat-'+(NEC_COR[n.id]||'skincare')+')'});
+  a.innerHTML='<span class="nec-img"><img loading="lazy" width="480" height="360" alt="" src="'+ROOT+'assets/produtos/'+n.foto+'.webp"></span><b class="nec-nome"></b><span class="nec-sub"></span>';
+  $('.nec-nome',a).textContent=n.nome;$('.nec-sub',a).textContent=n.sub;
+  necBox.appendChild(a);
+});
 
-var stage=$('#stage');
-if(stage){
-  var imgs=$$('img',stage),cap=$('#stage-cap'),dots=$('#dots'),cur=0,timer=null;
-  imgs.forEach(function(im,i){
-    var b=el('button',{type:'button','aria-label':'Ver foto '+(i+1)+' de '+imgs.length});
-    b.onclick=function(){stop();show(i)};dots.appendChild(b);
+// rotinas prontas: 1 de cada passo na sacola, com a observação "Rotina <nome>"
+function addRotina(r){
+  var nota=/^rotina/i.test(r.nome)?r.nome:'Rotina '+r.nome;
+  r.passos.forEach(function(id){
+    if(!prod(id))return;
+    var it=null;bag.forEach(function(i){if(i.id===id)it=i});
+    if(it){it.q=Math.min(it.q+1,99);if(!it.obs)it.obs=nota}
+    else bag.push({id:id,q:1,obs:nota});
   });
-  function show(i){imgs[cur].classList.remove('on');dots.children[cur].removeAttribute('aria-current');cur=i;imgs[i].classList.add('on');dots.children[i].setAttribute('aria-current','true');cap.textContent=imgs[i].dataset.cap}
-  function stop(){clearInterval(timer);timer=null}
-  function start(){stop();if(!reduced())timer=setInterval(function(){show((cur+1)%imgs.length)},5000)}
-  show(0);start();onMotion(start);
-  document.addEventListener('visibilitychange',function(){document.hidden?stop():start()});
+  justAdded=null;save();bump();openBag();
 }
+var rotBox=$('#rotinas-lista');
+if(rotBox&&window.ROTINAS)ROTINAS.forEach(function(r){
+  var a=el('article',{class:'rotina'});
+  a.innerHTML='<span class="rotina-tipo"></span><h3 class="rotina-nome"></h3><ul class="rotina-itens"></ul><button type="button" class="btn">Adicionar a rotina toda</button><p class="rotina-nota">Preço, cor e estoque confirmados pela equipe no WhatsApp.</p>';
+  $('.rotina-tipo',a).textContent=r.sub;$('.rotina-nome',a).textContent=r.nome;
+  var ul=$('.rotina-itens',a);
+  r.passos.forEach(function(id,i){
+    var p=prod(id),f=(FOTOS[id]||[])[0];if(!p)return;
+    var li=el('li',{class:'rotina-it'});
+    li.innerHTML=(f?'<img loading="lazy" width="480" height="360" alt="" src="'+ROOT+'assets/produtos/'+f[2]+'.webp">':'')+'<b></b><small></small>';
+    $('b',li).textContent=p.nome;$('small',li).textContent='Passo '+(i+1);
+    ul.appendChild(li);
+  });
+  var b=$('.btn',a);b.setAttribute('aria-label','Adicionar '+r.nome+' toda à sacola');
+  b.onclick=function(){addRotina(r)};
+  rotBox.appendChild(a);
+});
+
+/* ---------- retirada preferida (início) ---------- */
+function syncPref(){$$('input[name="receber-pref"]').forEach(function(r){r.checked=r.value===form.receber})}
+$$('input[name="receber-pref"]').forEach(function(r){
+  r.addEventListener('change',function(){if(r.checked){form.receber=r.value;store.set('ae-dados',form)}});
+});
+syncPref();
+
+/* ---------- buscar (barra de baixo) ---------- */
+$$('[data-buscar]').forEach(function(b){b.addEventListener('click',function(){
+  var t=$('#busca')||$('#busca-topo');if(t){t.focus();if(t.scrollIntoView)t.scrollIntoView({block:'center',behavior:reduced()?'auto':'smooth'})}
+})});
 
 /* ---------- loja online ---------- */
 var grid=$('#grade');
 if(grid){
-  var chips=$('#chips'),q=$('#busca'),count=$('#contagem'),none=$('#nada');
+  var chips=$('#chips'),q=$('#busca'),count=$('#contagem'),none=$('#nada'),selMarca=$('#marca-filtro'),necChips=$('#nec-chips');
   var params=new URLSearchParams(location.search);
-  var active=params.get('cat')||'';
-  if(active&&!CATS.some(function(c){return c.nome===active}))active='';
+  var NEC=window.NECESSIDADES||[];
+  function norm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+  var fCat=params.get('cat')||'',fMarca='',fNec=params.get('nec')||'';
+  if(fCat&&!CATS.some(function(c){return c.nome===fCat}))fCat='';
+  MARCAS.forEach(function(m){if(sameBrand(m,params.get('marca')||'\u0000'))fMarca=m});
+  var necAtual=function(){for(var i=0;i<NEC.length;i++)if(NEC[i].id===fNec)return NEC[i]};
+  if(!necAtual())fNec='';
+  function setPressed(box,b){$$('.chip',box).forEach(function(c){c.setAttribute('aria-pressed',c===b)})}
   [''].concat(CATS.map(function(c){return c.nome})).forEach(function(n){
-    var b=el('button',{type:'button',class:'chip','aria-pressed':String(n===active),text:n||'Tudo'});
-    b.onclick=function(){active=n;$$('.chip',chips).forEach(function(c){c.setAttribute('aria-pressed',c===b)});run(true)};
+    var b=el('button',{type:'button',class:'chip','aria-pressed':String(n===fCat),text:n||'Tudo'});
+    b.onclick=function(){fCat=n;setPressed(chips,b);run(true)};
     chips.appendChild(b);
   });
+  if(necChips)[{id:'',nome:'Todas'}].concat(NEC).forEach(function(n){
+    var b=el('button',{type:'button',class:'chip','aria-pressed':String(n.id===fNec),text:n.nome});
+    b.onclick=function(){fNec=n.id;setPressed(necChips,b);run(true)};
+    necChips.appendChild(b);
+  });
+  if(selMarca){
+    selMarca.innerHTML='';
+    selMarca.appendChild(el('option',{value:'',text:'Todas as marcas'}));
+    MARCAS.forEach(function(m){selMarca.appendChild(el('option',{value:m,text:m}))});
+    selMarca.value=fMarca;
+    selMarca.addEventListener('change',function(){fMarca=selMarca.value;run(true)});
+  }
   if(params.get('q'))q.value=params.get('q');
-  var tags={};PRODUTOS.forEach(function(p){tags[p.id]=tag(p);grid.appendChild(tags[p.id])});
-  function norm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+  var tags={};PRODUTOS.forEach(function(p){tags[p.id]=item(p);grid.appendChild(tags[p.id])});
   function run(push){
-    var t=norm(q.value.trim()),n=0;
+    var t=norm(q.value.trim()),n=0,nec=necAtual();
     PRODUTOS.forEach(function(p){
-      var ok=(!active||p.cat===active)&&(!t||norm(p.nome+' '+p.cat+' '+p.desc+' '+p.marcas.join(' ')).indexOf(t)>-1);
-      tags[p.id].hidden=!ok;if(ok)n++;
+      var ok=(!fCat||p.cat===fCat)&&(!fMarca||p.marcas.some(function(m){return sameBrand(m,fMarca)}))&&(!nec||nec.produtos.indexOf(p.id)>-1)&&
+        (!t||norm(p.nome+' '+p.cat+' '+p.desc+' '+p.marcas.join(' ')).indexOf(t)>-1);
+      var a=tags[p.id];a.hidden=!ok;if(ok)n++;
+      // com marca escolhida, a foto mostra aquela marca
+      if(fMarca&&a._go){
+        var k=-1;(FOTOS[p.id]||[]).forEach(function(x,j){if(sameBrand(x[0],fMarca))k=j});
+        if(k>-1){a._go(k,true);a._byFilter=true}
+      }else if(a._byFilter){a._byFilter=false;a._hold=false}
     });
-    count.textContent=n+(n===1?' produto':' produtos')+(active?' em '+active:'')+(t?' para "'+q.value.trim()+'"':'');
+    count.textContent=n+(n===1?' produto':' produtos')+(fCat?' em '+fCat:'')+(fMarca?' da marca '+fMarca:'')+(nec?' para '+nec.nome.toLowerCase():'')+(t?' com "'+q.value.trim()+'"':'');
     none.hidden=n>0;
-    if(push){var u=new URL(location.href);active?u.searchParams.set('cat',active):u.searchParams.delete('cat');t?u.searchParams.set('q',q.value.trim()):u.searchParams.delete('q');history.replaceState(null,'',u)}
-    var w=$('#nada-wa');if(w)w.href=wa('Olá! Procurei no site e não achei: '+(q.value.trim()||active)+'. Vocês têm?');
+    if(push){
+      var u=new URL(location.href);
+      [['cat',fCat],['marca',fMarca],['nec',fNec],['q',t?q.value.trim():'']].forEach(function(kv){kv[1]?u.searchParams.set(kv[0],kv[1]):u.searchParams.delete(kv[0])});
+      history.replaceState(null,'',u);
+    }
+    var w=$('#nada-wa');if(w)w.href=wa('Olá! Procurei no site e não achei: '+(q.value.trim()||fMarca||(nec&&nec.nome)||fCat||'um produto')+'. Vocês têm?');
   }
   q.addEventListener('input',function(){run(true)});
   run(false);

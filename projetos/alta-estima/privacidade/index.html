@@ -16,6 +16,7 @@
 <link rel="preload" href="../assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/v2.css">
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -26,6 +27,14 @@
   <symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.6V3.7c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.2H7.6V13h2.7v8h3.2Z"/></symbol>
   <symbol id="i-bag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 10V6.5a3 3 0 0 1 6 0V10"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" d="M4 11 12 4l8 7v8.2a.8.8 0 0 1-.8.8H15v-5.5H9V20H4.8a.8.8 0 0 1-.8-.8V11Z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></g></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3.2v2.8h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></g></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M4 9.5 5.5 4h13L20 9.5c0 1.7-1.3 2.8-2.7 2.8s-2.6-1.1-2.6-2.8c0 1.7-1.2 2.8-2.7 2.8S9.3 11.2 9.3 9.5c0 1.7-1.2 2.8-2.6 2.8S4 11.200 4 9.500ZM5.500 12.800V20h13v-7.200M10 20v-4.500h4V20"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" d="M4 5.500A1.500 1.500 0 0 1 5.500 4h13A1.500 1.500 0 0 1 20 5.500v9a1.500 1.500 0 0 1-1.500 1.500H10l-4.500 4v-4A1.500 1.500 0 0 1 4 14.500v-9Z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.500V12l3 2"/></g></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"/></symbol>
 </svg>
 
 <div class="topbar">
@@ -38,17 +47,31 @@
 <header class="head">
   <div class="wrap">
     <a class="logo" href="../" aria-label="Alta Estima, página inicial"><img src="../assets/logo-claro.svg" alt="Alta Estima" width="139" height="92"></a>
+    <form class="busca-topo" role="search" action="../loja/" method="get">
+      <label class="sr" for="busca-topo">Buscar produto ou marca</label>
+      <svg class="lupa" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="busca-topo" name="q" type="search" placeholder="Buscar batom, shampoo, perfume…" autocomplete="off" enterkeyhint="search">
+      <button type="submit" aria-label="Buscar"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+    </form>
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="../">Início</a>
       <a href="../loja/">Loja online</a>
-      <a href="../#marcas">Marcas</a>
-      <a href="../#lojas">Lojas e horário</a>
-      <a href="../#comprar">Como comprar</a>
+      <a href="../#necessidades">Necessidades</a>
+      <a href="../#lojas">Lojas</a>
     </nav>
-    <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <a class="wa-btn" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703" aria-label="Chamar no WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
     <button class="bag-btn" type="button" data-open-bag aria-label="Sacola"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="t">Sacola</span><span class="n" data-zero>0</span></button>
   </div>
 </header>
+
+<div class="beneficios">
+  <ul class="wrap" aria-label="Vantagens">
+    <li><svg aria-hidden="true"><use href="#i-truck"/></svg><span>Entrega em toda <b>Governador Valadares</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-store"/></svg><span>Retire em uma das <b>2 lojas</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-chat"/></svg><span>Pedido pelo WhatsApp, <b>sem cadastro</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Atendimento <b>seg. a sáb.</b></span></li>
+  </ul>
+</div>
 
 <main id="conteudo">
   <article class="wrap sec prose">
@@ -90,6 +113,15 @@
   </div>
 </footer>
 
+<nav class="barra-fixa" aria-label="Atalhos">
+  <a href="../"><svg aria-hidden="true"><use href="#i-home"/></svg><span>Início</span></a>
+  <button type="button" data-buscar><svg aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button>
+  <a href="../loja/"><svg aria-hidden="true"><use href="#i-grid"/></svg><span>Prateleiras</span></a>
+  <button type="button" data-open-bag><svg aria-hidden="true"><use href="#i-bag"/></svg><span>Sacola</span><span class="n" data-zero>0</span></button>
+  <a data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+</nav>
+
+<script src="../assets/dados.js" defer></script>
 <script src="../assets/app.js" defer></script>
 </body>
 </html>

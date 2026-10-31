@@ -16,6 +16,7 @@
 <link rel="preload" href="assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/v2.css">
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -26,6 +27,14 @@
   <symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.6V3.7c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.2H7.6V13h2.7v8h3.2Z"/></symbol>
   <symbol id="i-bag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M9 10V6.5a3 3 0 0 1 6 0V10"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" d="M4 11 12 4l8 7v8.2a.8.8 0 0 1-.8.8H15v-5.5H9V20H4.8a.8.8 0 0 1-.8-.8V11Z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></g></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3.2v2.8h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></g></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M4 9.5 5.5 4h13L20 9.5c0 1.7-1.3 2.8-2.7 2.8s-2.6-1.1-2.6-2.8c0 1.7-1.2 2.8-2.7 2.8S9.3 11.2 9.3 9.5c0 1.7-1.2 2.8-2.6 2.8S4 11.200 4 9.500ZM5.500 12.800V20h13v-7.200M10 20v-4.500h4V20"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" d="M4 5.500A1.500 1.500 0 0 1 5.500 4h13A1.500 1.500 0 0 1 20 5.500v9a1.500 1.500 0 0 1-1.500 1.500H10l-4.500 4v-4A1.500 1.500 0 0 1 4 14.500v-9Z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.500V12l3 2"/></g></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7"/></symbol>
 </svg>
 
 <div class="topbar">
@@ -38,90 +47,118 @@
 <header class="head">
   <div class="wrap">
     <a class="logo" href="./" aria-label="Alta Estima, página inicial"><img src="assets/logo-claro.svg" alt="Alta Estima" width="139" height="92"></a>
+    <form class="busca-topo" role="search" action="loja/" method="get">
+      <label class="sr" for="busca-topo">Buscar produto ou marca</label>
+      <svg class="lupa" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="busca-topo" name="q" type="search" placeholder="Buscar batom, shampoo, perfume…" autocomplete="off" enterkeyhint="search">
+      <button type="submit" aria-label="Buscar"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+    </form>
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="./" aria-current="page">Início</a>
       <a href="loja/">Loja online</a>
-      <a href="#marcas">Marcas</a>
-      <a href="#lojas">Lojas e horário</a>
-      <a href="#comprar">Como comprar</a>
+      <a href="#necessidades">Necessidades</a>
+      <a href="#lojas">Lojas</a>
     </nav>
-    <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <a class="wa-btn" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703" aria-label="Chamar no WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
     <button class="bag-btn" type="button" data-open-bag aria-label="Sacola"><svg aria-hidden="true"><use href="#i-bag"/></svg><span class="t">Sacola</span><span class="n" data-zero>0</span></button>
   </div>
 </header>
 
+<div class="beneficios">
+  <ul class="wrap" aria-label="Vantagens">
+    <li><svg aria-hidden="true"><use href="#i-truck"/></svg><span>Entrega em toda <b>Governador Valadares</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-store"/></svg><span>Retire em uma das <b>2 lojas</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-chat"/></svg><span>Pedido pelo WhatsApp, <b>sem cadastro</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Atendimento <b>seg. a sáb.</b></span></li>
+  </ul>
+</div>
+
 <main id="conteudo">
-  <section class="hero verde">
+  <section class="pedido verde" id="pedido" aria-labelledby="t-pedido">
     <div class="wrap">
-      <div>
-        <h1 class="display">Realçando <em>a sua beleza.</em></h1>
-        <p class="lead">Maquiagem, cabelos, skincare e perfumaria em duas lojas. Agora dá para montar a sacola aqui no site e mandar o pedido direto pelo WhatsApp.</p>
+      <div class="pedido-txt">
+        <span class="kicker">Pedido pelo WhatsApp</span>
+        <h1 class="display" id="t-pedido">Peça em <em>3 toques.</em></h1>
+        <ol class="passos">
+          <li><span class="num" aria-hidden="true">1</span><span><b>Escolha</b><small>Monte a sacola com os produtos que quer</small></span></li>
+          <li><span class="num" aria-hidden="true">2</span><span><b>Retire ou receba</b><small>Numa das 2 lojas ou em casa, em toda GV</small></span></li>
+          <li><span class="num" aria-hidden="true">3</span><span><b>Envie no WhatsApp</b><small>O pedido já sai escrito. A equipe confirma</small></span></li>
+        </ol>
         <div class="actions">
-          <a class="btn" href="loja/">Comprar online</a>
-          <a class="btn wa" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir no WhatsApp</a>
-        </div>
-        <div class="facts">
-          <span><b>2 lojas</b>Quintino e Israel Pinheiro</span>
-          <span><b>Pedido online</b>monte a sacola e envie pelo WhatsApp</span>
-          <span><b>Entrega</b>em toda Governador Valadares</span>
+          <a class="btn wa" href="loja/">Começar meu pedido</a>
+          <a class="btn line" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir direto no WhatsApp</a>
         </div>
       </div>
-      <figure class="stage" id="stage" aria-label="Fotos em destaque">
-        <img class="on" fetchpriority="high" width="1000" height="1250" style="object-position:center 25%"
-          src="https://images.unsplash.com/photo-1676439977206-b5ffdfc03da2?w=900&q=78&auto=format&fit=crop"
-          srcset="https://images.unsplash.com/photo-1676439977206-b5ffdfc03da2?w=640&q=78&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1676439977206-b5ffdfc03da2?w=1100&q=78&auto=format&fit=crop 1100w"
-          sizes="(max-width:900px) 92vw, 45vw" alt="Mulher passando batom vermelho" data-cap="Batons, bases e máscaras nas duas lojas.">
-        <img loading="lazy" width="1000" height="1250" src="https://images.unsplash.com/photo-1717160675643-53a7a2ebaa9f?w=900&q=75&auto=format&fit=crop" alt="Mulher lavando o cabelo no lavatório do salão" data-cap="Shampoos, máscaras e tratamentos para todo cabelo.">
-        <img loading="lazy" width="1000" height="1250" style="object-position:center 30%" src="https://images.unsplash.com/photo-1599847896696-7e19dbd9d2e8?w=900&q=75&auto=format&fit=crop" alt="Mulher sorrindo e mostrando um frasco de sérum" data-cap="Séruns, hidratantes e protetor solar.">
-        <img loading="lazy" width="1000" height="1250" style="object-position:center 20%" src="https://images.unsplash.com/photo-1546877625-cb8c71916608?w=900&q=75&auto=format&fit=crop" alt="Mulher sorrindo com as mãos nos cabelos" data-cap="Finalizadores e coloração das marcas que você conhece.">
-        <figcaption><span id="stage-cap" aria-live="off">Batons, bases e máscaras nas duas lojas.</span><span class="dots" id="dots"></span></figcaption>
+      <figure class="zap" aria-label="Exemplo de conversa no WhatsApp">
+        <div class="zap-top"><span class="av"><img src="assets/favicon.svg" alt="" width="40" height="40"></span><span><b>Alta Estima Cosméticos</b><small>(33) 98813-7703</small></span></div>
+        <div class="zap-chat">
+          <div class="bal eu"><p>Olá! Pedido pelo site:</p><p>1x Shampoo Elseve<br>1x Batom Ruby Rose<br>2x Esmalte Colorama</p><p>Retirada: Loja Quintino<br>Nome: Maria</p><span class="bal-meta"><em>exemplo</em> ✓✓</span></div>
+          <div class="bal loja"><p>Oi, Maria! Já separamos. Vou confirmar preço e cor do batom.</p><span class="bal-meta"><em>resposta da equipe (exemplo)</em></span></div>
+        </div>
+        <div class="zap-bar" aria-hidden="true"><span></span><i></i></div>
       </figure>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:0" aria-labelledby="t-cats">
+  <section class="sec bloco" id="retirada" aria-labelledby="t-ret">
     <div class="wrap">
-      <div class="sec-head"><div><span class="kicker">Prateleiras</span><h2 class="display" id="t-cats">O que você <em>procura hoje?</em></h2></div><a class="link" href="loja/">Ver a loja inteira</a></div>
-      <div class="cats">
-        <a href="loja/?cat=Maquiagem" data-vitrine="base,paleta,mascara-cilios,po,blush,corretivo" style="--tc:var(--cat-maquiagem)"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=72&auto=format&fit=crop" alt=""><span>Maquiagem</span></a>
-        <a href="loja/?cat=Skincare" data-vitrine="serum,protetor,limpeza,agua-micelar,hidratante-facial,mascara-facial" style="--tc:var(--cat-skincare)"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&q=72&auto=format&fit=crop" alt=""><span>Skincare</span></a>
-        <a href="loja/?cat=Cabelos" data-vitrine="shampoo,mascara-capilar,creme-pentear,finalizador,hidratante-corpo,oleo-corpo" style="--tc:var(--cat-cabelos)"><img loading="lazy" width="600" height="800" style="object-position:center 30%" src="https://images.unsplash.com/photo-1702312686957-572286d28e11?w=600&q=72&auto=format&fit=crop" alt=""><span>Cabelos e corpo</span></a>
-        <a href="loja/?cat=Maquiagem&amp;q=batom" data-vitrine="batom*,gloss*" style="--tc:var(--cat-maquiagem)"><img loading="lazy" width="600" height="800" src="https://images.unsplash.com/photo-1631214499500-2e34edcaccfe?w=600&q=72&auto=format&fit=crop" alt=""><span>Batons</span></a>
+      <div class="sec-head"><div><span class="kicker">Retirada</span><h2 class="display" id="t-ret">Onde você quer <em>retirar?</em></h2><p class="lead">Toque na loja mais perto de você ou escolha receber em casa. Sem cadastro.</p></div></div>
+      <fieldset class="ret-lista">
+        <legend class="sr">Como você quer receber</legend>
+        <label class="ret"><input type="radio" name="receber-pref" value="quintino"><span class="ret-box"><span class="ret-dot" aria-hidden="true"></span><span class="ret-tx"><b>Loja Quintino</b><small>Rua Quintino Bocaiúva, 676 · Governador Valadares</small><span class="ret-hrs"><span>Seg. a sex. <b>7h30 às 18h</b></span><span>Sábado <b>7h30 às 13h</b></span></span></span></span></label>
+        <label class="ret"><input type="radio" name="receber-pref" value="israel"><span class="ret-box"><span class="ret-dot" aria-hidden="true"></span><span class="ret-tx"><b>Loja Israel Pinheiro</b><small>Rua Israel Pinheiro, 3381 · Governador Valadares</small><span class="ret-hrs"><span>Seg. a sex. <b>8h às 18h</b></span><span>Sábado <b>8h às 13h</b></span></span></span></span></label>
+        <label class="ret ret-casa"><input type="radio" name="receber-pref" value="entrega"><span class="ret-box"><span class="ret-dot" aria-hidden="true"></span><span class="ret-tx"><b>Receber em casa</b><small>Toda Governador Valadares. Taxa combinada no WhatsApp, antes de você pagar.</small></span></span></label>
+      </fieldset>
+    </div>
+  </section>
+
+  <section class="sec bloco sem-topo" id="necessidades" aria-labelledby="t-nec">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="kicker">Ache mais rápido</span><h2 class="display" id="t-nec">Compre por <em>necessidade</em></h2></div><a class="link" href="loja/">Ver a loja inteira</a></div>
+      <div class="nec-lista" id="necessidades-lista"></div>
+      <noscript><p class="lead">Sem JavaScript, <a class="link" href="loja/">veja a loja</a> ou <a class="link" href="https://wa.me/5533988137703">peça pelo WhatsApp</a>.</p></noscript>
+    </div>
+  </section>
+
+  <section class="sec bloco folha" id="rotinas" aria-labelledby="t-rot">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="kicker">Leve junto</span><h2 class="display" id="t-rot">Rotinas prontas, <em>leve junto.</em></h2><p class="lead">Um jeito de levar tudo o que combina de uma vez. Você ainda ajusta a sacola antes de enviar.</p></div></div>
+      <div class="rotina-lista" id="rotinas-lista"></div>
+      <noscript><p class="lead">Sem JavaScript, <a class="link" href="loja/">veja a loja</a> ou <a class="link" href="https://wa.me/5533988137703">peça pelo WhatsApp</a>.</p></noscript>
+    </div>
+  </section>
+
+  <section class="sec bloco" id="prateleiras" aria-labelledby="t-prat">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="kicker">Prateleiras</span><h2 class="display" id="t-prat">Escolha por <em>prateleira</em></h2><p class="lead">7 prateleiras, 38 tipos de produto.</p></div></div>
+      <div class="prat-lista">
+        <a class="prat" href="loja/?cat=Maquiagem" data-vitrine="base,batom,paleta,mascara-cilios,blush" style="--tc:var(--cat-maquiagem)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Maquiagem</b><small>Batom, base, máscara de cílios…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="prat" href="loja/?cat=Skincare" data-vitrine="limpeza,agua-micelar,hidratante-facial,serum,protetor" style="--tc:var(--cat-skincare)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Skincare</b><small>Limpeza, hidratante, protetor solar…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="prat" href="loja/?cat=Cabelos" data-vitrine="shampoo,condicionador,mascara-capilar,creme-pentear,coloracao" style="--tc:var(--cat-cabelos)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Cabelos</b><small>Shampoo, máscara, coloração…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="prat" href="loja/?cat=Perfumaria" data-vitrine="perfume-f,perfume-m,body-splash,desodorante" style="--tc:var(--cat-perfumaria)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Perfumaria</b><small>Feminino, masculino, body splash…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="prat" href="loja/?cat=Corpo%20e%20banho" data-vitrine="hidratante-corpo,sabonete,oleo-corpo,esfoliante,depilacao" style="--tc:var(--cat-corpo)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Corpo e banho</b><small>Sabonete, hidratante, desodorante…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="prat" href="loja/?cat=Unhas" data-vitrine="esmalte,base-unha,removedor,alicate" style="--tc:var(--cat-unhas)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Unhas</b><small>Esmalte, base, alicate…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="prat" href="loja/?cat=Presentes" data-vitrine="kit-pronto,kit-montado,perfume-f,body-splash" style="--tc:var(--cat-presentes)"><span class="prat-img" aria-hidden="true"></span><span class="prat-txt"><b>Presentes</b><small>Kits prontos e montados…</small></span><svg class="prat-seta" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:0" aria-labelledby="t-shelf">
+  <section class="sec bloco sem-topo" id="destaques" aria-labelledby="t-dest">
     <div class="wrap">
-      <div class="sec-head">
-        <div><span class="kicker">Loja online</span><h2 class="display" id="t-shelf">Pegue da prateleira, <em>leve na sacola.</em></h2>
-        <p class="lead">Escolha aqui, envie pelo WhatsApp e a equipe confirma preço, cor e estoque antes de fechar.</p></div>
-        <a class="btn line" href="loja/">Ver todos os produtos</a>
-      </div>
-      <div class="grid" id="prateleira"></div>
+      <div class="sec-head"><div><span class="kicker">Loja online</span><h2 class="display" id="t-dest">Na <em>prateleira</em></h2><p class="lead">Toque no + para pôr na sacola. A equipe confirma preço, cor e estoque antes de fechar.</p></div><a class="btn line" href="loja/">Ver todos os produtos</a></div>
+      <div class="lista-prod" id="prateleira"></div>
       <noscript><p class="lead">Para montar a sacola, ative o JavaScript ou <a class="link" href="https://wa.me/5533988137703">peça direto pelo WhatsApp</a>.</p></noscript>
     </div>
   </section>
 
-  <section class="marquee verde" id="marcas" aria-labelledby="t-marcas">
-    <h2 class="sr" id="t-marcas">Marcas</h2>
-    <div class="track" id="track"></div>
-    <p class="hint">Algumas das marcas das lojas. Toque numa marca para perguntar pelo WhatsApp.</p>
-  </section>
-
-  <section class="sec folha" id="comprar" aria-labelledby="t-comprar">
+  <section class="marcas-sec" id="marcas" aria-labelledby="t-marcas">
     <div class="wrap">
-      <div class="sec-head"><div><span class="kicker">Como comprar</span><h2 class="display" id="t-comprar">Do site para o <em>balcão.</em></h2></div></div>
-      <ol class="howto">
-        <li><span class="num">1</span><h3>Monte a sacola</h3><p>Na loja online, toque em "Adicionar" e diga a cor, o tom ou a marca que prefere.</p></li>
-        <li><span class="num">2</span><h3>Envie pelo WhatsApp</h3><p>Escolha retirar numa das lojas ou receber em casa, em qualquer bairro de Valadares. O pedido vai pronto na mensagem.</p></li>
-        <li><span class="num">3</span><h3>A equipe confirma</h3><p>Preço, estoque e o combinado de retirada ou entrega. Se faltar algo, a gente indica outra opção.</p></li>
-      </ol>
-      <div class="channels"><span><b>Prefere conversar?</b> Mande a foto do produto no <a class="link" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703">WhatsApp</a>.</span><span><b>Lançamentos</b> aparecem primeiro no <a class="link" href="https://www.instagram.com/alta_estima_gv/" target="_blank" rel="noopener">@alta_estima_gv</a>.</span></div>
+      <div class="sec-head"><div><span class="kicker">24 marcas</span><h2 class="display" id="t-marcas">Compre por <em>marca</em></h2></div></div>
+      <div class="marcas-lista"><a class="pilula" href="loja/?marca=Natura">Natura</a><a class="pilula" href="loja/?marca=O%20Botic%C3%A1rio">O Boticário</a><a class="pilula" href="loja/?marca=Eudora">Eudora</a><a class="pilula" href="loja/?marca=Avon">Avon</a><a class="pilula" href="loja/?marca=L%27Or%C3%A9al%20Paris">L'Oréal Paris</a><a class="pilula" href="loja/?marca=Elseve">Elseve</a><a class="pilula" href="loja/?marca=Koleston">Koleston</a><a class="pilula" href="loja/?marca=Colorama">Colorama</a><a class="pilula" href="loja/?marca=Risqu%C3%A9">Risqué</a><a class="pilula" href="loja/?marca=Dailus">Dailus</a><a class="pilula" href="loja/?marca=Maybelline">Maybelline</a><a class="pilula" href="loja/?marca=Ruby%20Rose">Ruby Rose</a><a class="pilula" href="loja/?marca=Vult">Vult</a><a class="pilula" href="loja/?marca=Nivea">Nivea</a><a class="pilula" href="loja/?marca=Dove">Dove</a><a class="pilula" href="loja/?marca=Monange">Monange</a><a class="pilula" href="loja/?marca=Haskell">Haskell</a><a class="pilula" href="loja/?marca=Bio%20Extratus">Bio Extratus</a><a class="pilula" href="loja/?marca=Salon%20Line">Salon Line</a><a class="pilula" href="loja/?marca=Skala">Skala</a><a class="pilula" href="loja/?marca=Seda">Seda</a><a class="pilula" href="loja/?marca=Pantene">Pantene</a><a class="pilula" href="loja/?marca=Garnier">Garnier</a><a class="pilula" href="loja/?marca=Neutrogena">Neutrogena</a></div>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:0" id="promocoes" aria-labelledby="t-promo">
+  <section class="promo-sec" aria-labelledby="t-promo">
     <div class="wrap">
       <div class="promo">
         <div><span class="kicker" style="color:#CBE6D3">Promoções</span><h2 class="sr" id="t-promo">Promoções</h2><h3>Ofertas novas toda semana no Instagram.</h3><p>Siga @alta_estima_gv e veja as promoções assim que entram nas lojas.</p></div>
@@ -130,9 +167,12 @@
     </div>
   </section>
 
-  <section class="sec" style="padding-top:0" id="lojas" aria-labelledby="t-lojas">
+  <section class="lojas-sec verde" id="lojas" aria-labelledby="t-lojas">
     <div class="wrap">
-      <div class="sec-head"><div><span class="kicker">Lojas e horário</span><h2 class="display" id="t-lojas">Duas lojas <em>em Valadares.</em></h2></div></div>
+      <div class="lojas-top">
+        <div><span class="kicker">WhatsApp (33) 98813-7703</span><h2 class="display" id="t-lojas">Respondemos no <em>horário das lojas.</em></h2><p class="lead">Mande o pedido quando quiser. A equipe responde quando a loja abre.</p></div>
+        <a class="btn wa" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+      </div>
       <div class="stores">
         <article class="store">
           <iframe title="Mapa da loja da Rua Quintino Bocaiúva" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -153,10 +193,11 @@
           </div>
         </article>
       </div>
+      <div class="entrega"><svg aria-hidden="true"><use href="#i-truck"/></svg><div><b>Entrega</b><p>Toda Governador Valadares. A taxa e o horário são combinados no WhatsApp.</p></div></div>
     </div>
   </section>
 
-  <section class="sec" style="padding-top:0" aria-labelledby="t-faq">
+  <section class="sec" aria-labelledby="t-faq">
     <div class="wrap two">
       <div><span class="kicker">Dúvidas</span><h2 class="display" id="t-faq">Perguntas <em>rápidas.</em></h2></div>
       <div class="faq">
@@ -168,7 +209,6 @@
     </div>
   </section>
 </main>
-
 <footer class="foot-site">
   <div class="wrap">
     <div class="cols">
@@ -188,6 +228,15 @@
   </div>
 </footer>
 
+<nav class="barra-fixa" aria-label="Atalhos">
+  <a href="./" aria-current="page"><svg aria-hidden="true"><use href="#i-home"/></svg><span>Início</span></a>
+  <button type="button" data-buscar><svg aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button>
+  <a href="loja/"><svg aria-hidden="true"><use href="#i-grid"/></svg><span>Prateleiras</span></a>
+  <button type="button" data-open-bag><svg aria-hidden="true"><use href="#i-bag"/></svg><span>Sacola</span><span class="n" data-zero>0</span></button>
+  <a data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+</nav>
+
+<script src="assets/dados.js" defer></script>
 <script src="assets/app.js" defer></script>
 </body>
 </html>
