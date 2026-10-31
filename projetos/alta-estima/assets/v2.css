@@ -182,7 +182,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
 .item-info{grid-area:info;min-width:0;display:grid;gap:4px}
 .item-marca{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--deep)}
 .item-nome{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.05;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
-.item-marcas{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px}
+.item-marcas{display:flex;flex-wrap:wrap;gap:8px 6px;margin-top:6px}
 .mk-chip{position:relative;font-size:13px;line-height:1.2;padding:4px 10px;border-radius:99px;border:1px solid #0B2A1B55;background:transparent;cursor:pointer;color:var(--ink)}
 .mk-chip::after{content:"";position:absolute;inset:-8px -2px}
 .mk-chip[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:#fff;font-weight:800}
@@ -355,8 +355,10 @@ html[data-motion="reduce"] .scrim{transition:none!important}
   #busca-topo,form.busca-topo{min-height:44px}
   #busca-topo input,form.busca-topo input{min-height:44px}
   #busca-topo button,form.busca-topo button{min-width:44px;min-height:44px;width:44px;height:44px}
-  .mk-chip,.ficha-chips .mk-chip{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin-top:-9px;margin-bottom:-9px}
-  .item-nome{display:block;text-align:left;min-height:44px;padding:10px 0;margin:-10px 0}
+  .item-marcas{gap:8px 6px}
+  .mk-chip,.ficha-chips .mk-chip{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:36px;margin:0}
+  .item-nome{display:block;text-align:left;padding:4px 0;margin:0}
+  .item-info{gap:6px}
 }
 
 /* ===== animação: produto voa para a sacola ===== */
@@ -368,3 +370,11 @@ html[data-motion="reduce"] .scrim{transition:none!important}
 .bag-btn.bump svg,.barra-fixa .bump svg{animation:balanca .7s var(--ease);transform-origin:50% 20%}
 .bag-btn.bump,.barra-fixa .bump{animation:none}
 [data-open-bag] .n.pop{animation:popn .5s cubic-bezier(.3,1.6,.5,1)}
+
+/* esvaziar sacola */
+.r-limpar{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;font-size:14px}
+.r-limpar button{font:inherit;font-size:14px;min-height:44px;padding:0 14px;border-radius:99px;cursor:pointer;background:none;border:0;color:#7a2b22;text-decoration:underline}
+.r-limpar .r-sim{background:#7a2b22;color:#fff;text-decoration:none;font-weight:800}
+.r-limpar .r-nao{border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.receipt.limpando{transition:transform .3s var(--ease),opacity .3s;transform:translateY(-16px) scale(.97);opacity:0}
+.r-limpar>span{flex:0 0 100%;text-align:center}
