@@ -360,7 +360,11 @@ html[data-motion="reduce"] .scrim{transition:none!important}
 }
 
 /* ===== animação: produto voa para a sacola ===== */
-.voa{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;object-fit:contain;background:#fff;border:1.5px solid var(--green);border-radius:12px;box-shadow:0 10px 22px -8px #084427aa;will-change:transform,opacity}
-@keyframes pulinho{30%{transform:translateY(-6px) scale(1.08)}60%{transform:translateY(1px) scale(.97)}}
-.bag-btn.bump,.barra-fixa .bump{animation:pulinho .5s var(--ease)}
-.n.flash{box-shadow:0 0 0 3px var(--accent-light)}
+.voa{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;background:#fff;border:1.5px solid var(--green);border-radius:14px;overflow:hidden;will-change:transform,opacity}
+.voa img{display:block;width:100%;height:100%;object-fit:contain}
+.voa.fantasma{border-color:transparent}
+@keyframes balanca{0%{transform:none}18%{transform:rotate(-14deg) scale(1.2)}38%{transform:rotate(11deg) scale(1.12)}58%{transform:rotate(-6deg) scale(1.06)}78%{transform:rotate(3deg)}100%{transform:none}}
+@keyframes popn{0%{transform:scale(1)}35%{transform:scale(1.7);box-shadow:0 0 0 5px var(--accent-light)}70%{transform:scale(.92)}100%{transform:scale(1)}}
+.bag-btn.bump svg,.barra-fixa .bump svg{animation:balanca .7s var(--ease);transform-origin:50% 20%}
+.bag-btn.bump,.barra-fixa .bump{animation:none}
+[data-open-bag] .n.pop{animation:popn .5s cubic-bezier(.3,1.6,.5,1)}

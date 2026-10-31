@@ -334,29 +334,54 @@ function send(f){
 /* contador do cabeçalho + botões dos cartões */
 function paint(){
   var n=totalItems();
-  $$('[data-open-bag] .n').forEach(function(c){c.textContent=n;if(n)c.removeAttribute('data-zero');else c.setAttribute('data-zero','')});
+  if(!flying){prevN=shownN;setCount(n)}
   $$('.bag-btn').forEach(function(b){b.setAttribute('aria-label','Sacola, '+n+(n===1?' item':' itens'))});
   $$('.item[data-id]').forEach(paintItem);
   if(fichaSync)fichaSync();
   renderBag();
 }
 function pulse(){$$('.bag-btn,.barra-fixa [data-open-bag]').forEach(function(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')})}
-function flash(){var c=$$('[data-open-bag] .n');c.forEach(function(n){n.classList.add('flash')});setTimeout(function(){c.forEach(function(n){n.classList.remove('flash')})},900)}
-/* a foto do produto voa em curva até a sacola (barra fixa no celular), depois a sacola dá um pulinho.
-   src: elemento (ou lista) que contém a foto. Sem movimento: só destaca o contador. */
+/* contador só sobe quando a foto chega na sacola: paint() segura o número enquanto há foto voando */
+var flying=0,shownN=0,prevN=0;
+function setCount(n){shownN=n;$$('[data-open-bag] .n').forEach(function(c){c.textContent=n;if(n)c.removeAttribute('data-zero');else c.setAttribute('data-zero','')})}
+function pop(){$$('[data-open-bag] .n').forEach(function(c){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')})}
+/* a foto do produto sai do cartão, sobe, faz um arco até a sacola (barra fixa no celular, cabeçalho no desktop),
+   encolhe e gira de leve, com sombra e rastro; ao chegar a sacola balança e o contador dá um pop.
+   Chamar DEPOIS de salvar a sacola. src: elemento (ou lista) com a foto. Sem movimento (sistema/botão): só pulso. */
 function bump(src){
   var tg=$('.barra-fixa [data-open-bag] svg');if(!tg||!tg.getClientRects().length)tg=$('.head .bag-btn svg');
-  var imgs=[].concat(src||[]).slice(0,4).map(function(s){return s.matches&&s.matches('img')?s:s.querySelector('img.on')||s.querySelector('img')}).filter(function(i){return i&&i.getClientRects().length});
-  if(reduced()||!tg||!imgs.length||!tg.getClientRects().length){pulse();flash();return}
-  var t=tg.getBoundingClientRect(),ex=t.left+t.width/2,ey=t.top+t.height/2;
+  var imgs=[].concat(src||[]).slice(0,6).map(function(s){return s.matches&&s.matches('img')?s:s.querySelector('img.on')||s.querySelector('img')}).filter(function(i){return i&&i.getClientRects().length});
+  if(reduced()||!tg||!imgs.length||!tg.getClientRects().length){setCount(totalItems());pulse();pop();return}
+  var t=tg.getBoundingClientRect(),ex=t.left+t.width/2,ey=Math.max(24,Math.min(innerHeight-24,t.top+t.height/2));
+  if(!flying)setCount(prevN);
+  var DUR=1100,GAP=240;
   imgs.forEach(function(im,k){
-    var r=im.getBoundingClientRect(),w=Math.min(r.width,96),h=Math.min(r.height,96),sx=r.left+r.width/2,sy=r.top+r.height/2,cx=(sx+ex)/2,cy=Math.min(sy,ey)-90;
-    var c=document.createElement('img');c.src=im.currentSrc||im.src;c.alt='';c.setAttribute('aria-hidden','true');c.className='voa';c.style.width=w+'px';c.style.height=h+'px';
-    document.body.appendChild(c);
-    var kf=[],N=12,end=24/w;
-    for(var i=0;i<=N;i++){var u=i/N,e=u*u*(3-2*u),a=1-e;
-      kf.push({transform:'translate('+(a*a*sx+2*a*e*cx+e*e*ex-w/2)+'px,'+(a*a*sy+2*a*e*cy+e*e*ey-h/2)+'px) scale('+(1-(1-end)*e)+')',opacity:u>.85?1-(u-.85)/.15*.6:1})}
-    c.animate(kf,{duration:650,delay:k*90,easing:'linear',fill:'both'}).onfinish=function(){c.remove();pulse();flash()};
+    flying++;
+    var r=im.getBoundingClientRect(),k0=Math.min(1,220/Math.max(r.width,r.height)),w=Math.max(64,r.width*k0),h=Math.max(64,r.height*k0),
+        sx=r.left+r.width/2,sy=r.top+r.height/2,dist=Math.hypot(ex-sx,ey-sy),dir=(k%2?-1:1)*(ex>=sx?1:-1),
+        cx=(sx+ex)/2-dir*Math.min(90,dist*.12),cy=Math.min(sy,ey)-Math.min(260,Math.max(120,dist*.35)),end=26/Math.max(w,h);
+    function mk(ghost,delay){
+      var c=document.createElement('div');c.className='voa'+(ghost?' fantasma':'');c.setAttribute('aria-hidden','true');c.style.width=w+'px';c.style.height=h+'px';
+      var g=document.createElement('img');g.alt='';g.src=im.currentSrc||im.src;c.appendChild(g);document.body.appendChild(c);
+      var kf=[],N=48,L=.14;
+      for(var i=0;i<=N;i++){
+        var u=i/N,m,e,sc,rot,lift=0;
+        if(u<L){m=0;e=0;var q=Math.sin(u/L*Math.PI/2);sc=1+.1*q;lift=-16*q;rot=-dir*3*q}      // levanta do cartão
+        else{var v=(u-L)/(1-L);e=v<.5?4*v*v*v:1-Math.pow(-2*v+2,3)/2;m=e;sc=(1.1)+(end-1.1)*e;rot=dir*(-3+ (22+3)*e)}
+        var a=1-m,x=a*a*sx+2*a*m*cx+m*m*ex,y=a*a*sy+2*a*m*cy+m*m*ey+lift,s=Math.sin(Math.PI*m);
+        kf.push({offset:u,transform:'translate('+(x-w/2)+'px,'+(y-h/2)+'px) rotate('+rot+'deg) scale('+sc+')',
+          opacity:(ghost?.28:1)*(u>.93?1-(u-.93)/.07:1),
+          boxShadow:ghost?'none':'0 '+(10+26*s)+'px '+(20+36*s)+'px -10px rgba(8,68,39,'+(.45-.1*s)+')'});
+      }
+      var an=c.animate(kf,{duration:DUR,delay:delay,easing:'linear',fill:'both'});
+      if(ghost)an.onfinish=function(){c.remove()};
+      return an;
+    }
+    mk(1,k*GAP+70);mk(1,k*GAP+140);
+    mk(0,k*GAP).onfinish=function(){
+      this.effect.target.remove();flying--;
+      setCount(flying?Math.min(shownN+1,totalItems()):totalItems());pulse();pop();
+    };
   });
 }
 
@@ -519,12 +544,12 @@ function renderFicha(p){
   fichaSync();
 }
 function fichaAdd(){
-  bump($('.ficha-foto',fBox));
+  var foto=$('.ficha-foto',fBox);
   var f=FOTOS[fId]||[],br=(f[fK]&&f[fK][0])||'',it=null;
   bag.forEach(function(i){if(i.id===fId)it=i});
   if(it){it.q=Math.min(it.q+fN,99);if(!it.obs&&br)it.obs=br}
   else{bag.push({id:fId,q:fN,obs:br});justAdded=fId}
-  closeFicha();save();
+  save();bump(foto);closeFicha();
 }
 window.abrirFicha=function(id){
   var p=prod(id);if(!p||fOpen)return;
@@ -588,7 +613,7 @@ function addRotina(r,card){
     if(it){it.q=Math.min(it.q+1,99);if(!it.obs)it.obs=nota}
     else bag.push({id:id,q:1,obs:nota});
   });
-  justAdded=null;save();bump($$('.rotina-it',card));if(reduced())openBag();else setTimeout(openBag,700)
+  justAdded=null;save();var its=$$('.rotina-it',card);bump(its);if(reduced())openBag();else setTimeout(openBag,1100+(Math.min(its.length,6)-1)*240+300)
 }
 var rotBox=$('#rotinas-lista');
 if(rotBox&&window.ROTINAS)ROTINAS.forEach(function(r){
