@@ -358,3 +358,9 @@ html[data-motion="reduce"] .scrim{transition:none!important}
   .mk-chip,.ficha-chips .mk-chip{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin-top:-9px;margin-bottom:-9px}
   .item-nome{display:block;text-align:left;min-height:44px;padding:10px 0;margin:-10px 0}
 }
+
+/* ===== animação: produto voa para a sacola ===== */
+.voa{position:fixed;left:0;top:0;z-index:2000;pointer-events:none;object-fit:contain;background:#fff;border:1.5px solid var(--green);border-radius:12px;box-shadow:0 10px 22px -8px #084427aa;will-change:transform,opacity}
+@keyframes pulinho{30%{transform:translateY(-6px) scale(1.08)}60%{transform:translateY(1px) scale(.97)}}
+.bag-btn.bump,.barra-fixa .bump{animation:pulinho .5s var(--ease)}
+.n.flash{box-shadow:0 0 0 3px var(--accent-light)}

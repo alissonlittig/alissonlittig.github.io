@@ -334,13 +334,31 @@ function send(f){
 /* contador do cabeçalho + botões dos cartões */
 function paint(){
   var n=totalItems();
-  $$('.bag-btn .n').forEach(function(c){c.textContent=n;if(n)c.removeAttribute('data-zero');else c.setAttribute('data-zero','')});
+  $$('[data-open-bag] .n').forEach(function(c){c.textContent=n;if(n)c.removeAttribute('data-zero');else c.setAttribute('data-zero','')});
   $$('.bag-btn').forEach(function(b){b.setAttribute('aria-label','Sacola, '+n+(n===1?' item':' itens'))});
   $$('.item[data-id]').forEach(paintItem);
   if(fichaSync)fichaSync();
   renderBag();
 }
-function bump(){$$('.bag-btn').forEach(function(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')})}
+function pulse(){$$('.bag-btn,.barra-fixa [data-open-bag]').forEach(function(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')})}
+function flash(){var c=$$('[data-open-bag] .n');c.forEach(function(n){n.classList.add('flash')});setTimeout(function(){c.forEach(function(n){n.classList.remove('flash')})},900)}
+/* a foto do produto voa em curva até a sacola (barra fixa no celular), depois a sacola dá um pulinho.
+   src: elemento (ou lista) que contém a foto. Sem movimento: só destaca o contador. */
+function bump(src){
+  var tg=$('.barra-fixa [data-open-bag] svg');if(!tg||!tg.getClientRects().length)tg=$('.head .bag-btn svg');
+  var imgs=[].concat(src||[]).slice(0,4).map(function(s){return s.matches&&s.matches('img')?s:s.querySelector('img.on')||s.querySelector('img')}).filter(function(i){return i&&i.getClientRects().length});
+  if(reduced()||!tg||!imgs.length||!tg.getClientRects().length){pulse();flash();return}
+  var t=tg.getBoundingClientRect(),ex=t.left+t.width/2,ey=t.top+t.height/2;
+  imgs.forEach(function(im,k){
+    var r=im.getBoundingClientRect(),w=Math.min(r.width,96),h=Math.min(r.height,96),sx=r.left+r.width/2,sy=r.top+r.height/2,cx=(sx+ex)/2,cy=Math.min(sy,ey)-90;
+    var c=document.createElement('img');c.src=im.currentSrc||im.src;c.alt='';c.setAttribute('aria-hidden','true');c.className='voa';c.style.width=w+'px';c.style.height=h+'px';
+    document.body.appendChild(c);
+    var kf=[],N=12,end=24/w;
+    for(var i=0;i<=N;i++){var u=i/N,e=u*u*(3-2*u),a=1-e;
+      kf.push({transform:'translate('+(a*a*sx+2*a*e*cx+e*e*ex-w/2)+'px,'+(a*a*sy+2*a*e*cy+e*e*ey-h/2)+'px) scale('+(1-(1-end)*e)+')',opacity:u>.85?1-(u-.85)/.15*.6:1})}
+    c.animate(kf,{duration:650,delay:k*90,easing:'linear',fill:'both'}).onfinish=function(){c.remove();pulse();flash()};
+  });
+}
 
 /* fotos das marcas passando: só nos itens visíveis, um terço por vez a cada segundo,
    para no mouse/foco, depois de um clique na marca e no "Reduzir movimento" */
@@ -402,7 +420,7 @@ function paintItem(a){
   act.innerHTML='';
   if(!q){
     var b=el('button',{class:'item-mais',type:'button','aria-label':'Adicionar '+p.nome+' à sacola'});
-    b.onclick=function(){setQty(id,1);bump();var s=$('.step button:last-child',a);s&&s.focus()};
+    b.onclick=function(){setQty(id,1);bump(a);var s=$('.step button:last-child',a);s&&s.focus()};
     act.appendChild(b);
     if(had)b.focus();
   }else{
@@ -411,7 +429,7 @@ function paintItem(a){
     $('output',s).textContent=q;
     var bs=$$('button',s);
     bs[0].onclick=function(){setQty(id,q-1);var n=$('.act button',a);n&&n.focus()};
-    bs[1].onclick=function(){setQty(id,q+1);bump();var n=$('.step button:last-child',a);n&&n.focus()};
+    bs[1].onclick=function(){setQty(id,q+1);bump(a);var n=$('.step button:last-child',a);n&&n.focus()};
     act.appendChild(s);
     if(had&&!wasStep)bs[1].focus();
   }
@@ -487,7 +505,7 @@ function renderFicha(p){
     if(f2)$('.comb-img',li).appendChild(el('img',{width:'480',height:'360',alt:'',src:ROOT+'assets/produtos/'+f2[2]+'.webp'}));
     $('b',li).textContent=q2.nome;
     var mb=$('.comb-mais',li);mb.setAttribute('aria-label','Adicionar '+q2.nome+' à sacola');mb.textContent='+';
-    mb.onclick=function(){setQty(id2,qty(id2)+1);bump()};
+    mb.onclick=function(){setQty(id2,qty(id2)+1);bump($('.comb-img',li))};
     ul.appendChild(li);
   });
   var out=$('output',fBox),sb=$$('.ficha-foot .step button',fBox);
@@ -501,11 +519,12 @@ function renderFicha(p){
   fichaSync();
 }
 function fichaAdd(){
+  bump($('.ficha-foto',fBox));
   var f=FOTOS[fId]||[],br=(f[fK]&&f[fK][0])||'',it=null;
   bag.forEach(function(i){if(i.id===fId)it=i});
   if(it){it.q=Math.min(it.q+fN,99);if(!it.obs&&br)it.obs=br}
   else{bag.push({id:fId,q:fN,obs:br});justAdded=fId}
-  closeFicha();save();bump();
+  closeFicha();save();
 }
 window.abrirFicha=function(id){
   var p=prod(id);if(!p||fOpen)return;
@@ -561,7 +580,7 @@ if(necBox&&window.NECESSIDADES)NECESSIDADES.forEach(function(n){
 });
 
 // rotinas prontas: 1 de cada passo na sacola, com a observação "Rotina <nome>"
-function addRotina(r){
+function addRotina(r,card){
   var nota=/^rotina/i.test(r.nome)?r.nome:'Rotina '+r.nome;
   r.passos.forEach(function(id){
     if(!prod(id))return;
@@ -569,7 +588,7 @@ function addRotina(r){
     if(it){it.q=Math.min(it.q+1,99);if(!it.obs)it.obs=nota}
     else bag.push({id:id,q:1,obs:nota});
   });
-  justAdded=null;save();bump();openBag();
+  justAdded=null;save();bump($$('.rotina-it',card));if(reduced())openBag();else setTimeout(openBag,700)
 }
 var rotBox=$('#rotinas-lista');
 if(rotBox&&window.ROTINAS)ROTINAS.forEach(function(r){
@@ -585,7 +604,7 @@ if(rotBox&&window.ROTINAS)ROTINAS.forEach(function(r){
     ul.appendChild(li);
   });
   var b=$('.btn',a);b.setAttribute('aria-label','Adicionar '+r.nome+' toda à sacola');
-  b.onclick=function(){addRotina(r)};
+  b.onclick=function(){addRotina(r,a)};
   rotBox.appendChild(a);
 });
 
