@@ -1,243 +1,224 @@
 <!doctype html>
-<html lang="pt-BR" data-lang="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alisson Littig</title>
-<meta name="description" content="Sites, landing pages, sistemas e automações para pequenas empresas, construídos com IA. Websites, landing pages, systems and automations for small businesses, built with AI.">
-<meta property="og:title" content="Alisson Littig">
-<meta property="og:description" content="Sites, landing pages, sistemas e automações para pequenas empresas.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --night:#15132E; --night2:#211E45; --fog:#EEF0F5; --paper:#FFFFFF;
-  --ink:#1A1D2B; --muted:#5A5F75; --cobalt:#4C5BFF; --amber:#FFB547;
-}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{font-family:Archivo,system-ui,sans-serif;font-stretch:100%;color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
-/* idioma: cada texto existe nas duas línguas e o CSS mostra uma */
-html[data-lang="pt"] [lang="en"],html[data-lang="en"] [lang="pt"]{display:none}
-.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-.display{font-stretch:125%;font-weight:850;letter-spacing:-.02em;line-height:.92}
-
-/* abertura escura */
-.hero{background:radial-gradient(1200px 600px at 80% -10%,#2E2A6B 0%,transparent 60%),var(--night);color:#ECEBFA;overflow:hidden}
-.top{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
-.name{font-stretch:125%;font-weight:800;font-size:18px;text-decoration:none;letter-spacing:.01em}
-.lang{display:flex;border:1px solid #4A4680;border-radius:999px;padding:3px}
-.lang button{font:inherit;font-size:14px;font-weight:700;color:#B9B6E3;background:none;border:0;padding:6px 14px;border-radius:999px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:#ECEBFA;color:var(--night)}
-.hero h1{font-size:clamp(46px,8.2vw,124px);margin-top:72px;max-width:12ch}
-.hero .lede{margin-top:28px;max-width:52ch;font-size:20px;color:#BEBBE6}
-.hero .cta{display:inline-block;margin-top:34px;background:var(--cobalt);color:#fff;text-decoration:none;font-weight:700;padding:16px 28px;border-radius:12px}
-.hero .cta:hover{background:#3A48E8}
-/* palco: as páginas de verdade, ao vivo, em perspectiva */
-.stage{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:80px 0 -60px;perspective:1600px}
-.stage a{display:block;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);transform:rotateX(14deg) translateY(var(--y,0));transform-origin:bottom center;transition:transform .5s cubic-bezier(.2,.8,.2,1);text-decoration:none}
-.stage a:nth-child(2){--y:-28px}.stage a:nth-child(3){--y:-12px}.stage a:nth-child(4){--y:-36px}
-.stage a:hover{transform:rotateX(0) translateY(-48px)}
-.shot{position:relative;aspect-ratio:10/16;overflow:hidden;background:var(--fog)}
-.shot iframe{position:absolute;top:0;left:0;width:1280px;height:2048px;border:0;transform-origin:0 0;pointer-events:none}
-.stage .label{display:block;padding:12px 14px;font-size:14px;font-weight:700;color:var(--ink)}
-.hero-pad{height:120px}
-
-/* trabalhos: claro e calmo */
-section{padding:120px 0}
-h2{font-size:clamp(34px,5vw,64px)}
-.intro{color:var(--muted);max-width:58ch;margin-top:16px;font-size:19px}
-.work{margin-top:72px;display:grid;gap:96px}
-.item{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
-.item:nth-child(even) .frame{order:2}
-.frame{display:block;border-radius:20px;overflow:hidden;background:var(--fog);box-shadow:0 30px 60px -36px rgba(21,19,46,.5);text-decoration:none}
-.frame .bar{display:flex;gap:6px;padding:12px 14px;background:#E4E7EF}
-.frame .bar i{width:10px;height:10px;border-radius:50%;background:#C5CAD8}
-.frame .shot{aspect-ratio:16/10}
-.frame .shot iframe{height:800px}
-.kind{color:var(--cobalt);font-weight:700;font-size:15px}
-.item h3{font-stretch:125%;font-weight:800;font-size:clamp(26px,3vw,36px);line-height:1.05;margin-top:6px}
-.item p{color:var(--muted);margin-top:14px}
-.open{display:inline-block;margin-top:22px;font-weight:700;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--cobalt);padding-bottom:2px}
-
-.systems{background:var(--fog)}
-.sys{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
-.sys article{background:#fff;border-radius:22px;padding:36px}
-.sys .big{font-stretch:125%;font-weight:850;font-size:clamp(40px,5vw,60px);line-height:1;color:var(--night)}
-.sys h3{font-size:22px;margin-top:18px}
-.sys p{color:var(--muted);margin-top:8px}
-
-.steps{list-style:none;padding:0;margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
-.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:18px}
-.steps li::before{content:counter(s);font-stretch:125%;font-weight:850;font-size:40px;line-height:1;color:var(--cobalt);display:block;margin-bottom:12px}
-.steps h3{font-size:19px}
-.steps p{color:var(--muted);margin-top:6px;font-size:16px}
-
-/* contato: volta ao escuro */
-.contact{background:var(--night);color:#ECEBFA}
-.contact h2{max-width:14ch}
-.links{margin-top:48px;display:grid;gap:4px;max-width:720px}
-.links a{display:flex;justify-content:space-between;gap:16px;padding:22px 0;border-bottom:1px solid #37336A;text-decoration:none;font-size:clamp(18px,2.4vw,26px);font-weight:700}
-.links a span:last-child{color:#9E9AD6;font-weight:500;font-size:16px;align-self:center}
-.links a:hover{color:var(--amber)}
-.foot{padding:56px 0 32px;color:#8C88C4;font-size:14px}
-
-@media (max-width:900px){
-  .stage{grid-template-columns:1fr 1fr}
-  .stage a:nth-child(n+3){display:none}
-  .item,.sys{grid-template-columns:1fr;gap:28px}
-  .item:nth-child(even) .frame{order:0}
-  .steps{grid-template-columns:1fr 1fr}
-}
-@media (max-width:520px){.steps{grid-template-columns:1fr}.hero h1{margin-top:40px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.stage a{transform:none}}
-</style>
+<title>Alisson Littig · sites e sistemas · Curitiba</title>
+<meta name="description" content="Alisson Littig, Curitiba. Faço sites, landing pages e sistemas de gestão para pequenos negócios, usando IA como ferramenta. ERP com 2 filiais, loja online com pedido em 3 toques.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alisson Littig · sites e sistemas">
+<meta property="og:description" content="Sites, landing pages e sistemas de gestão para pequenos negócios. Curitiba.">
+<meta property="og:image" content="https://alissonlittig.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://alissonlittig.github.io/">
+<meta name="theme-color" content="#0d0f0e">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip" href="#projetos">Pular para os projetos</a>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="top">
-      <a class="name" href="#">Alisson Littig</a>
-      <div class="lang" role="group" aria-label="Idioma / Language">
-        <button data-l="pt" aria-pressed="true">PT</button><button data-l="en" aria-pressed="false">EN</button>
-      </div>
-    </div>
-    <h1 class="display"><span lang="pt">Sites e sistemas que trabalham por você.</span><span lang="en">Websites and systems that do the work.</span></h1>
-    <p class="lede"><span lang="pt">Landing pages, sites, sistemas de gestão e automações para pequenas empresas. Construo com inteligência artificial, entrego rápido e continuo por perto depois que vai ao ar.</span><span lang="en">Landing pages, websites, business systems and automations for small companies. I build with AI, ship fast and stay around after launch.</span></p>
-    <a class="cta" href="#contato"><span lang="pt">Pedir um orçamento</span><span lang="en">Get a quote</span></a>
-    <div class="stage" aria-label="Projetos">
-      <a href="projetos/alta-estima/"><div class="shot"><iframe scrolling="no" src="projetos/alta-estima/" title="Alta Estima" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Alta Estima</span></a>
-      <a href="projetos/planilha-viva/"><div class="shot"><iframe scrolling="no" src="projetos/planilha-viva/" title="Planilha Viva" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Planilha Viva</span></a>
-      <a href="projetos/lume-contabil/"><div class="shot"><iframe scrolling="no" src="projetos/lume-contabil/" title="Lume Contábil" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Lume Contábil</span></a>
-      <a href="projetos/tallyroom/"><div class="shot"><iframe scrolling="no" src="projetos/tallyroom/" title="Tallyroom" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div><span class="label">Tallyroom</span></a>
-    </div>
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#topo" aria-label="Alisson Littig, início"><span class="mono">alisson.littig</span><span class="cur" aria-hidden="true"></span></a>
+    <nav aria-label="Principal">
+      <a href="#projetos">projetos</a>
+      <a href="#processo">processo</a>
+      <a class="nav-cta" href="#contato">orçamento</a>
+    </nav>
+    <p class="clock mono"><span class="dot" aria-hidden="true"></span>Curitiba <time id="hora">--:--</time></p>
   </div>
-  <div class="hero-pad"></div>
 </header>
 
-<main>
-<section id="trabalhos">
+<main id="topo">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <p class="mono kicker">~/alisson-littig <span>$</span> cat sobre.txt</p>
+      <h1>Faço sites e sistemas para quem vende.</h1>
+      <p class="lede">Estudo Gestão da Informação na UFPR (formatura em 2027). Construo com Claude como ferramenta principal e confiro cada tela no celular antes de entregar.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:alissondelittig@gmail.com?subject=Or%C3%A7amento%20de%20site%20ou%20sistema&amp;body=Oi%2C%20Alisson.%0A%0AMeu%20neg%C3%B3cio%3A%20%0AO%20que%20preciso%3A%20site%20%2F%20landing%20page%20%2F%20sistema%0AO%20que%20eu%20vendo%20hoje%20e%20como%3A%20%0APrazo%20desejado%3A%20">Pedir orçamento</a>
+        <a class="btn" href="https://www.linkedin.com/in/alisson-littig/" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <aside class="panel" aria-label="Resumo">
+      <div class="panel-bar mono"><i></i><i></i><i></i><span>whoami</span></div>
+      <dl class="kv mono">
+        <div><dt>nome</dt><dd>Alisson Littig</dd></div>
+        <div><dt>cidade</dt><dd>Curitiba, PR</dd></div>
+        <div><dt>curso</dt><dd>Gestão da Informação, UFPR</dd></div>
+        <div><dt>entrego</dt><dd>sites, landing pages, ERP/PDV</dd></div>
+        <div><dt>stack</dt><dd>HTML, CSS, JS, Python, SQLite</dd></div>
+        <div><dt>ia</dt><dd>Claude escreve, eu decido e confiro</dd></div>
+        <div><dt>status</dt><dd class="ok"><span class="dot" aria-hidden="true"></span>aceitando orçamentos</dd></div>
+      </dl>
+    </aside>
+  </div>
+
   <div class="wrap">
-    <h2 class="display"><span lang="pt">Trabalhos</span><span lang="en">Work</span></h2>
-    <p class="intro"><span lang="pt">Uma proposta para uma loja real e três marcas fictícias, cada uma com um problema diferente para resolver. Abra e mexa: todas funcionam.</span><span lang="en">One proposal for a real store and three fictional brands, each solving a different problem. Open them and click around: they all work.</span></p>
-    <div class="work">
-      <div class="item">
-        <a class="frame" href="projetos/alta-estima/" aria-label="Abrir Alta Estima"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe scrolling="no" src="projetos/alta-estima/" title="Alta Estima" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
-        <div>
-          <span class="kind"><span lang="pt">Site institucional, varejo</span><span lang="en">Business website, retail</span></span>
-          <h3>Alta Estima Cosméticos</h3>
-          <p lang="pt">Proposta de site para uma rede de cosméticos com duas lojas em Governador Valadares (MG), que hoje vende pelo WhatsApp e Instagram. O visitante escolhe um tom de batom e o site inteiro muda de cor junto.</p>
-          <p lang="en">Website proposal for a two-store cosmetics retailer in Brazil that sells through WhatsApp and Instagram. Pick a lipstick shade and the whole site changes colour with it.</p>
-          <a class="open" href="projetos/alta-estima/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
+    <dl class="nums">
+      <div><dt class="mono">filiais no ERP</dt><dd>2</dd></div>
+      <div><dt class="mono">vendas lançadas no sistema real</dt><dd>180 mil+</dd></div>
+      <div><dt class="mono">produtos na loja online</dt><dd>38</dd></div>
+      <div><dt class="mono">toques para fazer um pedido</dt><dd>3</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="projetos" aria-labelledby="h-proj">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="mono prompt">$ ls projetos/</p>
+      <h2 id="h-proj">Projetos</h2>
+      <p class="sec-note">Dois trabalhos para uma rede de cosméticos real e três landing pages de marcas fictícias. Todos abrem e funcionam.</p>
+    </header>
+
+    <article class="case" aria-labelledby="c1">
+      <div class="case-meta">
+        <p class="mono idx">01 / site + loja online</p>
+        <h3 id="c1">Alta Estima Cosméticos</h3>
+        <dl class="story">
+          <div><dt class="mono">problema</dt><dd>Duas lojas em Governador Valadares (MG) que vendem por WhatsApp e Instagram, sem catálogo online.</dd></div>
+          <div><dt class="mono">o que fiz</dt><dd>Site com loja. O cliente escolhe a loja, monta a sacola e vê a prévia da mensagem antes de enviar pelo WhatsApp. Também dá para comprar por necessidade (pele oleosa, cabelo cacheado) ou por rotina pronta.</dd></div>
+          <div><dt class="mono">resultado</dt><dd>Pedido em 3 toques, sem cadastro. 38 produtos com ficha e modo de usar, 4 rotinas, barra fixa de sacola no celular. Versão 2 de 31/10/2026.</dd></div>
+          <div><dt class="mono">pendente</dt><dd>Preços e fotos reais dos produtos, que dependem da loja.</dd></div>
+          <div><dt class="mono">stack</dt><dd>HTML, CSS e JS puro, sem framework.</dd></div>
+        </dl>
+        <p class="links"><a class="lnk" href="projetos/alta-estima/loja/">abrir a loja</a><a class="lnk" href="projetos/alta-estima/">abrir o site</a></p>
+      </div>
+      <div class="case-vis">
+        <figure class="win">
+          <figcaption class="win-bar mono"><i></i><i></i><i></i><span>alissonlittig.github.io/projetos/alta-estima/loja</span></figcaption>
+          <img src="assets/img/alta-loja-d.webp" width="1200" height="749" loading="lazy" alt="Loja online da Alta Estima no computador: topo verde com busca, filtros por categoria e por necessidade, 38 produtos">
+        </figure>
+        <figure class="phone">
+          <img src="assets/img/alta-inicio-m.webp" width="780" height="1688" loading="lazy" alt="Página inicial da Alta Estima no celular, com o título Peça em 3 toques">
+        </figure>
+      </div>
+    </article>
+
+    <article class="case case-flip" aria-labelledby="c2">
+      <div class="case-meta">
+        <p class="mono idx">02 / sistema</p>
+        <h3 id="c2">Vitrine ERP</h3>
+        <dl class="story">
+          <div><dt class="mono">problema</dt><dd>Duas filiais controlavam vendas, comissões, despesas e caixa em planilhas e cadernos. Fechar o mês levava horas e ninguém sabia o lucro real.</dd></div>
+          <div><dt class="mono">o que fiz</dt><dd>PDV e ERP desktop que roda offline em cada filial e vira .exe de Windows. Registra a venda em segundos e monta sozinho o fechamento de caixa, as comissões, as metas da equipe e o DRE.</dd></div>
+          <div><dt class="mono">resultado</dt><dd>Mais de 180 mil vendas lançadas no sistema real, com 2 filiais. Comissão automática pelo regime de caixa, caixa com falta e sobra, DRE anual e testes automatizados das regras de negócio.</dd></div>
+          <div><dt class="mono">stack</dt><dd>Python, SQLite, CustomTkinter, pytest.</dd></div>
+        </dl>
+        <p class="note">A demo pública usa dados fictícios gerados por script. Nada do cliente está no repositório.</p>
+        <p class="links"><a class="lnk" href="https://github.com/alissonlittig/vitrine-erp" rel="noopener">ver código e demo</a></p>
+      </div>
+      <div class="case-vis">
+        <figure class="win">
+          <figcaption class="win-bar mono"><i></i><i></i><i></i><span>vitrine-erp / dashboard</span></figcaption>
+          <img src="assets/img/erp-dashboard.webp" width="1200" height="675" loading="lazy" alt="Dashboard do ERP: tabela de faturamento mensal por vendedora, total de R$ 534 mil no ano, e gráfico de linhas da evolução mensal">
+        </figure>
+        <div class="thumbs">
+          <figure><img src="assets/img/erp-venda.webp" width="1200" height="675" loading="lazy" alt="Tela de registrar venda do ERP"><figcaption class="mono">registrar venda</figcaption></figure>
+          <figure><img src="assets/img/erp-caixa.webp" width="1200" height="675" loading="lazy" alt="Tela de fechamento de caixa do ERP"><figcaption class="mono">fechamento de caixa</figcaption></figure>
+          <figure><img src="assets/img/erp-dre.webp" width="1200" height="675" loading="lazy" alt="Tela do DRE anual do ERP"><figcaption class="mono">DRE anual</figcaption></figure>
         </div>
       </div>
-      <div class="item">
-        <a class="frame" href="projetos/planilha-viva/" aria-label="Abrir Planilha Viva"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe scrolling="no" src="projetos/planilha-viva/" title="Planilha Viva" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
-        <div>
-          <span class="kind"><span lang="pt">Página de vendas, curso online</span><span lang="en">Sales page, online course</span></span>
-          <h3>Planilha Viva</h3>
-          <p lang="pt">Página de lançamento para um curso de finanças de pequenos negócios. A planilha do topo é de verdade: o visitante digita os números e vê o lucro do mês na hora.</p>
-          <p lang="en">Launch page for a small-business finance course. The spreadsheet at the top is live: visitors type their numbers and see the month's profit instantly.</p>
-          <a class="open" href="projetos/planilha-viva/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
-        </div>
-      </div>
-      <div class="item">
-        <a class="frame" href="projetos/lume-contabil/" aria-label="Abrir Lume Contábil"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe scrolling="no" src="projetos/lume-contabil/" title="Lume Contábil" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
-        <div>
-          <span class="kind"><span lang="pt">Landing page, serviço local</span><span lang="en">Landing page, local service</span></span>
-          <h3>Lume Contábil</h3>
-          <p lang="pt">Escritório de contabilidade online em Curitiba. As araucárias do topo situam a marca na cidade, e o cliente descobre o preço do plano em um toque.</p>
-          <p lang="en">Online accounting firm in Curitiba, Brazil. The araucaria trees place the brand in the city, and visitors find their plan price in one tap.</p>
-          <a class="open" href="projetos/lume-contabil/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
-        </div>
-      </div>
-      <div class="item">
-        <a class="frame" href="projetos/tallyroom/" aria-label="Open Tallyroom"><div class="bar"><i></i><i></i><i></i></div><div class="shot"><iframe scrolling="no" src="projetos/tallyroom/" title="Tallyroom" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div></a>
-        <div>
-          <span class="kind"><span lang="pt">Landing page de SaaS, em inglês</span><span lang="en">SaaS landing page, in English</span></span>
-          <h3>Tallyroom</h3>
-          <p lang="pt">Página de um sistema de vendas e estoque para lojas pequenas. Cada clique em "Scan a sale" vende um item e mostra o estoque baixando.</p>
-          <p lang="en">Page for a point-of-sale and stock product for small shops. Each "Scan a sale" click sells an item and shows the stock going down.</p>
-          <a class="open" href="projetos/tallyroom/"><span lang="pt">Abrir projeto</span><span lang="en">Open project</span></a>
-        </div>
-      </div>
+    </article>
+
+    <div class="lands">
+      <header class="lands-head">
+        <p class="mono idx">03 a 05 / landing pages</p>
+        <p class="sec-note">Marcas fictícias, cada uma com um problema de página para resolver.</p>
+      </header>
+      <ul class="rows">
+        <li>
+          <a class="row" href="projetos/planilha-viva/" aria-label="Abrir Planilha Viva">
+            <span class="mono n">03</span>
+            <span class="row-t"><strong>Planilha Viva</strong><span class="mono">página de vendas, curso online</span></span>
+            <span class="row-d">Curso de finanças para pequenos negócios. A planilha do topo funciona: o visitante digita os números e vê o lucro do mês na hora.</span>
+            <img src="assets/img/planilha-d.webp" width="1200" height="749" loading="lazy" alt="Topo da página Planilha Viva com a planilha interativa">
+            <span class="mono go" aria-hidden="true">abrir &rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a class="row" href="projetos/lume-contabil/" aria-label="Abrir Lume Contábil">
+            <span class="mono n">04</span>
+            <span class="row-t"><strong>Lume Contábil</strong><span class="mono">landing page, serviço local</span></span>
+            <span class="row-d">Contabilidade online para pequenas empresas de Curitiba. O cliente descobre o preço do plano em um toque.</span>
+            <img src="assets/img/lume-d.webp" width="1200" height="749" loading="lazy" alt="Topo da página Lume Contábil">
+            <span class="mono go" aria-hidden="true">abrir &rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a class="row" href="projetos/tallyroom/" aria-label="Abrir Tallyroom">
+            <span class="mono n">05</span>
+            <span class="row-t"><strong>Tallyroom</strong><span class="mono">landing page de SaaS, em inglês</span></span>
+            <span class="row-d">Ponto de venda e estoque para lojas pequenas. Cada clique em &ldquo;Scan a sale&rdquo; vende um item e mostra o estoque baixando.</span>
+            <img src="assets/img/tally-d.webp" width="1200" height="749" loading="lazy" alt="Topo da página Tallyroom">
+            <span class="mono go" aria-hidden="true">abrir &rarr;</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section class="systems">
-  <div class="wrap">
-    <h2 class="display"><span lang="pt">Sistemas em uso</span><span lang="en">Systems in daily use</span></h2>
-    <p class="intro"><span lang="pt">Além de sites, construo os sistemas que rodam a empresa por dentro.</span><span lang="en">Beyond websites, I build the systems that run a business from the inside.</span></p>
-    <div class="sys">
-      <article>
-        <p class="big">180 mil+</p>
-        <h3><span lang="pt">Vitrine ERP: vendas e gestão para varejo</span><span lang="en">Vitrine ERP: sales and management for retail</span></h3>
-        <p lang="pt">Ponto de venda e gestão usado todos os dias nas duas lojas de uma rede de cosméticos, com mais de 180 mil vendas registradas. Fechamento de caixa, comissões, metas e DRE automática.</p>
-        <p lang="en">Point of sale and management system used daily in both stores of a cosmetics retailer, with over 180,000 sales recorded. Cash closing, commissions, targets and an automatic income statement.</p>
-        <a class="open" href="https://github.com/alissonlittig/vitrine-erp"><span lang="pt">Ver a demo no GitHub</span><span lang="en">See the demo on GitHub</span></a>
-      </article>
-      <article>
-        <p class="big">DRE</p>
-        <h3><span lang="pt">Sistema financeiro para produtora audiovisual</span><span lang="en">Finance system for a video production company</span></h3>
-        <p lang="pt">Clientes, eventos, fluxo de caixa, custos fixos e aportes dos sócios num só lugar, com a DRE gerada a partir dos lançamentos. Online, com acesso por sócio.</p>
-        <p lang="en">Clients, events, cash flow, fixed costs and partner contributions in one place, with the income statement generated from the entries. Online, with a login for each partner.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2 class="display"><span lang="pt">Como funciona</span><span lang="en">How it works</span></h2>
-    <ol class="steps">
-      <li><h3><span lang="pt">Você conta o que precisa</span><span lang="en">You tell me what you need</span></h3><p><span lang="pt">Por mensagem ou numa chamada curta: o negócio, o público e o que a página precisa fazer.</span><span lang="en">By message or a short call: the business, the audience and what the page has to do.</span></p></li>
-      <li><h3><span lang="pt">Primeira versão</span><span lang="en">First version</span></h3><p><span lang="pt">Você recebe um link para ver funcionando, no computador e no celular.</span><span lang="en">You get a link to see it working, on desktop and mobile.</span></p></li>
-      <li><h3><span lang="pt">Ajustes</span><span lang="en">Revisions</span></h3><p><span lang="pt">Textos, cores e seções mudam até ficar do jeito certo.</span><span lang="en">Copy, colours and sections change until it is right.</span></p></li>
-      <li><h3><span lang="pt">No ar</span><span lang="en">Launch</span></h3><p><span lang="pt">Publico no seu domínio e sigo por perto para manutenção e novas páginas.</span><span lang="en">I publish it on your domain and stay around for maintenance and new pages.</span></p></li>
+<section class="sec sec-alt" id="processo" aria-labelledby="h-proc">
+  <div class="wrap proc">
+    <header class="sec-head">
+      <p class="mono prompt">$ cat processo.log</p>
+      <h2 id="h-proc">Como eu trabalho</h2>
+      <p class="sec-note">Uso IA para escrever e testar código mais rápido. O que construir, para quem e se está certo, sou eu que decido e confiro.</p>
+    </header>
+    <ol class="log mono">
+      <li><b>01</b><span><strong>Conversa.</strong> Você conta o que vende e para quem. Devolvo escopo, prazo e valor por escrito, antes de começar.</span></li>
+      <li><b>02</b><span><strong>Primeira versão.</strong> Um link de teste para abrir no computador e no celular.</span></li>
+      <li><b>03</b><span><strong>Ajustes.</strong> Textos, cores e fluxo mudam com você olhando o link, até fechar.</span></li>
+      <li><b>04</b><span><strong>No ar.</strong> Publico no seu domínio e sigo por perto para manutenção.</span></li>
     </ol>
+  </div>
+</section>
+
+<section class="sec contact" id="contato" aria-labelledby="h-ct">
+  <div class="wrap">
+    <p class="mono prompt">$ mail alissondelittig@gmail.com</p>
+    <h2 id="h-ct">Precisa de um site ou de um sistema?</h2>
+    <p class="sec-note">Mande o que você vende e o que precisa. Respondo com um orçamento.</p>
+    <p class="mailrow">
+      <a class="mail" id="email" href="mailto:alissondelittig@gmail.com">alissondelittig@gmail.com</a>
+      <button class="btn" type="button" id="copiar">Copiar e-mail</button>
+      <span class="mono copied" id="aviso" role="status"></span>
+    </p>
+    <p class="links big">
+      <a class="lnk" href="https://www.linkedin.com/in/alisson-littig/" rel="noopener">linkedin.com/in/alisson-littig</a>
+      <a class="lnk" href="https://github.com/alissonlittig" rel="noopener">github.com/alissonlittig</a>
+    </p>
   </div>
 </section>
 </main>
 
-<footer class="contact" id="contato">
-  <section>
-    <div class="wrap">
-      <h2 class="display"><span lang="pt">Vamos colocar o seu no ar?</span><span lang="en">Shall we put yours online?</span></h2>
-      <div class="links">
-        <a href="mailto:alissondelittig@gmail.com"><span>alissondelittig@gmail.com</span><span lang="pt">E-mail</span><span lang="en">Email</span></a>
-        <a href="https://www.linkedin.com/in/alisson-littig/"><span>LinkedIn</span><span>/in/alisson-littig</span></a>
-        <a href="https://github.com/alissonlittig"><span>GitHub</span><span>/alissonlittig</span></a>
-      </div>
-      <p class="foot"><span lang="pt">Curitiba, Brasil. Atendo clientes de qualquer lugar, em português e inglês.</span><span lang="en">Curitiba, Brazil. Working with clients anywhere, in English and Portuguese.</span></p>
-    </div>
-  </section>
+<footer class="foot">
+  <div class="wrap foot-in mono">
+    <span>Alisson Littig, Curitiba, 2026</span>
+    <span>HTML e CSS escritos à mão, sem framework</span>
+  </div>
 </footer>
 
 <script>
-// idioma: lembra a escolha; na primeira visita segue o navegador
 (function(){
-  var saved=null; try{saved=localStorage.getItem('lang')}catch(e){}
-  var lang=saved||((navigator.language||'pt').toLowerCase().indexOf('pt')===0?'pt':'en');
-  function set(l){
-    document.documentElement.dataset.lang=l;
-    document.documentElement.lang=l==='pt'?'pt-BR':'en';
-    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l?'true':'false')});
-    try{localStorage.setItem('lang',l)}catch(e){}
-  }
-  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});
-  set(lang);
-})();
-// as prévias são as páginas reais renderizadas em 1280px e reduzidas para caber no quadro
-(function(){
-  var ro=new ResizeObserver(function(entries){entries.forEach(function(e){
-    var f=e.target.querySelector('iframe'); if(f) f.style.transform='scale('+(e.contentRect.width/1280)+')';
-  })});
-  document.querySelectorAll('.shot').forEach(function(s){ro.observe(s)});
+  var h=document.getElementById('hora');
+  function t(){try{h.textContent=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'}).format(new Date())}catch(e){}}
+  t();setInterval(t,30000);
+  var b=document.getElementById('copiar'),a=document.getElementById('aviso');
+  b.addEventListener('click',function(){
+    var m='alissondelittig@gmail.com';
+    var ok=function(){a.textContent='copiado'};
+    var no=function(){a.textContent='copie: '+m};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(m).then(ok,no)}else{no()}
+  });
 })();
 </script>
 </body>
