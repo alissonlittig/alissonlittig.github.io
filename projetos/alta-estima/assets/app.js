@@ -166,7 +166,7 @@ var justAdded=null,fichaSync=null;
 function save(){store.set(KEY,bag);paint()}
 function totalItems(){return bag.reduce(function(s,i){return s+i.q},0)}
 
-var drawer,scrim,lastFocus,view='list';
+var drawer,scrim,lastFocus,view='list',askClear=false;
 function buildDrawer(){
   scrim=el('div',{class:'scrim',hidden:''});
   drawer=el('aside',{class:'bag',id:'sacola',role:'dialog','aria-modal':'true','aria-labelledby':'bag-title',hidden:''});
@@ -193,6 +193,7 @@ function openBag(v){
 }
 function closeBag(){
   if(!drawer||drawer.hidden)return;
+  askClear=false;
   scrim.classList.remove('show');drawer.classList.remove('show','tear');
   document.body.style.overflow='';
   setTimeout(function(){scrim.hidden=true;drawer.hidden=true},reduced()?0:300);
@@ -216,7 +217,7 @@ function renderBag(){
   }
   if(!bag.length){
     body.innerHTML='<div class="empty"><b>A sacola está vazia.</b>Escolha os produtos na loja online e eles aparecem aqui, como num cupom.<br><a class="btn" href="'+ROOT+'loja/">Ir para a loja online</a></div>';
-    foot.innerHTML='';return;
+    foot.innerHTML='';askClear=false;return;
   }
   if(view==='checkout'){renderCheckout(body,foot);return}
 
@@ -249,6 +250,20 @@ function renderBag(){
   var tot=el('div',{class:'r-total'});
   tot.innerHTML='<span>'+totalItems()+(totalItems()===1?' item':' itens')+'</span><span>'+(priced?money(bag.reduce(function(s,i){return s+prod(i.id).preco*i.q},0)):'preço no WhatsApp')+'</span>';
   r.appendChild(tot);
+  var lim=el('div',{class:'r-limpar'});
+  if(askClear){
+    lim.innerHTML='<span role="alertdialog" aria-label="Esvaziar sacola">Tirar todos os itens?</span>';
+    var sim=lim.appendChild(el('button',{type:'button',class:'r-sim',text:'Sim'})),nao=lim.appendChild(el('button',{type:'button',class:'r-nao',text:'Cancelar'}));
+    sim.onclick=function(){
+      var fim=function(){askClear=false;bag=[];save()};
+      if(reduced()){fim();return}
+      r.classList.add('limpando');setTimeout(fim,350);
+    };
+    nao.onclick=function(){askClear=false;renderBag();var b=$('.r-esvaziar',drawer);b&&b.focus()};
+  }else{
+    lim.appendChild(el('button',{type:'button',class:'r-esvaziar',text:'Esvaziar sacola'})).onclick=function(){askClear=true;renderBag();var b=$('.r-sim',drawer);b&&b.focus()};
+  }
+  r.appendChild(lim);
   r.appendChild(el('p',{class:'r-foot',html:'Preço, cor e estoque confirmados<br>pela equipe no WhatsApp.'}));
   body.innerHTML='';body.appendChild(r);
   foot.innerHTML='';
