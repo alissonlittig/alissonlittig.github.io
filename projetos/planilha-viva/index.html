@@ -1,166 +1,118 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-lang="pt">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Planilha Viva</title>
-<meta name="description" content="Curso online: o controle financeiro do seu pequeno negócio em 21 dias, numa planilha que você entende.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Sans+Condensed:wght@700&display=swap" rel="stylesheet">
-<style>
-:root{--green:#17704A;--deep:#0F3D2A;--paper:#FBFCFA;--grid:#DCE5DF;--ink:#16211B;--muted:#55635A;--flag:#E2A72E}
-*{box-sizing:border-box;margin:0}
-body{font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
-:focus-visible{outline:3px solid var(--flag);outline-offset:2px}
-.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
-.ribbon{background:var(--ink);color:#E6EFE9;font-size:13px;text-align:center;padding:8px 16px}
-/* o papel quadriculado é o fundo da página inteira do hero */
-.hero{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;border-bottom:1px solid var(--grid)}
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
-.logo{font-family:"IBM Plex Sans Condensed";font-size:22px;color:var(--green);text-decoration:none}
-.logo span{color:var(--ink)}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:56px 0 88px}
-h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(42px,6vw,76px);line-height:1;letter-spacing:-1px}
-.lede{margin-top:20px;font-size:19px;color:var(--muted);max-width:44ch}
-.btn{display:inline-block;margin-top:28px;background:var(--green);color:#fff;text-decoration:none;font-weight:700;padding:16px 28px;border-radius:8px}
-.btn:hover{background:var(--deep)}
-.note{font-size:14px;color:var(--muted);margin-top:12px}
-/* a planilha de demonstração */
-.sheet{background:#fff;border:1px solid #B9C7BF;border-radius:10px;box-shadow:0 24px 48px -28px rgba(15,61,42,.45);overflow:hidden;font-size:15px}
-.sheet .bar{background:var(--deep);color:#CFE3D7;padding:10px 16px;font-size:13px;display:flex;justify-content:space-between}
-.sheet table{width:100%;border-collapse:collapse}
-.sheet th,.sheet td{border-bottom:1px solid var(--grid);padding:12px 16px;text-align:left}
-.sheet td:last-child,.sheet th:last-child{text-align:right;font-family:"IBM Plex Mono",monospace}
-.sheet input{width:9ch;font:inherit;font-family:"IBM Plex Mono",monospace;text-align:right;border:1px solid #B9C7BF;border-radius:4px;padding:4px 6px;background:#F3F8F5}
-.sheet tr.total td{font-weight:700;background:#EFF6F1}
-.sheet tr.total td:last-child{color:var(--green)}
-.sheet tr.total.neg td:last-child{color:#B3261E}
-.sheet caption{caption-side:bottom;text-align:left;padding:12px 16px;font-size:14px;color:var(--muted)}
-section{padding:96px 0}
-h2{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:clamp(32px,4vw,48px);line-height:1.05;max-width:22ch}
-.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px}
-.cols h3{font-size:19px}
-.cols p{color:var(--muted);margin-top:6px}
-.weeks{margin-top:40px;border-top:2px solid var(--ink)}
-.week{display:grid;grid-template-columns:160px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--grid)}
-.week b{font-family:"IBM Plex Mono",monospace;color:var(--green);font-weight:500}
-.week h3{font-size:21px}
-.week p{color:var(--muted);margin-top:4px}
-.offer{background:var(--deep);color:#EAF3EE}
-.offer-box{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
-.offer ul{margin-top:24px;padding-left:20px}
-.offer li{margin:8px 0;color:#CFE3D7}
-.price{background:#fff;color:var(--ink);border-radius:14px;padding:36px;text-align:center}
-.price .old{color:var(--muted);text-decoration:line-through}
-.price .now{font-family:"IBM Plex Sans Condensed";font-size:64px;line-height:1;margin:6px 0;color:var(--green)}
-.price .btn{display:block}
-details{border-bottom:1px solid var(--grid);padding:20px 0}
-summary{font-weight:700;cursor:pointer;font-size:18px}
-details p{color:var(--muted);margin-top:10px;max-width:70ch}
-footer{padding:40px 0;font-size:14px;color:var(--muted)}
-@media (max-width:860px){.hero-grid,.offer-box{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.week{grid-template-columns:1fr;gap:4px}}
-</style>
+<title data-pt="Planilha Viva · Controle financeiro em 21 dias" data-en="Planilha Viva · Financial control in 21 days">Planilha Viva · Controle financeiro em 21 dias</title>
+<meta name="description" content="Curso online: o controle financeiro do seu pequeno negócio em 21 dias, numa planilha que você entende." data-en-content="Online course: your small business&#x27;s financial control in 21 days, in a spreadsheet you understand.">
+<meta name="theme-color" content="#0E3624">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Planilha Viva · Controle financeiro em 21 dias">
+<meta property="og:description" content="Curso online: o controle financeiro do seu pequeno negócio em 21 dias, numa planilha que você entende.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/planilha-viva/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){var h=document.documentElement;h.className='js';try{var l=new URLSearchParams(location.search).get('lang')||JSON.parse(localStorage.getItem('pv-lang'));if(l==='en'||l==='pt')h.setAttribute('data-lang',l);else if(/^en/i.test(navigator.language))h.setAttribute('data-lang','en')}catch(e){}})()</script>
 </head>
 <body>
-<div class="ribbon">Projeto conceito: marca fictícia criada por Alisson Littig para portfólio.</div>
+<a class="skip" href="#conteudo"><span lang="pt">Pular para o conteúdo</span><span lang="en">Skip to content</span></a>
+<div class="ribbon"><span lang="pt">Projeto conceito: marca, preços e números fictícios, criados por Alisson Littig para portfólio.</span><span lang="en">Concept project: fictional brand, prices and numbers, created by Alisson Littig for a portfolio.</span></div>
+<header class="top">
+ <div class="wrap">
+  <a class="logo" href="./" aria-label="Planilha Viva, início" data-en-aria-label="Planilha Viva, home"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="4" fill="#17704A"/><path d="M1 10h26M1 19h26M10 1v26M19 1v26" stroke="#FAFBF7" stroke-opacity=".55" stroke-width="1"/><rect x="10" y="10" width="9" height="9" fill="#F0B429"/></svg><span>Planilha<b>Viva</b></span></a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+  <nav class="tabs" id="menu" aria-label="Principal" data-en-aria-label="Main"><a href="./" aria-current="page"><span lang="pt">Início</span><span lang="en">Home</span></a><a href="curso/"><span lang="pt">Curso</span><span lang="en">Course</span></a><a href="planilha/"><span lang="pt">Planilha</span><span lang="en">Spreadsheet</span></a><a href="precos/"><span lang="pt">Preços</span><span lang="en">Pricing</span></a><a href="sobre/"><span lang="pt">Sobre</span><span lang="en">About</span></a><a href="contato/"><span lang="pt">Contato</span><span lang="en">Contact</span></a></nav>
+  <div class="tools"><div class="lang" role="group" aria-label="Idioma" data-en-aria-label="Language"><button data-l="pt" aria-pressed="true">PT</button><button data-l="en" aria-pressed="false">EN</button></div></div>
+ </div>
+ <div class="fbar"><div class="wrap"><span class="ref">A1</span><span class="fx">fx</span><span class="t"><span lang="pt">=INICIO()  saiba o lucro do mês em 21 dias</span><span lang="en">=HOME()  know your month's profit in 21 days</span></span></div></div>
+</header>
+<main id="conteudo">
 
-<div class="hero">
-  <div class="wrap">
-    <header><a class="logo" href="#">Planilha<span>Viva</span></a><a class="btn" style="margin:0;padding:10px 18px" href="#oferta">Quero entrar</a></header>
-    <div class="hero-grid">
-      <div>
-        <h1>Saiba se a sua empresa dá lucro sem esperar o contador.</h1>
-        <p class="lede">Um curso de 21 dias para donos de pequenos negócios montarem o próprio controle financeiro: fluxo de caixa, custos e resultado do mês, numa planilha que você entende.</p>
-        <a class="btn" href="#oferta">Garantir minha vaga</a>
-        <p class="note">Aulas curtas, gravadas, para assistir no celular.</p>
-      </div>
-      <div class="sheet">
-        <div class="bar"><span>resultado_outubro.xlsx</span><span>edite os números</span></div>
-        <table>
-          <caption>Mude os valores e veja o resultado do mês na hora. É assim que fica a sua planilha no fim do curso.</caption>
-          <thead><tr><th>Linha</th><th>R$</th></tr></thead>
-          <tbody>
-            <tr><td>Vendas do mês</td><td><input id="v" inputmode="numeric" value="42000" aria-label="Vendas do mês"></td></tr>
-            <tr><td>Custo das mercadorias</td><td><input id="c" inputmode="numeric" value="21500" aria-label="Custo das mercadorias"></td></tr>
-            <tr><td>Despesas fixas</td><td><input id="f" inputmode="numeric" value="12800" aria-label="Despesas fixas"></td></tr>
-            <tr class="total" id="row"><td>Lucro do mês</td><td id="l"></td></tr>
-            <tr><td>Margem</td><td id="m"></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="hero"><div class="ruler" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></div>
+ <div class="wrap hero-grid">
+  <div>
+   <span class="eyebrow"><span lang="pt">Curso online · 21 dias</span><span lang="en">Online course · 21 days</span></span>
+   <h1><span lang="pt">Saiba se a sua empresa dá lucro sem esperar o contador.</span><span lang="en">Know if your business makes a profit without waiting for your accountant.</span></h1>
+   <p class="lede"><span lang="pt">Você monta o próprio controle financeiro em 21 dias: fluxo de caixa, custo e preço, resultado do mês. Numa planilha que você entende.</span><span lang="en">You build your own financial control in 21 days: cash flow, cost and price, monthly result. In a spreadsheet you understand.</span></p>
+   <div class="row-btns"><a class="btn" href="precos/"><span lang="pt">Ver planos</span><span lang="en">See plans</span></a><a class="btn alt" href="planilha/"><span lang="pt">Testar a planilha</span><span lang="en">Try the spreadsheet</span></a></div>
+   <p class="note"><span lang="pt">Aulas de até 12 minutos, no celular ou no computador.</span><span lang="en">Lessons of up to 12 minutes, on phone or computer.</span></p>
   </div>
+  <div class="sheet" role="group" aria-label="Planilha de demonstração" data-en-aria-label="Demo spreadsheet">
+   <div class="bar"><span>resultado_outubro.xlsx</span><span><span lang="pt">edite os números</span><span lang="en">edit the numbers</span></span></div>
+   <table><thead><tr><th class="rn"></th><th scope="col"><span lang="pt">Linha</span><span lang="en">Line</span></th><th scope="col">R$</th></tr></thead><tbody>
+    <tr><td class="rn">1</td><td><span lang="pt">Vendas do mês</span><span lang="en">Month's sales</span></td><td><span class="cellin"><input id="hv" inputmode="numeric" value="42000" aria-label="Vendas do mês" data-en-aria-label="Month&#x27;s sales"></span></td></tr>
+    <tr><td class="rn">2</td><td><span lang="pt">Custo das mercadorias</span><span lang="en">Cost of goods</span></td><td><span class="cellin"><input id="hc" inputmode="numeric" value="21500" aria-label="Custo das mercadorias" data-en-aria-label="Cost of goods"></span></td></tr>
+    <tr><td class="rn">3</td><td><span lang="pt">Despesas fixas</span><span lang="en">Fixed costs</span></td><td><span class="cellin"><input id="hf" inputmode="numeric" value="12800" aria-label="Despesas fixas" data-en-aria-label="Fixed costs"></span></td></tr>
+    <tr class="total" id="hrow"><td class="rn">4</td><td><span lang="pt">Lucro do mês</span><span lang="en">Month's profit</span></td><td id="hl" aria-live="polite"></td></tr>
+    <tr><td class="rn">5</td><td><span lang="pt">Margem</span><span lang="en">Margin</span></td><td id="hm"></td></tr>
+   </tbody></table>
+   <div class="split"><p id="hsum"></p><div class="stack" id="stack" role="img" aria-label="Divisão de cada real vendido entre custo, despesas e lucro" data-en-aria-label="How each real sold splits into cost, expenses and profit"><i class="a" id="sa"></i><i class="b" id="sb"></i><i class="c" id="sc"></i></div></div>
+   <div class="legend"><span style="--k:#8FA79A"><span lang="pt">custo</span><span lang="en">cost</span></span><span style="--k:#C5D3CA"><span lang="pt">despesas</span><span lang="en">expenses</span></span><span style="--k:var(--green)"><span lang="pt">lucro</span><span lang="en">profit</span></span></div>
+   <p class="cap"><span lang="pt">É assim que a sua planilha responde no fim do curso.</span><span lang="en">This is how your spreadsheet answers by the end of the course.</span></p>
+  </div>
+ </div>
 </div>
 
-<section>
-  <div class="wrap">
-    <h2>Feito para quem vende bem e mesmo assim termina o mês sem saber para onde foi o dinheiro</h2>
-    <div class="cols">
-      <div><h3>Loja e comércio</h3><p>Separe o que é venda do que é lucro e pare de usar o caixa da loja como conta pessoal.</p></div>
-      <div><h3>Prestador de serviço</h3><p>Descubra quanto custa cada hora sua e se o preço que você cobra paga as contas.</p></div>
-      <div><h3>Quem está começando</h3><p>Monte o controle certo desde o primeiro mês, sem precisar de sistema caro.</p></div>
-    </div>
+<section><div class="wrap">
+ <span class="eyebrow"><span lang="pt">Para quem é</span><span lang="en">Who it is for</span></span>
+ <h2 class="rv"><span lang="pt">Vende bem e termina o mês sem saber para onde foi o dinheiro</span><span lang="en">Sells well and still ends the month not knowing where the money went</span></h2>
+ <div class="rows">
+  <div class="r rv"><b>01</b><h3><span lang="pt">Loja e comércio</span><span lang="en">Shops and retail</span></h3><p><span lang="pt">Separe o que é venda do que é lucro e pare de usar o caixa da loja como conta pessoal.</span><span lang="en">Separate sales from profit and stop using the till as a personal account.</span></p><a href="curso/#semana-1"><span lang="pt">Semana 1</span><span lang="en">Week 1</span></a></div>
+  <div class="r rv"><b>02</b><h3><span lang="pt">Prestador de serviço</span><span lang="en">Service providers</span></h3><p><span lang="pt">Descubra quanto custa cada hora sua e se o preço que você cobra paga as contas.</span><span lang="en">Find out what each of your hours costs and whether your rate covers the bills.</span></p><a href="curso/#semana-2"><span lang="pt">Semana 2</span><span lang="en">Week 2</span></a></div>
+  <div class="r rv"><b>03</b><h3><span lang="pt">Quem está começando</span><span lang="en">Just starting out</span></h3><p><span lang="pt">Monte o controle certo desde o primeiro mês, sem precisar de sistema caro.</span><span lang="en">Set up the right control from month one, without an expensive system.</span></p><a href="curso/#semana-3"><span lang="pt">Semana 3</span><span lang="en">Week 3</span></a></div>
+ </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+ <span class="eyebrow"><span lang="pt">Como funciona</span><span lang="en">How it works</span></span>
+ <h2 class="rv"><span lang="pt">Cada dia termina com uma célula preenchida</span><span lang="en">Every day ends with a cell filled in</span></h2>
+ <div class="steps rv">
+  <div class="step"><span class="k"><span lang="pt">1 · Assista</span><span lang="en">1 · Watch</span></span><h3><span lang="pt">Uma aula curta</span><span lang="en">One short lesson</span></h3><p><span lang="pt">De 7 a 12 minutos. Sem teoria que você não vai usar amanhã.</span><span lang="en">From 7 to 12 minutes. No theory you won't use tomorrow.</span></p></div>
+  <div class="step"><span class="k"><span lang="pt">2 · Faça</span><span lang="en">2 · Do</span></span><h3><span lang="pt">Um exercício na sua planilha</span><span lang="en">One exercise in your sheet</span></h3><p><span lang="pt">Com os números do seu negócio, não de um exemplo.</span><span lang="en">With your own business's numbers, not an example's.</span></p></div>
+  <div class="step"><span class="k"><span lang="pt">3 · Confira</span><span lang="en">3 · Check</span></span><h3><span lang="pt">Uma resposta que você usa</span><span lang="en">An answer you can use</span></h3><p><span lang="pt">Saldo, preço ou margem. Algo que muda uma decisão da semana.</span><span lang="en">Balance, price or margin. Something that changes a decision this week.</span></p></div>
+ </div>
+ <div class="row-btns"><a class="btn alt" href="curso/"><span lang="pt">Ver as 21 aulas</span><span lang="en">See the 21 lessons</span></a></div>
+</div></section>
+
+<section class="dark"><div class="wrap">
+ <span class="eyebrow"><span lang="pt">Três negócios de exemplo</span><span lang="en">Three example businesses</span></span>
+ <h2 class="rv"><span lang="pt">Teste a planilha com um negócio parecido com o seu</span><span lang="en">Try the spreadsheet with a business like yours</span></h2>
+ <p class="lede" style="color:#CFE3D7"><span lang="pt">Cada cartão carrega números de exemplo na ferramenta. Troque pelos seus.</span><span lang="en">Each card loads example numbers into the tool. Swap in your own.</span></p>
+ <div class="cases"><article class="case rv"><div class="ph" style="--bg:#7b7169"><picture><source type="image/avif" srcset="assets/img/padaria-640.avif 640w, assets/img/padaria-1280.avif 1280w" sizes="(max-width:980px) 100vw, 380px"><img src="assets/img/padaria-640.webp" srcset="assets/img/padaria-640.webp 640w, assets/img/padaria-1280.webp 1280w" sizes="(max-width:980px) 100vw, 380px" width="640" height="480" loading="lazy" decoding="async" alt="Balcão de padaria com pães e doces" data-en-alt="Bakery counter with breads and pastries"></picture></div><div class="tx"><h3><span lang="pt">Padaria de bairro</span><span lang="en">Neighborhood bakery</span></h3>
+<div class="nums"><span><span lang="pt">Vendas</span><span lang="en">Sales</span> <span lang="pt">R$ 48.000</span><span lang="en">R$ 48,000</span></span><span><span lang="pt">Lucro</span><span lang="en">Profit</span> <b><span lang="pt">R$ 10.420</span><span lang="en">R$ 10,420</span></b> (21.7%)</span></div>
+<p class="small muted"><span lang="pt">Cenário de exemplo, números inventados para ilustrar.</span><span lang="en">Example scenario, made-up numbers for illustration.</span></p>
+<a class="btn sm alt" href="planilha/?cenario=padaria#resultado"><span lang="pt">Abrir na planilha</span><span lang="en">Open in the spreadsheet</span></a></div></article><article class="case rv"><div class="ph" style="--bg:#585444"><picture><source type="image/avif" srcset="assets/img/feira-640.avif 640w, assets/img/feira-1280.avif 1280w" sizes="(max-width:980px) 100vw, 380px"><img src="assets/img/feira-640.webp" srcset="assets/img/feira-640.webp 640w, assets/img/feira-1280.webp 1280w" sizes="(max-width:980px) 100vw, 380px" width="640" height="480" loading="lazy" decoding="async" alt="Barraca de feira com bananas e clientes" data-en-alt="Market stall with bananas and customers"></picture></div><div class="tx"><h3><span lang="pt">Barraca de feira</span><span lang="en">Market stall</span></h3>
+<div class="nums"><span><span lang="pt">Vendas</span><span lang="en">Sales</span> <span lang="pt">R$ 21.000</span><span lang="en">R$ 21,000</span></span><span><span lang="pt">Lucro</span><span lang="en">Profit</span> <b><span lang="pt">R$ 6.000</span><span lang="en">R$ 6,000</span></b> (28.6%)</span></div>
+<p class="small muted"><span lang="pt">Cenário de exemplo, números inventados para ilustrar.</span><span lang="en">Example scenario, made-up numbers for illustration.</span></p>
+<a class="btn sm alt" href="planilha/?cenario=feira#resultado"><span lang="pt">Abrir na planilha</span><span lang="en">Open in the spreadsheet</span></a></div></article><article class="case rv"><div class="ph" style="--bg:#84786d"><picture><source type="image/avif" srcset="assets/img/cafe-640.avif 640w, assets/img/cafe-1280.avif 1280w" sizes="(max-width:980px) 100vw, 380px"><img src="assets/img/cafe-640.webp" srcset="assets/img/cafe-640.webp 640w, assets/img/cafe-1280.webp 1280w" sizes="(max-width:980px) 100vw, 380px" width="640" height="480" loading="lazy" decoding="async" alt="Equipe atendendo numa cafeteria" data-en-alt="Staff serving in a coffee shop"></picture></div><div class="tx"><h3><span lang="pt">Cafeteria</span><span lang="en">Coffee shop</span></h3>
+<div class="nums"><span><span lang="pt">Vendas</span><span lang="en">Sales</span> <span lang="pt">R$ 36.000</span><span lang="en">R$ 36,000</span></span><span><span lang="pt">Lucro</span><span lang="en">Profit</span> <b><span lang="pt">R$ 5.840</span><span lang="en">R$ 5,840</span></b> (16.2%)</span></div>
+<p class="small muted"><span lang="pt">Cenário de exemplo, números inventados para ilustrar.</span><span lang="en">Example scenario, made-up numbers for illustration.</span></p>
+<a class="btn sm alt" href="planilha/?cenario=cafe#resultado"><span lang="pt">Abrir na planilha</span><span lang="en">Open in the spreadsheet</span></a></div></article></div>
+</div></section>
+
+<section><div class="wrap cta-grid">
+ <div><span class="eyebrow"><span lang="pt">Entrar</span><span lang="en">Join</span></span><h2 class="rv"><span lang="pt">Comece hoje. Em 21 dias, você sabe o lucro do mês.</span><span lang="en">Start today. In 21 days, you know the month's profit.</span></h2>
+  <ul class="ticks"><li><span lang="pt">21 aulas curtas e a planilha completa</span><span lang="en">21 short lessons and the full spreadsheet</span></li><li><span lang="pt">Acesso por 12 meses, no celular e no computador</span><span lang="en">12 months of access, on phone and computer</span></li><li><span lang="pt">7 dias para pedir o dinheiro de volta</span><span lang="en">7 days to ask for your money back</span></li></ul></div>
+ <div class="price"><p class="old"><span lang="pt">De R$ 397</span><span lang="en">From R$ 397</span></p><p class="now">R$ 197</p><p><span lang="pt">ou 10x de R$ 19,70 sem juros</span><span lang="en">or 10 x R$ 19.70, no interest</span></p><a class="btn" href="contato/?plano=curso"><span lang="pt">Garantir minha vaga</span><span lang="en">Save my seat</span></a><p class="note"><span lang="pt">Preço de exemplo. Esta é uma marca fictícia.</span><span lang="en">Example price. This is a fictional brand.</span></p></div>
+</div></section>
+
+</main>
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="./"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="4" fill="#17704A"/><path d="M1 10h26M1 19h26M10 1v26M19 1v26" stroke="#FAFBF7" stroke-opacity=".55" stroke-width="1"/><rect x="10" y="10" width="9" height="9" fill="#F0B429"/></svg><span>Planilha<b>Viva</b></span></a><p><span lang="pt">Curso de 21 dias para donos de pequenos negócios montarem o próprio controle financeiro.</span><span lang="en">A 21-day course for small-business owners to build their own financial control.</span></p></div>
+   <div><h3><span lang="pt">Páginas</span><span lang="en">Pages</span></h3><ul><li><a href="./"><span lang="pt">Início</span><span lang="en">Home</span></a></li><li><a href="curso/"><span lang="pt">Curso</span><span lang="en">Course</span></a></li><li><a href="planilha/"><span lang="pt">Planilha</span><span lang="en">Spreadsheet</span></a></li><li><a href="precos/"><span lang="pt">Preços</span><span lang="en">Pricing</span></a></li><li><a href="sobre/"><span lang="pt">Sobre</span><span lang="en">About</span></a></li><li><a href="contato/"><span lang="pt">Contato</span><span lang="en">Contact</span></a></li></ul></div>
+   <div><h3><span lang="pt">Dados e contato</span><span lang="en">Data and contact</span></h3><ul><li><a href="privacidade/"><span lang="pt">Como usamos seus dados</span><span lang="en">How we use your data</span></a></li><li><a href="contato/">oi@planilhaviva.example</a></li><li><a href="https://alissonlittig.github.io/" rel="noopener"><span lang="pt">Portfólio de Alisson Littig</span><span lang="en">Alisson Littig's portfolio</span></a></li></ul></div>
   </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="wrap">
-    <h2>O que você faz em cada semana</h2>
-    <div class="weeks">
-      <div class="week"><b>Dias 1 a 7</b><div><h3>Fluxo de caixa</h3><p>Lance entradas e saídas do jeito certo e veja o saldo dos próximos 30 dias.</p></div></div>
-      <div class="week"><b>Dias 8 a 14</b><div><h3>Custos e preço</h3><p>Separe custo fixo de variável e confira se cada produto ou serviço se paga.</p></div></div>
-      <div class="week"><b>Dias 15 a 21</b><div><h3>Resultado do mês</h3><p>Monte a sua DRE simples e saiba o lucro de verdade, todo mês, em 15 minutos.</p></div></div>
-    </div>
+  <div class="fine">
+   <span><span lang="pt">Planilha Viva é uma marca fictícia. Preços, prazos e números do site são exemplos e não existe curso à venda.</span><span lang="en">Planilha Viva is a fictional brand. Prices, deadlines and figures are examples; no course is for sale.</span></span>
+   <span><span lang="pt">Fotos: </span><span lang="en">Photos: </span><a href="https://commons.wikimedia.org/wiki/File:Market_stall_in_Rio_de_Janeiro,_Brazil.jpg" rel="noopener">Wilfredor</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Bakery_products_on_the_counter_of_Jacob%27s_Bakery_%2B_Cafe_2024-04-15.jpg" rel="noopener">Andy Li</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Baristas_at_work_(Unsplash).jpg" rel="noopener">Tim Wright</a> (CC0), Wikimedia Commons. <span lang="pt">Fontes IBM Plex, licença OFL.</span><span lang="en">IBM Plex fonts, OFL license.</span></span>
   </div>
-</section>
-
-<section class="offer" id="oferta">
-  <div class="wrap offer-box">
-    <div>
-      <h2>Tudo o que vem no curso</h2>
-      <ul>
-        <li>21 aulas curtas, de até 12 minutos</li>
-        <li>A planilha completa, pronta para usar</li>
-        <li>Modelos de fluxo de caixa, precificação e DRE</li>
-        <li>Acesso por 12 meses, no computador e no celular</li>
-      </ul>
-    </div>
-    <div class="price">
-      <p class="old">De R$ 397</p>
-      <p class="now">R$ 197</p>
-      <p>ou 12x de R$ 19,70</p>
-      <a class="btn" href="#">Garantir minha vaga</a>
-      <p class="note">7 dias para pedir o dinheiro de volta, sem perguntas.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>Perguntas frequentes</h2>
-    <div style="margin-top:32px">
-      <details><summary>Preciso saber Excel?</summary><p>Não. A primeira aula mostra tudo o que você vai usar. A planilha funciona no Excel e no Google Planilhas.</p></details>
-      <details><summary>Serve para MEI?</summary><p>Serve. O controle é o mesmo; muda só o tamanho dos números.</p></details>
-      <details><summary>Quanto tempo por dia?</summary><p>Uns 20 minutos: a aula e o exercício do dia.</p></details>
-      <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias para pedir o reembolso integral.</p></details>
-    </div>
-  </div>
-</section>
-
-<div class="wrap"><footer>Planilha Viva é uma marca fictícia. Página criada por Alisson Littig como exemplo de landing page de curso online.</footer></div>
-
-<script>
-var fmt=new Intl.NumberFormat('pt-BR',{minimumFractionDigits:0});
-function n(id){return Number(document.getElementById(id).value.replace(/\D/g,''))||0}
-function calc(){
-  var v=n('v'),lucro=v-n('c')-n('f');
-  document.getElementById('l').textContent=fmt.format(lucro);
-  document.getElementById('m').textContent=v?(lucro/v*100).toFixed(1).replace('.',',')+'%':'—';
-  document.getElementById('row').classList.toggle('neg',lucro<0);
-}
-['v','c','f'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
-calc();
-</script>
+ </div>
+</footer>
+<script src="assets/app.js" defer></script>
 </body>
 </html>
