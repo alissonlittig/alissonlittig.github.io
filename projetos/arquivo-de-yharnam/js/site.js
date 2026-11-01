@@ -58,3 +58,66 @@
     if (b) open(b.dataset.yt, b.dataset.title || '', b);
   });
 })();
+
+// Miniaturas quebradas viram selo; menu móvel mostra o item atual.
+(() => {
+  document.querySelectorAll('.pic img').forEach((im) => {
+    const bad = () => im.closest('.pic').classList.add('broken');
+    im.addEventListener('error', bad);
+    if (im.complete && im.naturalWidth === 0 && im.currentSrc) bad();
+  });
+  const cur = document.querySelector('.snav a[aria-current]');
+  const nav = document.querySelector('.snav');
+  if (cur && nav && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = Math.max(0, cur.offsetLeft - 24);
+})();
+
+// Visualizador de imagens (lightbox): ESC fecha, setas navegam, foco volta ao botão.
+(() => {
+  const pt = document.documentElement.lang.startsWith('pt');
+  const L = pt ? { prev: 'Anterior', next: 'Próxima', close: 'Fechar', cred: 'Imagem:', owner: '© Sony Interactive Entertainment, FromSoftware', src: 'Fextralife Bloodborne Wiki', label: 'Visualizador de imagem', of: (a, b) => `${a} de ${b}` }
+                 : { prev: 'Previous', next: 'Next', close: 'Close', cred: 'Image:', owner: '© Sony Interactive Entertainment, FromSoftware', src: 'Fextralife Bloodborne Wiki', label: 'Image viewer', of: (a, b) => `${a} of ${b}` };
+  let dlg, img, cap, ct, cr, bp, bn, items = [], i = 0, from;
+  const arrow = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const build = () => {
+    dlg = document.createElement('dialog'); dlg.className = 'lb'; dlg.setAttribute('aria-label', L.label);
+    dlg.innerHTML = `<div class="lbs"><button type="button" class="lbx">${L.close}</button><button type="button" class="lbb p" aria-label="${L.prev}">${arrow('M15 5l-7 7 7 7')}</button><img alt=""><button type="button" class="lbb n" aria-label="${L.next}">${arrow('M9 5l7 7-7 7')}</button></div><div class="lbf"><strong></strong><span class="ct" aria-live="polite"></span><p class="cr"></p></div>`;
+    document.body.append(dlg);
+    img = dlg.querySelector('img'); cap = dlg.querySelector('strong'); ct = dlg.querySelector('.ct'); cr = dlg.querySelector('.cr');
+    bp = dlg.querySelector('.p'); bn = dlg.querySelector('.n');
+    dlg.querySelector('.lbx').addEventListener('click', () => dlg.close());
+    bp.addEventListener('click', () => go(-1)); bn.addEventListener('click', () => go(1));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', () => { img.removeAttribute('src'); if (from) from.focus({ preventScroll: true }); });
+    document.addEventListener('keydown', (e) => {
+      if (!dlg.open) return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    });
+    let x0 = null;
+    dlg.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    dlg.addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1); });
+  };
+  const show = () => {
+    const b = items[i];
+    img.classList.add('ld');
+    img.onload = () => img.classList.remove('ld');
+    img.onerror = () => img.classList.remove('ld');
+    img.src = b.dataset.full; img.alt = b.dataset.cap || '';
+    cap.textContent = b.dataset.cap || '';
+    ct.textContent = items.length > 1 ? L.of(i + 1, items.length) : '';
+    cr.replaceChildren(document.createTextNode(L.cred + ' '));
+    const a = document.createElement('a'); a.href = b.dataset.src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = L.src;
+    cr.append(a, document.createTextNode(' / ' + L.owner));
+    bp.hidden = bn.hidden = items.length < 2;
+    [1, -1].forEach((d) => { const n = items[(i + d + items.length) % items.length]; if (n) new Image().src = n.dataset.full; });
+  };
+  const go = (d) => { if (items.length < 2) return; i = (i + d + items.length) % items.length; show(); };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-lb]');
+    if (!b) return;
+    if (!dlg) build();
+    const grp = b.closest('[data-lbgroup]');
+    items = grp ? [...grp.querySelectorAll('[data-lb]')].filter((x) => !x.closest('[hidden]')) : [b];
+    i = Math.max(0, items.indexOf(b)); from = b;
+    show(); dlg.showModal();
+  });
+})();
