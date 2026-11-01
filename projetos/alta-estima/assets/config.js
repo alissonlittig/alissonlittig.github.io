@@ -11,10 +11,10 @@ window.AE_CONFIG = {
   filialEntrega: 'israel',
   // Dados da empresa. Valor vazio ou entre colchetes = pendente.
   empresa: {
-    razao: '',          // razão social
-    cnpj: '',           // 00.000.000/0000-00
-    email: '',          // e-mail oficial de atendimento
-    telefone: '(33) 98813-7703',
+    razao: 'ALTA ESTIMA COSMETICOS LTDA',  // razão social (Receita/BrasilAPI, 01/11/2026)
+    cnpj: '35.866.008/0001-10',
+    email: 'altaestimagv@hotmail.com',     // e-mail oficial de atendimento
+    telefone: '(33) 3221-5888',            // fixo; o WhatsApp (33) 98813-7703 fica nos links de WhatsApp
     responsavel: '',    // quem responde o cliente em até 5 dias
     encarregado: '',    // encarregado de dados (LGPD)
     retencao: '',       // por quanto tempo guarda os dados do pedido
