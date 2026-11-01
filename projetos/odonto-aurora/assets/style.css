@@ -74,7 +74,7 @@ section.dark a:not(.btn){color:var(--gold)}
 .hero h1{margin:6px 0 22px}
 .sun{position:relative}
 .sun svg{width:100%;height:auto}
-.slots{position:absolute;left:-14%;top:4%;background:#fff;border:1.5px solid var(--ink);border-radius:var(--r);padding:16px 18px;box-shadow:6px 6px 0 var(--gold);max-width:310px}
+.slots{position:absolute;left:4%;bottom:-28px;top:auto;background:#fff;border:1.5px solid var(--ink);border-radius:var(--r);padding:16px 18px;box-shadow:6px 6px 0 var(--gold);max-width:310px}
 .slots h2{font:700 .78rem/1 Figtree,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;color:var(--ink2)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border-radius:999px;background:var(--water2);color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;border:1.5px solid var(--water)}
@@ -164,7 +164,7 @@ input[type=range]{width:100%;accent-color:var(--teal-d);min-height:44px}
 .out .fine{color:#B9D6D9;margin-top:16px}
 .err{color:var(--bad);font-size:.88rem;min-height:1.2em;margin-top:6px}
 input[aria-invalid=true],select[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 3px #F3D6D6}
-.lgpd{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:var(--ink2)}
+.lgpd{min-height:44px;align-items:center;display:flex;gap:12px;font-size:.92rem;color:var(--ink2)}
 .lgpd input{width:24px;height:24px;margin-top:2px;accent-color:var(--teal-d);flex:none}
 /* agendamento */
 .wiz-steps{display:flex;gap:10px;list-style:none;padding:0;margin:0 0 30px;flex-wrap:wrap}
@@ -300,7 +300,7 @@ footer .cols p{margin-top:14px;max-width:26em}
 .logo{min-height:44px}
 .pick input{inset:0;width:100%;height:100%;margin:0}
 .pick label{position:relative}
-footer .small a,.cap a{display:inline-block;padding:10px 2px}
+footer .small a,.cap a{display:inline-block;padding:13px 2px;min-height:44px;box-sizing:border-box}
 @media (max-width:380px){.logo svg{display:none}.logo{font-size:1.05rem}.lang a{min-width:40px}.top .wrap{gap:8px}}
 .fld label.lgpd{display:flex;font-weight:400;margin:0}
 [tabindex="-1"]:focus{outline:none}
