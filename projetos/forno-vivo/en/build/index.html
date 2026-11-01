@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build your pizza · Forno Vivo</title>
+<meta name="description" content="Build your pizza by choosing sauce and up to 5 toppings, with the price adding up live.">
+<meta name="theme-color" content="#15100d">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/forno-vivo/en/build/">
+<link rel="alternate" hreflang="pt-BR" href="https://alissonlittig.github.io/projetos/forno-vivo/monte/">
+<link rel="alternate" hreflang="en" href="https://alissonlittig.github.io/projetos/forno-vivo/en/build/">
+<link rel="alternate" hreflang="x-default" href="https://alissonlittig.github.io/projetos/forno-vivo/monte/">
+<meta property="og:type" content="website"><meta property="og:title" content="Build your pizza · Forno Vivo"><meta property="og:description" content="Build your pizza by choosing sauce and up to 5 toppings, with the price adding up live.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/forno-vivo/assets/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Skip to content</a>
+<div class="ribbon">Concept project: fictional brand created by Alisson Littig for his portfolio.</div>
+<header class="top"><div class="wrap">
+<a class="logo" href="../" aria-label="Forno Vivo, home"><svg viewBox="0 0 26 30" aria-hidden="true"><path d="M13 1c1 6 8 9 8 18a8 8 0 0 1-16 0c0-4 2-6 3-9 1 2 2 3 3 3 0-4-1-8 2-12z" fill="#f2704c"/><path d="M13 14c1 3 4 4 4 8a4 4 0 0 1-8 0c0-3 3-4 4-8z" fill="#e9a53f"/></svg>Forno Vivo</a>
+<nav class="nav" id="nav" aria-label="Main"><a href="../menu/">Menu</a><a href="./" aria-current=page>Build yours</a><a href="../dough/">Our dough</a><a href="../delivery/">Delivery</a><a href="../contact/">Contact</a></nav>
+<div class="tools"><button class="btn btn-fire btn-sm cartbtn js-only" data-cart type="button">Order <span class="n" data-n="0">0</span></button>
+<div class="lang" role="group" aria-label="Language"><a href="../../monte/" hreflang="pt" lang="pt-BR" aria-label="Português">PT</a><a href="./" hreflang="en" lang="en" aria-label="English" aria-current=true>EN</a></div>
+<button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Open menu"><span></span></button></div>
+</div></header>
+<main id="conteudo">
+<div class="page-head"><div class="wrap"><p class="eyebrow">Build your pizza</p><h1>You top it. <em>We bake it.</em></h1><p class="lede">Mozzarella base, your choice of sauce and up to 5 toppings. The pizza beside it changes with every tap.</p></div></div>
+<section style="padding-top:36px"><div class="wrap build" id="builder">
+<div class="stage"><svg id="pz" viewBox="0 0 200 200" role="img" aria-label="Preview of your pizza"></svg><div class="live"><b id="total">R$ 38,00</b><span id="cnt" aria-live="polite">0/5</span></div></div>
+<div class="ctrl"><fieldset><legend>Size</legend><div class="opts"><label class="opt"><input type="radio" name="sz" value="m"><span>Medium <small>6 slices · R$ 30</small></span></label><label class="opt"><input type="radio" name="sz" value="g" checked><span>Large <small>8 slices · R$ 38</small></span></label></div></fieldset>
+<fieldset><legend>Sauce</legend><div class="opts"><label class="opt"><input type="radio" name="sauce" value="tomato" checked><span>Tomato</span></label><label class="opt"><input type="radio" name="sauce" value="white"><span>White, garlic and cream</span></label></div></fieldset>
+<fieldset><legend>Toppings (up to 5)</legend><div class="opts"><label class="opt"><input type="checkbox" data-top="pepperoni"><span>Pepperoni <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="calabresa"><span>Sausage <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="presunto"><span>Ham <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="bacon"><span>Bacon <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="frango"><span>Chicken <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="cogumelos"><span>Mushrooms <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="cebola"><span>Red onion <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="tomate"><span>Tomato <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="azeitona"><span>Olives <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="manjericao"><span>Basil <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="rucula"><span>Arugula <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="milho"><span>Corn <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="catupiry"><span>Catupiry <small>+0</small></span></label><label class="opt"><input type="checkbox" data-top="parmesao"><span>Parmesan <small>+0</small></span></label></div></fieldset>
+<button class="btn btn-fire js-only" id="addb" type="button" style="justify-self:start">Add to order</button>
+<p class="sub" style="font-size:14px">Example prices. The final order appears under the Order button at the top of the page.</p></div></div></section></main>
+<button class="btn btn-fire fab js-only cartbtn" data-cart type="button">Order <span class="n" data-n="0">0</span></button>
+<footer><div class="wrap">
+<div class="cols">
+<div><a class="logo" href="../"><svg viewBox="0 0 26 30" aria-hidden="true"><path d="M13 1c1 6 8 9 8 18a8 8 0 0 1-16 0c0-4 2-6 3-9 1 2 2 3 3 3 0-4-1-8 2-12z" fill="#f2704c"/><path d="M13 14c1 3 4 4 4 8a4 4 0 0 1-8 0c0-3 3-4 4-8z" fill="#e9a53f"/></svg>Forno Vivo</a><p style="margin-top:14px;max-width:34ch">Wood-fired pizza in Curitiba. Fictional example brand.</p></div>
+<div><h2>Pages</h2><ul><li><a href="../menu/">Menu</a></li><li><a href="./">Build yours</a></li><li><a href="../dough/">Our dough</a></li><li><a href="../delivery/">Delivery</a></li><li><a href="../contact/">Contact</a></li></ul></div>
+<div><h2>Hours</h2><ul><li>Wed to Thu, 6 pm to 11 pm</li><li>Fri and Sat, 6 pm to midnight</li><li>Sun, 5 pm to 11 pm</li></ul></div>
+<div><h2>Contact (example)</h2><ul><li>contato@fornovivo.example</li><li>(41) 0000-0000</li><li><a href="../privacy/">How we use your data</a></li></ul></div>
+</div>
+<div class="small"><span>Forno Vivo is a fictional brand. Prices, address, contacts and hours are examples. No order is actually sent.</span>
+<span>Site by <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span></div>
+</div></footer>
+<script src="../../assets/data.js"></script>
+<script src="../../assets/app.js" defer></script>
+</body>
+</html>
