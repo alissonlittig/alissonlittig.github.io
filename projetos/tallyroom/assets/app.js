@@ -55,7 +55,7 @@ if(till){
   }).join('');
   $('#k-sales').textContent=money(sales);$('#k-tix').textContent=tix;$('#k-low').textContent=lowN;
   re.className='reorder'+(ro.length?' on':'');
-  re.innerHTML=ro.length?'<h4>'+D.re+'</h4><ul>'+ro.map(function(it){return '<li>'+it.n+': '+D.buy+(it.mx-it.q)+'</li>'}).join('')+'</ul>':'';
+  re.innerHTML=ro.length?'<h3>'+D.re+'</h3><ul>'+ro.map(function(it){return '<li>'+it.n+': '+D.buy+(it.mx-it.q)+'</li>'}).join('')+'</ul>':'';
  }
  function sell(i){
   var it=st[i];if(!it.q){msg.textContent=it.n+D.out;return}
