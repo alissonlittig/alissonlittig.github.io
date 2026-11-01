@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="pt-BR" data-root="./">
+<html lang="pt-BR" data-root="./" data-page="home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alta Estima Cosméticos · Governador Valadares</title>
-<meta name="description" content="Maquiagem, skincare, cabelos e perfumaria em Governador Valadares. Duas lojas e loja online com pedido pelo WhatsApp.">
+<meta name="description" content="Maquiagem, skincare, cabelos e perfumaria em Governador Valadares. Duas lojas e loja online: pague com Pix, crédito ou débito e retire na loja ou receba em casa.">
 <meta name="theme-color" content="#084427">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Alta Estima Cosméticos">
-<meta property="og:description" content="Monte a sacola no site e envie o pedido pelo WhatsApp. Duas lojas em Governador Valadares.">
+<meta property="og:description" content="Compre no site, pague com Pix, crédito ou débito e retire na loja ou receba em casa. Duas lojas em Governador Valadares.">
 <meta property="og:image" content="https://alissonlittig.github.io/projetos/alta-estima/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -17,6 +17,7 @@
 <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/v2.css">
+<link rel="stylesheet" href="assets/loja.css">
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -57,6 +58,7 @@
       <a href="./" aria-current="page">Início</a>
       <a href="loja/">Loja online</a>
       <a href="#necessidades">Necessidades</a>
+      <a href="pedido/">Meus pedidos</a>
       <a href="#lojas">Lojas</a>
     </nav>
     <a class="wa-btn" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703" aria-label="Chamar no WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
@@ -68,7 +70,7 @@
   <ul class="wrap" aria-label="Vantagens">
     <li><svg aria-hidden="true"><use href="#i-truck"/></svg><span>Entrega em toda <b>Governador Valadares</b></span></li>
     <li><svg aria-hidden="true"><use href="#i-store"/></svg><span>Retire em uma das <b>2 lojas</b></span></li>
-    <li><svg aria-hidden="true"><use href="#i-chat"/></svg><span>Pedido pelo WhatsApp, <b>sem cadastro</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-bag"/></svg><span>Pague com <b>Pix, crédito ou débito</b></span></li>
     <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Atendimento <b>seg. a sáb.</b></span></li>
   </ul>
 </div>
@@ -77,23 +79,23 @@
   <section class="pedido verde" id="pedido" aria-labelledby="t-pedido">
     <div class="wrap">
       <div class="pedido-txt">
-        <span class="kicker">Pedido pelo WhatsApp</span>
-        <h1 class="display" id="t-pedido">Peça em <em>3 toques.</em></h1>
+        <span class="kicker">Compra pelo site</span>
+        <h1 class="display" id="t-pedido">Compre em <em>3 passos.</em></h1>
         <ol class="passos">
           <li><span class="num" aria-hidden="true">1</span><span><b>Escolha</b><small>Monte a sacola com os produtos que quer</small></span></li>
           <li><span class="num" aria-hidden="true">2</span><span><b>Retire ou receba</b><small>Numa das 2 lojas ou em casa, em toda GV</small></span></li>
-          <li><span class="num" aria-hidden="true">3</span><span><b>Envie no WhatsApp</b><small>O pedido já sai escrito. A equipe confirma</small></span></li>
+          <li><span class="num" aria-hidden="true">3</span><span><b>Pague pelo site</b><small>Pix, crédito ou débito. Desista em até 7 dias</small></span></li>
         </ol>
         <div class="actions">
-          <a class="btn wa" href="loja/">Começar meu pedido</a>
-          <a class="btn line" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir direto no WhatsApp</a>
+          <a class="btn wa" href="loja/">Começar minha compra</a>
+          <a class="btn line" data-wa="Olá! Tenho uma dúvida sobre a loja online." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg>Tirar dúvida no WhatsApp</a>
         </div>
       </div>
-      <figure class="zap" aria-label="Exemplo de conversa no WhatsApp">
-        <div class="zap-top"><span class="av"><img src="assets/favicon.svg" alt="" width="40" height="40"></span><span><b>Alta Estima Cosméticos</b><small>(33) 98813-7703</small></span></div>
+      <figure class="zap" aria-label="Exemplo de acompanhamento do pedido">
+        <div class="zap-top"><span class="av"><img src="assets/favicon.svg" alt="" width="40" height="40"></span><span><b>Seu pedido</b><small>acompanhe pela página do pedido</small></span></div>
         <div class="zap-chat">
-          <div class="bal eu"><p>Olá! Pedido pelo site:</p><p>1x Shampoo Elseve<br>1x Batom Ruby Rose<br>2x Esmalte Colorama</p><p>Retirada: Loja Quintino<br>Nome: Maria</p><span class="bal-meta"><em>exemplo</em> ✓✓</span></div>
-          <div class="bal loja"><p>Oi, Maria! Já separamos. Vou confirmar preço e cor do batom.</p><span class="bal-meta"><em>resposta da equipe (exemplo)</em></span></div>
+          <div class="bal eu"><p><b>Pagamento confirmado</b></p><p>1x Shampoo Elseve<br>1x Batom Ruby Rose<br>2x Esmalte Colorama</p><p>Retirada: Loja Quintino</p><span class="bal-meta"><em>exemplo</em> ✓✓</span></div>
+          <div class="bal loja"><p>Pronto para retirar. Leve um documento com foto.</p><span class="bal-meta"><em>aviso do pedido (exemplo)</em></span></div>
         </div>
         <div class="zap-bar" aria-hidden="true"><span></span><i></i></div>
       </figure>
@@ -145,7 +147,7 @@
 
   <section class="sec bloco sem-topo" id="destaques" aria-labelledby="t-dest">
     <div class="wrap">
-      <div class="sec-head"><div><span class="kicker">Loja online</span><h2 class="display" id="t-dest">Na <em>prateleira</em></h2><p class="lead">Toque no + para pôr na sacola. A equipe confirma preço, cor e estoque antes de fechar.</p></div><a class="btn line" href="loja/">Ver todos os produtos</a></div>
+      <div class="sec-head"><div><span class="kicker">Loja online</span><h2 class="display" id="t-dest">Na <em>prateleira</em></h2><p class="lead">Toque em um produto para ver na loja online, com preço e disponibilidade por loja.</p></div><a class="btn line" href="loja/">Ver todos os produtos</a></div>
       <div class="lista-prod" id="prateleira"></div>
       <noscript><p class="lead">Para montar a sacola, ative o JavaScript ou <a class="link" href="https://wa.me/5533988137703">peça direto pelo WhatsApp</a>.</p></noscript>
     </div>
@@ -170,7 +172,7 @@
   <section class="lojas-sec verde" id="lojas" aria-labelledby="t-lojas">
     <div class="wrap">
       <div class="lojas-top">
-        <div><span class="kicker">WhatsApp (33) 98813-7703</span><h2 class="display" id="t-lojas">Respondemos no <em>horário das lojas.</em></h2><p class="lead">Mande o pedido quando quiser. A equipe responde quando a loja abre.</p></div>
+        <div><span class="kicker">WhatsApp (33) 98813-7703</span><h2 class="display" id="t-lojas">Respondemos no <em>horário das lojas.</em></h2><p class="lead">Tem dúvida sobre um produto? Chame no WhatsApp. A equipe responde quando a loja abre.</p></div>
         <a class="btn wa" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
       </div>
       <div class="stores">
@@ -193,7 +195,7 @@
           </div>
         </article>
       </div>
-      <div class="entrega"><svg aria-hidden="true"><use href="#i-truck"/></svg><div><b>Entrega</b><p>Toda Governador Valadares. A taxa e o horário são combinados no WhatsApp.</p></div></div>
+      <div class="entrega"><svg aria-hidden="true"><use href="#i-truck"/></svg><div><b>Entrega</b><p>Em Governador Valadares, com taxa e prazo por bairro mostrados antes de pagar.</p></div></div>
     </div>
   </section>
 
@@ -201,9 +203,10 @@
     <div class="wrap two">
       <div><span class="kicker">Dúvidas</span><h2 class="display" id="t-faq">Perguntas <em>rápidas.</em></h2></div>
       <div class="faq">
-        <details><summary>Por que o site não mostra o preço?</summary><p>Preço e estoque mudam toda semana. Quando o pedido chega no WhatsApp, a equipe confirma o valor de cada item antes de você fechar.</p></details>
-        <details><summary>Posso retirar na loja?</summary><p>Pode. No fim do pedido, escolha a loja da Quintino (seg. a sex. 7h30 às 18h, sábado 7h30 às 13h) ou da Israel Pinheiro (seg. a sex. 8h às 18h, sábado 8h às 13h).</p></details>
-        <details><summary>Vocês entregam?</summary><p>Entregamos em toda Governador Valadares. No fim do pedido, escolha "Entrega em casa" e informe o endereço. A taxa e o horário são combinados no WhatsApp.</p></details>
+        <details><summary>Como eu pago?</summary><p>Pelo site, com Pix, cartão de crédito (até 3x) ou cartão de débito. O pagamento é feito na página do Mercado Pago e você volta para acompanhar o pedido.</p></details>
+        <details><summary>Posso retirar na loja?</summary><p>Pode. No fim da compra, escolha a loja da Quintino (seg. a sex. 7h30 às 18h, sábado 7h30 às 13h) ou da Israel Pinheiro (seg. a sex. 8h às 18h, sábado 8h às 13h). Só aparecem como disponíveis as lojas que têm todos os itens.</p></details>
+        <details><summary>Vocês entregam?</summary><p>Entregamos em Governador Valadares. Você escolhe o bairro e vê a taxa e o prazo antes de pagar. <a class="link" href="entrega/">Entrega e retirada</a>.</p></details>
+        <details><summary>Posso desistir da compra?</summary><p>Pode, em até 7 dias depois de receber, pela página do pedido. O valor volta pelo mesmo meio de pagamento. <a class="link" href="trocas/">Trocas e arrependimento</a>.</p></details>
         <details><summary>Não achei o que procuro. E agora?</summary><p>Mande o nome ou a foto do produto no <a class="link" data-wa="Olá! Vim pelo site e procuro um produto que não achei." href="https://wa.me/5533988137703">WhatsApp</a>. Se a loja não tiver, a equipe indica outra opção.</p></details>
       </div>
     </div>
@@ -221,22 +224,29 @@
         </div>
       </div>
       <div><h2>Lojas</h2><ul><li>Rua Quintino Bocaiúva, 676<br>Seg. a sex., 7h30 às 18h<br>Sáb., 7h30 às 13h</li><li>Rua Israel Pinheiro, 3381<br>Seg. a sex., 8h às 18h<br>Sáb., 8h às 13h</li></ul></div>
-      <div><h2>Comprar</h2><ul><li><a href="loja/">Loja online</a></li><li><a data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703">WhatsApp (33) 98813-7703</a></li><li><a href="https://www.instagram.com/alta_estima_gv/" target="_blank" rel="noopener">Instagram</a></li></ul></div>
-      <div><h2>Site</h2><ul><li><a href="privacidade/">Como usamos seus dados</a></li><li><button class="motion-toggle" type="button" aria-pressed="false"><i aria-hidden="true"></i>Reduzir movimento</button></li></ul></div>
+      <div><h2>Comprar</h2><ul><li><a href="loja/">Loja online</a></li><li><a href="pedido/">Acompanhar pedido</a></li><li><a href="entrega/">Entrega e retirada</a></li><li><a href="trocas/">Trocas e arrependimento (7 dias)</a></li></ul></div>
+      <div><h2>Informações</h2><ul><li><a href="termos/">Termos de compra</a></li><li><a href="privacidade/">Privacidade e seus dados</a></li><li><a href="https://www.instagram.com/alta_estima_gv/" target="_blank" rel="noopener">Instagram</a></li><li><button class="motion-toggle" type="button" aria-pressed="false"><i aria-hidden="true"></i>Reduzir movimento</button></li></ul></div>
+    </div>
+    <div class="empresa-id" aria-label="Identificação da loja">
+      <b data-empresa="razao" data-vazio="RAZÃO SOCIAL (a preencher)"></b> · CNPJ <span data-empresa="cnpj" data-vazio="a preencher"></span><br>
+      Rua Quintino Bocaiúva, 676 e Rua Israel Pinheiro, 3381, Governador Valadares, MG · <a data-empresa="email" data-vazio="e-mail a preencher" href="mailto:"></a> · <a data-empresa="telefone" href="tel:+5533988137703" data-vazio="telefone a preencher"></a>
     </div>
     <div class="small"><span>Alta Estima Cosméticos · Governador Valadares, MG</span><span>Fotos: <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a> · Site por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span></div>
   </div>
 </footer>
 
 <nav class="barra-fixa" aria-label="Atalhos">
-  <a href="./" aria-current="page"><svg aria-hidden="true"><use href="#i-home"/></svg><span>Início</span></a>
+  <a href=""><svg aria-hidden="true"><use href="#i-home"/></svg><span>Início</span></a>
   <button type="button" data-buscar><svg aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button>
   <a href="loja/"><svg aria-hidden="true"><use href="#i-grid"/></svg><span>Prateleiras</span></a>
   <button type="button" data-open-bag><svg aria-hidden="true"><use href="#i-bag"/></svg><span>Sacola</span><span class="n" data-zero>0</span></button>
-  <a data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+  <a href="pedido/"><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Pedidos</span></a>
 </nav>
 
 <script src="assets/dados.js" defer></script>
+<script src="assets/loja-dados.js" defer></script>
+<script src="assets/config.js"></script>
 <script src="assets/app.js" defer></script>
+<script src="assets/loja.js" defer></script>
 </body>
 </html>

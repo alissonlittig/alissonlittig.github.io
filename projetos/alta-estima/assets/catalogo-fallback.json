@@ -1,0 +1,666 @@
+{
+ "gerado_em": "2026-11-01T08:58:32.653Z",
+ "filiais": [
+  "israel",
+  "quintino"
+ ],
+ "produtos": [
+  {
+   "sku": "7899000000126",
+   "nome": "Água micelar",
+   "marca": "Garnier",
+   "grupo": "agua-micelar",
+   "variacao": "",
+   "categoria": "agua-micelar",
+   "descricao": "Remove maquiagem e limpa sem enxágue.",
+   "preco": 8190,
+   "foto": "assets/produtos/agua-micelar.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000362",
+   "nome": "Alicates e lixas",
+   "marca": "",
+   "grupo": "alicate",
+   "variacao": "",
+   "categoria": "alicate",
+   "descricao": "Alicate de cutícula, lixas e palitos.",
+   "preco": 7290,
+   "foto": "assets/produtos/alicate.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000348",
+   "nome": "Base e fortalecedor",
+   "marca": "Risqué",
+   "grupo": "base-unha",
+   "variacao": "",
+   "categoria": "base-unha",
+   "descricao": "Base, top coat e tratamento para unhas fracas.",
+   "preco": 990,
+   "foto": "assets/produtos/base-unha.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000010",
+   "nome": "Base líquida",
+   "marca": "Ruby Rose",
+   "grupo": "base",
+   "variacao": "",
+   "categoria": "base",
+   "descricao": "Cobertura leve a alta, para vários tons de pele.",
+   "preco": 4140,
+   "foto": "assets/produtos/base.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000034",
+   "nome": "Batom",
+   "marca": "Ruby Rose",
+   "grupo": "batom",
+   "variacao": "",
+   "categoria": "batom",
+   "descricao": "Matte, cremoso ou líquido. Diga a cor que procura.",
+   "preco": 2790,
+   "foto": "assets/produtos/batom.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": false
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000100017",
+   "nome": "Batom Matte",
+   "marca": "Avon",
+   "grupo": "batom-matte",
+   "variacao": "Tom 01 Rosé",
+   "categoria": "batom",
+   "descricao": "Cor intensa e acabamento aveludado. Passe os lábios limpos e secos, sem repuxar.",
+   "preco": 2990,
+   "foto": "assets/produtos/batom--avon.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000100024",
+   "nome": "Batom Matte",
+   "marca": "Avon",
+   "grupo": "batom-matte",
+   "variacao": "Tom 02 Vinho",
+   "categoria": "batom",
+   "descricao": "Cor intensa e acabamento aveludado. Passe os lábios limpos e secos, sem repuxar.",
+   "preco": 2990,
+   "foto": "assets/produtos/batom--avon.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": true
+  },
+  {
+   "sku": "7899000100031",
+   "nome": "Batom Matte",
+   "marca": "Avon",
+   "grupo": "batom-matte",
+   "variacao": "Tom 03 Nude",
+   "categoria": "batom",
+   "descricao": "Cor intensa e acabamento aveludado. Passe os lábios limpos e secos, sem repuxar.",
+   "preco": 2990,
+   "foto": "assets/produtos/batom--avon.webp",
+   "disponivel": {
+    "israel": false,
+    "quintino": false
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000096",
+   "nome": "Blush e iluminador",
+   "marca": "Ruby Rose",
+   "grupo": "blush",
+   "variacao": "",
+   "categoria": "blush",
+   "descricao": "Cor nas bochechas e ponto de luz.",
+   "preco": 6390,
+   "foto": "assets/produtos/blush.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000263",
+   "nome": "Body splash",
+   "marca": "Eudora",
+   "grupo": "body-splash",
+   "variacao": "",
+   "categoria": "body-splash",
+   "descricao": "Fragrância leve para usar no dia a dia.",
+   "preco": 6390,
+   "foto": "assets/produtos/body-splash.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000324",
+   "nome": "Cera e depilação",
+   "marca": "Depil Bella",
+   "grupo": "depilacao",
+   "variacao": "",
+   "categoria": "depilacao",
+   "descricao": "Cera roll-on, quente, fria e lâminas.",
+   "preco": 2340,
+   "foto": "assets/produtos/depilacao.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000225",
+   "nome": "Coloração",
+   "marca": "Koleston",
+   "grupo": "coloracao",
+   "variacao": "",
+   "categoria": "coloracao",
+   "descricao": "Tinta permanente e tonalizante. Diga o número do tom.",
+   "preco": 1440,
+   "foto": "assets/produtos/coloracao.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000188",
+   "nome": "Condicionador",
+   "marca": "Elseve",
+   "grupo": "condicionador",
+   "variacao": "",
+   "categoria": "condicionador",
+   "descricao": "Desembaraça e hidrata. Combine com o seu shampoo.",
+   "preco": 4140,
+   "foto": "assets/produtos/condicionador.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000027",
+   "nome": "Corretivo",
+   "marca": "Ruby Rose",
+   "grupo": "corretivo",
+   "variacao": "",
+   "categoria": "corretivo",
+   "descricao": "Para olheiras e manchas, em bastão ou líquido.",
+   "preco": 7290,
+   "foto": "assets/produtos/corretivo.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000201",
+   "nome": "Creme para pentear",
+   "marca": "Salon Line",
+   "grupo": "creme-pentear",
+   "variacao": "",
+   "categoria": "creme-pentear",
+   "descricao": "Definição de cachos e controle do frizz.",
+   "preco": 2790,
+   "foto": "assets/produtos/creme-pentear.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000065",
+   "nome": "Delineador",
+   "marca": "Vult",
+   "grupo": "delineador",
+   "variacao": "",
+   "categoria": "delineador",
+   "descricao": "Caneta, gel ou lápis para os olhos.",
+   "preco": 4590,
+   "foto": "assets/produtos/delineador.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000270",
+   "nome": "Desodorante",
+   "marca": "Nivea",
+   "grupo": "desodorante",
+   "variacao": "",
+   "categoria": "desodorante",
+   "descricao": "Aerosol, roll-on ou creme.",
+   "preco": 1890,
+   "foto": "assets/produtos/desodorante.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000232",
+   "nome": "Escovas e acessórios",
+   "marca": "",
+   "grupo": "escova",
+   "variacao": "",
+   "categoria": "escova",
+   "descricao": "Escovas, pentes, piranhas e elásticos.",
+   "preco": 4590,
+   "foto": "assets/produtos/escova.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000317",
+   "nome": "Esfoliante",
+   "marca": "Nivea",
+   "grupo": "esfoliante",
+   "variacao": "",
+   "categoria": "esfoliante",
+   "descricao": "Para corpo e pés.",
+   "preco": 6840,
+   "foto": "assets/produtos/esfoliante.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000331",
+   "nome": "Esmalte",
+   "marca": "Risqué",
+   "grupo": "esmalte",
+   "variacao": "",
+   "categoria": "esmalte",
+   "descricao": "Cremoso, cintilante ou com efeito gel.",
+   "preco": 5490,
+   "foto": "assets/produtos/esmalte.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000041",
+   "nome": "Gloss labial",
+   "marca": "Ruby Rose",
+   "grupo": "gloss",
+   "variacao": "",
+   "categoria": "gloss",
+   "descricao": "Brilho com ou sem cor, efeito volume.",
+   "preco": 5940,
+   "foto": "assets/produtos/gloss.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000287",
+   "nome": "Hidratante corporal",
+   "marca": "Nivea",
+   "grupo": "hidratante-corpo",
+   "variacao": "",
+   "categoria": "hidratante-corpo",
+   "descricao": "Pele seca, extrasseca ou normal.",
+   "preco": 5040,
+   "foto": "assets/produtos/hidratante-corpo.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000133",
+   "nome": "Hidratante facial",
+   "marca": "Nivea",
+   "grupo": "hidratante-facial",
+   "variacao": "",
+   "categoria": "hidratante-facial",
+   "descricao": "Textura leve, com ou sem cor.",
+   "preco": 3690,
+   "foto": "assets/produtos/hidratante-facial.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000386",
+   "nome": "Kit do seu jeito",
+   "marca": "",
+   "grupo": "kit-montado",
+   "variacao": "",
+   "categoria": "kit-montado",
+   "descricao": "Escolha os itens e a equipe monta o presente.",
+   "preco": 5940,
+   "foto": "assets/produtos/kit-montado.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000379",
+   "nome": "Kit presente pronto",
+   "marca": "",
+   "grupo": "kit-pronto",
+   "variacao": "",
+   "categoria": "kit-pronto",
+   "descricao": "Caixas montadas para presentear.",
+   "preco": 2790,
+   "foto": "assets/produtos/kit-pronto.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000195",
+   "nome": "Máscara capilar",
+   "marca": "Haskell",
+   "grupo": "mascara-capilar",
+   "variacao": "",
+   "categoria": "mascara-capilar",
+   "descricao": "Hidratação, nutrição e reconstrução.",
+   "preco": 7290,
+   "foto": "assets/produtos/mascara-capilar.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000058",
+   "nome": "Máscara de cílios",
+   "marca": "Maybelline",
+   "grupo": "mascara-cilios",
+   "variacao": "",
+   "categoria": "mascara-cilios",
+   "descricao": "Volume, alongamento ou à prova d'água.",
+   "preco": 1440,
+   "foto": "assets/produtos/mascara-cilios.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000164",
+   "nome": "Máscara facial",
+   "marca": "Garnier",
+   "grupo": "mascara-facial",
+   "variacao": "",
+   "categoria": "mascara-facial",
+   "descricao": "Argila, tecido ou hidratante.",
+   "preco": 5490,
+   "foto": "assets/produtos/mascara-facial.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000300",
+   "nome": "Óleo corporal",
+   "marca": "Monange",
+   "grupo": "oleo-corpo",
+   "variacao": "",
+   "categoria": "oleo-corpo",
+   "descricao": "Hidratação e brilho depois do banho.",
+   "preco": 3690,
+   "foto": "assets/produtos/oleo-corpo.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000218",
+   "nome": "Óleo e finalizador",
+   "marca": "Elseve",
+   "grupo": "finalizador",
+   "variacao": "",
+   "categoria": "finalizador",
+   "descricao": "Brilho, pontas e proteção térmica.",
+   "preco": 5940,
+   "foto": "assets/produtos/finalizador.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000072",
+   "nome": "Paleta de sombras",
+   "marca": "Ruby Rose",
+   "grupo": "paleta",
+   "variacao": "",
+   "categoria": "paleta",
+   "descricao": "Tons neutros, coloridos e cintilantes.",
+   "preco": 7740,
+   "foto": "assets/produtos/paleta.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": false
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000249",
+   "nome": "Perfume feminino",
+   "marca": "Eudora",
+   "grupo": "perfume-f",
+   "variacao": "",
+   "categoria": "perfume-f",
+   "descricao": "Floral, frutado, doce ou amadeirado.",
+   "preco": 7740,
+   "foto": "assets/produtos/perfume-f.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000256",
+   "nome": "Perfume masculino",
+   "marca": "Eudora",
+   "grupo": "perfume-m",
+   "variacao": "",
+   "categoria": "perfume-m",
+   "descricao": "Fresco, amadeirado ou intenso.",
+   "preco": 3240,
+   "foto": "assets/produtos/perfume-m.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000102",
+   "nome": "Pincéis e esponjas",
+   "marca": "Ruby Rose",
+   "grupo": "pinceis",
+   "variacao": "",
+   "categoria": "pinceis",
+   "descricao": "Kits e avulsos para base, pó e olhos.",
+   "preco": 1890,
+   "foto": "assets/produtos/pinceis.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000089",
+   "nome": "Pó compacto ou solto",
+   "marca": "Vult",
+   "grupo": "po",
+   "variacao": "",
+   "categoria": "po",
+   "descricao": "Para selar a maquiagem e tirar o brilho.",
+   "preco": 3240,
+   "foto": "assets/produtos/po.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000157",
+   "nome": "Protetor solar facial",
+   "marca": "Neutrogena",
+   "grupo": "protetor",
+   "variacao": "",
+   "categoria": "protetor",
+   "descricao": "FPS 30 a 70, com ou sem cor.",
+   "preco": 2340,
+   "foto": "assets/produtos/protetor.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000355",
+   "nome": "Removedor de esmalte",
+   "marca": "",
+   "grupo": "removedor",
+   "variacao": "",
+   "categoria": "removedor",
+   "descricao": "Com ou sem acetona.",
+   "preco": 4140,
+   "foto": "assets/produtos/removedor.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000294",
+   "nome": "Sabonete",
+   "marca": "Dove",
+   "grupo": "sabonete",
+   "variacao": "",
+   "categoria": "sabonete",
+   "descricao": "Em barra ou líquido, hidratante ou esfoliante.",
+   "preco": 8190,
+   "foto": "assets/produtos/sabonete.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000119",
+   "nome": "Sabonete facial",
+   "marca": "Neutrogena",
+   "grupo": "limpeza",
+   "variacao": "",
+   "categoria": "limpeza",
+   "descricao": "Limpeza para pele oleosa, mista ou seca.",
+   "preco": 5040,
+   "foto": "assets/produtos/limpeza.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000140",
+   "nome": "Sérum facial",
+   "marca": "Garnier",
+   "grupo": "serum",
+   "variacao": "",
+   "categoria": "serum",
+   "descricao": "Vitamina C, ácido hialurônico e niacinamida.",
+   "preco": 6840,
+   "foto": "assets/produtos/serum.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  },
+  {
+   "sku": "7899000000171",
+   "nome": "Shampoo",
+   "marca": "Elseve",
+   "grupo": "shampoo",
+   "variacao": "",
+   "categoria": "shampoo",
+   "descricao": "Para cabelo liso, cacheado, oleoso ou com química.",
+   "preco": 990,
+   "foto": "assets/produtos/shampoo.webp",
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   },
+   "ultimas_unidades": false
+  }
+ ],
+ "aviso": "Cópia de reserva da vitrine (dados de TESTE). Regerar a partir do /catalogo.json real antes de abrir a loja."
+}

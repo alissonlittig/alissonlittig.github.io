@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="pt-BR" data-root="../">
+<html lang="pt-BR" data-root="../" data-page="loja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loja online · Alta Estima Cosméticos</title>
-<meta name="description" content="Escolha maquiagem, skincare, cabelos e perfumaria, monte a sacola e envie o pedido pelo WhatsApp da Alta Estima.">
+<meta name="description" content="Compre maquiagem, skincare, cabelos e perfumaria da Alta Estima. Pague com Pix, crédito ou débito e retire na loja ou receba em Governador Valadares.">
 <meta name="theme-color" content="#084427">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Loja online · Alta Estima Cosméticos">
-<meta property="og:description" content="Monte a sacola no site e envie o pedido pelo WhatsApp. Duas lojas em Governador Valadares.">
+<meta property="og:description" content="Compre maquiagem, skincare, cabelos e perfumaria da Alta Estima. Pague com Pix, crédito ou débito e retire na loja ou receba em Governador Valadares.">
 <meta property="og:image" content="https://alissonlittig.github.io/projetos/alta-estima/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -17,6 +17,7 @@
 <link rel="preload" href="../assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="../assets/v2.css">
+<link rel="stylesheet" href="../assets/loja.css">
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -55,8 +56,9 @@
     </form>
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="../">Início</a>
-      <a href="../loja/" aria-current="page">Loja online</a>
+      <a href="../loja/">Loja online</a>
       <a href="../#necessidades">Necessidades</a>
+      <a href="../pedido/">Meus pedidos</a>
       <a href="../#lojas">Lojas</a>
     </nav>
     <a class="wa-btn" data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703" aria-label="Chamar no WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
@@ -66,10 +68,10 @@
 
 <div class="beneficios">
   <ul class="wrap" aria-label="Vantagens">
-    <li><svg aria-hidden="true"><use href="#i-truck"/></svg><span>Entrega em toda <b>Governador Valadares</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-truck"/></svg><span>Entrega em <b>Governador Valadares</b></span></li>
     <li><svg aria-hidden="true"><use href="#i-store"/></svg><span>Retire em uma das <b>2 lojas</b></span></li>
-    <li><svg aria-hidden="true"><use href="#i-chat"/></svg><span>Pedido pelo WhatsApp, <b>sem cadastro</b></span></li>
-    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Atendimento <b>seg. a sáb.</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-bag"/></svg><span>Pague com <b>Pix, crédito ou débito</b></span></li>
+    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Desista em até <b>7 dias</b></span></li>
   </ul>
 </div>
 
@@ -78,7 +80,7 @@
     <div class="wrap">
       <span class="kicker">Loja online</span>
       <h1 class="display">Monte a sua <em>sacola.</em></h1>
-      <p class="lead">Escolha os produtos, diga a cor ou a marca que prefere e envie o pedido pelo WhatsApp. A equipe confirma preço e estoque e combina a retirada ou a entrega.</p>
+      <p class="lead">Escolha, pague pelo site e retire em uma das lojas ou receba em casa, em Governador Valadares. Dúvida sobre um produto? Chame a gente no WhatsApp.</p>
     </div>
   </section>
   <div class="tools">
@@ -86,7 +88,7 @@
       <div class="tools-l1">
         <div class="search"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <label class="sr" for="busca">Buscar produto ou marca</label><input id="busca" type="search" placeholder="Buscar produto ou marca" autocomplete="off" enterkeyhint="search"></div>
-        <div class="marca-sel"><label for="marca-filtro">Marca</label><select id="marca-filtro"><option value="">Todas as marcas</option><option value="Natura">Natura</option><option value="O Boticário">O Boticário</option><option value="Eudora">Eudora</option><option value="Avon">Avon</option><option value="L'Oréal Paris">L'Oréal Paris</option><option value="Elseve">Elseve</option><option value="Koleston">Koleston</option><option value="Colorama">Colorama</option><option value="Risqué">Risqué</option><option value="Dailus">Dailus</option><option value="Maybelline">Maybelline</option><option value="Ruby Rose">Ruby Rose</option><option value="Vult">Vult</option><option value="Nivea">Nivea</option><option value="Dove">Dove</option><option value="Monange">Monange</option><option value="Haskell">Haskell</option><option value="Bio Extratus">Bio Extratus</option><option value="Salon Line">Salon Line</option><option value="Skala">Skala</option><option value="Seda">Seda</option><option value="Pantene">Pantene</option><option value="Garnier">Garnier</option><option value="Neutrogena">Neutrogena</option></select></div>
+        <div class="marca-sel"><label for="marca-filtro">Marca</label><select id="marca-filtro"><option value="">Todas as marcas</option></select></div>
       </div>
       <div class="chips" id="chips" role="group" aria-label="Filtrar por prateleira"></div>
       <div class="tools-nec"><span class="tools-rot" id="nec-rot">Por necessidade</span><div class="chips" id="nec-chips" role="group" aria-labelledby="nec-rot"></div></div>
@@ -97,7 +99,7 @@
     <p class="count" id="contagem" aria-live="polite"></p>
     <div class="lista-prod" id="grade"></div>
     <div class="none" id="nada" hidden><b>Nada por aqui com esse nome.</b><p class="lead" style="margin:10px auto 18px">A loja tem bem mais do que o site mostra. Pergunte pelo WhatsApp.</p><a class="btn wa" id="nada-wa" href="https://wa.me/5533988137703" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Perguntar no WhatsApp</a></div>
-    <noscript><p class="lead">Para montar a sacola, ative o JavaScript ou <a class="link" href="https://wa.me/5533988137703">peça direto pelo WhatsApp</a>.</p></noscript>
+    <noscript><p class="lead">Para ver os produtos e comprar, ative o JavaScript ou <a class="link" href="https://wa.me/5533988137703">fale com a gente pelo WhatsApp</a>.</p></noscript>
   </section>
 </main>
 <footer class="foot-site">
@@ -112,8 +114,12 @@
         </div>
       </div>
       <div><h2>Lojas</h2><ul><li>Rua Quintino Bocaiúva, 676<br>Seg. a sex., 7h30 às 18h<br>Sáb., 7h30 às 13h</li><li>Rua Israel Pinheiro, 3381<br>Seg. a sex., 8h às 18h<br>Sáb., 8h às 13h</li></ul></div>
-      <div><h2>Comprar</h2><ul><li><a href="../loja/">Loja online</a></li><li><a data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703">WhatsApp (33) 98813-7703</a></li><li><a href="https://www.instagram.com/alta_estima_gv/" target="_blank" rel="noopener">Instagram</a></li></ul></div>
-      <div><h2>Site</h2><ul><li><a href="../privacidade/">Como usamos seus dados</a></li><li><button class="motion-toggle" type="button" aria-pressed="false"><i aria-hidden="true"></i>Reduzir movimento</button></li></ul></div>
+      <div><h2>Comprar</h2><ul><li><a href="../loja/">Loja online</a></li><li><a href="../pedido/">Acompanhar pedido</a></li><li><a href="../entrega/">Entrega e retirada</a></li><li><a href="../trocas/">Trocas e arrependimento (7 dias)</a></li></ul></div>
+      <div><h2>Informações</h2><ul><li><a href="../termos/">Termos de compra</a></li><li><a href="../privacidade/">Privacidade e seus dados</a></li><li><a href="https://www.instagram.com/alta_estima_gv/" target="_blank" rel="noopener">Instagram</a></li><li><button class="motion-toggle" type="button" aria-pressed="false"><i aria-hidden="true"></i>Reduzir movimento</button></li></ul></div>
+    </div>
+    <div class="empresa-id" aria-label="Identificação da loja">
+      <b data-empresa="razao" data-vazio="RAZÃO SOCIAL (a preencher)"></b> · CNPJ <span data-empresa="cnpj" data-vazio="a preencher"></span><br>
+      Rua Quintino Bocaiúva, 676 e Rua Israel Pinheiro, 3381, Governador Valadares, MG · <a data-empresa="email" data-vazio="e-mail a preencher" href="mailto:"></a> · <a data-empresa="telefone" href="tel:+5533988137703" data-vazio="telefone a preencher"></a>
     </div>
     <div class="small"><span>Alta Estima Cosméticos · Governador Valadares, MG</span><span>Fotos: <a href="https://unsplash.com/" target="_blank" rel="noopener">Unsplash</a> · Site por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span></div>
   </div>
@@ -124,10 +130,12 @@
   <button type="button" data-buscar><svg aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button>
   <a href="../loja/" aria-current="page"><svg aria-hidden="true"><use href="#i-grid"/></svg><span>Prateleiras</span></a>
   <button type="button" data-open-bag><svg aria-hidden="true"><use href="#i-bag"/></svg><span>Sacola</span><span class="n" data-zero>0</span></button>
-  <a data-wa="Olá! Vim pelo site da Alta Estima." href="https://wa.me/5533988137703"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+  <a href="../pedido/"><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Pedidos</span></a>
 </nav>
 
 <script src="../assets/dados.js" defer></script>
-<script src="../assets/app.js" defer></script>
+<script src="../assets/loja-dados.js" defer></script>
+<script src="../assets/config.js"></script>
+<script src="../assets/loja.js" defer></script>
 </body>
 </html>
