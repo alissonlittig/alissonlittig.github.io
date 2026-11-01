@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-pt="Planilha grátis: lucro, preço e caixa · Planilha Viva" data-en="Free spreadsheet: profit, price and cash · Planilha Viva">Planilha grátis: lucro, preço e caixa · Planilha Viva</title>
+<meta name="description" content="Calcule o lucro do mês, o preço de venda e o caixa das próximas 4 semanas. Números ficam só no seu aparelho." data-en-content="Calculate the month&#x27;s profit, selling price and the next 4 weeks of cash. Numbers stay on your device.">
+<meta name="theme-color" content="#0E3624">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Planilha grátis: lucro, preço e caixa · Planilha Viva">
+<meta property="og:description" content="Calcule o lucro do mês, o preço de venda e o caixa das próximas 4 semanas. Números ficam só no seu aparelho.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/planilha-viva/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>(function(){var h=document.documentElement;h.className='js';try{var l=new URLSearchParams(location.search).get('lang')||JSON.parse(localStorage.getItem('pv-lang'));if(l==='en'||l==='pt')h.setAttribute('data-lang',l);else if(/^en/i.test(navigator.language))h.setAttribute('data-lang','en')}catch(e){}})()</script>
+</head>
+<body>
+<a class="skip" href="#conteudo"><span lang="pt">Pular para o conteúdo</span><span lang="en">Skip to content</span></a>
+<div class="ribbon"><span lang="pt">Projeto conceito: marca, preços e números fictícios, criados por Alisson Littig para portfólio.</span><span lang="en">Concept project: fictional brand, prices and numbers, created by Alisson Littig for a portfolio.</span></div>
+<header class="top">
+ <div class="wrap">
+  <a class="logo" href="../" aria-label="Planilha Viva, início" data-en-aria-label="Planilha Viva, home"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="4" fill="#17704A"/><path d="M1 10h26M1 19h26M10 1v26M19 1v26" stroke="#FAFBF7" stroke-opacity=".55" stroke-width="1"/><rect x="10" y="10" width="9" height="9" fill="#F0B429"/></svg><span>Planilha<b>Viva</b></span></a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+  <nav class="tabs" id="menu" aria-label="Principal" data-en-aria-label="Main"><a href="../"><span lang="pt">Início</span><span lang="en">Home</span></a><a href="../curso/"><span lang="pt">Curso</span><span lang="en">Course</span></a><a href="../planilha/" aria-current="page"><span lang="pt">Planilha</span><span lang="en">Spreadsheet</span></a><a href="../precos/"><span lang="pt">Preços</span><span lang="en">Pricing</span></a><a href="../sobre/"><span lang="pt">Sobre</span><span lang="en">About</span></a><a href="../contato/"><span lang="pt">Contato</span><span lang="en">Contact</span></a></nav>
+  <div class="tools"><div class="lang" role="group" aria-label="Idioma" data-en-aria-label="Language"><button data-l="pt" aria-pressed="true">PT</button><button data-l="en" aria-pressed="false">EN</button></div></div>
+ </div>
+ <div class="fbar"><div class="wrap"><span class="ref">C1</span><span class="fx">fx</span><span class="t"><span lang="pt">=PLANILHA(lucro; preco; caixa)</span><span lang="en">=SHEET(profit; price; cash)</span></span></div></div>
+</header>
+<main id="conteudo">
+<div class="hero sub"><div class="ruler" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></div><div class="wrap hero-grid"><div><span class="eyebrow"><span lang="pt">Ferramenta grátis</span><span lang="en">Free tool</span></span><h1><span lang="pt">Três contas que todo dono de negócio deveria fazer.</span><span lang="en">Three calculations every business owner should do.</span></h1><p class="lede"><span lang="pt">Resultado do mês, preço de venda e caixa das próximas 4 semanas. Os números ficam só neste aparelho.</span><span lang="en">Month result, selling price and the next 4 weeks of cash. Your numbers stay on this device only.</span></p></div></div></div>
+<section style="padding-top:40px"><div class="wrap" id="ferramenta">
+ <div class="presets" role="group" aria-label="Começar de um exemplo" data-en-aria-label="Start from an example"><span><span lang="pt">Começar de um exemplo:</span><span lang="en">Start from an example:</span></span>
+  <button type="button" class="chip" data-pre="padaria" aria-pressed="true"><span lang="pt">Padaria</span><span lang="en">Bakery</span></button><button type="button" class="chip" data-pre="feira" aria-pressed="false"><span lang="pt">Barraca de feira</span><span lang="en">Market stall</span></button><button type="button" class="chip" data-pre="cafe" aria-pressed="false"><span lang="pt">Cafeteria</span><span lang="en">Coffee shop</span></button></div>
+ <div class="tablist" role="tablist" aria-label="Ferramentas" data-en-aria-label="Tools">
+  <button role="tab" id="t-resultado" data-p="resultado" aria-controls="panel-resultado" aria-selected="true"><span lang="pt">Resultado do mês</span><span lang="en">Month result</span></button>
+  <button role="tab" id="t-preco" data-p="preco" aria-controls="panel-preco" aria-selected="false" tabindex="-1"><span lang="pt">Preço de venda</span><span lang="en">Selling price</span></button>
+  <button role="tab" id="t-caixa" data-p="caixa" aria-controls="panel-caixa" aria-selected="false" tabindex="-1"><span lang="pt">Caixa em 4 semanas</span><span lang="en">4-week cash</span></button></div>
+
+ <div class="tool" id="panel-resultado" role="tabpanel" aria-labelledby="t-resultado">
+  <div><div class="fld"><label for="i-v"><span lang="pt">Vendas do mês</span><span lang="en">Month's sales</span> (R$)</label><input class="num" id="i-v" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-c"><span lang="pt">Custo das mercadorias vendidas</span><span lang="en">Cost of goods sold</span> (R$)</label><input class="num" id="i-c" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-t"><span lang="pt">Impostos sobre as vendas</span><span lang="en">Taxes on sales</span> (%)</label><input class="num" id="i-t" inputmode="decimal" autocomplete="off"><small><span lang="pt">Imposto e taxa de cartão somados, em % das vendas.</span><span lang="en">Tax and card fees added up, as % of sales.</span></small></div><div class="fld"><label for="i-f"><span lang="pt">Despesas fixas do mês</span><span lang="en">Fixed costs for the month</span> (R$)</label><input class="num" id="i-f" inputmode="decimal" autocomplete="off"><small><span lang="pt">Aluguel, salários, luz, internet: o que se paga mesmo sem vender.</span><span lang="en">Rent, wages, power, internet: what you pay even without selling.</span></small></div></div>
+  <div class="out"><div class="head">resultado.xlsx</div><dl>
+   <dt><span lang="pt">Vendas menos custo</span><span lang="en">Sales minus cost</span></dt><dd id="o-bruto"></dd><dt><span lang="pt">Impostos e taxas</span><span lang="en">Taxes and fees</span></dt><dd id="o-imp"></dd>
+   <dt class="hl"><span lang="pt">Lucro do mês</span><span lang="en">Month's profit</span></dt><dd class="hl" id="o-l"></dd>
+   <dt><span lang="pt">Margem líquida</span><span lang="en">Net margin</span></dt><dd id="o-m"></dd><dt><span lang="pt">Ponto de equilíbrio</span><span lang="en">Break-even</span></dt><dd id="o-eq"></dd></dl>
+   <p class="msg" id="o-msg" aria-live="polite"></p></div>
+ </div>
+
+ <div class="tool" id="panel-preco" role="tabpanel" aria-labelledby="t-preco" hidden>
+  <div><div class="fld"><label for="i-pc"><span lang="pt">Custo do produto ou serviço</span><span lang="en">Product or service cost</span> (R$)</label><input class="num" id="i-pc" inputmode="decimal" autocomplete="off"><small><span lang="pt">Quanto custa deixar uma unidade pronta para vender.</span><span lang="en">What it costs to have one unit ready to sell.</span></small></div><div class="fld"><label for="i-pd"><span lang="pt">Despesas indiretas sobre o preço</span><span lang="en">Overhead as % of price</span> (%)</label><input class="num" id="i-pd" inputmode="decimal" autocomplete="off"><small><span lang="pt">Parte do preço que paga aluguel, equipe e outras contas.</span><span lang="en">Share of the price that pays rent, staff and other bills.</span></small></div><div class="fld"><label for="i-pt"><span lang="pt">Impostos e taxas sobre o preço</span><span lang="en">Taxes and fees as % of price</span> (%)</label><input class="num" id="i-pt" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-pm"><span lang="pt">Lucro que você quer</span><span lang="en">Profit you want</span> (%)</label><input class="num" id="i-pm" inputmode="decimal" autocomplete="off"></div></div>
+  <div class="out"><div class="head">preco.xlsx</div><dl>
+   <dt class="hl"><span lang="pt">Preço de venda</span><span lang="en">Selling price</span></dt><dd class="hl" id="p-preco"></dd>
+   <dt><span lang="pt">Para despesas</span><span lang="en">For overhead</span></dt><dd id="p-d"></dd><dt><span lang="pt">Para impostos e taxas</span><span lang="en">For taxes and fees</span></dt><dd id="p-t"></dd><dt><span lang="pt">Lucro por unidade</span><span lang="en">Profit per unit</span></dt><dd id="p-m"></dd></dl>
+   <p class="msg" id="p-msg" aria-live="polite"></p></div>
+ </div>
+
+ <div class="tool" id="panel-caixa" role="tabpanel" aria-labelledby="t-caixa" hidden>
+  <div><div class="fld"><label for="i-s"><span lang="pt">Saldo hoje</span><span lang="en">Balance today</span> (R$)</label><input class="num" id="i-s" inputmode="decimal" autocomplete="off"></div>
+   <div class="grid2"><div class="fld"><label for="i-e1"><span lang="pt">Entradas, semana 1</span><span lang="en">Inflows, week 1</span> (R$)</label><input class="num" id="i-e1" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-e2"><span lang="pt">Entradas, semana 2</span><span lang="en">Inflows, week 2</span> (R$)</label><input class="num" id="i-e2" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-e3"><span lang="pt">Entradas, semana 3</span><span lang="en">Inflows, week 3</span> (R$)</label><input class="num" id="i-e3" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-e4"><span lang="pt">Entradas, semana 4</span><span lang="en">Inflows, week 4</span> (R$)</label><input class="num" id="i-e4" inputmode="decimal" autocomplete="off"></div></div>
+   <div class="grid2"><div class="fld"><label for="i-x1"><span lang="pt">Saídas, semana 1</span><span lang="en">Outflows, week 1</span> (R$)</label><input class="num" id="i-x1" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-x2"><span lang="pt">Saídas, semana 2</span><span lang="en">Outflows, week 2</span> (R$)</label><input class="num" id="i-x2" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-x3"><span lang="pt">Saídas, semana 3</span><span lang="en">Outflows, week 3</span> (R$)</label><input class="num" id="i-x3" inputmode="decimal" autocomplete="off"></div><div class="fld"><label for="i-x4"><span lang="pt">Saídas, semana 4</span><span lang="en">Outflows, week 4</span> (R$)</label><input class="num" id="i-x4" inputmode="decimal" autocomplete="off"></div></div></div>
+  <div class="out"><div class="head">caixa.xlsx</div><div class="bars" id="c-bars" role="img" aria-label="Saldo de caixa hoje e ao fim de cada semana" data-en-aria-label="Cash balance today and at the end of each week"></div><dl>
+   <dt class="hl"><span lang="pt">Saldo ao fim da semana 4</span><span lang="en">Balance at end of week 4</span></dt><dd class="hl" id="c-fim"></dd><dt><span lang="pt">Ponto mais baixo</span><span lang="en">Lowest point</span></dt><dd id="c-min"></dd></dl>
+   <p class="msg" id="c-msg" aria-live="polite"></p></div>
+ </div>
+
+ <div class="acts" style="margin-top:28px"><button class="btn sm alt" id="b-copy" type="button"><span lang="pt">Copiar resultado</span><span lang="en">Copy result</span></button><button class="btn sm alt" id="b-csv" type="button"><span lang="pt">Baixar CSV</span><span lang="en">Download CSV</span></button><button class="btn sm alt" id="b-clear" type="button"><span lang="pt">Voltar ao exemplo</span><span lang="en">Reset to example</span></button></div>
+ <p id="status" role="status"></p>
+ <p class="small muted" style="max-width:62ch"><span lang="pt">Cálculo simples, sem substituir o seu contador. O curso ensina a montar estas e outras contas na sua própria planilha.</span><span lang="en">Simple math, not a substitute for your accountant. The course teaches you to build these and other calculations in your own spreadsheet.</span></p>
+ <div class="row-btns"><a class="btn" href="../curso/"><span lang="pt">Ver o curso</span><span lang="en">See the course</span></a></div>
+</div></section>
+
+</main>
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="../"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="4" fill="#17704A"/><path d="M1 10h26M1 19h26M10 1v26M19 1v26" stroke="#FAFBF7" stroke-opacity=".55" stroke-width="1"/><rect x="10" y="10" width="9" height="9" fill="#F0B429"/></svg><span>Planilha<b>Viva</b></span></a><p><span lang="pt">Curso de 21 dias para donos de pequenos negócios montarem o próprio controle financeiro.</span><span lang="en">A 21-day course for small-business owners to build their own financial control.</span></p></div>
+   <div><h3><span lang="pt">Páginas</span><span lang="en">Pages</span></h3><ul><li><a href="../"><span lang="pt">Início</span><span lang="en">Home</span></a></li><li><a href="../curso/"><span lang="pt">Curso</span><span lang="en">Course</span></a></li><li><a href="../planilha/"><span lang="pt">Planilha</span><span lang="en">Spreadsheet</span></a></li><li><a href="../precos/"><span lang="pt">Preços</span><span lang="en">Pricing</span></a></li><li><a href="../sobre/"><span lang="pt">Sobre</span><span lang="en">About</span></a></li><li><a href="../contato/"><span lang="pt">Contato</span><span lang="en">Contact</span></a></li></ul></div>
+   <div><h3><span lang="pt">Dados e contato</span><span lang="en">Data and contact</span></h3><ul><li><a href="../privacidade/"><span lang="pt">Como usamos seus dados</span><span lang="en">How we use your data</span></a></li><li><a href="../contato/">oi@planilhaviva.example</a></li><li><a href="https://alissonlittig.github.io/" rel="noopener"><span lang="pt">Portfólio de Alisson Littig</span><span lang="en">Alisson Littig's portfolio</span></a></li></ul></div>
+  </div>
+  <div class="fine">
+   <span><span lang="pt">Planilha Viva é uma marca fictícia. Preços, prazos e números do site são exemplos e não existe curso à venda.</span><span lang="en">Planilha Viva is a fictional brand. Prices, deadlines and figures are examples; no course is for sale.</span></span>
+   <span><span lang="pt">Fotos: </span><span lang="en">Photos: </span><a href="https://commons.wikimedia.org/wiki/File:Market_stall_in_Rio_de_Janeiro,_Brazil.jpg" rel="noopener">Wilfredor</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Bakery_products_on_the_counter_of_Jacob%27s_Bakery_%2B_Cafe_2024-04-15.jpg" rel="noopener">Andy Li</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Baristas_at_work_(Unsplash).jpg" rel="noopener">Tim Wright</a> (CC0), Wikimedia Commons. <span lang="pt">Fontes IBM Plex, licença OFL.</span><span lang="en">IBM Plex fonts, OFL license.</span></span>
+  </div>
+ </div>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

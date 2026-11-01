@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-pt="Contato · Planilha Viva" data-en="Contact · Planilha Viva">Contato · Planilha Viva</title>
+<meta name="description" content="Fale com a Planilha Viva sobre o curso, os planos ou a planilha. Resposta em até 2 dias úteis." data-en-content="Contact Planilha Viva about the course, plans or spreadsheet. Reply within 2 business days.">
+<meta name="theme-color" content="#0E3624">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contato · Planilha Viva">
+<meta property="og:description" content="Fale com a Planilha Viva sobre o curso, os planos ou a planilha. Resposta em até 2 dias úteis.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/planilha-viva/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>(function(){var h=document.documentElement;h.className='js';try{var l=new URLSearchParams(location.search).get('lang')||JSON.parse(localStorage.getItem('pv-lang'));if(l==='en'||l==='pt')h.setAttribute('data-lang',l);else if(/^en/i.test(navigator.language))h.setAttribute('data-lang','en')}catch(e){}})()</script>
+</head>
+<body>
+<a class="skip" href="#conteudo"><span lang="pt">Pular para o conteúdo</span><span lang="en">Skip to content</span></a>
+<div class="ribbon"><span lang="pt">Projeto conceito: marca, preços e números fictícios, criados por Alisson Littig para portfólio.</span><span lang="en">Concept project: fictional brand, prices and numbers, created by Alisson Littig for a portfolio.</span></div>
+<header class="top">
+ <div class="wrap">
+  <a class="logo" href="../" aria-label="Planilha Viva, início" data-en-aria-label="Planilha Viva, home"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="4" fill="#17704A"/><path d="M1 10h26M1 19h26M10 1v26M19 1v26" stroke="#FAFBF7" stroke-opacity=".55" stroke-width="1"/><rect x="10" y="10" width="9" height="9" fill="#F0B429"/></svg><span>Planilha<b>Viva</b></span></a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+  <nav class="tabs" id="menu" aria-label="Principal" data-en-aria-label="Main"><a href="../"><span lang="pt">Início</span><span lang="en">Home</span></a><a href="../curso/"><span lang="pt">Curso</span><span lang="en">Course</span></a><a href="../planilha/"><span lang="pt">Planilha</span><span lang="en">Spreadsheet</span></a><a href="../precos/"><span lang="pt">Preços</span><span lang="en">Pricing</span></a><a href="../sobre/"><span lang="pt">Sobre</span><span lang="en">About</span></a><a href="../contato/" aria-current="page"><span lang="pt">Contato</span><span lang="en">Contact</span></a></nav>
+  <div class="tools"><div class="lang" role="group" aria-label="Idioma" data-en-aria-label="Language"><button data-l="pt" aria-pressed="true">PT</button><button data-l="en" aria-pressed="false">EN</button></div></div>
+ </div>
+ <div class="fbar"><div class="wrap"><span class="ref">F1</span><span class="fx">fx</span><span class="t"><span lang="pt">=CONTATO(mensagem)</span><span lang="en">=CONTACT(message)</span></span></div></div>
+</header>
+<main id="conteudo">
+<div class="hero sub"><div class="ruler" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span></div><div class="wrap hero-grid"><div><span class="eyebrow"><span lang="pt">Contato</span><span lang="en">Contact</span></span><h1><span lang="pt">Fale com a gente.</span><span lang="en">Talk to us.</span></h1><p class="lede"><span lang="pt">Dúvida sobre o curso, os planos ou a planilha? Escreva e a resposta chega em até 2 dias úteis.</span><span lang="en">Question about the course, plans or spreadsheet? Write and a reply arrives within 2 business days.</span></p></div></div></div>
+<section style="padding-top:48px"><div class="wrap contact">
+ <div class="formbox"><form id="form" novalidate>
+  <div class="fld"><label for="f-nome"><span lang="pt">Nome</span><span lang="en">Name</span></label><input id="f-nome" name="nome" required autocomplete="name"></div>
+  <div class="fld"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+  <div class="fld"><label for="f-assunto"><span lang="pt">Assunto</span><span lang="en">Subject</span></label><select id="f-assunto" name="assunto"><option value="duvida" data-en-text="Question about the course">Dúvida sobre o curso</option><option value="curso" data-en-text="I want the full course">Quero o curso completo</option><option value="apoio" data-en-text="I want the course with sessions">Quero o curso com encontros</option><option value="outro" data-en-text="Other">Outro</option></select></div>
+  <div class="fld"><label for="f-msg"><span lang="pt">Mensagem</span><span lang="en">Message</span></label><textarea id="f-msg" name="msg" required></textarea></div>
+  <label class="consent"><input type="checkbox" required><span><span lang="pt">Entendi que este formulário é uma demonstração: nada é enviado nem guardado.</span><span lang="en">I understand this form is a demonstration: nothing is sent or stored.</span> <a href="../privacidade/"><span lang="pt">Como usamos seus dados</span><span lang="en">How we use your data</span></a></span></label>
+  <button class="btn" type="submit"><span lang="pt">Enviar mensagem</span><span lang="en">Send message</span></button>
+ </form>
+ <div class="sent" id="sent" tabindex="-1" role="status"><b><span lang="pt">Mensagem de exemplo registrada na tela.</span><span lang="en">Example message shown on screen.</span></b><p class="small"><span lang="pt">Nada foi enviado, porque a marca é fictícia. Em um site real, a resposta chegaria no seu e-mail.</span><span lang="en">Nothing was sent, because the brand is fictional. On a real site, the reply would reach your email.</span></p></div></div>
+ <dl class="info"><dt>E-mail</dt><dd>oi@planilhaviva.example</dd><dt><span lang="pt">Horário</span><span lang="en">Hours</span></dt><dd><span lang="pt">Segunda a sexta, 9h às 17h</span><span lang="en">Monday to Friday, 9am to 5pm</span></dd><dt><span lang="pt">Prazo de resposta</span><span lang="en">Reply time</span></dt><dd><span lang="pt">Até 2 dias úteis</span><span lang="en">Up to 2 business days</span></dd><dt><span lang="pt">Antes de escrever</span><span lang="en">Before you write</span></dt><dd><a href="../precos/"><span lang="pt">Veja as perguntas frequentes</span><span lang="en">See the frequently asked questions</span></a></dd></dl>
+</div></section>
+
+</main>
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div><a class="logo" href="../"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="4" fill="#17704A"/><path d="M1 10h26M1 19h26M10 1v26M19 1v26" stroke="#FAFBF7" stroke-opacity=".55" stroke-width="1"/><rect x="10" y="10" width="9" height="9" fill="#F0B429"/></svg><span>Planilha<b>Viva</b></span></a><p><span lang="pt">Curso de 21 dias para donos de pequenos negócios montarem o próprio controle financeiro.</span><span lang="en">A 21-day course for small-business owners to build their own financial control.</span></p></div>
+   <div><h3><span lang="pt">Páginas</span><span lang="en">Pages</span></h3><ul><li><a href="../"><span lang="pt">Início</span><span lang="en">Home</span></a></li><li><a href="../curso/"><span lang="pt">Curso</span><span lang="en">Course</span></a></li><li><a href="../planilha/"><span lang="pt">Planilha</span><span lang="en">Spreadsheet</span></a></li><li><a href="../precos/"><span lang="pt">Preços</span><span lang="en">Pricing</span></a></li><li><a href="../sobre/"><span lang="pt">Sobre</span><span lang="en">About</span></a></li><li><a href="../contato/"><span lang="pt">Contato</span><span lang="en">Contact</span></a></li></ul></div>
+   <div><h3><span lang="pt">Dados e contato</span><span lang="en">Data and contact</span></h3><ul><li><a href="../privacidade/"><span lang="pt">Como usamos seus dados</span><span lang="en">How we use your data</span></a></li><li><a href="../contato/">oi@planilhaviva.example</a></li><li><a href="https://alissonlittig.github.io/" rel="noopener"><span lang="pt">Portfólio de Alisson Littig</span><span lang="en">Alisson Littig's portfolio</span></a></li></ul></div>
+  </div>
+  <div class="fine">
+   <span><span lang="pt">Planilha Viva é uma marca fictícia. Preços, prazos e números do site são exemplos e não existe curso à venda.</span><span lang="en">Planilha Viva is a fictional brand. Prices, deadlines and figures are examples; no course is for sale.</span></span>
+   <span><span lang="pt">Fotos: </span><span lang="en">Photos: </span><a href="https://commons.wikimedia.org/wiki/File:Market_stall_in_Rio_de_Janeiro,_Brazil.jpg" rel="noopener">Wilfredor</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Bakery_products_on_the_counter_of_Jacob%27s_Bakery_%2B_Cafe_2024-04-15.jpg" rel="noopener">Andy Li</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Baristas_at_work_(Unsplash).jpg" rel="noopener">Tim Wright</a> (CC0), Wikimedia Commons. <span lang="pt">Fontes IBM Plex, licença OFL.</span><span lang="en">IBM Plex fonts, OFL license.</span></span>
+  </div>
+ </div>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>
