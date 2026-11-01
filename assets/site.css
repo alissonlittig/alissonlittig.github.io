@@ -45,6 +45,8 @@ h2{font-weight:800;font-stretch:75%;text-transform:uppercase;font-size:clamp(36p
 .grid{display:grid;gap:clamp(36px,4vw,56px) clamp(16px,2vw,28px);grid-template-columns:repeat(6,1fr)}
 .tile{grid-column:span 2;text-align:center}
 .tile.big{grid-column:span 3}
+/* 3 cards grandes: o primeiro ocupa a linha toda, para os outros dois ficarem lado a lado */
+.grid>.tile.big:first-child{grid-column:1 / -1}
 .grid .tile:last-child:nth-child(3n+1):not(.big){grid-column:3 / span 2}
 .grid .tile:not(.big):nth-child(3n+1):nth-last-child(2){grid-column:2 / span 2}
 .pic{display:block;border-radius:var(--r);overflow:hidden;background:var(--panel);aspect-ratio:16/10;position:relative}
