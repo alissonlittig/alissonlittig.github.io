@@ -3,136 +3,104 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tallyroom</title>
-<meta name="description" content="Point of sale and stock for small shops. Scan, sell and always know what is on the shelf.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-:root{--navy:#0D1B3D;--ink:#121A2E;--bg:#F4F6FB;--line:#DDE3EF;--muted:#56607A;--orange:#FF6B35;--ok:#1C8A5B;--warn:#C2410C}
-*{box-sizing:border-box;margin:0}
-body{font-family:"Schibsted Grotesk",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
-.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
-.ribbon{background:var(--navy);color:#C8D2EA;font-size:13px;text-align:center;padding:8px 16px}
-header{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-.logo{font-weight:900;font-size:22px;text-decoration:none;color:var(--navy);letter-spacing:-.5px}
-.logo b{color:var(--orange)}
-nav a{margin-left:24px;text-decoration:none;color:var(--ink);font-weight:500}
-.hero{padding:48px 0 96px;display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
-h1{font-size:clamp(42px,6vw,74px);line-height:.98;font-weight:900;letter-spacing:-2px;color:var(--navy)}
-.lede{margin-top:20px;font-size:19px;color:var(--muted);max-width:42ch}
-.btn{display:inline-block;margin-top:28px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:10px;border:0;font:inherit;font-weight:700;cursor:pointer}
-.btn:hover{background:#E85A26}
-.btn.alt{background:var(--navy)}
-/* app mock */
-.app{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 40px 80px -40px rgba(13,27,61,.45);overflow:hidden}
-.app-top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
-.app-top strong{color:var(--navy)}
-.app-body{padding:20px}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.kpi{background:var(--bg);border-radius:12px;padding:14px}
-.kpi small{color:var(--muted);font-size:13px}
-.kpi b{display:block;font-size:24px;color:var(--navy)}
-.stock{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
-.stock td{padding:10px 4px;border-bottom:1px solid var(--line)}
-.stock td:last-child{text-align:right;font-weight:700}
-.level{height:6px;border-radius:3px;background:var(--line);width:110px;overflow:hidden}
-.level i{display:block;height:100%;background:var(--ok);transition:width .4s,background-color .4s}
-.low td:last-child{color:var(--warn)}
-.low .level i{background:var(--warn)}
-.scan-row{display:flex;gap:10px;align-items:center;margin-top:16px}
-.scan-row .btn{margin:0;padding:11px 18px}
-#toast{font-size:14px;color:var(--muted)}
-section{padding:96px 0}
-h2{font-size:clamp(32px,4vw,50px);line-height:1.02;font-weight:900;letter-spacing:-1px;color:var(--navy);max-width:20ch}
-.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:44px}
-.feat h3{font-size:20px;color:var(--navy)}
-.feat p{color:var(--muted);margin-top:6px}
-.dark{background:var(--navy);color:#E3E8F4}
-.dark h2{color:#fff}
-.prices{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px;max-width:860px}
-.tier{border:1px solid #2C3B63;border-radius:20px;padding:32px}
-.tier.main{background:#fff;color:var(--ink);border-color:#fff}
-.tier h3{font-size:20px}
-.tier .p{font-size:52px;font-weight:900;line-height:1;margin:12px 0;letter-spacing:-1px}
-.tier .p small{font-size:18px;font-weight:500}
-.tier ul{padding-left:20px;margin-top:12px}
-.tier li{margin:6px 0}
-.tier:not(.main) li{color:#B8C3DD}
-footer{padding:40px 0;color:var(--muted);font-size:14px}
-@media (max-width:900px){.hero,.prices{grid-template-columns:1fr}.feat{grid-template-columns:1fr}nav a:not(:last-child){display:none}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+<title>Tallyroom: point of sale and stock for small shops</title>
+<meta name="description" content="Every sale updates the shelf count. Reorder before a bestseller runs out. A fictional brand, designed as a portfolio example.">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/tallyroom/">
+<link rel="alternate" hreflang="en" href="https://alissonlittig.github.io/projetos/tallyroom/">
+<link rel="alternate" hreflang="pt" href="https://alissonlittig.github.io/projetos/tallyroom/pt/">
+<meta property="og:type" content="website"><meta property="og:title" content="Tallyroom: point of sale and stock for small shops"><meta property="og:description" content="Every sale updates the shelf count. Reorder before a bestseller runs out. A fictional brand, designed as a portfolio example.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/tallyroom/assets/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="theme-color" content="#F2ECDF">
+<link rel="icon" href="/projetos/tallyroom/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/projetos/tallyroom/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/projetos/tallyroom/assets/style.css">
+<script>(function(){try{var s=localStorage.getItem('tr-lang'),p=document.documentElement.lang,o='/projetos/tallyroom/pt/';if(s&&s!==p&&(s==='pt'||s==='en'))location.replace(o);else if(!s&&true&&p==='en'&&/^pt/i.test(navigator.language))location.replace(o)}catch(e){}document.documentElement.classList.add('js')})()</script>
 </head>
 <body>
-<div class="ribbon">Concept project: a fictional brand designed by Alisson Littig for his portfolio.</div>
-<div class="wrap">
-  <header><a class="logo" href="#">tally<b>room</b></a><nav><a href="#features">Features</a><a href="#pricing">Pricing</a></nav></header>
-  <div class="hero">
-    <div>
-      <h1>Your shop counts itself.</h1>
-      <p class="lede">Tallyroom is a point of sale and stock system for small shops. Every sale updates the shelf count, so you reorder before a bestseller runs out.</p>
-      <a class="btn" href="#pricing">Start a free trial</a>
-    </div>
-    <div class="app" aria-label="Product preview">
-      <div class="app-top"><strong>Main store</strong><span>Today</span></div>
-      <div class="app-body">
-        <div class="kpis">
-          <div class="kpi"><small>Sales</small><b id="sales">$1,284</b></div>
-          <div class="kpi"><small>Orders</small><b id="orders">47</b></div>
-          <div class="kpi"><small>Low stock</small><b id="lowc">1</b></div>
-        </div>
-        <table class="stock" id="stock"></table>
-        <div class="scan-row"><button class="btn alt" id="scan">Scan a sale</button><span id="toast" aria-live="polite">Try it: each scan sells one item.</span></div>
-      </div>
-    </div>
-  </div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ribbon">Concept project: a fictional brand designed by Alisson Littig for his portfolio. <a href="/">Back to portfolio</a></div>
+<header class="hd"><div class="wrap">
+<a class="logo" href="/projetos/tallyroom/" aria-label="Tallyroom, home"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 6V26M13 6V26M19 6V26M25 6V26" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M3 23L29 9" stroke="#C2321A" stroke-width="3.2" stroke-linecap="round"/></svg>tallyroom</a>
+<button class="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+<nav class="nav" id="nav" aria-label="Main"><a href="/projetos/tallyroom/product/">Product</a><a href="/projetos/tallyroom/how-it-works/">How it works</a><a href="/projetos/tallyroom/pricing/">Pricing</a><a href="/projetos/tallyroom/about/">About</a><a href="/projetos/tallyroom/contact/">Contact</a><a class="btn sm" href="/projetos/tallyroom/contact/#trial" style="color:#fff;margin-left:6px">Free trial</a><div class="lang" role="group" aria-label="Language"><a href="/projetos/tallyroom/" hreflang="en" lang="en" aria-current="true">EN</a><a href="/projetos/tallyroom/pt/" hreflang="pt" lang="pt">PT</a></div></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+<div class="hero-grid">
+<div>
+<p class="eyebrow">Point of sale and stock for small shops</p>
+<h1>Your shop <em>counts</em> itself.</h1>
+<p class="lede">Every sale takes one off the shelf count. You see what to reorder before the bestseller runs out, not after.</p>
+<div class="cta"><a class="btn" href="/projetos/tallyroom/contact/#trial">Start a free trial</a><a class="btn ghost" href="/projetos/tallyroom/product/">See the product</a></div>
 </div>
+<div class="till" id="till" role="group" aria-label="Live demo of the till">
+<div class="till-top"><span>Main store</span><span>Example data</span></div>
+<div class="till-body">
+<div class="kpis"><div class="kpi"><small>Sales today</small><b id="k-sales">0</b></div><div class="kpi"><small>Tickets</small><b id="k-tix">0</b></div><div class="kpi"><small>Low stock</small><b id="k-low">0</b></div></div>
+<ul class="stock" id="stock"></ul>
+<div class="reorder" id="reorder" aria-live="polite"></div>
+<div class="till-foot"><button class="btn ink sm" id="scan" type="button">Scan a sale</button><button class="btn ghost sm" id="reset" type="button">Reset</button><span class="msg" id="msg" aria-live="polite"></span></div>
+</div></div>
+</div>
+<div class="photo rv" style="margin-top:clamp(32px,5vw,72px);aspect-ratio:21/9"><picture><source type="image/avif" srcset="/projetos/tallyroom/assets/img/d-640.avif 640w, /projetos/tallyroom/assets/img/d-1280.avif 1280w" sizes="(min-width:1240px) 1240px, 100vw"><source type="image/webp" srcset="/projetos/tallyroom/assets/img/d-640.webp 640w, /projetos/tallyroom/assets/img/d-1280.webp 1280w" sizes="(min-width:1240px) 1240px, 100vw"><img src="/projetos/tallyroom/assets/img/d-1280.webp" width="1280" height="851" alt="A small corner shop lit up at night, a person walking inside" class="" loading="lazy" decoding="async"></picture><p class="cap"><a href="https://commons.wikimedia.org/wiki/File:DZ6_0567_A_small_brightly_lit_corner_shop_and_outdoor_seating_area_at_night_with_a_lone_pedestrian_walking_past_under_a_glowing_red_sign.jpg" rel="noopener">Photo: PattayaPatrol</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0" rel="noopener">CC BY-SA 4.0</a>, Wikimedia Commons</p></div>
+</div></section>
 
-<section id="features" style="background:#fff">
-  <div class="wrap">
-    <h2>Built for the counter, not the back office</h2>
-    <div class="feat">
-      <div><h3>Scan and sell</h3><p>Use any USB barcode reader or the phone camera. Split payments and instalments are one tap.</p></div>
-      <div><h3>Reorder alerts</h3><p>Set a minimum for each product and get a list of what to buy before the weekend rush.</p></div>
-      <div><h3>Close the day in a minute</h3><p>Cash count, card totals and staff commissions add up on their own at closing time.</p></div>
-    </div>
-  </div>
-</section>
+<section><div class="wrap">
+<p class="eyebrow rv">A Tuesday at the counter (example)</p>
+<h2 class="rv" style="max-width:18ch">Nobody counts by hand.</h2>
+<div class="ledger" role="list">
+<div class="lrow" role="listitem"><span class="t">08:30</span><span class="e">Doors open<small>Last night's shelf count is already on screen. No morning walk with a clipboard.</small></span><span class="c" role="img" data-tally="3" aria-label="3 items sold so far"><svg class="tally" viewBox="0 0 28 24" width="28" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">10:15</span><span class="e">A USB-C cable sells. Three left.<small>It joins the reorder list. The screen says 3, not about 3.</small></span><span class="c" role="img" data-tally="8" aria-label="8 items sold so far"><svg class="tally" viewBox="0 0 68 24" width="68" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">13:00</span><span class="e">Lunch rush, two phones scanning<small>Both feed one count. Cash and card stay in separate totals.</small></span><span class="c" role="img" data-tally="14" aria-label="14 items sold so far"><svg class="tally" viewBox="0 0 116 24" width="116" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21M67 3V21M40 20L70 5M83 3V21M91 3V21M99 3V21M107 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">16:40</span><span class="e">The supplier calls<small>You read the reorder list: seven items, each with the amount to buy.</small></span><span class="c" role="img" data-tally="21" aria-label="21 items sold so far"><svg class="tally" viewBox="0 0 172 24" width="172" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21M67 3V21M40 20L70 5M83 3V21M91 3V21M99 3V21M107 3V21M80 20L110 5M123 3V21M131 3V21M139 3V21M147 3V21M120 20L150 5M163 3V21"/></svg></span></div>
+<div class="lrow" role="listitem"><span class="t">19:50</span><span class="e">Close the day<small>Cash count, card total, payouts. If the drawer is off, you see by how much.</small></span><span class="c" role="img" data-tally="28" aria-label="28 items sold so far"><svg class="tally" viewBox="0 0 228 24" width="228" height="24" aria-hidden="true" focusable="false"><path d="M3 3V21M11 3V21M19 3V21M27 3V21M0 20L30 5M43 3V21M51 3V21M59 3V21M67 3V21M40 20L70 5M83 3V21M91 3V21M99 3V21M107 3V21M80 20L110 5M123 3V21M131 3V21M139 3V21M147 3V21M120 20L150 5M163 3V21M171 3V21M179 3V21M187 3V21M160 20L190 5M203 3V21M211 3V21M219 3V21"/></svg></span></div>
+</div></div></section>
 
-<section class="dark" id="pricing">
-  <div class="wrap">
-    <h2>One price per store. No setup fee.</h2>
-    <div class="prices">
-      <div class="tier main"><h3>Store</h3><p class="p">$29<small>/month</small></p><ul><li>Unlimited sales and products</li><li>Stock and reorder alerts</li><li>3 staff logins</li></ul><a class="btn" href="#">Start a free trial</a></div>
-      <div class="tier"><h3>Multi-store</h3><p class="p">$24<small>/store/month</small></p><ul><li>Everything in Store</li><li>Transfer stock between shops</li><li>Combined reports</li></ul></div>
-    </div>
-  </div>
-</section>
+<section style="background:var(--paper2)"><div class="wrap split">
+<div class="sticky rv"><p class="eyebrow">What it does</p><h2>Built for the counter, not the back office</h2>
+<p class="lede" style="margin-top:20px">Four jobs, one screen. Nothing to install on the till.</p></div>
+<div class="fl rv">
+<div class="fi"><span class="n">01</span><div><h3>Scan and sell</h3><p>Any USB barcode reader works, or the phone camera. Split a sale between cash and card, or into instalments, in one tap.</p><a class="more" href="/projetos/tallyroom/product/#sell">How selling works</a></div></div>
+<div class="fi"><span class="n">02</span><div><h3>A shelf count that moves by itself</h3><p>Each sale takes one off. A delivery adds them back. The number on screen is the number on the shelf.</p><a class="more" href="/projetos/tallyroom/product/#stock">How the count stays right</a></div></div>
+<div class="fi"><span class="n">03</span><div><h3>A reorder list before the weekend</h3><p>Set a minimum per product. When the count falls to it, the item lands on a list with the amount to buy.</p></div></div>
+<div class="fi"><span class="n">04</span><div><h3>Close the day in a minute</h3><p>Cash, card and payouts add up on their own. If the drawer is off, you see by how much, before you lock up.</p><a class="more" href="/projetos/tallyroom/product/#close">Try the closing calculator</a></div></div>
+</div></div></section>
 
-<div class="wrap"><footer>Tallyroom is a fictional brand. Landing page designed by Alisson Littig as a SaaS example.</footer></div>
+<section class="band"><picture><source type="image/avif" srcset="/projetos/tallyroom/assets/img/f-640.avif 640w, /projetos/tallyroom/assets/img/f-1280.avif 1280w" sizes="100vw"><source type="image/webp" srcset="/projetos/tallyroom/assets/img/f-640.webp 640w, /projetos/tallyroom/assets/img/f-1280.webp 1280w" sizes="100vw"><img src="/projetos/tallyroom/assets/img/f-1280.webp" width="1280" height="960" alt="The wooden counter of an old general store, with an antique cash register" class="" loading="lazy" decoding="async"></picture><div class="wrap"><h2 class="rv">Fits the counter you already have.</h2><p class="cap"><a href="https://commons.wikimedia.org/wiki/File:Adams_Corner_-_General_Store_2.jpg" rel="noopener">Photo: Wolfgang Sauber</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0" rel="noopener">CC BY-SA 3.0</a>, Wikimedia Commons</p></div></section>
 
-<script>
-var items=[{n:'Matte lipstick, Rose',q:14,max:20},{n:'Daily sunscreen 50',q:3,max:24},{n:'Repair hair mask',q:9,max:12},{n:'Vitamin C serum',q:17,max:18}];
-var sales=1284,orders=47,price=[18,32,24,41];
-function draw(){
-  var low=0;
-  document.getElementById('stock').innerHTML=items.map(function(it){
-    var isLow=it.q<=4; if(isLow)low++;
-    return '<tr class="'+(isLow?'low':'')+'"><td>'+it.n+'</td><td><div class="level"><i style="width:'+Math.round(it.q/it.max*100)+'%"></i></div></td><td>'+it.q+'</td></tr>';
-  }).join('');
-  document.getElementById('lowc').textContent=low;
-  document.getElementById('sales').textContent='$'+sales.toLocaleString('en-US');
-  document.getElementById('orders').textContent=orders;
-}
-document.getElementById('scan').addEventListener('click',function(){
-  var i=Math.floor(Math.random()*items.length),it=items[i],t=document.getElementById('toast');
-  if(it.q===0){t.textContent=it.n+' is out of stock. Time to reorder.';return}
-  it.q--;sales+=price[i];orders++;draw();
-  t.textContent=it.q<=4?'Sold 1. '+it.n+' is running low.':'Sold 1 '+it.n+'.';
-});
-draw();
-</script>
-</body>
-</html>
+<section><div class="wrap">
+<p class="eyebrow rv">Getting started</p><h2 class="rv" style="max-width:16ch">Running in an afternoon</h2>
+<div class="steps rv">
+<div class="step"><span class="big">1</span><h3>Bring your products</h3><p>Paste a spreadsheet or type them in. Barcodes are read once.</p></div>
+<div class="step"><span class="big">2</span><h3>Count the shelf</h3><p>One walk with the phone sets the starting numbers.</p></div>
+<div class="step"><span class="big">3</span><h3>Sell as usual</h3><p>Scan, take payment, hand over the receipt.</p></div>
+<div class="step"><span class="big">4</span><h3>Reorder with the list</h3><p>Call the supplier with amounts, not guesses.</p></div>
+</div>
+<p style="margin-top:32px"><a class="btn ghost" href="/projetos/tallyroom/how-it-works/">See each step</a></p>
+</div></section>
+
+<section class="dark"><div class="wrap">
+<p class="eyebrow rv">Pricing</p><h2 class="rv" style="max-width:18ch">One price per store. No setup fee.</h2>
+<div class="plans rv">
+<div class="plan main"><h3>Store</h3><p class="price">$29<small> /month</small></p><ul><li>Unlimited sales and products</li><li>Shelf count and reorder list</li><li>3 staff logins</li></ul><a class="btn" href="/projetos/tallyroom/contact/#trial">Start a free trial</a></div>
+<div class="plan"><h3>Multi-store</h3><p class="price">$24<small> /store/month</small></p><ul><li>Everything in Store</li><li>Move stock between shops</li><li>Combined reports</li></ul><a class="btn ghost" href="/projetos/tallyroom/pricing/">Compare plans</a></div>
+</div>
+<p class="credit" style="color:#9AA397;margin-top:18px">Example prices for a fictional product.</p>
+</div></section>
+<section class="dark"><div class="wrap two" style="align-items:end">
+<div class="rv"><p class="eyebrow">Start</p><h2>Try it with last week's sales.</h2></div>
+<div class="rv"><p class="lede">Thirty days free, no card. Bring last week's sales and see the shelf count catch up.</p>
+<div class="cta"><a class="btn" href="/projetos/tallyroom/contact/#trial">Start a free trial</a><a class="btn ghost" href="/projetos/tallyroom/pricing/">See pricing</a></div></div>
+</div></section>
+</main>
+<footer class="ft"><div class="wrap">
+<div class="grid">
+<div><a class="logo" href="/projetos/tallyroom/"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7 6V26M13 6V26M19 6V26M25 6V26" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M3 23L29 9" stroke="#C2321A" stroke-width="3.2" stroke-linecap="round"/></svg>tallyroom</a><p>Point of sale and stock for small shops. Every sale updates the shelf count.</p></div>
+<div><h2>Product</h2><a href="/projetos/tallyroom/product/">What it does</a><a href="/projetos/tallyroom/how-it-works/">How it works</a><a href="/projetos/tallyroom/pricing/">Pricing</a></div>
+<div><h2>Company</h2><a href="/projetos/tallyroom/about/">About</a><a href="/projetos/tallyroom/contact/">Contact</a><a href="/projetos/tallyroom/about/#credits">Photo credits</a></div>
+<div><h2>Legal</h2><a href="/projetos/tallyroom/privacy/">How we use your data</a><a href="/">Alisson Littig, portfolio</a></div>
+</div>
+<p class="fine">Tallyroom is a fictional brand. Names, prices and features are examples made for a portfolio. No real customers, no real data.</p>
+</div></footer>
+<script src="/projetos/tallyroom/assets/app.js" defer></script>
+</body></html>
