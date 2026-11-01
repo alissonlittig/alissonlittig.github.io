@@ -193,7 +193,7 @@ function bump(src){
 
 /* ---------- gaveta da sacola e checkout ---------- */
 var drawer,scrim,lastFocus,view='list',askClear=false,busy=false;
-var ENTREGA={ok:false,bairros:[]};
+var ENTREGA={ok:false,taxa:CFG.taxaEntregaCent}; // taxa fixa: vem do Worker (/entrega.json); config.js e o valor local
 var DADOS=Object.assign({modo:'',filial:'',bairro:'',endereco:'',ref:'',nome:'',whatsapp:'',email:'',meio:'pix'},store.get('ae-dados2')||{});
 var ACEITE=false,ERRO='',ARMADILHA='';
 function saveDados(){var d=Object.assign({},DADOS);store.set('ae-dados2',d)}
@@ -231,9 +231,7 @@ function passos(n){
     return '<li'+(i+1===n?' aria-current="step"':'')+(i+1<n?' class="feito"':'')+'><b>'+(i+1)+'</b><span>'+t+'</span></li>'}).join('')+'</ol>';
 }
 function frete(){
-  if(DADOS.modo!=='entrega')return 0;
-  for(var i=0;i<ENTREGA.bairros.length;i++)if(ENTREGA.bairros[i].bairro===DADOS.bairro)return ENTREGA.bairros[i].taxa_cent;
-  return 0;
+  return DADOS.modo==='entrega'?ENTREGA.taxa:0;
 }
 function total(){return subtotal()+frete()}
 function renderBag(){
@@ -321,7 +319,7 @@ function focusAfter(sku,i){var f=$$('.r-item',drawer);var b;f.forEach(function(l
 /* -- passo 1: como receber -- */
 function carregarEntrega(){
   if(ENTREGA.ok||!API)return Promise.resolve();
-  return get('/entrega.json',6000).then(function(r){if(r.st===200&&r.j.bairros){ENTREGA.bairros=r.j.bairros;ENTREGA.ok=true}}).catch(function(){});
+  return get('/entrega.json',6000).then(function(r){if(r.st===200&&r.j.taxa_fixa_cent>=0){ENTREGA.taxa=r.j.taxa_fixa_cent;ENTREGA.ok=true}}).catch(function(){});
 }
 function faltantesEm(filial){
   return bag.filter(function(i){var p=CAT.porSku[i.sku];return p&&CAT.ok&&!livre(p,filial)}).map(function(i){return i.nome+(i.variacao?' '+i.variacao:'')});
@@ -335,13 +333,11 @@ function passoReceber(body,foot){
       (dis?'<small class="falta">Sem estoque aqui: '+esc(fal.join(', '))+'</small>':'<small class="ok">Todos os itens disponíveis</small>')+'</span></label>';
   }).join('');
   var falE=faltantesEm(FILIAL_ENTREGA);
-  var ent=ENTREGA.bairros.length>0&&API;
-  opts+='<label class="opt"><input type="radio" name="modo" value="entrega"'+(!ent||falE.length?' disabled':'')+'><span>Entrega em Governador Valadares<small>'+
-    (!ent?'Entrega indisponível no momento':falE.length?'Sem estoque para entrega: '+esc(falE.join(', ')):'Escolha o bairro para ver a taxa e o prazo')+'</small></span></label>';
+    opts+='<label class="opt"><input type="radio" name="modo" value="entrega"'+(falE.length?' disabled':'')+'><span>Entrega em Governador Valadares<small>'+
+    (falE.length?'Sem estoque para entrega: '+esc(falE.join(', ')):'Entrega em Governador Valadares: '+money(ENTREGA.taxa))+'</small></span></label>';
   f.innerHTML=passos(1)+'<fieldset><legend>Como quer receber</legend><div class="opts">'+opts+'</div></fieldset>'+
     '<div id="f-ender" class="form" hidden>'+
-    '<div class="field"><label for="f-bairro">Bairro</label><select id="f-bairro" name="bairro" required><option value="">Escolha o bairro</option>'+
-      ENTREGA.bairros.map(function(b){return '<option value="'+esc(b.bairro)+'">'+esc(b.bairro)+' · '+money(b.taxa_cent)+'</option>'}).join('')+'</select><span class="dica" id="d-prazo"></span><span class="err" id="e-bairro" hidden>Escolha o bairro.</span></div>'+
+    '<div class="field"><label for="f-bairro">Bairro</label><input id="f-bairro" name="bairro" autocomplete="address-level3" maxlength="60" required><span class="err" id="e-bairro" hidden>Escreva o bairro.</span></div>'+
     '<div class="field"><label for="f-end">Rua e número</label><input id="f-end" name="endereco" autocomplete="street-address" maxlength="120"><span class="err" id="e-endereco" hidden>Escreva a rua e o número.</span></div>'+
     '<div class="field"><label for="f-ref">Ponto de referência <span class="opc">(opcional)</span></label><input id="f-ref" name="ref" maxlength="70"></div></div>'+
     '<p class="err" id="e-modo" hidden>Escolha retirada ou entrega.</p>'+(ERRO?'<p class="err" role="alert">'+esc(ERRO)+'</p>':'');
@@ -356,13 +352,11 @@ function passoReceber(body,foot){
     $('#f-ender',f).hidden=m!=='entrega';
     DADOS.modo=m==='entrega'?'entrega':m?'retirada':'';DADOS.filial=m.indexOf('r:')===0?m.slice(2):'';
     DADOS.bairro=f.elements.bairro.value;DADOS.endereco=f.elements.endereco.value.trim();DADOS.ref=f.elements.ref.value.trim();
-    var b=ENTREGA.bairros.filter(function(x){return x.bairro===DADOS.bairro})[0];
-    $('#d-prazo',f).textContent=b?'Entrega '+b.prazo_txt+'. Taxa '+money(b.taxa_cent)+'.':'';
     saveDados();totais();
   }
   function totais(){
     var t=$('.foot-total',foot);if(!t)return;
-    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(DADOS.bairro?money(frete()):'—')+'</b>':'');
+    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(money(frete()))+'</b>':'');
   }
   function rodape(){ // monta uma vez: refazer o rodapé a cada digitação engole o toque no botão
     foot.innerHTML='';
@@ -430,13 +424,12 @@ function motivoBloqueio(){
 function passoPagar(body,foot){
   var f=el('div',{class:'form'});
   var l=DADOS.modo==='retirada'?loja(DADOS.filial):null;
-  var b=ENTREGA.bairros.filter(function(x){return x.bairro===DADOS.bairro})[0];
   var linhas=bag.map(function(i){return '<li><span>'+i.q+'× '+esc(i.nome)+(i.variacao?' · '+esc(i.variacao):'')+'</span><b>'+money(i.preco*i.q)+'</b></li>'}).join('');
   f.innerHTML=passos(3)+
     '<section class="resumo" aria-labelledby="t-res"><h3 id="t-res">Resumo da compra</h3><ul class="res-itens">'+linhas+'</ul>'+
-    '<dl class="res-tot"><div><dt>Subtotal</dt><dd>'+money(subtotal())+'</dd></div>'+(DADOS.modo==='entrega'?'<div><dt>Entrega ('+esc(DADOS.bairro)+')</dt><dd>'+money(frete())+'</dd></div>':'')+
+    '<dl class="res-tot"><div><dt>Subtotal</dt><dd>'+money(subtotal())+'</dd></div>'+(DADOS.modo==='entrega'?'<div><dt>Entrega em Governador Valadares</dt><dd>'+money(frete())+'</dd></div>':'')+
     '<div class="forte"><dt>Total</dt><dd>'+money(total())+'</dd></div></dl>'+
-    '<p class="res-rec"><b>'+(l?'Retirada na '+esc(l.nome):'Entrega em casa')+'</b><br>'+(l?esc(l.end)+' · '+esc(l.hora):esc(DADOS.endereco)+(DADOS.ref?' ('+esc(DADOS.ref)+')':'')+', '+esc(DADOS.bairro)+(b?'<br>Prazo: '+esc(b.prazo_txt):''))+'</p>'+
+    '<p class="res-rec"><b>'+(l?'Retirada na '+esc(l.nome):'Entrega em casa')+'</b><br>'+(l?esc(l.end)+' · '+esc(l.hora):esc(DADOS.endereco)+(DADOS.ref?' ('+esc(DADOS.ref)+')':'')+', '+esc(DADOS.bairro))+'</p>'+
     '<p class="res-cl"><b>Desistência:</b> você pode desistir da compra em até <b>7 dias</b> depois de receber, pela página do pedido, e o valor é devolvido. <a href="'+ROOT+'trocas/" target="_blank" rel="noopener">Trocas e arrependimento</a>.</p></section>'+
     '<fieldset><legend>Como quer pagar</legend><div class="opts">'+
     [['pix','Pix','Aprovação na hora. O código vale 30 minutos.'],['credito','Cartão de crédito','Até 3x. Você tem 15 minutos para concluir.'],['debito','Cartão de débito','Precisa estar liberado para compras na internet; o banco pede confirmação no app. 15 minutos.']].map(function(o){
@@ -818,14 +811,12 @@ if(mb&&nav){
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){mb.setAttribute('aria-expanded','false');nav.classList.remove('open');mb.focus()}});
 }
 if(CFG.textosRevisados)$$('[data-rascunho]').forEach(function(n){n.hidden=true});
-/* página Entrega e retirada: bairros e taxas vêm do sistema */
+/* página Entrega e retirada: taxa fixa (Worker; config.js se o Worker não responder) */
 (function(){
   var box=$('#bairros-lista');if(!box)return;
-  if(!API){box.innerHTML='<p>A lista de bairros aparece quando a loja online estiver aberta.</p>';return}
-  get('/entrega.json',6000).then(function(r){
-    var b=(r.j&&r.j.bairros)||[];
-    box.innerHTML=b.length?'<table><thead><tr><th scope="col">Bairro</th><th scope="col">Taxa</th><th scope="col">Prazo</th></tr></thead><tbody>'+b.map(function(x){return '<tr><td>'+esc(x.bairro)+'</td><td>'+money(x.taxa_cent)+'</td><td>'+esc(x.prazo_txt||'')+'</td></tr>'}).join('')+'</tbody></table>':'<p>No momento só retirada nas lojas.</p>';
-  }).catch(function(){box.innerHTML='<p>Não conseguimos carregar a lista agora. Tente de novo em instantes.</p>'});
+  function mostra(c){box.innerHTML='<p><b>Entrega em Governador Valadares: '+money(c)+'</b><br>Mesma taxa para todos os bairros.</p>'}
+  if(!API)return mostra(CFG.taxaEntregaCent);
+  get('/entrega.json',6000).then(function(r){mostra(r.st===200&&r.j.taxa_fixa_cent>=0?r.j.taxa_fixa_cent:CFG.taxaEntregaCent)}).catch(function(){mostra(CFG.taxaEntregaCent)});
 })();
 
 paint();

@@ -9,6 +9,9 @@ window.AE_CONFIG = {
   textosRevisados: false,
   // Loja que atende as entregas (igual a FILIAL_ENTREGA do Worker).
   filialEntrega: 'israel',
+  // TAXA DE ENTREGA (provisoria, igual para todos os bairros de Governador Valadares), em centavos: 1000 = R$ 10,00.
+  // Mude AQUI e em TAXA_ENTREGA_FIXA_CENT no Worker (portao/src/loja.ts). O valor do Worker vale quando ele responde.
+  taxaEntregaCent: 1000,
   // Dados da empresa. Valor vazio ou entre colchetes = pendente.
   empresa: {
     razao: 'ALTA ESTIMA COSMETICOS LTDA',  // razão social (Receita/BrasilAPI, 01/11/2026)
