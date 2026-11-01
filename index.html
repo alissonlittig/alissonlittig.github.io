@@ -38,7 +38,7 @@
   <h1><span lang="pt">Faço sites e sistemas para quem vende.</span><span lang="en">I build websites and systems for people who sell.</span></h1>
   <p class="lede"><span lang="pt">Estudo Gestão da Informação na UFPR e uso o Claude como ferramenta principal.</span><span lang="en">I study Information Management at UFPR and use Claude as my main tool.</span></p>
   <div class="actions">
-    <a class="btn btn-primary" href="mailto:alissondelittig@gmail.com?subject=Or%C3%A7amento%20de%20site%20ou%20sistema&amp;body=Oi%2C%20Alisson.%0A%0AMeu%20neg%C3%B3cio%3A%20%0AO%20que%20preciso%3A%20site%20%2F%20landing%20page%20%2F%20sistema%0APrazo%20desejado%3A%20" data-en-href="mailto:alissondelittig@gmail.com?subject=Quote%20for%20a%20website%20or%20system&amp;body=Hi%20Alisson%2C%0A%0AMy%20business%3A%20%0AWhat%20I%20need%3A%20website%20%2F%20landing%20page%20%2F%20system%0ADesired%20deadline%3A%20"><span lang="pt">Pedir orçamento</span><span lang="en">Get a quote</span></a>
+    <a class="btn btn-primary" href="https://www.linkedin.com/in/alisson-littig/" data-en-href="https://www.linkedin.com/in/alisson-littig/"><span lang="pt">Pedir orçamento</span><span lang="en">Get a quote</span></a>
     <a class="btn" href="https://www.linkedin.com/in/alisson-littig/" rel="noopener">LinkedIn</a>
   </div>
 </section>
@@ -143,11 +143,6 @@
       <h2 id="h-ct"><span lang="pt">Precisa de um site ou sistema?</span><span lang="en">Need a website or system?</span></h2>
       <p class="sec-note"><span lang="pt">Conte o que você vende. Respondo com um orçamento.</span><span lang="en">Tell me what you sell. I'll reply with a quote.</span></p>
     </div>
-    <a class="mail" id="email" href="mailto:alissondelittig@gmail.com">alissondelittig@gmail.com</a>
-    <p class="mailrow">
-      <button class="btn" type="button" id="copiar"><span lang="pt">Copiar e-mail</span><span lang="en">Copy email</span></button>
-      <span class="copied" id="aviso" role="status"></span>
-    </p>
     <p class="links">
       <a class="lnk" href="https://www.linkedin.com/in/alisson-littig/" rel="noopener">LinkedIn</a>
       <a class="lnk" href="https://github.com/alissonlittig" rel="noopener">GitHub</a>
@@ -182,13 +177,6 @@
   var l0=saved||((navigator.language||'pt').toLowerCase().indexOf('pt')===0?'pt':'en');
   if(l0==='en')set('en');
 
-  var b=document.getElementById('copiar'),a=document.getElementById('aviso');
-  b.addEventListener('click',function(){
-    var m='alissondelittig@gmail.com',en=root.dataset.lang==='en';
-    var ok=function(){a.textContent=en?'copied':'copiado'};
-    var no=function(){a.textContent=(en?'copy: ':'copie: ')+m};
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(m).then(ok,no)}else{no()}
-  });
 })();
 </script>
 </body>
