@@ -1,0 +1,131 @@
+{
+ "exemplo": true,
+ "gerado_em": "2026-11-01T12:00:00Z",
+ "filiais": [
+  "israel",
+  "quintino"
+ ],
+ "produtos": [
+  {
+   "codigo": "EX-base",
+   "nome": "base",
+   "site_id": "base",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   }
+  },
+  {
+   "codigo": "EX-batom",
+   "nome": "batom",
+   "site_id": "batom",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": false,
+    "quintino": false
+   }
+  },
+  {
+   "codigo": "EX-shampoo",
+   "nome": "shampoo",
+   "site_id": "shampoo",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": false,
+    "quintino": true
+   }
+  },
+  {
+   "codigo": "EX-perfume-f",
+   "nome": "perfume-f",
+   "site_id": "perfume-f",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": true,
+    "quintino": false
+   }
+  },
+  {
+   "codigo": "EX-serum",
+   "nome": "serum",
+   "site_id": "serum",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": false,
+    "quintino": false
+   }
+  },
+  {
+   "codigo": "EX-gloss",
+   "nome": "gloss",
+   "site_id": "gloss",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   }
+  },
+  {
+   "codigo": "EX-protetor",
+   "nome": "protetor",
+   "site_id": "protetor",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   }
+  },
+  {
+   "codigo": "EX-esmalte",
+   "nome": "esmalte",
+   "site_id": "esmalte",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   }
+  },
+  {
+   "codigo": "EX-sabonete",
+   "nome": "sabonete",
+   "site_id": "sabonete",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": true,
+    "quintino": true
+   }
+  },
+  {
+   "codigo": "EX-condicionador",
+   "nome": "condicionador",
+   "site_id": "condicionador",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": false,
+    "quintino": false
+   }
+  },
+  {
+   "codigo": "EX-batom2",
+   "nome": "batom 2",
+   "site_id": "batom",
+   "categoria": "",
+   "preco": null,
+   "disponivel": {
+    "israel": false,
+    "quintino": false
+   }
+  }
+ ]
+}

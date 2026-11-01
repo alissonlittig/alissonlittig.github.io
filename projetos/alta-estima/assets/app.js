@@ -157,12 +157,42 @@ var bag=(store.get(KEY)||[]).filter(function(i){return prod(i.id)});
 function qty(id){for(var i=0;i<bag.length;i++)if(bag[i].id===id)return bag[i].q;return 0}
 function setQty(id,q){
   var i;for(i=0;i<bag.length;i++)if(bag[i].id===id)break;
+  if(q>qty(id)&&bloq(id))return;
   if(q<=0){if(i<bag.length)bag.splice(i,1)}
   else if(i<bag.length)bag[i].q=Math.min(q,99);
   else{bag.push({id:id,q:1,obs:''});justAdded=id}
   save();
 }
 var justAdded=null,fichaSync=null;
+/* ---------- estoque (selo Esgotado) ----------
+   Lê o /estoque.json do Worker (window.AE_ESTOQUE_URL, em dados.js); sem URL usa assets/estoque.json (exemplo).
+   Só disponível/esgotado por loja, nunca a quantidade. Se falhar, o site funciona como sempre (nada fica bloqueado). */
+var estq={};
+function lojaDe(k){k=String(k).toLowerCase();for(var i=0;i<LOJAS.length;i++)if(k.indexOf(LOJAS[i].id.slice(0,5))>-1)return LOJAS[i].id}
+function lojasCom(id){var e=estq[id];if(!e)return null;return LOJAS.filter(function(l){return e[l.id]})}
+function bloq(id){var l=lojasCom(id);return !!l&&!l.length}
+function soEm(id){var l=lojasCom(id);return l&&l.length===1&&LOJAS.length>1?l[0]:null}
+function lerEstoque(j){
+  var o={};
+  ((j&&j.produtos)||[]).forEach(function(p){
+    if(!p.site_id||!p.disponivel)return;
+    var e=o[p.site_id]||(o[p.site_id]={});
+    LOJAS.forEach(function(l){e[l.id]=e[l.id]||false});
+    Object.keys(p.disponivel).forEach(function(k){var l=lojaDe(k);if(l&&p.disponivel[k])e[l]=true});
+  });
+  return o;
+}
+function carregarEstoque(){
+  var url=window.AE_ESTOQUE_URL||ROOT+'assets/estoque.json',ac=window.AbortController?new AbortController():null,t=setTimeout(function(){ac&&ac.abort()},5000);
+  fetch(url,ac?{signal:ac.signal}:{}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    clearTimeout(t);estq=lerEstoque(j);
+    var n=bag.length;bag=bag.filter(function(i){return !bloq(i.id)}); // esgotado não fica na sacola
+    if(n!==bag.length)store.set(KEY,bag);
+    paint();
+    if(fOpen&&fId){var p=prod(fId);if(p)renderFicha(p)}
+    if(drawer&&!drawer.hidden)renderBag();
+  }).catch(function(){clearTimeout(t)});
+}
 function save(){store.set(KEY,bag);paint()}
 function totalItems(){return bag.reduce(function(s,i){return s+i.q},0)}
 
@@ -281,7 +311,8 @@ function renderCheckout(body,foot){
     '<button type="button" class="back">← Voltar para a sacola</button>'+
     '<div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" autocomplete="name" required maxlength="60"><span class="err" id="e-nome" hidden>Escreva o seu nome.</span></div>'+
     '<fieldset><legend>Como quer receber</legend><div class="opts">'+
-      LOJAS.map(function(l){return '<label class="opt"><input type="radio" name="receber" value="'+l.id+'"><span>Retirar na '+l.nome+'<small>'+l.end+' · '+l.hora+'</small></span></label>'}).join('')+
+      LOJAS.map(function(l){var fal=bag.filter(function(i){var c=lojasCom(i.id);return c&&c.indexOf(l)<0}).map(function(i){return prod(i.id).nome});
+        return '<label class="opt"><input type="radio" name="receber" value="'+l.id+'"><span>Retirar na '+l.nome+'<small>'+l.end+' · '+l.hora+'</small>'+(fal.length?'<small class="falta">Só na outra loja: '+fal.join(', ').replace(/</g,'&lt;')+'</small>':'')+'</span></label>'}).join('')+
       '<label class="opt"><input type="radio" name="receber" value="entrega"><span>Entrega em casa<small>Toda Governador Valadares · taxa e horário no WhatsApp</small></span></label>'+
     '</div><span class="err" id="e-receber" hidden>Escolha retirada ou entrega.</span></fieldset>'+
     '<div id="f-ender" hidden class="form">'+
@@ -458,6 +489,12 @@ function paintItem(a){
   var id=a.dataset.id,p=prod(id),q=qty(id),act=$('.act',a);
   var had=act.firstChild&&act.contains(document.activeElement)?document.activeElement:null,wasStep=had&&had.closest('.step');
   act.innerHTML='';
+  var so=soEm(id);
+  if(!q&&bloq(id)){
+    act.appendChild(el('span',{class:'selo-esg',text:'Esgotado'}));
+    return;
+  }
+  if(so)act.appendChild(el('span',{class:'selo-so',text:'Só na '+so.nome.replace(/^Loja /,'')}));
   if(!q){
     var b=el('button',{class:'item-mais',type:'button','aria-label':'Adicionar '+p.nome+' à sacola'});
     b.onclick=function(){setQty(id,1);bump(a);var s=$('.step button:last-child',a);s&&s.focus()};
@@ -553,12 +590,17 @@ function renderFicha(p){
   sb[0].onclick=function(){fN=Math.max(1,fN-1);out.textContent=fN};
   sb[1].onclick=function(){fN=Math.min(99,fN+1);out.textContent=fN};
   $('.ficha-add',fBox).onclick=fichaAdd;
+  var fa=$('.ficha-add',fBox),fq=$('.ficha-preco',fBox),so=soEm(p.id);
+  if(bloq(p.id)){fa.disabled=true;fa.textContent='Esgotado';sb[0].disabled=sb[1].disabled=true;fq.appendChild(el('span',{class:'selo-esg',text:'Esgotado'}))}
+  else if(so)fq.appendChild(el('span',{class:'selo-so',text:'Só na '+so.nome.replace(/^Loja /,'')}));
+  $$('.comb',fBox).forEach(function(li){if(bloq(li.dataset.id)){var m=$('.comb-mais',li);m.disabled=true;m.textContent='';m.title='Esgotado';$('small',li).textContent='Esgotado'}});
   fichaSync=function(){
-    $$('.comb',fBox).forEach(function(li){var n=qty(li.dataset.id);$('small',li).textContent=n?'Na sacola: '+n:''});
+    $$('.comb',fBox).forEach(function(li){var n=qty(li.dataset.id);$('small',li).textContent=bloq(li.dataset.id)?'Esgotado':n?'Na sacola: '+n:''});
   };
   fichaSync();
 }
 function fichaAdd(){
+  if(bloq(fId))return;
   var foto=$('.ficha-foto',fBox);
   var f=FOTOS[fId]||[],br=(f[fK]&&f[fK][0])||'',it=null;
   bag.forEach(function(i){if(i.id===fId)it=i});
@@ -623,7 +665,7 @@ if(necBox&&window.NECESSIDADES)NECESSIDADES.forEach(function(n){
 function addRotina(r,card){
   var nota=/^rotina/i.test(r.nome)?r.nome:'Rotina '+r.nome;
   r.passos.forEach(function(id){
-    if(!prod(id))return;
+    if(!prod(id)||bloq(id))return;
     var it=null;bag.forEach(function(i){if(i.id===id)it=i});
     if(it){it.q=Math.min(it.q+1,99);if(!it.obs)it.obs=nota}
     else bag.push({id:id,q:1,obs:nota});
@@ -719,4 +761,5 @@ if(grid){
 }
 
 paint();
+carregarEstoque();
 })();

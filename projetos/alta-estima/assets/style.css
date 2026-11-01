@@ -500,3 +500,11 @@ body{background:var(--paper)}
 .cats a img{position:absolute;inset:0;opacity:0;transition:opacity .7s ease,transform .6s var(--ease)}
 .cats a img.on{opacity:1}
 .cats a img.pk{inset:6% 6% 18%;width:88%;height:76%;object-fit:contain;mix-blend-mode:multiply}
+
+/* estoque: selos */
+.selo-esg,.selo-so{display:inline-block;font-size:.78rem;font-weight:700;border-radius:99px;padding:.2em .7em;line-height:1.3}
+.selo-esg{background:#eee;color:#6b6b6b;border:1px solid #cfcfcf}
+.selo-so{background:transparent;color:#8a5a00;border:1px solid #e3c27a;margin-right:.4em}
+.ficha-preco .selo-esg,.ficha-preco .selo-so{margin-left:.6em}
+.opt .falta{color:#8a5a00;display:block}
+.ficha-add:disabled,.comb-mais:disabled{opacity:.55;cursor:not-allowed}
