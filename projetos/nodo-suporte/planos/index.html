@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planos e calculadora · Nodo Suporte</title>
+<meta name="description" content="Três planos de TI gerenciada e uma calculadora que dá a faixa de preço mensal conforme computadores, servidor e backup.">
+<meta name="theme-color" content="#070C18">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/nodo-suporte/planos/">
+<link rel="alternate" hreflang="pt-BR" href="https://alissonlittig.github.io/projetos/nodo-suporte/planos/">
+<link rel="alternate" hreflang="en" href="https://alissonlittig.github.io/projetos/nodo-suporte/en/plans/">
+<link rel="alternate" hreflang="x-default" href="https://alissonlittig.github.io/projetos/nodo-suporte/planos/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Planos e calculadora · Nodo Suporte">
+<meta property="og:description" content="Três planos de TI gerenciada e uma calculadora que dá a faixa de preço mensal conforme computadores, servidor e backup.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/nodo-suporte/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="prog" aria-hidden="true"></div>
+<div class="ribbon">Projeto conceito: marca fictícia criada por Alisson Littig para portfólio.</div>
+<header class="top"><div class="wrap">
+<a class="logo" href="../" aria-label="Nodo Suporte, início"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="7" fill="#0B1326" stroke="#22D8FF" stroke-width="2"/><path d="M9 22V10l14 12V10" fill="none" stroke="#E8EEFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="2.4" fill="#22D8FF"/><circle cx="23" cy="22" r="2.4" fill="#22D8FF"/></svg>Nodo<span>Suporte</span></a>
+<nav class="nav" id="nav" aria-label="Principal"><a href="../servicos/">Serviços</a><a href="../planos/" aria-current="page">Planos</a><a href="../checkup/">Check-up</a><a href="../casos/">Casos</a><a href="../contato/">Contato</a></nav>
+<div class="tools"><a class="btn btn-cy" href="../contato/" style="min-height:44px;padding:8px 18px">Abrir chamado</a>
+<div class="lang" role="group" aria-label="Idioma"><a href="./" hreflang="pt" lang="pt-BR" aria-label="Português" aria-current="true">PT</a><a href="../en/plans/" hreflang="en" lang="en" aria-label="English">EN</a></div>
+<button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span></span></button></div>
+</div></header>
+<main id="conteudo">
+<div class="pagehead grid-bg"><div class="wrap"><p class="eyebrow">Planos</p><h1>Preço pelo que você tem, não por pacote fechado</h1><p class="lede">Três planos servem de referência. Para o seu caso, monte a conta na calculadora.</p></div></div>
+<section style="padding-top:24px"><div class="wrap"><div class="plans">
+<div class="plan rv"><p class="tg">Até 8 computadores</p><h3>Essencial</h3><p class="pr">a partir de R$ 470<small>/mês</small></p><ul><li>Monitoramento e suporte remoto</li><li>Microsoft 365 administrado</li><li>Backup opcional</li><li>Urgente: 1 h · Normal: 4 h</li></ul><p class="ex">Exemplo: 5 computadores, 5 contas Microsoft 365.</p></div>
+<div class="plan rv rec"><p class="tg">Até 20 computadores</p><h3>Equilibrado</h3><p class="pr">a partir de R$ 1.620<small>/mês</small></p><ul><li>Tudo do Essencial</li><li>Servidor e backup na nuvem</li><li>Antivírus gerenciado</li><li>Urgente: 30 min · Normal: 2 h</li></ul><p class="ex">Exemplo: 15 computadores, servidor, backup de 200 GB, 15 contas, antivírus.</p></div>
+<div class="plan rv"><p class="tg">Até 60 computadores</p><h3>Total</h3><p class="pr">a partir de R$ 3.550<small>/mês</small></p><ul><li>Tudo do Equilibrado</li><li>Visita presencial mensal</li><li>Teste de restauração trimestral</li><li>Urgente: 15 min · Normal: 1 h</li></ul><p class="ex">Exemplo: 40 computadores, servidor, backup de 1 TB, 40 contas, antivírus.</p></div>
+</div><p class="note" style="margin-top:14px">Horas de prazo contam em horário de plantão (seg a sex, 8h às 18h). Preços e prazos são de exemplo da marca fictícia.</p></div></section>
+<section class="alt" id="calculadora"><div class="wrap"><div class="head rv"><p class="eyebrow">Calculadora</p><h2>Monte a sua conta</h2><p class="sub">Mexa nos controles e veja a faixa mensal mudar. É uma estimativa: o valor final sai no diagnóstico.</p></div>
+<form class="calc" id="calc" onsubmit="return false">
+<div class="card">
+<div class="fld"><label for="pcs">Computadores <output id="o-pcs" for="pcs">10</output></label><input type="range" id="pcs" min="1" max="60" value="10"><small>Notebooks e desktops que a equipe usa.</small></div>
+<div class="fld"><label for="us">Contas Microsoft 365 <output id="o-us" for="us">10</output></label><input type="range" id="us" min="0" max="60" value="10"><small>Zero se a empresa não usa.</small></div>
+<fieldset class="fld"><legend>Backup na nuvem</legend><div class="seg">
+<label><input type="radio" name="bk" value="0"><span>Nenhum</span></label><label><input type="radio" name="bk" value="200" checked><span>200 GB</span></label><label><input type="radio" name="bk" value="1000"><span>1 TB</span></label><label><input type="radio" name="bk" value="5000"><span>5 TB</span></label></div></fieldset>
+<div class="fld"><label class="sw"><input type="checkbox" id="srv"> Tenho servidor de arquivos ou sistema</label></div>
+<div class="fld"><label class="sw"><input type="checkbox" id="edr" checked> Antivírus gerenciado em todos os computadores</label></div>
+</div>
+<div class="card res" aria-live="polite"><span class="pill" id="r-plan">Equilibrado</span><p class="big" id="r-val"></p><ul class="lines" id="r-lines"></ul><p class="note" id="r-sla"></p><p style="margin-top:18px"><a class="btn btn-cy" id="r-cta" href="#">Pedir diagnóstico com esta conta</a></p><p class="note" style="margin-top:12px">Faixa = valor calculado até 12% acima, para cobrir extras do diagnóstico.</p></div>
+</form></div></section>
+<section><div class="wrap"><div class="head rv"><p class="eyebrow">Prazos de resposta</p><h2>O que cada plano promete</h2></div><div class="scroll rv"><table><thead><tr><th>Plano</th><th>Urgente (ninguém trabalha)</th><th>Normal</th><th>Dúvida</th></tr></thead><tbody>
+<tr><td>Essencial</td><td class="num">1 h</td><td class="num">4 h</td><td class="num">1 dia útil</td></tr>
+<tr><td>Equilibrado</td><td class="num">30 min</td><td class="num">2 h</td><td class="num">1 dia útil</td></tr>
+<tr><td>Total</td><td class="num">15 min</td><td class="num">1 h</td><td class="num">4 h</td></tr></tbody></table></div></div></section>
+<section class="alt band"><div class="wrap"><div class="rv"><h2>Quer saber como está a TI da sua empresa?</h2><p class="lede" style="margin-top:14px">Diagnóstico de 45 minutos, sem custo e sem compromisso. Você sai com uma lista do que corrigir, mesmo que não contrate.</p></div>
+<div class="acts rv"><a class="btn btn-cy" href="../contato/">Pedir diagnóstico</a><a class="btn btn-line" href="../checkup/">Fazer o check-up de 2 min</a></div></div></section>
+</main>
+<footer><div class="wrap">
+<div class="cols">
+<div><a class="logo" href="../" aria-label="Nodo Suporte, início"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="7" fill="#0B1326" stroke="#22D8FF" stroke-width="2"/><path d="M9 22V10l14 12V10" fill="none" stroke="#E8EEFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="2.4" fill="#22D8FF"/><circle cx="23" cy="22" r="2.4" fill="#22D8FF"/></svg>Nodo<span>Suporte</span></a><p>TI gerenciada para escritórios, clínicas e lojas pequenas. Marca fictícia de exemplo.</p></div>
+<div><h2>Páginas</h2><ul><li><a href="../servicos/">Serviços</a></li><li><a href="../planos/">Planos</a></li><li><a href="../checkup/">Check-up</a></li><li><a href="../casos/">Casos</a></li><li><a href="../contato/">Contato</a></li><li><a href="../privacidade/">Privacidade</a></li></ul></div>
+<div><h2>Plantão</h2><ul><li>Segunda a sexta</li><li>8h-18h (Brasília)</li><li>Urgente: fila prioritária</li></ul></div>
+<div><h2>Contato (exemplo)</h2><ul><li>contato@nodosuporte.example</li><li>(43) 0000-0000</li><li><a href="../privacidade/">Como usamos seus dados</a></li></ul></div>
+</div>
+<div class="small"><span>Nodo Suporte é uma marca fictícia. Preços, prazos, contatos e casos são exemplos; nada aqui é cliente ou resultado real.</span>
+<span>Fotos: <a href="https://commons.wikimedia.org/wiki/File:Cable_closet_bh.jpg" target="_blank" rel="noopener">Cable closet bh (domínio público)</a> · <a href="https://commons.wikimedia.org/wiki/File:19-inch_rackmount_Ethernet_switches_and_patch_panels.jpg" target="_blank" rel="noopener">Dsimic, CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Technician_with_laptop_working_on_server_rack_at_NERSC.jpg" target="_blank" rel="noopener">Derrick Coetzee, CC0</a> · Wikimedia Commons · Site por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span>
+<span><button type="button" id="rm" class="btn btn-line" aria-pressed="false" style="min-height:44px;padding:6px 16px;font-size:14px">Reduzir movimento</button></span></div>
+</div></footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

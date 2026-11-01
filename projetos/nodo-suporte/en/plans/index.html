@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plans and calculator · Nodo Suporte</title>
+<meta name="description" content="Three managed IT plans and a calculator that gives the monthly price range by computers, server and backup.">
+<meta name="theme-color" content="#070C18">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/nodo-suporte/en/plans/">
+<link rel="alternate" hreflang="pt-BR" href="https://alissonlittig.github.io/projetos/nodo-suporte/planos/">
+<link rel="alternate" hreflang="en" href="https://alissonlittig.github.io/projetos/nodo-suporte/en/plans/">
+<link rel="alternate" hreflang="x-default" href="https://alissonlittig.github.io/projetos/nodo-suporte/planos/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plans and calculator · Nodo Suporte">
+<meta property="og:description" content="Three managed IT plans and a calculator that gives the monthly price range by computers, server and backup.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/nodo-suporte/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Skip to content</a>
+<div class="prog" aria-hidden="true"></div>
+<div class="ribbon">Concept project: fictional brand created by Alisson Littig for his portfolio.</div>
+<header class="top"><div class="wrap">
+<a class="logo" href="../" aria-label="Nodo Suporte, home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="7" fill="#0B1326" stroke="#22D8FF" stroke-width="2"/><path d="M9 22V10l14 12V10" fill="none" stroke="#E8EEFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="2.4" fill="#22D8FF"/><circle cx="23" cy="22" r="2.4" fill="#22D8FF"/></svg>Nodo<span>Suporte</span></a>
+<nav class="nav" id="nav" aria-label="Main"><a href="../services/">Services</a><a href="../plans/" aria-current="page">Plans</a><a href="../checkup/">Check-up</a><a href="../cases/">Cases</a><a href="../contact/">Contact</a></nav>
+<div class="tools"><a class="btn btn-cy" href="../contact/" style="min-height:44px;padding:8px 18px">Open a ticket</a>
+<div class="lang" role="group" aria-label="Language"><a href="../../planos/" hreflang="pt" lang="pt-BR" aria-label="Português">PT</a><a href="./" hreflang="en" lang="en" aria-label="English" aria-current="true">EN</a></div>
+<button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Open menu"><span></span></button></div>
+</div></header>
+<main id="conteudo">
+<div class="pagehead grid-bg"><div class="wrap"><p class="eyebrow">Plans</p><h1>Priced by what you have, not by a fixed bundle</h1><p class="lede">Three plans act as a reference. For your case, build the quote in the calculator.</p></div></div>
+<section style="padding-top:24px"><div class="wrap"><div class="plans">
+<div class="plan rv"><p class="tg">Up to 8 computers</p><h3>Essential</h3><p class="pr">from R$ 470<small>/mo</small></p><ul><li>Monitoring and remote support</li><li>Managed Microsoft 365</li><li>Optional backup</li><li>Urgent: 1 h · Normal: 4 h</li></ul><p class="ex">Example: 5 computers, 5 Microsoft 365 accounts.</p></div>
+<div class="plan rv rec"><p class="tg">Up to 20 computers</p><h3>Balanced</h3><p class="pr">from R$ 1.620<small>/mo</small></p><ul><li>Everything in Essential</li><li>Server and cloud backup</li><li>Managed antivirus</li><li>Urgent: 30 min · Normal: 2 h</li></ul><p class="ex">Example: 15 computers, server, 200 GB backup, 15 accounts, antivirus.</p></div>
+<div class="plan rv"><p class="tg">Up to 60 computers</p><h3>Total</h3><p class="pr">from R$ 3.550<small>/mo</small></p><ul><li>Everything in Balanced</li><li>Monthly on-site visit</li><li>Quarterly restore test</li><li>Urgent: 15 min · Normal: 1 h</li></ul><p class="ex">Example: 40 computers, server, 1 TB backup, 40 accounts, antivirus.</p></div>
+</div><p class="note" style="margin-top:14px">Reply times count within support hours (Mon to Fri, 8am to 6pm). Prices and times are examples for the fictional brand.</p></div></section>
+<section class="alt" id="calculadora"><div class="wrap"><div class="head rv"><p class="eyebrow">Calculator</p><h2>Build your quote</h2><p class="sub">Move the controls and watch the monthly range change. It is an estimate: the final price comes after the assessment.</p></div>
+<form class="calc" id="calc" onsubmit="return false">
+<div class="card">
+<div class="fld"><label for="pcs">Computers <output id="o-pcs" for="pcs">10</output></label><input type="range" id="pcs" min="1" max="60" value="10"><small>Laptops and desktops the team uses.</small></div>
+<div class="fld"><label for="us">Microsoft 365 accounts <output id="o-us" for="us">10</output></label><input type="range" id="us" min="0" max="60" value="10"><small>Zero if the company does not use it.</small></div>
+<fieldset class="fld"><legend>Cloud backup</legend><div class="seg">
+<label><input type="radio" name="bk" value="0"><span>None</span></label><label><input type="radio" name="bk" value="200" checked><span>200 GB</span></label><label><input type="radio" name="bk" value="1000"><span>1 TB</span></label><label><input type="radio" name="bk" value="5000"><span>5 TB</span></label></div></fieldset>
+<div class="fld"><label class="sw"><input type="checkbox" id="srv"> I have a file or application server</label></div>
+<div class="fld"><label class="sw"><input type="checkbox" id="edr" checked> Managed antivirus on every computer</label></div>
+</div>
+<div class="card res" aria-live="polite"><span class="pill" id="r-plan">Equilibrado</span><p class="big" id="r-val"></p><ul class="lines" id="r-lines"></ul><p class="note" id="r-sla"></p><p style="margin-top:18px"><a class="btn btn-cy" id="r-cta" href="#">Request an assessment with this quote</a></p><p class="note" style="margin-top:12px">Range = calculated value up to 12% above, covering extras found in the assessment.</p></div>
+</form></div></section>
+<section><div class="wrap"><div class="head rv"><p class="eyebrow">Reply times</p><h2>What each plan promises</h2></div><div class="scroll rv"><table><thead><tr><th>Plan</th><th>Urgent (nobody can work)</th><th>Normal</th><th>Question</th></tr></thead><tbody>
+<tr><td>Essential</td><td class="num">1 h</td><td class="num">4 h</td><td class="num">1 business day</td></tr>
+<tr><td>Balanced</td><td class="num">30 min</td><td class="num">2 h</td><td class="num">1 business day</td></tr>
+<tr><td>Total</td><td class="num">15 min</td><td class="num">1 h</td><td class="num">4 h</td></tr></tbody></table></div></div></section>
+<section class="alt band"><div class="wrap"><div class="rv"><h2>Want to know how your company IT is doing?</h2><p class="lede" style="margin-top:14px">A free 45-minute assessment, no strings. You leave with a list of what to fix, even if you do not hire us.</p></div>
+<div class="acts rv"><a class="btn btn-cy" href="../contact/">Request an assessment</a><a class="btn btn-line" href="../checkup/">Take the 2-min check-up</a></div></div></section>
+</main>
+<footer><div class="wrap">
+<div class="cols">
+<div><a class="logo" href="../" aria-label="Nodo Suporte, home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="7" fill="#0B1326" stroke="#22D8FF" stroke-width="2"/><path d="M9 22V10l14 12V10" fill="none" stroke="#E8EEFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="2.4" fill="#22D8FF"/><circle cx="23" cy="22" r="2.4" fill="#22D8FF"/></svg>Nodo<span>Suporte</span></a><p>Managed IT for small offices, clinics and shops. Fictional example brand.</p></div>
+<div><h2>Pages</h2><ul><li><a href="../services/">Services</a></li><li><a href="../plans/">Plans</a></li><li><a href="../checkup/">Check-up</a></li><li><a href="../cases/">Cases</a></li><li><a href="../contact/">Contact</a></li><li><a href="../privacy/">Privacy</a></li></ul></div>
+<div><h2>Support hours</h2><ul><li>Monday to Friday</li><li>8h-18h (Brasília time)</li><li>Urgent: priority queue</li></ul></div>
+<div><h2>Contact (example)</h2><ul><li>contato@nodosuporte.example</li><li>(43) 0000-0000</li><li><a href="../privacy/">How we use your data</a></li></ul></div>
+</div>
+<div class="small"><span>Nodo Suporte is a fictional brand. Prices, times, contacts and cases are examples; nothing here is a real client or result.</span>
+<span>Photos: <a href="https://commons.wikimedia.org/wiki/File:Cable_closet_bh.jpg" target="_blank" rel="noopener">Cable closet bh (public domain)</a> · <a href="https://commons.wikimedia.org/wiki/File:19-inch_rackmount_Ethernet_switches_and_patch_panels.jpg" target="_blank" rel="noopener">Dsimic, CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Technician_with_laptop_working_on_server_rack_at_NERSC.jpg" target="_blank" rel="noopener">Derrick Coetzee, CC0</a> · Wikimedia Commons · Site by <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span>
+<span><button type="button" id="rm" class="btn btn-line" aria-pressed="false" style="min-height:44px;padding:6px 16px;font-size:14px">Reduce motion</button></span></div>
+</div></footer>
+<script src="../../assets/app.js" defer></script>
+</body>
+</html>

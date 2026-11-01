@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abrir chamado e contato · Nodo Suporte</title>
+<meta name="description" content="Formulário de demonstração para abrir chamado ou pedir diagnóstico gratuito de TI. Nada é enviado.">
+<meta name="theme-color" content="#070C18">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/nodo-suporte/contato/">
+<link rel="alternate" hreflang="pt-BR" href="https://alissonlittig.github.io/projetos/nodo-suporte/contato/">
+<link rel="alternate" hreflang="en" href="https://alissonlittig.github.io/projetos/nodo-suporte/en/contact/">
+<link rel="alternate" hreflang="x-default" href="https://alissonlittig.github.io/projetos/nodo-suporte/contato/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Abrir chamado e contato · Nodo Suporte">
+<meta property="og:description" content="Formulário de demonstração para abrir chamado ou pedir diagnóstico gratuito de TI. Nada é enviado.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/nodo-suporte/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="prog" aria-hidden="true"></div>
+<div class="ribbon">Projeto conceito: marca fictícia criada por Alisson Littig para portfólio.</div>
+<header class="top"><div class="wrap">
+<a class="logo" href="../" aria-label="Nodo Suporte, início"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="7" fill="#0B1326" stroke="#22D8FF" stroke-width="2"/><path d="M9 22V10l14 12V10" fill="none" stroke="#E8EEFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="2.4" fill="#22D8FF"/><circle cx="23" cy="22" r="2.4" fill="#22D8FF"/></svg>Nodo<span>Suporte</span></a>
+<nav class="nav" id="nav" aria-label="Principal"><a href="../servicos/">Serviços</a><a href="../planos/">Planos</a><a href="../checkup/">Check-up</a><a href="../casos/">Casos</a><a href="../contato/" aria-current="page">Contato</a></nav>
+<div class="tools"><a class="btn btn-cy" href="../contato/" style="min-height:44px;padding:8px 18px">Abrir chamado</a>
+<div class="lang" role="group" aria-label="Idioma"><a href="./" hreflang="pt" lang="pt-BR" aria-label="Português" aria-current="true">PT</a><a href="../en/contact/" hreflang="en" lang="en" aria-label="English">EN</a></div>
+<button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span></span></button></div>
+</div></header>
+<main id="conteudo">
+<div class="pagehead grid-bg"><div class="wrap"><p class="eyebrow">Contato</p><h1>Abrir chamado ou pedir diagnóstico</h1><p class="lede">Escolha o tipo, escreva em uma frase o que está acontecendo. É uma demonstração: nada é enviado.</p></div></div>
+<section style="padding-top:20px"><div class="wrap two" style="align-items:start">
+<div><form class="form" id="ticket" novalidate>
+<div><label for="kind">O que você precisa?</label><select id="kind"><option value="chamado">Abrir um chamado (sou cliente)</option><option value="diag">Diagnóstico gratuito de 45 min</option></select></div>
+<div><label for="plan">Seu plano</label><select id="plan"><option value="Essencial">Essencial</option><option value="Equilibrado" selected>Equilibrado</option><option value="Total">Total</option></select></div>
+<fieldset class="sev" id="sevbox"><legend>Gravidade</legend><div class="seg"><label><input type="radio" name="sev" value="0"><span>Urgente: ninguém trabalha</span></label><label><input type="radio" name="sev" value="1" checked><span>Normal</span></label><label><input type="radio" name="sev" value="2"><span>Dúvida</span></label></div></fieldset>
+<div><label for="nome">Seu nome</label><input type="text" id="nome" autocomplete="name" aria-describedby="e1"><p class="err" id="e1">Escreva seu nome.</p></div>
+<div><label for="mail">E-mail</label><input type="email" id="mail" autocomplete="email" aria-describedby="e2"><p class="err" id="e2">Escreva um e-mail válido.</p></div>
+<div><label for="msg">O que está acontecendo?</label><textarea id="msg" aria-describedby="e3"></textarea><p class="err" id="e3">Conte em uma frase.</p></div>
+<p class="lgpd">Usaríamos nome, e-mail e a mensagem só para responder a este pedido. <a href="../privacidade/">Como usamos seus dados</a>.</p>
+<div><button class="btn btn-cy" type="submit">Registrar (demonstração)</button></div>
+</form><div class="ok" id="done" role="status" hidden></div></div>
+<aside class="card rv"><h2 style="font-size:26px;margin-bottom:14px">Canais de exemplo</h2><ul class="lines"><li><span>Plantão</span><b>seg a sex, 8h-18h</b></li><li><span>WhatsApp</span><b>(43) 0000-0000</b></li><li><span>E-mail</span><b>contato@nodosuporte.example</b></li><li><span>Presencial</span><b>Londrina, PR</b></li></ul><p class="note">Contatos fictícios, só para mostrar o layout.</p></aside></div></section>
+
+</main>
+<footer><div class="wrap">
+<div class="cols">
+<div><a class="logo" href="../" aria-label="Nodo Suporte, início"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="7" fill="#0B1326" stroke="#22D8FF" stroke-width="2"/><path d="M9 22V10l14 12V10" fill="none" stroke="#E8EEFA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="2.4" fill="#22D8FF"/><circle cx="23" cy="22" r="2.4" fill="#22D8FF"/></svg>Nodo<span>Suporte</span></a><p>TI gerenciada para escritórios, clínicas e lojas pequenas. Marca fictícia de exemplo.</p></div>
+<div><h2>Páginas</h2><ul><li><a href="../servicos/">Serviços</a></li><li><a href="../planos/">Planos</a></li><li><a href="../checkup/">Check-up</a></li><li><a href="../casos/">Casos</a></li><li><a href="../contato/">Contato</a></li><li><a href="../privacidade/">Privacidade</a></li></ul></div>
+<div><h2>Plantão</h2><ul><li>Segunda a sexta</li><li>8h-18h (Brasília)</li><li>Urgente: fila prioritária</li></ul></div>
+<div><h2>Contato (exemplo)</h2><ul><li>contato@nodosuporte.example</li><li>(43) 0000-0000</li><li><a href="../privacidade/">Como usamos seus dados</a></li></ul></div>
+</div>
+<div class="small"><span>Nodo Suporte é uma marca fictícia. Preços, prazos, contatos e casos são exemplos; nada aqui é cliente ou resultado real.</span>
+<span>Fotos: <a href="https://commons.wikimedia.org/wiki/File:Cable_closet_bh.jpg" target="_blank" rel="noopener">Cable closet bh (domínio público)</a> · <a href="https://commons.wikimedia.org/wiki/File:19-inch_rackmount_Ethernet_switches_and_patch_panels.jpg" target="_blank" rel="noopener">Dsimic, CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Technician_with_laptop_working_on_server_rack_at_NERSC.jpg" target="_blank" rel="noopener">Derrick Coetzee, CC0</a> · Wikimedia Commons · Site por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span>
+<span><button type="button" id="rm" class="btn btn-line" aria-pressed="false" style="min-height:44px;padding:6px 16px;font-size:14px">Reduzir movimento</button></span></div>
+</div></footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>
