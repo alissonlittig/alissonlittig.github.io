@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fio &amp; Prosa · Roupa de tecido natural, pedido pelo WhatsApp</title>
+<meta name="description" content="Camisas, vestidos, calças, saias e tricô em linho e algodão, com a medida de cada peça escrita. Descubra seu tamanho, monte a sacola e envie o pedido pelo WhatsApp. Marca fictícia de portfólio.">
+<meta name="theme-color" content="#F2EDE3">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fio &amp; Prosa · Roupa de tecido natural">
+<meta property="og:description" content="Descubra seu tamanho, monte a sacola e envie o pedido pelo WhatsApp. Marca fictícia de portfólio.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/fio-e-prosa/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/arara-1100.webp" imagesrcset="assets/img/arara-640.webp 640w, assets/img/arara-1100.webp 1100w, assets/img/arara-1500.webp 1500w" imagesizes="(max-width:900px) 100vw, 46vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#catalogo">Pular para o catálogo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="linho" width="4" height="4" patternUnits="userSpaceOnUse">
+      <path d="M0 .5H4M.5 0V4" stroke="#000" stroke-opacity=".07" stroke-width=".6"/>
+    </pattern>
+    <pattern id="trico" width="6" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 0L3 4L0 8M6 0L3 4L6 8" fill="none" stroke="#000" stroke-opacity=".1" stroke-width=".9"/>
+    </pattern>
+  </defs>
+  <symbol id="i-sacola" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M5 8h14l-1 12H6L5 8Z"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8Zm-3.2 4c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.4s1 2.8 1.200 3c.1.200 2 3.100 4.900 4.300 2.400 1 2.900.8 3.400.7.600-.1 1.700-.7 1.900-1.400.2-.7.2-1.200.2-1.400l-.5-.3-1.800-.9c-.2-.1-.4-.1-.6.100l-.8 1c-.1.200-.3.200-.5.100-.3-.1-1.100-.4-2.100-1.300-.8-.7-1.300-1.500-1.400-1.800-.2-.3 0-.4.100-.5l.4-.4.300-.5v-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="ribbon">Projeto conceito: loja fictícia criada por Alisson Littig para portfólio. Nada aqui é vendido.</div>
+
+<header class="topo" id="topo">
+  <div class="wrap topo-in">
+    <a class="logo" href="./" aria-label="Fio e Prosa, início"><span>Fio</span><i>&amp;</i><span>Prosa</span></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#chegou">Chegou agora</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#provador">Provador</a>
+      <a href="#como">Como pedir</a>
+      <a href="#loja">Loja</a>
+    </nav>
+    <button class="btn-sacola" id="abrirSacola" type="button" aria-haspopup="dialog" aria-controls="sacola">
+      <svg width="22" height="22" aria-hidden="true"><use href="#i-sacola"/></svg>
+      <span class="rot">Sacola</span>
+      <span class="cont" id="contSacola" aria-label="0 itens">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="conteudo">
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-txt">
+      <p class="sobre">Moda em tecido natural · Belo Horizonte</p>
+      <h1>Peças de linho e algodão, com a medida <em>escrita em cada uma.</em></h1>
+      <p class="lead">Descubra seu tamanho em um minuto, escolha a cor, monte a sacola e mande o pedido pronto para o nosso WhatsApp. Sem cadastro, sem cartão no site.</p>
+      <div class="acoes">
+        <a class="btn" href="#catalogo">Ver o catálogo <svg width="18" height="18" aria-hidden="true"><use href="#i-seta"/></svg></a>
+        <a class="btn ghost" href="#provador">Descobrir meu tamanho</a>
+      </div>
+      <dl class="fatos">
+        <div><dt>12</dt><dd>peças na coleção de novembro</dd></div>
+        <div><dt>4</dt><dd>tamanhos, do P ao GG</dd></div>
+        <div><dt>1 dia</dt><dd>para separar o pedido</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-foto">
+      <img src="assets/img/arara-1100.webp" srcset="assets/img/arara-640.webp 640w, assets/img/arara-1100.webp 1100w, assets/img/arara-1500.webp 1500w" sizes="(max-width:900px) 100vw, 46vw" width="1500" height="2397" alt="Arara com camisas de linho, jeans e malha penduradas, e calças dobradas sobre um baú de madeira" fetchpriority="high" decoding="async">
+      <figcaption>Foto ilustrativa, não são as peças da loja fictícia. <a href="#creditos">Créditos</a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="secao" id="chegou" aria-labelledby="t-chegou">
+  <div class="wrap">
+    <div class="cab">
+      <p class="sobre">Semana de 27 de outubro</p>
+      <h2 id="t-chegou">Chegou agora</h2>
+      <p class="sub">Quatro peças novas. Cada uma vem em poucas unidades por cor.</p>
+    </div>
+    <ul class="trilho" id="novos" aria-label="Peças que acabaram de chegar"></ul>
+  </div>
+</section>
+
+<section class="secao claro" id="catalogo" aria-labelledby="t-cat">
+  <div class="wrap">
+    <div class="cab">
+      <p class="sobre">Coleção de novembro</p>
+      <h2 id="t-cat">Catálogo</h2>
+    </div>
+
+    <form class="filtros" id="filtros" aria-label="Filtrar peças" onsubmit="return false">
+      <fieldset>
+        <legend>Peça</legend>
+        <div class="chips" id="fCat"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Tamanho</legend>
+        <div class="chips" id="fTam"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Cor</legend>
+        <div class="chips" id="fCor"></div>
+      </fieldset>
+      <div class="fim">
+        <button type="button" class="link" id="limpar" hidden>Limpar filtros</button>
+        <p class="resultado" id="resultado" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <div class="aviso-medida" id="avisoMedida" hidden>
+      <p><strong>Seu tamanho: <span id="meuTam"></span>.</strong> As peças já abrem nele quando existe. <button type="button" class="link" id="trocarTam">Refazer medidas</button></p>
+    </div>
+
+    <ul class="grade" id="grade"></ul>
+    <p class="vazio" id="vazio" hidden>Nenhuma peça com essa combinação. Tire um filtro e veja o que sobra.</p>
+  </div>
+</section>
+
+<section class="secao provador" id="provador" aria-labelledby="t-prov">
+  <div class="wrap prov-in">
+    <div class="cab">
+      <p class="sobre">Provador de medidas</p>
+      <h2 id="t-prov">Qual é o seu tamanho?</h2>
+      <p class="sub">Use uma fita métrica e digite em centímetros. Não guardamos nada: o resultado fica só neste aparelho.</p>
+    </div>
+    <form id="formProv" class="form-prov" novalidate>
+      <div class="campo"><label for="mBusto">Busto</label><div class="num"><input id="mBusto" name="busto" type="number" inputmode="numeric" min="60" max="160" placeholder="92" required><span>cm</span></div><small>Em volta da parte mais cheia, sem apertar.</small></div>
+      <div class="campo"><label for="mCintura">Cintura</label><div class="num"><input id="mCintura" name="cintura" type="number" inputmode="numeric" min="50" max="150" placeholder="74" required><span>cm</span></div><small>Na parte mais fina do tronco.</small></div>
+      <div class="campo"><label for="mQuadril">Quadril</label><div class="num"><input id="mQuadril" name="quadril" type="number" inputmode="numeric" min="70" max="170" placeholder="100" required><span>cm</span></div><small>Na parte mais larga.</small></div>
+      <fieldset class="campo caimento">
+        <legend>Como gosta de vestir?</legend>
+        <label><input type="radio" name="caimento" value="0" checked><span>Justo ao corpo</span></label>
+        <label><input type="radio" name="caimento" value="1"><span>Normal</span></label>
+        <label><input type="radio" name="caimento" value="2"><span>Folgado</span></label>
+      </fieldset>
+      <button class="btn" type="submit">Ver meu tamanho</button>
+      <p class="erro" id="erroProv" role="alert" hidden></p>
+    </form>
+
+    <div class="res-prov" id="resProv" aria-live="polite">
+      <div class="res-vazio">
+        <p>Seu tamanho aparece aqui.</p>
+        <p class="peq">Depois disso o catálogo já abre cada peça no tamanho certo e avisa quando ele não existe.</p>
+      </div>
+    </div>
+
+    <div class="tabela-wrap">
+      <table class="tabela" aria-label="Medidas do corpo por tamanho, em centímetros">
+        <caption>Medidas do corpo por tamanho (cm)</caption>
+        <thead><tr><th scope="col">Tam.</th><th scope="col">Busto</th><th scope="col">Cintura</th><th scope="col">Quadril</th></tr></thead>
+        <tbody id="tabBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="secao claro" id="como" aria-labelledby="t-como">
+  <div class="wrap como-in">
+    <div class="cab">
+      <p class="sobre">Como pedir</p>
+      <h2 id="t-como">Três passos, uma conversa.</h2>
+    </div>
+    <ol class="passos">
+      <li><span class="n">1</span><h3>Monte a sacola</h3><p>Escolha peça, cor e tamanho. Dá para mudar a quantidade ou tirar item antes de enviar.</p></li>
+      <li><span class="n">2</span><h3>Envie pelo WhatsApp</h3><p>O pedido sai pronto, com peças, tamanhos e total. Você só aperta enviar.</p></li>
+      <li><span class="n">3</span><h3>A gente confirma</h3><p>Uma pessoa responde, confere o estoque e combina pagamento e entrega ou retirada.</p></li>
+    </ol>
+    <figure class="como-foto">
+      <img src="assets/img/bau-1100.webp" srcset="assets/img/bau-640.webp 640w, assets/img/bau-1100.webp 1100w" sizes="(max-width:900px) 92vw, 40vw" width="1100" height="704" alt="Calças dobradas com etiqueta sobre um baú de madeira com fechos de metal" loading="lazy" decoding="async">
+      <figcaption>Foto ilustrativa. <a href="#creditos">Créditos</a></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="secao" id="loja" aria-labelledby="t-loja">
+  <div class="wrap loja-in">
+    <figure class="loja-foto">
+      <img src="assets/img/punhos-1100.webp" srcset="assets/img/punhos-640.webp 640w, assets/img/punhos-1100.webp 1100w" sizes="(max-width:900px) 92vw, 44vw" width="1100" height="540" alt="Punhos de camisas de linho, algodão e jeans penduradas lado a lado" loading="lazy" decoding="async">
+    </figure>
+    <div>
+      <p class="sobre">A loja</p>
+      <h2 id="t-loja">Venha provar, se preferir.</h2>
+      <address>
+        Rua das Acácias, 48, Santa Tereza<br>Belo Horizonte, MG <span class="peq">(endereço fictício)</span>
+      </address>
+      <dl class="horas">
+        <div><dt>Segunda a sexta</dt><dd>10h às 18h30</dd></div>
+        <div><dt>Sábado</dt><dd>10h às 15h</dd></div>
+        <div><dt>Domingo</dt><dd>fechado</dd></div>
+      </dl>
+      <p class="peq">Telefone e horários são exemplos. O pedido do site vai para um WhatsApp de demonstração.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rod-grade">
+      <div>
+        <a class="logo" href="./" aria-label="Fio e Prosa, início"><span>Fio</span><i>&amp;</i><span>Prosa</span></a>
+        <p>Roupa de tecido natural, em Belo Horizonte. Marca fictícia de exemplo.</p>
+      </div>
+      <div><h3>Navegar</h3><ul><li><a href="#chegou">Chegou agora</a></li><li><a href="#catalogo">Catálogo</a></li><li><a href="#provador">Provador</a></li><li><a href="#como">Como pedir</a></li></ul></div>
+      <div><h3>Dados</h3><ul><li><a href="privacidade/">Como usamos seus dados</a></li><li><a href="https://alissonlittig.github.io/">Portfólio do Alisson</a></li></ul></div>
+    </div>
+    <p class="fine">Fio &amp; Prosa é uma marca fictícia. Peças, preços, endereço, horários e contatos são exemplos.</p>
+    <p class="fine" id="creditos">Fotos: <a href="https://commons.wikimedia.org/wiki/File:Hanging_shirts_and_jackets_(Unsplash).jpg" target="_blank" rel="noopener">“Hanging shirts and jackets”, Crew (Unsplash), CC0, via Wikimedia Commons</a>, recortada em três enquadramentos. Ilustrações das peças desenhadas para este projeto. Fontes Newsreader e Hanken Grotesk, licença OFL.</p>
+  </div>
+</footer>
+
+<div class="veu" id="veu" hidden></div>
+<aside class="sacola" id="sacola" role="dialog" aria-modal="true" aria-labelledby="t-sacola" hidden>
+  <header class="sac-cab">
+    <h2 id="t-sacola">Sua sacola</h2>
+    <button type="button" class="fechar" id="fecharSacola" aria-label="Fechar sacola"><svg width="22" height="22" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </header>
+  <div class="sac-corpo">
+    <ul class="itens" id="itens"></ul>
+    <div class="sac-vazia" id="sacVazia">
+      <p>A sacola está vazia.</p>
+      <p class="peq">Escolha um tamanho em qualquer peça e toque em adicionar.</p>
+      <button type="button" class="btn ghost" id="irCatalogo">Ver o catálogo</button>
+    </div>
+  </div>
+  <form class="sac-pe" id="formPedido" hidden>
+    <div class="campo">
+      <label for="pNome">Seu nome <span class="op">(opcional)</span></label>
+      <input id="pNome" name="nome" type="text" autocomplete="given-name" maxlength="60">
+    </div>
+    <fieldset class="campo entrega">
+      <legend>Como prefere receber?</legend>
+      <label><input type="radio" name="entrega" value="Retirar na loja" checked><span>Retirar na loja</span></label>
+      <label><input type="radio" name="entrega" value="Entrega, combinar frete"><span>Entrega</span></label>
+    </fieldset>
+    <div class="total"><span>Total</span><strong id="total">R$ 0,00</strong></div>
+    <button class="btn wa" type="submit"><svg width="20" height="20" aria-hidden="true"><use href="#i-wa"/></svg> Enviar pedido pelo WhatsApp</button>
+    <p class="peq">Ao tocar, o WhatsApp abre com a mensagem pronta. Pagamento e frete são combinados na conversa. <a href="privacidade/">Como usamos seus dados</a></p>
+  </form>
+</aside>
+<div class="aviso-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/dados.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
