@@ -143,3 +143,14 @@ html[data-motion="reduce"] .esqueleto{animation:none}
 .taxa-info.ok{color:var(--deep)}
 .taxa-info.fora{color:#7a5410;font-weight:700}
 .taxa-info a{color:inherit;text-decoration:underline}
+
+/* CEP e endereço (checkout) */
+.cep-info{font-size:14px;color:var(--muted)}
+.cep-info:empty{display:none}
+.cep-info.busca{color:var(--deep)}
+.cep-info.busca::before{content:"";display:inline-block;width:12px;height:12px;margin-right:8px;vertical-align:-1px;border:2px solid var(--line);border-top-color:var(--deep);border-radius:50%;animation:cep-gira .7s linear infinite}
+.cep-info.ok{color:var(--deep)}
+.cep-info.erro{color:#7a5410;font-weight:700}
+.duas{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:12px}
+@keyframes cep-gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.cep-info.busca::before{animation:none}}

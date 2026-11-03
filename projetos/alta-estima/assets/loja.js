@@ -197,7 +197,30 @@ var drawer,scrim,lastFocus,view='list',askClear=false,busy=false;
 var ENTREGA={ok:false,lista:(window.AE_BAIRROS||[]).map(function(b){return {nome:b[0],taxa_cent:b[1]}})};
 function acharBairro(txt){var n=norm(txt).replace(/\s+/g,' ').trim();if(!n)return null;for(var i=0;i<ENTREGA.lista.length;i++)if(norm(ENTREGA.lista[i].nome)===n)return ENTREGA.lista[i];return null}
 function buscarBairros(txt){var n=norm(txt).trim();return ENTREGA.lista.filter(function(b){return !n||norm(b.nome).indexOf(n)>-1}).sort(function(a,b){return (norm(a.nome).indexOf(n)===0?0:1)-(norm(b.nome).indexOf(n)===0?0:1)||a.nome.localeCompare(b.nome,'pt-BR')})}
-var DADOS=Object.assign({modo:'',filial:'',bairro:'',endereco:'',ref:'',nome:'',whatsapp:'',email:'',meio:'pix'},store.get('ae-dados2')||{});
+/* CEP: ViaCEP; se falhar ou passar de 4 s, BrasilAPI. Devolve {rua,bairro,cidade} ou null (CEP nao existe); rejeita se os dois falharem */
+function comTempo(url,ms){var ac=window.AbortController?new AbortController():null,t=setTimeout(function(){ac&&ac.abort()},ms);
+  return Promise.race([fetch(url,{signal:ac?ac.signal:undefined}),new Promise(function(_,no){setTimeout(function(){no(new Error('tempo'))},ms)})]).then(function(r){clearTimeout(t);if(r.status===404||r.status===400)return {nao:true};if(!r.ok)throw new Error('http');return r.json()},function(e){clearTimeout(t);throw e})}
+function buscarCep(cep){
+  return comTempo('https://viacep.com.br/ws/'+cep+'/json/',4000).then(function(j){
+    if(j.erro||j.nao)return null;
+    return {rua:j.logradouro||'',bairro:j.bairro||'',cidade:j.localidade||''};
+  }).catch(function(){
+    return comTempo('https://brasilapi.com.br/api/cep/v1/'+cep,6000).then(function(j){
+      if(j.nao||!j.city)return null;
+      return {rua:j.street||'',bairro:j.neighborhood||'',cidade:j.city||''};
+    });
+  });
+}
+function emGV(c){var n=norm(c).replace(/\./g,'').replace(/\s+/g,' ').trim();return !n||n==='governador valadares'||n==='gov valadares'||n==='gv'}
+/* bairro do CEP -> nome da tabela: "Centro A/B" vira Centro; ignora acento, maiuscula, "(parte ...)" e letra solta no fim */
+function bairroDaTabela(txt){
+  var a=acharBairro(txt);if(a)return a;
+  var n=norm(txt).replace(/\s+/g,' ').trim();if(!n)return null;
+  var base=n.replace(/\([^)]*\)/g,'').replace(/\s+[a-d]$/,'').replace(/^(bairro|b)\s+/,'').trim();
+  for(var i=0;i<ENTREGA.lista.length;i++){var t=norm(ENTREGA.lista[i].nome).replace(/\([^)]*\)/g,'').replace(/\s+/g,' ').trim();if(t===base)return ENTREGA.lista[i]}
+  return null;
+}
+var DADOS=Object.assign({modo:'',filial:'',cep:'',rua:'',numero:'',cidade:'Governador Valadares',bairro:'',endereco:'',ref:'',nome:'',whatsapp:'',email:'',meio:'pix'},store.get('ae-dados2')||{});
 var ACEITE=false,ERRO='',ARMADILHA='';
 function saveDados(){var d=Object.assign({},DADOS);store.set('ae-dados2',d)}
 function buildDrawer(){
@@ -234,7 +257,7 @@ function passos(n){
     return '<li'+(i+1===n?' aria-current="step"':'')+(i+1<n?' class="feito"':'')+'><b>'+(i+1)+'</b><span>'+t+'</span></li>'}).join('')+'</ol>';
 }
 function frete(){
-  var b=DADOS.modo==='entrega'&&acharBairro(DADOS.bairro);return b?b.taxa_cent:0;
+  var b=DADOS.modo==='entrega'&&emGV(DADOS.cidade)&&bairroDaTabela(DADOS.bairro);return b?b.taxa_cent:0;
 }
 function total(){return subtotal()+frete()}
 function renderBag(){
@@ -340,17 +363,20 @@ function passoReceber(body,foot){
     (falE.length?'Sem estoque para entrega: '+esc(falE.join(', ')):'Taxa por bairro, mostrada ao escolher o bairro')+'</small></span></label>';
   f.innerHTML=passos(1)+'<fieldset><legend>Como quer receber</legend><div class="opts">'+opts+'</div></fieldset>'+
     '<div id="f-ender" class="form" hidden>'+
+    '<div class="field"><label for="f-cep">CEP</label><input id="f-cep" name="cep" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" aria-describedby="i-cep"><span class="cep-info" id="i-cep" role="status" aria-live="polite"></span></div>'+
+    '<div class="field"><label for="f-rua">Rua</label><input id="f-rua" name="rua" autocomplete="address-line1" maxlength="120"><span class="err" id="e-rua" hidden>Escreva a rua.</span></div>'+
+    '<div class="duas"><div class="field"><label for="f-num">Número</label><input id="f-num" name="numero" autocomplete="address-line2" maxlength="12"><span class="err" id="e-numero" hidden>Informe o número.</span></div>'+
+    '<div class="field"><label for="f-ref">Complemento <span class="opc">(opcional)</span></label><input id="f-ref" name="ref" maxlength="70"></div></div>'+
     '<div class="field combo"><label for="f-bairro">Bairro</label><input id="f-bairro" name="bairro" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="l-bairro" autocomplete="off" maxlength="60" required placeholder="Comece a digitar o bairro"><ul id="l-bairro" class="combo-lista" role="listbox" hidden></ul>'+
     '<span class="taxa-info" id="i-bairro" role="status" aria-live="polite"></span><span class="err" id="e-bairro" hidden>Informe o bairro.</span></div>'+
-    '<div class="field"><label for="f-end">Rua e número</label><input id="f-end" name="endereco" autocomplete="street-address" maxlength="120"><span class="err" id="e-endereco" hidden>Escreva a rua e o número.</span></div>'+
-    '<div class="field"><label for="f-ref">Ponto de referência <span class="opc">(opcional)</span></label><input id="f-ref" name="ref" maxlength="70"></div></div>'+
+    '<div class="field"><label for="f-cid">Cidade</label><input id="f-cid" name="cidade" autocomplete="address-level2" maxlength="60"><span class="taxa-info fora" id="i-cidade" role="status" aria-live="polite"></span></div></div>'+
     '<p class="err" id="e-modo" hidden>Escolha retirada ou entrega.</p>'+(ERRO?'<p class="err" role="alert">'+esc(ERRO)+'</p>':'');
   body.innerHTML='';body.appendChild(f);
   // repõe a escolha anterior
   var v=DADOS.modo==='retirada'?'r:'+DADOS.filial:DADOS.modo==='entrega'?'entrega':'';
   var r0=v&&$('input[name="modo"][value="'+v+'"]',f);if(r0&&!r0.disabled)r0.checked=true;
   if(DADOS.bairro)f.elements.bairro.value=DADOS.bairro;
-  f.elements.endereco.value=DADOS.endereco||'';f.elements.ref.value=DADOS.ref||'';
+  f.elements.cep.value=DADOS.cep||'';f.elements.rua.value=DADOS.rua||'';f.elements.numero.value=DADOS.numero||'';f.elements.cidade.value=DADOS.cidade||'';f.elements.ref.value=DADOS.ref||'';
   var inB=f.elements.bairro,lst=$('#l-bairro',f),info=$('#i-bairro',f),ativo=-1;
   function fecha(){lst.hidden=true;inB.setAttribute('aria-expanded','false');inB.removeAttribute('aria-activedescendant');ativo=-1}
   function abre(){
@@ -361,33 +387,57 @@ function passoReceber(body,foot){
   function marca(i){var o=$$('li',lst);if(!o.length)return;ativo=(i+o.length)%o.length;o.forEach(function(x,k){x.setAttribute('aria-selected',String(k===ativo))});inB.setAttribute('aria-activedescendant',o[ativo].id);o[ativo].scrollIntoView({block:'nearest'})}
   function escolhe(nome){inB.value=nome;fecha();sync();inB.focus()}
   function mostraTaxa(){
-    var b=acharBairro(inB.value),t=inB.value.trim();
+    var b=emGV(f.elements.cidade.value)&&bairroDaTabela(inB.value),t=inB.value.trim();
+    var ci=$('#i-cidade',f);
+    if(emGV(f.elements.cidade.value))ci.textContent='';
+    else ci.innerHTML='Entregamos só em Governador Valadares. Escolha retirada na loja ou <a href="'+esc(wa('Olá! Quero receber um pedido em '+f.elements.cidade.value.trim()+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">fale no WhatsApp</a>.';
+    if(!emGV(f.elements.cidade.value)){info.textContent='';info.className='taxa-info';return}
     if(b)info.innerHTML='Taxa de entrega: <b>'+money(b.taxa_cent)+'</b>';
-    else if(t.length>1&&!buscarBairros(t).length)info.innerHTML='Bairro fora da tabela: a entrega fica <b>a combinar pelo WhatsApp</b> e você pode finalizar o pedido. <a href="'+esc(wa('Olá! Quero receber um pedido em casa, bairro '+t+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">Falar agora</a>. A retirada na loja continua grátis.';
+    else if(t.length>1&&!b&&!buscarBairros(t).length)info.innerHTML='Bairro fora da tabela: a entrega fica <b>a combinar pelo WhatsApp</b> e você pode finalizar o pedido. <a href="'+esc(wa('Olá! Quero receber um pedido em casa, bairro '+t+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">Falar agora</a>. A retirada na loja continua grátis.';
     else info.textContent='';
-    info.className='taxa-info'+(b?' ok':!b&&t.length>1&&!buscarBairros(t).length?' fora':'');
+    info.className='taxa-info'+(b?' ok':t.length>1&&!buscarBairros(t).length?' fora':'');
   }
   inB.addEventListener('input',function(){abre();mostraTaxa()});
-  inB.addEventListener('focus',function(){if(inB.value.trim()&&!acharBairro(inB.value))abre()});
+  inB.addEventListener('focus',function(){if(inB.value.trim()&&!bairroDaTabela(inB.value))abre()});
   inB.addEventListener('keydown',function(e){
     if(e.key==='ArrowDown'){e.preventDefault();if(lst.hidden)abre();marca(ativo+1)}
     else if(e.key==='ArrowUp'){e.preventDefault();marca(ativo-1)}
     else if(e.key==='Enter'&&!lst.hidden&&ativo>-1){e.preventDefault();e.stopPropagation();escolhe($$('li',lst)[ativo].dataset.n)}
     else if(e.key==='Escape'&&!lst.hidden){e.stopPropagation();fecha()}
   });
-  inB.addEventListener('blur',function(){setTimeout(function(){fecha();var b=acharBairro(inB.value);if(b&&inB.value!==b.nome){inB.value=b.nome;sync()}},150)});
+  inB.addEventListener('blur',function(){setTimeout(function(){fecha();var b=bairroDaTabela(inB.value);if(b&&inB.value!==b.nome){inB.value=b.nome;sync()}},150)});
   lst.addEventListener('mousedown',function(e){e.preventDefault()});
   lst.addEventListener('click',function(e){var li=e.target.closest('li');if(li)escolhe(li.dataset.n)});
+  var inC=f.elements.cep,infC=$('#i-cep',f),cepVez=0;
+  function cepTxt(){var d=inC.value.replace(/\D/g,'').slice(0,8);return d.length>5?d.slice(0,5)+'-'+d.slice(5):d}
+  function cepMsg(t,c){infC.textContent=t;infC.className='cep-info'+(c?' '+c:'')}
+  inC.addEventListener('input',function(){
+    inC.value=cepTxt();var d=inC.value.replace(/\D/g,'');cepVez++;
+    if(d.length<8){cepMsg('');return}
+    var vez=cepVez;cepMsg('Buscando endereço…','busca');
+    buscarCep(d).then(function(r){
+      if(vez!==cepVez)return;
+      if(!r){cepMsg('CEP não encontrado, preencha manualmente.','erro');return}
+      if(r.rua)f.elements.rua.value=r.rua;
+      f.elements.cidade.value=r.cidade||f.elements.cidade.value;
+      var b=emGV(r.cidade)?bairroDaTabela(r.bairro):null;
+      f.elements.bairro.value=b?b.nome:(r.bairro||'');
+      cepMsg(emGV(r.cidade)&&!b&&r.bairro?'Endereço preenchido. Confira o bairro na lista.':'Endereço preenchido. Falta o número.','ok');
+      sync();
+      (f.elements.numero.value?f.elements.bairro:f.elements.numero).focus();
+    }).catch(function(){if(vez===cepVez)cepMsg('Não consegui buscar o CEP agora, preencha manualmente.','erro')});
+  });
   function sync(){
     var m=f.elements.modo.value;
     $('#f-ender',f).hidden=m!=='entrega';
     DADOS.modo=m==='entrega'?'entrega':m?'retirada':'';DADOS.filial=m.indexOf('r:')===0?m.slice(2):'';
-    DADOS.bairro=f.elements.bairro.value;DADOS.endereco=f.elements.endereco.value.trim();DADOS.ref=f.elements.ref.value.trim();
+    DADOS.bairro=f.elements.bairro.value;DADOS.cep=f.elements.cep.value;DADOS.rua=f.elements.rua.value.trim();DADOS.numero=f.elements.numero.value.trim();DADOS.cidade=f.elements.cidade.value.trim();
+    DADOS.endereco=DADOS.rua+(DADOS.numero?', '+DADOS.numero:'');DADOS.ref=f.elements.ref.value.trim();
     saveDados();mostraTaxa();totais();
   }
   function totais(){
     var t=$('.foot-total',foot);if(!t)return;
-    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(acharBairro(DADOS.bairro)?money(frete()):DADOS.bairro.trim().length>1?'a combinar':'escolha o bairro')+'</b>':'');
+    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(!emGV(DADOS.cidade)?'só em Governador Valadares':bairroDaTabela(DADOS.bairro)?money(frete()):DADOS.bairro.trim().length>1?'a combinar':'escolha o bairro')+'</b>':'');
   }
   function rodape(){ // monta uma vez: refazer o rodapé a cada digitação engole o toque no botão
     foot.innerHTML='';
@@ -400,9 +450,12 @@ function passoReceber(body,foot){
     sync();var bad=null;
     $('#e-modo',f).hidden=!!DADOS.modo;if(!DADOS.modo)bad=$('input[name="modo"]',f);
     if(DADOS.modo==='entrega'){
-      var bOk=!!acharBairro(DADOS.bairro);if(bOk)DADOS.bairro=acharBairro(DADOS.bairro).nome;else DADOS.bairro=DADOS.bairro.trim().slice(0,60);var bTxt=DADOS.bairro.length>=2;
+      var bOk=!!bairroDaTabela(DADOS.bairro);if(bOk)DADOS.bairro=bairroDaTabela(DADOS.bairro).nome;else DADOS.bairro=DADOS.bairro.trim().slice(0,60);var bTxt=DADOS.bairro.length>=2;
       $('#e-bairro',f).hidden=bTxt;f.elements.bairro.setAttribute('aria-invalid',bTxt?'false':'true');if(!bTxt&&!bad)bad=f.elements.bairro;
-      var okE=DADOS.endereco.length>=5;$('#e-endereco',f).hidden=okE;f.elements.endereco.setAttribute('aria-invalid',okE?'false':'true');if(!okE&&!bad)bad=f.elements.endereco;
+      var okR=DADOS.rua.length>=3,okN=DADOS.numero.length>=1,okC=emGV(DADOS.cidade);
+      $('#e-rua',f).hidden=okR;f.elements.rua.setAttribute('aria-invalid',okR?'false':'true');if(!okR&&!bad)bad=f.elements.rua;
+      $('#e-numero',f).hidden=okN;f.elements.numero.setAttribute('aria-invalid',okN?'false':'true');if(!okN&&!bad)bad=f.elements.numero;
+      f.elements.cidade.setAttribute('aria-invalid',okC?'false':'true');if(!okC&&!bad)bad=f.elements.cidade;
     }
     if(bad){bad.focus();return}
     view='dados';ERRO='';renderBag();var n=$('input',drawer);n&&n.focus();
@@ -459,7 +512,7 @@ function passoPagar(body,foot){
   var linhas=bag.map(function(i){return '<li><span>'+i.q+'× '+esc(i.nome)+(i.variacao?' · '+esc(i.variacao):'')+'</span><b>'+money(i.preco*i.q)+'</b></li>'}).join('');
   f.innerHTML=passos(3)+
     '<section class="resumo" aria-labelledby="t-res"><h3 id="t-res">Resumo da compra</h3><ul class="res-itens">'+linhas+'</ul>'+
-    '<dl class="res-tot"><div><dt>Subtotal</dt><dd>'+money(subtotal())+'</dd></div>'+(DADOS.modo==='entrega'?'<div><dt>Entrega em Governador Valadares</dt><dd>'+(acharBairro(DADOS.bairro)?money(frete()):'a combinar pelo WhatsApp')+'</dd></div>':'')+
+    '<dl class="res-tot"><div><dt>Subtotal</dt><dd>'+money(subtotal())+'</dd></div>'+(DADOS.modo==='entrega'?'<div><dt>Entrega em Governador Valadares</dt><dd>'+(bairroDaTabela(DADOS.bairro)?money(frete()):'a combinar pelo WhatsApp')+'</dd></div>':'')+
     '<div class="forte"><dt>Total</dt><dd>'+money(total())+'</dd></div></dl>'+
     '<p class="res-rec"><b>'+(l?'Retirada na '+esc(l.nome):'Entrega em casa')+'</b><br>'+(l?esc(l.end)+' · '+esc(l.hora):esc(DADOS.endereco)+(DADOS.ref?' ('+esc(DADOS.ref)+')':'')+', '+esc(DADOS.bairro))+'</p>'+
     '<p class="res-cl"><b>Desistência:</b> você pode desistir da compra em até <b>7 dias</b> depois de receber, pela página do pedido, e o valor é devolvido. <a href="'+ROOT+'trocas/" target="_blank" rel="noopener">Trocas e arrependimento</a>.</p></section>'+
@@ -489,7 +542,7 @@ function criarPedido(btn){
     cliente:{nome:DADOS.nome,whatsapp:soDigitos(DADOS.whatsapp).replace(/^55(\d{10,11})$/,'$1')}};
   if(DADOS.email)corpo.cliente.email=DADOS.email;
   if(DADOS.modo==='retirada')corpo.filial=DADOS.filial;
-  else{corpo.bairro=DADOS.bairro;corpo.endereco=DADOS.endereco+(DADOS.ref?' ('+DADOS.ref+')':'')}
+  else{corpo.bairro=DADOS.bairro;corpo.endereco=DADOS.endereco+(DADOS.ref?' ('+DADOS.ref+')':'')+(DADOS.cep?' - CEP '+DADOS.cep:'')}
   post('/pedidos',corpo).then(function(r){
     var j=r.j||{};
     if(r.st===200&&j.init_point&&j.token){
