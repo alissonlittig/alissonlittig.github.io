@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-lang="pt">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,6 +23,7 @@
 
 <header class="bar wrap">
   <a class="back" href="/"><span aria-hidden="true">←</span>Portfólio do Alisson</a>
+  <div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="pt" aria-pressed="true">PT</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
   <a class="btn btn-primary btn-sm" href="https://wa.me/5533999038198?text=Oi%2C%20Alisson!%20Vi%20a%20p%C3%A1gina%20do%20Vitrine%20ERP%20e%20quero%20um%20sistema%20assim%20para%20a%20minha%20loja." rel="noopener">Quero um sistema assim</a>
 </header>
 
@@ -31,10 +32,10 @@
 <section class="hero2 wrap">
   <div class="hero-txt">
     <p class="eyebrow">Vitrine ERP</p>
-    <h1>Sistema de vendas, estoque e caixa para lojas e salões</h1>
+    <h1><span lang="pt">Sistema de vendas, estoque e caixa para lojas e salões</span><span lang="en">Sales, inventory and cash system for shops and salons</span></h1>
   </div>
   <div class="hero-side">
-    <p class="lede">Anote a venda em poucos toques. No fim do dia o caixa fecha, o estoque está certo e a comissão de cada vendedora já está calculada.</p>
+    <p class="lede"><span lang="pt">Anote a venda em poucos toques. No fim do dia o caixa fecha, o estoque está certo e a comissão de cada vendedora já está calculada.</span><span lang="en">Log a sale in a few taps. At the end of the day the register balances, stock is right and each seller's commission is already calculated.</span></p>
     <div class="actions">
       <a class="btn btn-primary" href="https://wa.me/5533999038198?text=Oi%2C%20Alisson!%20Vi%20a%20p%C3%A1gina%20do%20Vitrine%20ERP%20e%20quero%20um%20sistema%20assim%20para%20a%20minha%20loja." rel="noopener">Quero um sistema assim</a>
       <a class="btn" href="#telas">Ver as telas</a>
@@ -55,9 +56,27 @@
   </dl>
 </section>
 
+<section class="sec wrap" id="novidades">
+  <div class="sec-head left">
+    <h2><span lang="pt">O que mudou na versão nova</span><span lang="en">What changed in the new version</span></h2>
+    <p class="sec-note"><span lang="pt">O sistema foi refeito pensando no dia a dia de uma loja pequena: menos fila, estoque certo, várias lojas juntas e nenhuma venda perdida.</span><span lang="en">The system was rebuilt around the daily life of a small shop: shorter lines, accurate stock, several stores together and no lost sales.</span></p>
+  </div>
+  <ul class="lista">
+    <li><b><span lang="pt">Caixa mais rápido</span><span lang="en">Faster checkout</span></b><span><span lang="pt">Interface nova, com atalhos de teclado. A venda sai em poucos toques e quem entra na equipe aprende em minutos.</span><span lang="en">New interface with keyboard shortcuts. A sale takes a few taps and new staff learn it in minutes.</span></span></li>
+    <li><b><span lang="pt">Leitor de código de barras</span><span lang="en">Barcode scanner</span></b><span><span lang="pt">Bipou, o produto entra na venda e o estoque baixa sozinho. Quem prefere continua só digitando o valor: nada obriga a cadastrar tudo no primeiro dia.</span><span lang="en">Scan an item and stock drops by itself. Prefer typing the amount? That still works, so nobody has to catalogue everything on day one.</span></span></li>
+    <li><b><span lang="pt">Estoque por filial</span><span lang="en">Per-store inventory</span></b><span><span lang="pt">Entrada de mercadoria, contagem, ajuste e etiqueta. O que está acabando aparece em vermelho antes de faltar, e uma filial enxerga o estoque da outra.</span><span lang="en">Receiving, counts, adjustments and labels. Low stock turns red before you run out, and each store can see the other's inventory.</span></span></li>
+    <li><b><span lang="pt">Várias lojas e computadores</span><span lang="en">Many stores and computers</span></b><span><span lang="pt">Caixa, notebook de casa e segunda filial com os mesmos números, sincronizados pela nuvem. Cada registro tem identificação única: nada duplica e nada se perde.</span><span lang="en">Register, home laptop and second store show the same numbers, synced through the cloud. Every record has a unique id: nothing duplicates, nothing is lost.</span></span></li>
+    <li><b><span lang="pt">Venda nunca espera a internet</span><span lang="en">A sale never waits for the internet</span></b><span><span lang="pt">Cada computador guarda tudo localmente. Caiu a conexão, a fila continua andando; quando ela volta, as lojas se acertam sozinhas.</span><span lang="en">Each computer keeps everything locally. Connection down, the line keeps moving; when it returns, the stores catch up on their own.</span></span></li>
+    <li><b><span lang="pt">Atualiza e se protege sozinho</span><span lang="en">Updates and protects itself</span></b><span><span lang="pt">Correções chegam automaticamente e o banco tem cópia de segurança diária com histórico, sem ninguém lembrar de fazer.</span><span lang="en">Fixes arrive automatically and the database has a daily backup with history, with nobody having to remember.</span></span></li>
+    <li><b><span lang="pt">Loja online ligada ao estoque</span><span lang="en">Online store tied to inventory</span></b><span><span lang="pt">O site mostra disponível ou esgotado conforme o estoque real, e a taxa de entrega é calculada por bairro. Não se vende o que já acabou.</span><span lang="en">The website shows in stock or sold out from the real inventory, and delivery fees are set by neighborhood. No selling what is already gone.</span></span></li>
+    <li><b><span lang="pt">Gestão protegida</span><span lang="en">Protected management</span></b><span><span lang="pt">Comissão, lucro e equipe só com senha, com bloqueio por inatividade e registro de quem alterou ou apagou algo.</span><span lang="en">Commissions, profit and staff behind a password, with idle lock and a record of who edited or deleted anything.</span></span></li>
+  </ul>
+  <p class="nota" style="margin-top:20px;color:var(--mut)"><span lang="pt">A versão de demonstração, com dados fictícios, está no <a href="https://github.com/alissonlittig/vitrine-erp" rel="noopener">GitHub</a> (pasta <code>vitrine_v2</code>).</span><span lang="en">The demo version, with fictional data, is on <a href="https://github.com/alissonlittig/vitrine-erp" rel="noopener">GitHub</a> (folder <code>vitrine_v2</code>).</span></p>
+</section>
+
 <section class="sec wrap" id="resolve">
   <div class="sec-head left">
-    <h2>O que isso resolve na sua loja</h2>
+    <h2><span lang="pt">O que isso resolve na sua loja</span><span lang="en">What it solves for your shop</span></h2>
     <p class="sec-note">Sem planilha, sem caderno, sem conta de cabeça no fim do mês.</p>
   </div>
   <ul class="lista">
@@ -256,6 +275,12 @@
   document.getElementById('zoom-x').addEventListener('click',function(){d.close()});
   d.addEventListener('click',function(e){if(e.target===d)d.close()});
 })();
+</script>
+<script>
+(function(){var r=document.documentElement,s=null;try{s=localStorage.getItem('lang')}catch(e){}
+var l=s||((navigator.language||'pt').toLowerCase().indexOf('pt')===0?'pt':'en');
+function set(x){r.dataset.lang=x;r.lang=x==='pt'?'pt-BR':'en';document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===x?'true':'false')});try{localStorage.setItem('lang',x)}catch(e){}}
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});set(l)})();
 </script>
 </body>
 </html>
