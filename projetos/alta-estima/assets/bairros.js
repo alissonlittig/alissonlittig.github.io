@@ -70,5 +70,6 @@ window.AE_BAIRROS = [
   ["Vale Verde", 1500],
   ["Grã-Duquesa", 1000],
   ["Vila Mariana", 800],
-  ["Lagoa Santa", 1000]
+  ["Lagoa Santa", 1000],
+  ["Centro", 500]
 ];
