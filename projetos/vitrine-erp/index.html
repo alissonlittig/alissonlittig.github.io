@@ -23,7 +23,6 @@
 
 <header class="bar wrap">
   <a class="back" href="/"><span aria-hidden="true">←</span>Portfólio do Alisson</a>
-  <div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="pt" aria-pressed="true">PT</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
   <a class="btn btn-primary btn-sm" href="https://wa.me/5533999038198?text=Oi%2C%20Alisson!%20Vi%20a%20p%C3%A1gina%20do%20Vitrine%20ERP%20e%20quero%20um%20sistema%20assim%20para%20a%20minha%20loja." rel="noopener">Quero um sistema assim</a>
 </header>
 
@@ -275,12 +274,6 @@
   document.getElementById('zoom-x').addEventListener('click',function(){d.close()});
   d.addEventListener('click',function(e){if(e.target===d)d.close()});
 })();
-</script>
-<script>
-(function(){var r=document.documentElement,s=null;try{s=localStorage.getItem('lang')}catch(e){}
-var l=s||((navigator.language||'pt').toLowerCase().indexOf('pt')===0?'pt':'en');
-function set(x){r.dataset.lang=x;r.lang=x==='pt'?'pt-BR':'en';document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===x?'true':'false')});try{localStorage.setItem('lang',x)}catch(e){}}
-document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});set(l)})();
 </script>
 </body>
 </html>
