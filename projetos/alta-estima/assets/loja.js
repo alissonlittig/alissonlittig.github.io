@@ -211,7 +211,7 @@ function buscarCep(cep){
     });
   });
 }
-function emGV(c){var n=norm(c).replace(/\./g,'').replace(/\s+/g,' ').trim();return !n||n==='governador valadares'||n==='gov valadares'||n==='gv'}
+function emGV(c){var n=norm(c).replace(/\./g,'').replace(/\s+/g,' ').trim();return n==='governador valadares'||n==='gov valadares'||n==='gv'}
 /* bairro do CEP -> nome da tabela: "Centro A/B" vira Centro; ignora acento, maiuscula, "(parte ...)" e letra solta no fim */
 function bairroDaTabela(txt){
   var a=acharBairro(txt);if(a)return a;
@@ -381,6 +381,7 @@ function passoReceber(body,foot){
   function fecha(){lst.hidden=true;inB.setAttribute('aria-expanded','false');inB.removeAttribute('aria-activedescendant');ativo=-1}
   function abre(){
     var r=buscarBairros(inB.value).slice(0,8);
+    if(!emGV(f.elements.cidade.value))r=[];
     lst.innerHTML=r.map(function(b,i){return '<li role="option" id="o-b'+i+'" data-n="'+esc(b.nome)+'"><span>'+esc(b.nome)+'</span><b>'+money(b.taxa_cent)+'</b></li>'}).join('');
     lst.hidden=!r.length;inB.setAttribute('aria-expanded',String(!!r.length));ativo=-1;
   }
@@ -390,6 +391,7 @@ function passoReceber(body,foot){
     var b=emGV(f.elements.cidade.value)&&bairroDaTabela(inB.value),t=inB.value.trim();
     var ci=$('#i-cidade',f);
     if(emGV(f.elements.cidade.value))ci.textContent='';
+    else if(!f.elements.cidade.value.trim())ci.textContent='Informe a cidade.';
     else ci.innerHTML='Entregamos só em Governador Valadares. Escolha retirada na loja ou <a href="'+esc(wa('Olá! Quero receber um pedido em '+f.elements.cidade.value.trim()+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">fale no WhatsApp</a>.';
     if(!emGV(f.elements.cidade.value)){info.textContent='';info.className='taxa-info';return}
     if(b)info.innerHTML='Taxa de entrega: <b>'+money(b.taxa_cent)+'</b>';
@@ -421,10 +423,11 @@ function passoReceber(body,foot){
       if(r.rua)f.elements.rua.value=r.rua;
       f.elements.cidade.value=r.cidade||f.elements.cidade.value;
       var b=emGV(r.cidade)?bairroDaTabela(r.bairro):null;
-      f.elements.bairro.value=b?b.nome:(r.bairro||'');
-      cepMsg(emGV(r.cidade)&&!b&&r.bairro?'Endereço preenchido. Confira o bairro na lista.':'Endereço preenchido. Falta o número.','ok');
+      if(b||r.bairro)f.elements.bairro.value=b?b.nome:r.bairro;
+      cepMsg(emGV(r.cidade)&&!b&&r.bairro?'Endereço preenchido. Confira o bairro na lista.':f.elements.numero.value?'Endereço preenchido.':'Endereço preenchido. Falta o número.','ok');
       sync();
-      (f.elements.numero.value?f.elements.bairro:f.elements.numero).focus();
+      if(emGV(r.cidade))(f.elements.numero.value?f.elements.bairro:f.elements.numero).focus();
+      else $('#i-cidade',f).scrollIntoView({block:'center',behavior:'smooth'});
     }).catch(function(){if(vez===cepVez)cepMsg('Não consegui buscar o CEP agora, preencha manualmente.','erro')});
   });
   function sync(){
@@ -433,6 +436,7 @@ function passoReceber(body,foot){
     DADOS.modo=m==='entrega'?'entrega':m?'retirada':'';DADOS.filial=m.indexOf('r:')===0?m.slice(2):'';
     DADOS.bairro=f.elements.bairro.value;DADOS.cep=f.elements.cep.value;DADOS.rua=f.elements.rua.value.trim();DADOS.numero=f.elements.numero.value.trim();DADOS.cidade=f.elements.cidade.value.trim();
     DADOS.endereco=DADOS.rua+(DADOS.numero?', '+DADOS.numero:'');DADOS.ref=f.elements.ref.value.trim();
+    if(emGV(DADOS.cidade))f.elements.cidade.setAttribute('aria-invalid','false');
     saveDados();mostraTaxa();totais();
   }
   function totais(){
@@ -455,7 +459,7 @@ function passoReceber(body,foot){
       var okR=DADOS.rua.length>=3,okN=DADOS.numero.length>=1,okC=emGV(DADOS.cidade);
       $('#e-rua',f).hidden=okR;f.elements.rua.setAttribute('aria-invalid',okR?'false':'true');if(!okR&&!bad)bad=f.elements.rua;
       $('#e-numero',f).hidden=okN;f.elements.numero.setAttribute('aria-invalid',okN?'false':'true');if(!okN&&!bad)bad=f.elements.numero;
-      f.elements.cidade.setAttribute('aria-invalid',okC?'false':'true');if(!okC&&!bad)bad=f.elements.cidade;
+      f.elements.cidade.setAttribute('aria-invalid',okC?'false':'true');if(!okC&&!bad)bad=f.elements.cidade;if(!okC)setTimeout(function(){$('#i-cidade',f).scrollIntoView({block:'center',behavior:'smooth'})},50);
     }
     if(bad){bad.focus();return}
     view='dados';ERRO='';renderBag();var n=$('input',drawer);n&&n.focus();
