@@ -74,8 +74,8 @@
 // Visualizador de imagens (lightbox): ESC fecha, setas navegam, foco volta ao botão.
 (() => {
   const pt = document.documentElement.lang.startsWith('pt');
-  const L = pt ? { prev: 'Anterior', next: 'Próxima', close: 'Fechar', cred: 'Imagem:', owner: '© Sony Interactive Entertainment, FromSoftware', src: 'Fextralife Bloodborne Wiki', label: 'Visualizador de imagem', of: (a, b) => `${a} de ${b}` }
-                 : { prev: 'Previous', next: 'Next', close: 'Close', cred: 'Image:', owner: '© Sony Interactive Entertainment, FromSoftware', src: 'Fextralife Bloodborne Wiki', label: 'Image viewer', of: (a, b) => `${a} of ${b}` };
+  const L = pt ? { prev: 'Anterior', next: 'Próxima', close: 'Fechar', cred: 'Imagem:', owner: '© Sony Interactive Entertainment, FromSoftware', src: 'Fextralife Bloodborne Wiki', srcF: 'Bloodborne Wiki (Fandom)', label: 'Visualizador de imagem', of: (a, b) => `${a} de ${b}` }
+                 : { prev: 'Previous', next: 'Next', close: 'Close', cred: 'Image:', owner: '© Sony Interactive Entertainment, FromSoftware', src: 'Fextralife Bloodborne Wiki', srcF: 'Bloodborne Wiki (Fandom)', label: 'Image viewer', of: (a, b) => `${a} of ${b}` };
   let dlg, img, cap, ct, cr, bp, bn, items = [], i = 0, from;
   const arrow = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const build = () => {
@@ -105,7 +105,7 @@
     cap.textContent = b.dataset.cap || '';
     ct.textContent = items.length > 1 ? L.of(i + 1, items.length) : '';
     cr.replaceChildren(document.createTextNode(L.cred + ' '));
-    const a = document.createElement('a'); a.href = b.dataset.src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = L.src;
+    const a = document.createElement('a'); a.href = b.dataset.src; a.target = '_blank'; a.rel = 'noopener'; a.textContent = b.dataset.credit === 'fandom' ? L.srcF : L.src;
     cr.append(a, document.createTextNode(' / ' + L.owner));
     bp.hidden = bn.hidden = items.length < 2;
     [1, -1].forEach((d) => { const n = items[(i + d + items.length) % items.length]; if (n) new Image().src = n.dataset.full; });
