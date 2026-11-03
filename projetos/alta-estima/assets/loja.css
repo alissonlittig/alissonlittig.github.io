@@ -130,3 +130,16 @@ html[data-motion="reduce"] .esqueleto{animation:none}
 /* WhatsApp é opção secundária: botão do cabeçalho vira contorno */
 .wa-btn{background:transparent;border:1.5px solid #ffffff80;color:var(--cream)}
 .wa-btn:hover{background:#ffffff1f}
+
+/* campo Bairro com busca (checkout) */
+.combo{position:relative}
+.combo-lista{position:absolute;z-index:5;left:0;right:0;top:calc(100% - 4px);margin:0;padding:6px;list-style:none;max-height:240px;overflow:auto;background:var(--card);border:1.5px solid var(--deep);border-radius:12px;box-shadow:0 12px 28px #0E1A1325}
+.combo-lista[hidden]{display:none}
+.combo-lista li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;min-height:44px;border-radius:8px;cursor:pointer;font-size:15px}
+.combo-lista li b{color:var(--deep);white-space:nowrap}
+.combo-lista li:hover,.combo-lista li[aria-selected="true"]{background:#0E1A1310}
+.taxa-info{font-size:14px;color:var(--muted)}
+.taxa-info:empty{display:none}
+.taxa-info.ok{color:var(--deep)}
+.taxa-info.fora{color:#9b2a1f;font-weight:700}
+.taxa-info a{color:inherit;text-decoration:underline}

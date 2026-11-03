@@ -193,7 +193,10 @@ function bump(src){
 
 /* ---------- gaveta da sacola e checkout ---------- */
 var drawer,scrim,lastFocus,view='list',askClear=false,busy=false;
-var ENTREGA={ok:false,taxa:CFG.taxaEntregaCent}; // taxa fixa: vem do Worker (/entrega.json); config.js e o valor local
+// taxa por bairro: lista do Worker (/entrega.json: [{nome,taxa_cent}]); bairros.js e a copia local usada se o Worker nao responder
+var ENTREGA={ok:false,lista:(window.AE_BAIRROS||[]).map(function(b){return {nome:b[0],taxa_cent:b[1]}})};
+function acharBairro(txt){var n=norm(txt).replace(/\s+/g,' ').trim();if(!n)return null;for(var i=0;i<ENTREGA.lista.length;i++)if(norm(ENTREGA.lista[i].nome)===n)return ENTREGA.lista[i];return null}
+function buscarBairros(txt){var n=norm(txt).trim();return ENTREGA.lista.filter(function(b){return !n||norm(b.nome).indexOf(n)>-1}).sort(function(a,b){return (norm(a.nome).indexOf(n)===0?0:1)-(norm(b.nome).indexOf(n)===0?0:1)||a.nome.localeCompare(b.nome,'pt-BR')})}
 var DADOS=Object.assign({modo:'',filial:'',bairro:'',endereco:'',ref:'',nome:'',whatsapp:'',email:'',meio:'pix'},store.get('ae-dados2')||{});
 var ACEITE=false,ERRO='',ARMADILHA='';
 function saveDados(){var d=Object.assign({},DADOS);store.set('ae-dados2',d)}
@@ -231,7 +234,7 @@ function passos(n){
     return '<li'+(i+1===n?' aria-current="step"':'')+(i+1<n?' class="feito"':'')+'><b>'+(i+1)+'</b><span>'+t+'</span></li>'}).join('')+'</ol>';
 }
 function frete(){
-  return DADOS.modo==='entrega'?ENTREGA.taxa:0;
+  var b=DADOS.modo==='entrega'&&acharBairro(DADOS.bairro);return b?b.taxa_cent:0;
 }
 function total(){return subtotal()+frete()}
 function renderBag(){
@@ -319,13 +322,13 @@ function focusAfter(sku,i){var f=$$('.r-item',drawer);var b;f.forEach(function(l
 /* -- passo 1: como receber -- */
 function carregarEntrega(){
   if(ENTREGA.ok||!API)return Promise.resolve();
-  return get('/entrega.json',6000).then(function(r){if(r.st===200&&r.j.taxa_fixa_cent>=0){ENTREGA.taxa=r.j.taxa_fixa_cent;ENTREGA.ok=true}}).catch(function(){});
+  return get('/entrega.json',6000).then(function(r){if(r.st===200&&r.j.bairros&&r.j.bairros.length){ENTREGA.lista=r.j.bairros;ENTREGA.ok=true}}).catch(function(){});
 }
 function faltantesEm(filial){
   return bag.filter(function(i){var p=CAT.porSku[i.sku];return p&&CAT.ok&&!livre(p,filial)}).map(function(i){return i.nome+(i.variacao?' '+i.variacao:'')});
 }
 function passoReceber(body,foot){
-  carregarEntrega().then(function(){if(view==='receber'&&!ENTREGA.rendered){ENTREGA.rendered=true;renderBag()}});
+  carregarEntrega().then(function(){if(view==='receber'&&ENTREGA.ok&&!ENTREGA.rendered){ENTREGA.rendered=true;renderBag()}});
   var f=el('form',{class:'form',novalidate:''});
   var opts=LOJAS.map(function(l){
     var fal=faltantesEm(l.id),dis=fal.length>0;
@@ -334,10 +337,11 @@ function passoReceber(body,foot){
   }).join('');
   var falE=faltantesEm(FILIAL_ENTREGA);
     opts+='<label class="opt"><input type="radio" name="modo" value="entrega"'+(falE.length?' disabled':'')+'><span>Entrega em Governador Valadares<small>'+
-    (falE.length?'Sem estoque para entrega: '+esc(falE.join(', ')):'Entrega em Governador Valadares: '+money(ENTREGA.taxa))+'</small></span></label>';
+    (falE.length?'Sem estoque para entrega: '+esc(falE.join(', ')):'Taxa por bairro, mostrada ao escolher o bairro')+'</small></span></label>';
   f.innerHTML=passos(1)+'<fieldset><legend>Como quer receber</legend><div class="opts">'+opts+'</div></fieldset>'+
     '<div id="f-ender" class="form" hidden>'+
-    '<div class="field"><label for="f-bairro">Bairro</label><input id="f-bairro" name="bairro" autocomplete="address-level3" maxlength="60" required><span class="err" id="e-bairro" hidden>Escreva o bairro.</span></div>'+
+    '<div class="field combo"><label for="f-bairro">Bairro</label><input id="f-bairro" name="bairro" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="l-bairro" autocomplete="off" maxlength="60" required placeholder="Comece a digitar o bairro"><ul id="l-bairro" class="combo-lista" role="listbox" hidden></ul>'+
+    '<span class="taxa-info" id="i-bairro" role="status" aria-live="polite"></span><span class="err" id="e-bairro" hidden>Escolha o bairro na lista.</span></div>'+
     '<div class="field"><label for="f-end">Rua e número</label><input id="f-end" name="endereco" autocomplete="street-address" maxlength="120"><span class="err" id="e-endereco" hidden>Escreva a rua e o número.</span></div>'+
     '<div class="field"><label for="f-ref">Ponto de referência <span class="opc">(opcional)</span></label><input id="f-ref" name="ref" maxlength="70"></div></div>'+
     '<p class="err" id="e-modo" hidden>Escolha retirada ou entrega.</p>'+(ERRO?'<p class="err" role="alert">'+esc(ERRO)+'</p>':'');
@@ -347,16 +351,43 @@ function passoReceber(body,foot){
   var r0=v&&$('input[name="modo"][value="'+v+'"]',f);if(r0&&!r0.disabled)r0.checked=true;
   if(DADOS.bairro)f.elements.bairro.value=DADOS.bairro;
   f.elements.endereco.value=DADOS.endereco||'';f.elements.ref.value=DADOS.ref||'';
+  var inB=f.elements.bairro,lst=$('#l-bairro',f),info=$('#i-bairro',f),ativo=-1;
+  function fecha(){lst.hidden=true;inB.setAttribute('aria-expanded','false');inB.removeAttribute('aria-activedescendant');ativo=-1}
+  function abre(){
+    var r=buscarBairros(inB.value).slice(0,8);
+    lst.innerHTML=r.map(function(b,i){return '<li role="option" id="o-b'+i+'" data-n="'+esc(b.nome)+'"><span>'+esc(b.nome)+'</span><b>'+money(b.taxa_cent)+'</b></li>'}).join('');
+    lst.hidden=!r.length;inB.setAttribute('aria-expanded',String(!!r.length));ativo=-1;
+  }
+  function marca(i){var o=$$('li',lst);if(!o.length)return;ativo=(i+o.length)%o.length;o.forEach(function(x,k){x.setAttribute('aria-selected',String(k===ativo))});inB.setAttribute('aria-activedescendant',o[ativo].id);o[ativo].scrollIntoView({block:'nearest'})}
+  function escolhe(nome){inB.value=nome;fecha();sync();inB.focus()}
+  function mostraTaxa(){
+    var b=acharBairro(inB.value),t=inB.value.trim();
+    if(b)info.innerHTML='Taxa de entrega: <b>'+money(b.taxa_cent)+'</b>';
+    else if(t.length>1&&!buscarBairros(t).length)info.innerHTML='Bairro fora da tabela: <a href="'+esc(wa('Olá! Quero receber um pedido em casa, bairro '+t+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">combine a entrega pelo WhatsApp</a>. A retirada na loja continua grátis.';
+    else info.textContent='';
+    info.className='taxa-info'+(b?' ok':!b&&t.length>1&&!buscarBairros(t).length?' fora':'');
+  }
+  inB.addEventListener('input',function(){abre();mostraTaxa()});
+  inB.addEventListener('focus',function(){if(inB.value.trim()&&!acharBairro(inB.value))abre()});
+  inB.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'){e.preventDefault();if(lst.hidden)abre();marca(ativo+1)}
+    else if(e.key==='ArrowUp'){e.preventDefault();marca(ativo-1)}
+    else if(e.key==='Enter'&&!lst.hidden&&ativo>-1){e.preventDefault();e.stopPropagation();escolhe($$('li',lst)[ativo].dataset.n)}
+    else if(e.key==='Escape'&&!lst.hidden){e.stopPropagation();fecha()}
+  });
+  inB.addEventListener('blur',function(){setTimeout(function(){fecha();var b=acharBairro(inB.value);if(b&&inB.value!==b.nome){inB.value=b.nome;sync()}},150)});
+  lst.addEventListener('mousedown',function(e){e.preventDefault()});
+  lst.addEventListener('click',function(e){var li=e.target.closest('li');if(li)escolhe(li.dataset.n)});
   function sync(){
     var m=f.elements.modo.value;
     $('#f-ender',f).hidden=m!=='entrega';
     DADOS.modo=m==='entrega'?'entrega':m?'retirada':'';DADOS.filial=m.indexOf('r:')===0?m.slice(2):'';
     DADOS.bairro=f.elements.bairro.value;DADOS.endereco=f.elements.endereco.value.trim();DADOS.ref=f.elements.ref.value.trim();
-    saveDados();totais();
+    saveDados();mostraTaxa();totais();
   }
   function totais(){
     var t=$('.foot-total',foot);if(!t)return;
-    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(money(frete()))+'</b>':'');
+    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(acharBairro(DADOS.bairro)?money(frete()):'escolha o bairro')+'</b>':'');
   }
   function rodape(){ // monta uma vez: refazer o rodapé a cada digitação engole o toque no botão
     foot.innerHTML='';
@@ -369,7 +400,8 @@ function passoReceber(body,foot){
     sync();var bad=null;
     $('#e-modo',f).hidden=!!DADOS.modo;if(!DADOS.modo)bad=$('input[name="modo"]',f);
     if(DADOS.modo==='entrega'){
-      $('#e-bairro',f).hidden=!!DADOS.bairro;if(!DADOS.bairro&&!bad)bad=f.elements.bairro;
+      var bOk=!!acharBairro(DADOS.bairro);if(bOk)DADOS.bairro=acharBairro(DADOS.bairro).nome;
+      $('#e-bairro',f).hidden=bOk;f.elements.bairro.setAttribute('aria-invalid',bOk?'false':'true');if(!bOk&&!bad)bad=f.elements.bairro;
       var okE=DADOS.endereco.length>=5;$('#e-endereco',f).hidden=okE;f.elements.endereco.setAttribute('aria-invalid',okE?'false':'true');if(!okE&&!bad)bad=f.elements.endereco;
     }
     if(bad){bad.focus();return}
@@ -377,7 +409,7 @@ function passoReceber(body,foot){
   }
   f.addEventListener('change',sync);f.addEventListener('input',sync);
   f.addEventListener('submit',function(e){e.preventDefault();avancar()});
-  rodape();
+  rodape();  mostraTaxa();
 }
 
 /* -- passo 2: seus dados -- */
@@ -478,7 +510,7 @@ function criarPedido(btn){
       });
       return;
     }
-    if(r.st===400)return erroPagar(j.erro==='informe nome e WhatsApp'?'Confira seu nome e WhatsApp.':j.erro==='bairro ou endereco invalido'?'Confira o bairro e o endereço.':'Confira os dados e tente de novo.');
+    if(r.st===400)return erroPagar(j.erro==='informe nome e WhatsApp'?'Confira seu nome e WhatsApp.':j.erro==='bairro fora da tabela'?'Bairro fora da tabela: combine a entrega pelo WhatsApp.':j.erro==='bairro ou endereco invalido'?'Confira o bairro e o endereço.':'Confira os dados e tente de novo.');
     erroPagar(r.st===502||r.st===503?'O pagamento está indisponível agora. Tente em alguns minutos ou peça pelo WhatsApp.':'Não foi possível criar o pedido. Tente de novo.');
   }).catch(function(){erroPagar('Sem conexão com a loja. Confira a internet e tente de novo, ou peça pelo WhatsApp.')});
 }
@@ -811,12 +843,16 @@ if(mb&&nav){
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){mb.setAttribute('aria-expanded','false');nav.classList.remove('open');mb.focus()}});
 }
 if(CFG.textosRevisados)$$('[data-rascunho]').forEach(function(n){n.hidden=true});
-/* página Entrega e retirada: taxa fixa (Worker; config.js se o Worker não responder) */
+/* página Entrega e retirada: tabela de taxas por bairro (Worker; assets/bairros.js se o Worker não responder) */
 (function(){
   var box=$('#bairros-lista');if(!box)return;
-  function mostra(c){box.innerHTML='<p><b>Entrega em Governador Valadares: '+money(c)+'</b><br>Mesma taxa para todos os bairros.</p>'}
-  if(!API)return mostra(CFG.taxaEntregaCent);
-  get('/entrega.json',6000).then(function(r){mostra(r.st===200&&r.j.taxa_fixa_cent>=0?r.j.taxa_fixa_cent:CFG.taxaEntregaCent)}).catch(function(){mostra(CFG.taxaEntregaCent)});
+  function mostra(l){
+    l=l.slice().sort(function(a,b){return a.nome.localeCompare(b.nome,'pt-BR')});
+    box.innerHTML='<table><thead><tr><th scope="col">Bairro</th><th scope="col">Taxa</th></tr></thead><tbody>'+l.map(function(b){return '<tr><td>'+esc(b.nome)+'</td><td>'+money(b.taxa_cent)+'</td></tr>'}).join('')+'</tbody></table>';
+  }
+  var local=(window.AE_BAIRROS||[]).map(function(b){return {nome:b[0],taxa_cent:b[1]}});
+  if(!API)return mostra(local);
+  get('/entrega.json',6000).then(function(r){mostra(r.st===200&&r.j.bairros&&r.j.bairros.length?r.j.bairros:local)}).catch(function(){mostra(local)});
 })();
 
 paint();
