@@ -56,3 +56,7 @@ var ROTINAS = [
   { id: 'make', nome: 'Make do dia a dia', sub: 'Base, cílios e boca', passos: ['base', 'mascara-cilios', 'batom'] },
   { id: 'unhas', nome: 'Unhas em casa', sub: 'Tirar, preparar e pintar', passos: ['removedor', 'base-unha', 'esmalte'] }
 ];
+
+// Estoque no site: endereço do /estoque.json do Worker (ex.: 'https://portao-alta-estima.<conta>.workers.dev/estoque.json').
+// Vazio = usa assets/estoque.json (arquivo de exemplo). Se o endereço falhar, o site funciona normal, sem selos.
+var AE_ESTOQUE_URL='';

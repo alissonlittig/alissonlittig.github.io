@@ -1,4 +1,5 @@
-/* Alta Estima: catálogo, sacola (cupom) e pedido pelo WhatsApp. Serve a todas as páginas. */
+/* Alta Estima: conteúdo da página inicial (prateleiras, necessidades, rotinas). A compra acontece na loja online (assets/loja.js):
+   aqui, tocar para comprar leva para a loja já filtrada. */
 (function(){
 var WA='5533988137703';
 var ROOT=document.documentElement.dataset.root||'./';
@@ -153,17 +154,49 @@ if(mb&&nav){
 
 /* ---------- sacola ---------- */
 var KEY='ae-sacola-v1';
-var bag=(store.get(KEY)||[]).filter(function(i){return prod(i.id)});
+var bag=[]; // a sacola real é a do loja.js (ae-sacola-v2); aqui nada é guardado
 function qty(id){for(var i=0;i<bag.length;i++)if(bag[i].id===id)return bag[i].q;return 0}
+function irLoja(tipos){location.href=ROOT+'loja/?tipos='+encodeURIComponent([].concat(tipos).join(','))}
 function setQty(id,q){
+  if(q>0){irLoja(id);return}
   var i;for(i=0;i<bag.length;i++)if(bag[i].id===id)break;
+  if(q>qty(id)&&bloq(id))return;
   if(q<=0){if(i<bag.length)bag.splice(i,1)}
   else if(i<bag.length)bag[i].q=Math.min(q,99);
   else{bag.push({id:id,q:1,obs:''});justAdded=id}
   save();
 }
 var justAdded=null,fichaSync=null;
-function save(){store.set(KEY,bag);paint()}
+/* ---------- estoque (selo Esgotado) ----------
+   Lê o /estoque.json do Worker (window.AE_ESTOQUE_URL, em dados.js); sem URL usa assets/estoque.json (exemplo).
+   Só disponível/esgotado por loja, nunca a quantidade. Se falhar, o site funciona como sempre (nada fica bloqueado). */
+var estq={};
+function lojaDe(k){k=String(k).toLowerCase();for(var i=0;i<LOJAS.length;i++)if(k.indexOf(LOJAS[i].id.slice(0,5))>-1)return LOJAS[i].id}
+function lojasCom(id){var e=estq[id];if(!e)return null;return LOJAS.filter(function(l){return e[l.id]})}
+function bloq(id){var l=lojasCom(id);return !!l&&!l.length}
+function soEm(id){var l=lojasCom(id);return l&&l.length===1&&LOJAS.length>1?l[0]:null}
+function lerEstoque(j){
+  var o={};
+  ((j&&j.produtos)||[]).forEach(function(p){
+    if(!p.site_id||!p.disponivel)return;
+    var e=o[p.site_id]||(o[p.site_id]={});
+    LOJAS.forEach(function(l){e[l.id]=e[l.id]||false});
+    Object.keys(p.disponivel).forEach(function(k){var l=lojaDe(k);if(l&&p.disponivel[k])e[l]=true});
+  });
+  return o;
+}
+function carregarEstoque(){
+  var url=window.AE_ESTOQUE_URL||ROOT+'assets/estoque.json',ac=window.AbortController?new AbortController():null,t=setTimeout(function(){ac&&ac.abort()},5000);
+  fetch(url,ac?{signal:ac.signal}:{}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+    clearTimeout(t);estq=lerEstoque(j);
+    var n=bag.length;bag=bag.filter(function(i){return !bloq(i.id)}); // esgotado não fica na sacola
+    if(n!==bag.length)store.set(KEY,bag);
+    paint();
+    if(fOpen&&fId){var p=prod(fId);if(p)renderFicha(p)}
+    if(drawer&&!drawer.hidden)renderBag();
+  }).catch(function(){clearTimeout(t)});
+}
+function save(){paint()}
 function totalItems(){return bag.reduce(function(s,i){return s+i.q},0)}
 
 var drawer,scrim,lastFocus,view='list',askClear=false;
@@ -199,7 +232,7 @@ function closeBag(){
   setTimeout(function(){scrim.hidden=true;drawer.hidden=true},reduced()?0:300);
   if(lastFocus&&lastFocus.focus)lastFocus.focus();
 }
-$$('[data-open-bag]').forEach(function(b){b.addEventListener('click',function(){openBag()})});
+
 
 function receiptHead(){
   return '<div class="r-head"><img src="'+ROOT+'assets/logo.svg" alt="Alta Estima" width="120" height="80"><small>Pedido pelo site<br>'+new Date().toLocaleDateString('pt-BR')+'</small></div>';
@@ -281,7 +314,8 @@ function renderCheckout(body,foot){
     '<button type="button" class="back">← Voltar para a sacola</button>'+
     '<div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" autocomplete="name" required maxlength="60"><span class="err" id="e-nome" hidden>Escreva o seu nome.</span></div>'+
     '<fieldset><legend>Como quer receber</legend><div class="opts">'+
-      LOJAS.map(function(l){return '<label class="opt"><input type="radio" name="receber" value="'+l.id+'"><span>Retirar na '+l.nome+'<small>'+l.end+' · '+l.hora+'</small></span></label>'}).join('')+
+      LOJAS.map(function(l){var fal=bag.filter(function(i){var c=lojasCom(i.id);return c&&c.indexOf(l)<0}).map(function(i){return prod(i.id).nome});
+        return '<label class="opt"><input type="radio" name="receber" value="'+l.id+'"><span>Retirar na '+l.nome+'<small>'+l.end+' · '+l.hora+'</small>'+(fal.length?'<small class="falta">Só na outra loja: '+fal.join(', ').replace(/</g,'&lt;')+'</small>':'')+'</span></label>'}).join('')+
       '<label class="opt"><input type="radio" name="receber" value="entrega"><span>Entrega em casa<small>Toda Governador Valadares · taxa e horário no WhatsApp</small></span></label>'+
     '</div><span class="err" id="e-receber" hidden>Escolha retirada ou entrega.</span></fieldset>'+
     '<div id="f-ender" hidden class="form">'+
@@ -358,7 +392,7 @@ function paint(){
 function pulse(){$$('.bag-btn,.barra-fixa [data-open-bag]').forEach(function(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')})}
 /* contador só sobe quando a foto chega na sacola: paint() segura o número enquanto há foto voando */
 var flying=0,shownN=0,prevN=0;
-function setCount(n){shownN=n;$$('[data-open-bag] .n').forEach(function(c){c.textContent=n;if(n)c.removeAttribute('data-zero');else c.setAttribute('data-zero','')})}
+function setCount(n){shownN=n} // o contador da sacola é do loja.js
 function pop(){$$('[data-open-bag] .n').forEach(function(c){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')})}
 /* a foto do produto sai do cartão, sobe, faz um arco até a sacola (barra fixa no celular, cabeçalho no desktop),
    encolhe e gira de leve, com sombra e rastro; ao chegar a sacola balança e o contador dá um pop.
@@ -458,6 +492,12 @@ function paintItem(a){
   var id=a.dataset.id,p=prod(id),q=qty(id),act=$('.act',a);
   var had=act.firstChild&&act.contains(document.activeElement)?document.activeElement:null,wasStep=had&&had.closest('.step');
   act.innerHTML='';
+  var so=soEm(id);
+  if(!q&&bloq(id)){
+    act.appendChild(el('span',{class:'selo-esg',text:'Esgotado'}));
+    return;
+  }
+  if(so)act.appendChild(el('span',{class:'selo-so',text:'Só na '+so.nome.replace(/^Loja /,'')}));
   if(!q){
     var b=el('button',{class:'item-mais',type:'button','aria-label':'Adicionar '+p.nome+' à sacola'});
     b.onclick=function(){setQty(id,1);bump(a);var s=$('.step button:last-child',a);s&&s.focus()};
@@ -553,17 +593,22 @@ function renderFicha(p){
   sb[0].onclick=function(){fN=Math.max(1,fN-1);out.textContent=fN};
   sb[1].onclick=function(){fN=Math.min(99,fN+1);out.textContent=fN};
   $('.ficha-add',fBox).onclick=fichaAdd;
+  var fa=$('.ficha-add',fBox),fq=$('.ficha-preco',fBox),so=soEm(p.id);
+  if(bloq(p.id)){fa.disabled=true;fa.textContent='Esgotado';sb[0].disabled=sb[1].disabled=true;fq.appendChild(el('span',{class:'selo-esg',text:'Esgotado'}))}
+  else if(so)fq.appendChild(el('span',{class:'selo-so',text:'Só na '+so.nome.replace(/^Loja /,'')}));
+  $$('.comb',fBox).forEach(function(li){if(bloq(li.dataset.id)){var m=$('.comb-mais',li);m.disabled=true;m.textContent='';m.title='Esgotado';$('small',li).textContent='Esgotado'}});
   fichaSync=function(){
-    $$('.comb',fBox).forEach(function(li){var n=qty(li.dataset.id);$('small',li).textContent=n?'Na sacola: '+n:''});
+    $$('.comb',fBox).forEach(function(li){var n=qty(li.dataset.id);$('small',li).textContent=bloq(li.dataset.id)?'Esgotado':n?'Na sacola: '+n:''});
   };
   fichaSync();
 }
 function fichaAdd(){
+  if(bloq(fId))return;
   var foto=$('.ficha-foto',fBox);
   var f=FOTOS[fId]||[],br=(f[fK]&&f[fK][0])||'',it=null;
   bag.forEach(function(i){if(i.id===fId)it=i});
   if(it){it.q=Math.min(it.q+fN,99);if(!it.obs&&br)it.obs=br}
-  else{bag.push({id:fId,q:fN,obs:br});justAdded=fId}
+  else{irLoja(fId);return}
   save();bump(foto);closeFicha();
 }
 window.abrirFicha=function(id){
@@ -620,20 +665,11 @@ if(necBox&&window.NECESSIDADES)NECESSIDADES.forEach(function(n){
 });
 
 // rotinas prontas: 1 de cada passo na sacola, com a observação "Rotina <nome>"
-function addRotina(r,card){
-  var nota=/^rotina/i.test(r.nome)?r.nome:'Rotina '+r.nome;
-  r.passos.forEach(function(id){
-    if(!prod(id))return;
-    var it=null;bag.forEach(function(i){if(i.id===id)it=i});
-    if(it){it.q=Math.min(it.q+1,99);if(!it.obs)it.obs=nota}
-    else bag.push({id:id,q:1,obs:nota});
-  });
-  justAdded=null;save();var its=$$('.rotina-it',card);bump(its);if(reduced())openBag();else setTimeout(openBag,1100+(Math.min(its.length,6)-1)*240+300)
-}
+function addRotina(r,card){irLoja(r.passos.filter(function(id){return prod(id)}))}
 var rotBox=$('#rotinas-lista');
 if(rotBox&&window.ROTINAS)ROTINAS.forEach(function(r){
   var a=el('article',{class:'rotina'});
-  a.innerHTML='<span class="rotina-tipo"></span><h3 class="rotina-nome"></h3><ul class="rotina-itens"></ul><button type="button" class="btn">Adicionar a rotina toda</button><p class="rotina-nota">Preço, cor e estoque confirmados pela equipe no WhatsApp.</p>';
+  a.innerHTML='<span class="rotina-tipo"></span><h3 class="rotina-nome"></h3><ul class="rotina-itens"></ul><button type="button" class="btn">Ver produtos da rotina</button><p class="rotina-nota">Escolha cada produto e pague pelo site, com Pix, crédito ou débito.</p>';
   $('.rotina-tipo',a).textContent=r.sub;$('.rotina-nome',a).textContent=r.nome;
   var ul=$('.rotina-itens',a);
   r.passos.forEach(function(id,i){
@@ -643,7 +679,7 @@ if(rotBox&&window.ROTINAS)ROTINAS.forEach(function(r){
     $('b',li).textContent=p.nome;$('small',li).textContent='Passo '+(i+1);
     ul.appendChild(li);
   });
-  var b=$('.btn',a);b.setAttribute('aria-label','Adicionar '+r.nome+' toda à sacola');
+  var b=$('.btn',a);b.setAttribute('aria-label','Ver os produtos da rotina '+r.nome+' na loja');
   b.onclick=function(){addRotina(r,a)};
   rotBox.appendChild(a);
 });
@@ -715,8 +751,9 @@ if(grid){
   }
   q.addEventListener('input',function(){run(true)});
   run(false);
-  if(location.hash==='#sacola')openBag();
+  if(location.hash==='#sacola')location.replace(ROOT+'loja/#sacola');
 }
 
 paint();
+carregarEstoque();
 })();
