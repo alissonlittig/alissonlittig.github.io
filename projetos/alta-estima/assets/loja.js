@@ -24,7 +24,7 @@ function $$(s,c){return [].slice.call((c||document).querySelectorAll(s))}
 function el(tag,attrs,kids){var e=document.createElement(tag);for(var k in attrs||{}){if(k==='text')e.textContent=attrs[k];else if(k==='html')e.innerHTML=attrs[k];else e.setAttribute(k,attrs[k])}(kids||[]).forEach(function(c){c&&e.appendChild(c)});return e}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function money(c){return (c/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
-function norm(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+function norm(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/-/g,' ')}
 function wa(t){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t)}
 var store={get:function(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 function reduced(){return document.documentElement.dataset.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches}
@@ -341,7 +341,7 @@ function passoReceber(body,foot){
   f.innerHTML=passos(1)+'<fieldset><legend>Como quer receber</legend><div class="opts">'+opts+'</div></fieldset>'+
     '<div id="f-ender" class="form" hidden>'+
     '<div class="field combo"><label for="f-bairro">Bairro</label><input id="f-bairro" name="bairro" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="l-bairro" autocomplete="off" maxlength="60" required placeholder="Comece a digitar o bairro"><ul id="l-bairro" class="combo-lista" role="listbox" hidden></ul>'+
-    '<span class="taxa-info" id="i-bairro" role="status" aria-live="polite"></span><span class="err" id="e-bairro" hidden>Escolha o bairro na lista.</span></div>'+
+    '<span class="taxa-info" id="i-bairro" role="status" aria-live="polite"></span><span class="err" id="e-bairro" hidden>Informe o bairro.</span></div>'+
     '<div class="field"><label for="f-end">Rua e número</label><input id="f-end" name="endereco" autocomplete="street-address" maxlength="120"><span class="err" id="e-endereco" hidden>Escreva a rua e o número.</span></div>'+
     '<div class="field"><label for="f-ref">Ponto de referência <span class="opc">(opcional)</span></label><input id="f-ref" name="ref" maxlength="70"></div></div>'+
     '<p class="err" id="e-modo" hidden>Escolha retirada ou entrega.</p>'+(ERRO?'<p class="err" role="alert">'+esc(ERRO)+'</p>':'');
@@ -363,7 +363,7 @@ function passoReceber(body,foot){
   function mostraTaxa(){
     var b=acharBairro(inB.value),t=inB.value.trim();
     if(b)info.innerHTML='Taxa de entrega: <b>'+money(b.taxa_cent)+'</b>';
-    else if(t.length>1&&!buscarBairros(t).length)info.innerHTML='Bairro fora da tabela: <a href="'+esc(wa('Olá! Quero receber um pedido em casa, bairro '+t+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">combine a entrega pelo WhatsApp</a>. A retirada na loja continua grátis.';
+    else if(t.length>1&&!buscarBairros(t).length)info.innerHTML='Bairro fora da tabela: a entrega fica <b>a combinar pelo WhatsApp</b> e você pode finalizar o pedido. <a href="'+esc(wa('Olá! Quero receber um pedido em casa, bairro '+t+'. Podemos combinar a entrega?'))+'" target="_blank" rel="noopener">Falar agora</a>. A retirada na loja continua grátis.';
     else info.textContent='';
     info.className='taxa-info'+(b?' ok':!b&&t.length>1&&!buscarBairros(t).length?' fora':'');
   }
@@ -387,7 +387,7 @@ function passoReceber(body,foot){
   }
   function totais(){
     var t=$('.foot-total',foot);if(!t)return;
-    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(acharBairro(DADOS.bairro)?money(frete()):'escolha o bairro')+'</b>':'');
+    t.innerHTML='<span>Subtotal</span><b>'+money(subtotal())+'</b>'+(DADOS.modo==='entrega'?'<span>Entrega</span><b>'+(acharBairro(DADOS.bairro)?money(frete()):DADOS.bairro.trim().length>1?'a combinar':'escolha o bairro')+'</b>':'');
   }
   function rodape(){ // monta uma vez: refazer o rodapé a cada digitação engole o toque no botão
     foot.innerHTML='';
@@ -400,8 +400,8 @@ function passoReceber(body,foot){
     sync();var bad=null;
     $('#e-modo',f).hidden=!!DADOS.modo;if(!DADOS.modo)bad=$('input[name="modo"]',f);
     if(DADOS.modo==='entrega'){
-      var bOk=!!acharBairro(DADOS.bairro);if(bOk)DADOS.bairro=acharBairro(DADOS.bairro).nome;
-      $('#e-bairro',f).hidden=bOk;f.elements.bairro.setAttribute('aria-invalid',bOk?'false':'true');if(!bOk&&!bad)bad=f.elements.bairro;
+      var bOk=!!acharBairro(DADOS.bairro);if(bOk)DADOS.bairro=acharBairro(DADOS.bairro).nome;else DADOS.bairro=DADOS.bairro.trim().slice(0,60);var bTxt=DADOS.bairro.length>=2;
+      $('#e-bairro',f).hidden=bTxt;f.elements.bairro.setAttribute('aria-invalid',bTxt?'false':'true');if(!bTxt&&!bad)bad=f.elements.bairro;
       var okE=DADOS.endereco.length>=5;$('#e-endereco',f).hidden=okE;f.elements.endereco.setAttribute('aria-invalid',okE?'false':'true');if(!okE&&!bad)bad=f.elements.endereco;
     }
     if(bad){bad.focus();return}
@@ -459,7 +459,7 @@ function passoPagar(body,foot){
   var linhas=bag.map(function(i){return '<li><span>'+i.q+'× '+esc(i.nome)+(i.variacao?' · '+esc(i.variacao):'')+'</span><b>'+money(i.preco*i.q)+'</b></li>'}).join('');
   f.innerHTML=passos(3)+
     '<section class="resumo" aria-labelledby="t-res"><h3 id="t-res">Resumo da compra</h3><ul class="res-itens">'+linhas+'</ul>'+
-    '<dl class="res-tot"><div><dt>Subtotal</dt><dd>'+money(subtotal())+'</dd></div>'+(DADOS.modo==='entrega'?'<div><dt>Entrega em Governador Valadares</dt><dd>'+money(frete())+'</dd></div>':'')+
+    '<dl class="res-tot"><div><dt>Subtotal</dt><dd>'+money(subtotal())+'</dd></div>'+(DADOS.modo==='entrega'?'<div><dt>Entrega em Governador Valadares</dt><dd>'+(acharBairro(DADOS.bairro)?money(frete()):'a combinar pelo WhatsApp')+'</dd></div>':'')+
     '<div class="forte"><dt>Total</dt><dd>'+money(total())+'</dd></div></dl>'+
     '<p class="res-rec"><b>'+(l?'Retirada na '+esc(l.nome):'Entrega em casa')+'</b><br>'+(l?esc(l.end)+' · '+esc(l.hora):esc(DADOS.endereco)+(DADOS.ref?' ('+esc(DADOS.ref)+')':'')+', '+esc(DADOS.bairro))+'</p>'+
     '<p class="res-cl"><b>Desistência:</b> você pode desistir da compra em até <b>7 dias</b> depois de receber, pela página do pedido, e o valor é devolvido. <a href="'+ROOT+'trocas/" target="_blank" rel="noopener">Trocas e arrependimento</a>.</p></section>'+

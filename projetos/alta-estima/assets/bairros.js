@@ -68,7 +68,7 @@ window.AE_BAIRROS = [
   ["Vila Olímpica", 1500],
   ["Vila Império", 1200],
   ["Vale Verde", 1500],
-  ["Grã Duquesa", 1000],
+  ["Grã-Duquesa", 1000],
   ["Vila Mariana", 800],
   ["Lagoa Santa", 1000]
 ];

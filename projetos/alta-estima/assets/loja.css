@@ -141,5 +141,5 @@ html[data-motion="reduce"] .esqueleto{animation:none}
 .taxa-info{font-size:14px;color:var(--muted)}
 .taxa-info:empty{display:none}
 .taxa-info.ok{color:var(--deep)}
-.taxa-info.fora{color:#9b2a1f;font-weight:700}
+.taxa-info.fora{color:#7a5410;font-weight:700}
 .taxa-info a{color:inherit;text-decoration:underline}
