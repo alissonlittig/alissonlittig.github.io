@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulso · Agenda e lembretes por WhatsApp para clínicas e salões</title>
+<meta name="description" content="Pulso confirma consultas e horários por WhatsApp e preenche cancelamentos sozinho. Teste grátis por 14 dias, sem cartão. Marca fictícia de portfólio.">
+<meta name="theme-color" content="#F4F1E8">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/pulso-app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pulso · Agenda e lembretes por WhatsApp para clínicas e salões">
+<meta property="og:description" content="Menos cadeira vazia: lembretes por WhatsApp, confirmação com 1 toque e lista de espera. Marca fictícia de portfólio.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/pulso-app/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pulso: agenda com horários confirmados e uma mensagem de WhatsApp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="ribbon">Projeto conceito: marca fictícia criada por Alisson Littig para portfólio. Nada aqui é vendido.</div>
+<header class="top" id="top"><div class="wrap">
+<a class="logo" href="./" aria-label="Pulso, início"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="11" fill="#0D2620"/><path d="M6 22h8l3.5-9 5 17 4-10 2 2H34" fill="none" stroke="#FF5A36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Pulso</a>
+<nav class="nav" id="nav" aria-label="Principal"><a href="#recursos">Recursos</a><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="#faq">Dúvidas</a></nav>
+<a class="btn btn-c" href="#teste">Testar 14 dias grátis</a>
+<button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span></span></button>
+</div></header>
+<main id="conteudo">
+<section class="hero"><div class="wrap">
+<div>
+<p class="eyebrow">Agenda e lembretes por WhatsApp</p>
+<h1>Cadeira vazia <em>custa caro.<svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8c20 0 24-6 36-6s14 10 28 10 16-10 30-10 16 8 32 8 18-8 34-8 18 8 34 8 22-4 40-4 26 2 60 2" fill="none" stroke="#FF5A36" stroke-width="3.5" stroke-linecap="round"/></svg></em> O lembrete certo, não.</h1>
+<p class="lede">O Pulso manda o lembrete no WhatsApp do paciente, recebe a confirmação com 1 toque e oferece o horário vago para quem está na lista de espera. Você só vê a agenda cheia.</p>
+<div class="cta"><a class="btn btn-c" href="#teste">Testar 14 dias grátis <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="btn btn-o" href="#como">Ver como funciona</a></div>
+<p class="fine"><span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem cartão de crédito</span><span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Pronto em 15 minutos</span><span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancele quando quiser</span></p>
+</div>
+<div class="mock" role="img" aria-label="Demonstração: a agenda do dia mostra um horário aguardando confirmação; o paciente responde 1 no WhatsApp e o horário passa a confirmado.">
+<div class="app" aria-hidden="true">
+<div class="side"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 6h14v10H9l-4 3z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19V11M12 19V5M19 19v-6"/></svg></div>
+<div class="main">
+<div class="bar"><div><b>Quinta, 5 de novembro</b><small>Clínica Horizonte (exemplo)</small></div><div class="tally" id="tally">Confirmados <span><i id="tn">8</i>/11</span></div></div>
+<div class="grid"><span></span><b>Dra. Paula</b><b>Dr. Caio</b><b>Bia</b>
+<div class="hrs"><span>9h</span><span>10h</span><span>11h</span><span>12h</span><span>13h</span></div>
+<div class="col"><div class="ev" style="top:2px;height:40px"><b>Caio Martins</b><span>9:00 · Consulta</span></div><div class="ev w live" id="live" style="top:68px;height:40px"><b>Marina Souza</b><span id="lst">10:30 · Aguardando</span></div><div class="ev free" style="top:134px;height:40px"><span>12:00 · livre</span></div></div>
+<div class="col"><div class="ev" style="top:24px;height:62px"><b>Helena Rocha</b><span>9:30 · Retorno</span></div><div class="ev" style="top:112px;height:40px"><b>Otávio Lima</b><span>11:30 · Limpeza</span></div><div class="ev w" style="top:156px;height:40px"><b>Sofia Prado</b><span>12:15 · Aguardando</span></div></div>
+<div class="col"><div class="ev" style="top:2px;height:40px"><b>Léo Andrade</b><span>9:00 · Avaliação</span></div><div class="ev" style="top:46px;height:84px"><b>Clara Nunes</b><span>10:00 · Tratamento</span></div><div class="ev free" style="top:156px;height:40px"><span>12:30 · livre</span></div></div>
+</div></div></div>
+<div class="phone" aria-hidden="true"><div class="scr"><div class="ph"><i>H</i><div><b>Clínica Horizonte</b><small>conta comercial</small></div></div>
+<div class="chat"><div class="bub">Oi, Marina! Lembrete: amanhã, 10:30, com a Dra. Paula. Responda <b>1</b> para confirmar ou <b>2</b> para remarcar.<time>18:02</time></div><div class="bub me" id="reply">1</div></div></div></div>
+</div>
+</div></section>
+
+<section class="strip"><div class="wrap">
+<div class="rv"><b>−38%</b><span>de faltas no piloto de exemplo</span></div>
+<div class="rv" style="--d:.08s"><b>9 em 10</b><span>lembretes lidos em até 15 minutos</span></div>
+<div class="rv" style="--d:.16s"><b>15 min</b><span>para cadastrar a equipe e começar</span></div>
+<div class="rv" style="--d:.24s"><b>R$ 0</b><span>para testar por 14 dias</span></div>
+</div><p class="wrap note">Números de exemplo, criados para esta demonstração. Marca fictícia.</p></section>
+
+<section id="calculo" style="padding-bottom:0"><div class="wrap"><div class="head rv"><p class="eyebrow">Faça a conta</p><h2>Quanto as faltas tiram do seu mês?</h2><p>Mexa nos três números e veja o tamanho do buraco no caixa.</p></div></div>
+<div class="dark" style="padding:80px 0"><div class="wrap calc">
+<div class="sliders rv">
+<div class="sl"><label for="c1">Atendimentos por semana <output id="o1" for="c1">80</output></label><input id="c1" type="range" min="10" max="300" step="5" value="80"></div>
+<div class="sl"><label for="c2">Valor médio do atendimento <output id="o2" for="c2">R$ 150</output></label><input id="c2" type="range" min="40" max="600" step="10" value="150"></div>
+<div class="sl"><label for="c3">Quem falta sem avisar <output id="o3" for="c3">18%</output></label><input id="c3" type="range" min="3" max="35" step="1" value="18"></div>
+</div>
+<div class="res rv" aria-live="polite"><small>Você deixa de faturar, por mês</small><div class="big" id="perda">R$ 9.356</div><small id="faltas">cerca de 62 horários vazios</small><hr><small>Se o Pulso devolver 40% desses horários</small><div class="rec" id="rec">R$ 3.742 de volta ao caixa</div><p class="n">Hipótese de exemplo, não é promessa de resultado. O plano Equipe custa R$ 129 por mês.</p></div>
+</div></div></section>
+
+<section id="como"><div class="wrap"><div class="head rv"><p class="eyebrow">Como funciona</p><h2>Três passos, e o resto o Pulso faz</h2></div>
+<ol class="steps">
+<li class="rv"><h3>Conecte seu WhatsApp</h3><p>Escaneie um código e use o número que o paciente já conhece. Importe a agenda atual por planilha ou comece do zero.</p></li>
+<li class="rv" style="--d:.1s"><h3>Escolha as mensagens</h3><p>Modelos prontos para clínica e salão, com o seu tom. Defina quando enviar e o que acontece se ninguém responder.</p></li>
+<li class="rv" style="--d:.2s"><h3>Acompanhe a agenda</h3><p>Confirmou, remarcou ou cancelou: o bloco muda de cor, e o horário vago vai para a lista de espera.</p></li>
+</ol></div></section>
+
+<section class="alt" id="recursos"><div class="wrap"><div class="head rv"><p class="eyebrow">Recursos</p><h2>Feito para a recepção que não tem tempo a perder</h2><p>Sem prontuário, sem financeiro, sem tela que ninguém usa. Só o que reduz falta e enche a agenda.</p></div>
+<div class="bento"><article class="f rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></span><h3>Lembrete que o paciente lê</h3><p>Mensagem no WhatsApp 24 h e 2 h antes, com o nome do profissional, horário e endereço. Você escolhe o tom: formal na clínica, leve no salão.</p><div class="msg"><span class="tag">24 h antes</span><span class="tag">2 h antes</span><span class="tag">Pós-atendimento</span></div></article><article class="f rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><h3>Confirmou, a agenda muda sozinha</h3><p>O paciente responde 1 para confirmar ou 2 para remarcar. O bloco na agenda troca de cor na hora, sem ninguém da recepção digitar nada.</p></article><article class="f rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><h3>Lista de espera</h3><p>Alguém cancelou? O Pulso oferece o horário, por ordem, a quem pediu encaixe. O primeiro que aceita fica com a vaga.</p></article><article class="f rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 5.5a3.2 3.2 0 0 1 0 6M18 14.2a5.5 5.5 0 0 1 2.5 4.8"/></svg></span><h3>Agenda por profissional</h3><p>Colunas por pessoa, intervalos, folgas e salas. Cada um vê só o seu dia no celular.</p></article><article class="f rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg></span><h3>Reativação</h3><p>Quem não volta há 6 meses recebe um convite no momento certo, com o link para escolher horário.</p></article><article class="f rv"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Painel de faltas</h3><p>Quanto faltou, quem mais falta e quanto o lembrete devolveu ao caixa no mês.</p></article></div></div></section>
+
+<section><div class="wrap two">
+<div class="rv"><div class="photo"><img src="assets/img/salao-640.webp" srcset="assets/img/salao-640.webp 640w, assets/img/salao-1100.webp 1100w, assets/img/salao-1600.webp 1600w" sizes="(max-width:980px) 92vw, 560px" width="1600" height="900" alt="Salão de cabeleireiro com poltronas de couro, espelhos e piso de madeira" loading="lazy" decoding="async"><div class="chip"><b>3 horários vagos hoje</b>oferecidos a 5 pessoas da lista de espera</div></div><p class="cap">Foto ilustrativa, não é um cliente: <a href="https://commons.wikimedia.org/wiki/File:Hair_salon_-_Arlington,_MA.jpg" target="_blank" rel="noopener">Hair salon, Arlington, MA (Wikimedia Commons, CC0)</a></p></div>
+<div class="rv"><p class="eyebrow">Para quem é</p><h2>Clínicas e salões com agenda cheia de buracos</h2>
+<div class="who"><div><h3>Clínicas</h3><p>Odontologia, fisioterapia, psicologia, estética. Confirmação antes da consulta, retorno lembrado e menos telefone ocupado.</p></div><div><h3>Salões e barbearias</h3><p>Cada profissional com a sua coluna, lembrete que evita o "esqueci" e encaixe automático quando alguém desmarca.</p></div></div></div>
+</div></section>
+
+<section class="alt"><div class="wrap"><div class="head rv"><p class="eyebrow">Integrações</p><h2>Conversa com o que você já usa</h2></div>
+<ul class="int rv" style="padding:0;margin:0"><li><i>W</i><span>WhatsApp Business<small>Número próprio</small></span></li><li><i>G</i><span>Google Agenda<small>Sincronia nos dois sentidos</small></span></li><li><i>P</i><span>Pix<small>Link de sinal no agendamento</small></span></li><li><i>C</i><span>Planilha (CSV)<small>Importar e exportar</small></span></li><li><i>E</i><span>E-mail contábil<small>Relatório mensal</small></span></li></ul>
+<p class="note">Lista de exemplo para esta marca fictícia.</p></div></section>
+
+<section><div class="wrap"><div class="head rv"><p class="eyebrow">Quem usa (exemplos)</p><h2>O que donos de agenda diriam</h2></div>
+<div class="quotes">
+<blockquote class="rv"><p>“A recepção parou de ligar um por um. Na segunda de manhã a agenda já está confirmada.”</p><footer><span class="av">DM</span><span><b>Dra. Marcela, odontologia</b>Depoimento fictício</span></footer></blockquote>
+<blockquote class="rv" style="--d:.1s"><p>“Quando alguém desmarca, o horário sai na hora para a lista de espera. Raramente fica vago.”</p><footer><span class="av">RB</span><span><b>Rodrigo, barbearia</b>Depoimento fictício</span></footer></blockquote>
+<blockquote class="rv" style="--d:.2s"><p>“Mudei a mensagem para o jeito que eu falo. Os clientes respondem como se fosse eu.”</p><footer><span class="av">JA</span><span><b>Juliana, salão</b>Depoimento fictício</span></footer></blockquote>
+</div></div></section>
+
+<section class="alt" id="planos"><div class="wrap"><div class="head rv"><p class="eyebrow">Planos</p><h2>Preço fixo por mês, sem taxa por paciente</h2></div>
+<div class="tg rv" role="group" aria-label="Periodicidade de cobrança"><span class="pill" aria-hidden="true"></span><button type="button" aria-pressed="true" data-p="m">Mensal</button><button type="button" aria-pressed="false" data-p="a">Anual<em>2 meses grátis</em></button></div>
+<div class="plans">
+<article class="plan rv "><h3>Solo</h3><p class="for">Para quem atende sozinho e quer parar de lembrar à mão.</p>
+<p class="price"><span><sup>R$</sup><span class="pv" data-m="59" data-a="49">59</span></span><small>/mês</small></p>
+<p class="bill" data-m="cobrado todo mês" data-a="R$ 590 cobrados uma vez por ano">cobrado todo mês</p>
+<ul><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>1 profissional</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>150 lembretes por mês</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Link de agendamento online</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmação com 1 toque</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Suporte por e-mail</li></ul><a class="btn btn-o" href="#teste">Começar teste grátis</a></article>
+<article class="plan rv pop"><span class="badge">Mais escolhido</span><h3>Equipe</h3><p class="for">Para clínicas e salões com até 5 profissionais.</p>
+<p class="price"><span><sup>R$</sup><span class="pv" data-m="129" data-a="108">129</span></span><small>/mês</small></p>
+<p class="bill" data-m="cobrado todo mês" data-a="R$ 1.290 cobrados uma vez por ano">cobrado todo mês</p>
+<ul><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Até 5 profissionais</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>600 lembretes por mês</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do Solo</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Lista de espera automática</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Reativação de pacientes</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Painel de faltas</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Suporte por WhatsApp</li></ul><a class="btn btn-c" href="#teste">Começar teste grátis</a></article>
+<article class="plan rv "><h3>Rede</h3><p class="for">Para quem tem mais de uma unidade.</p>
+<p class="price"><span><sup>R$</sup><span class="pv" data-m="299" data-a="249">299</span></span><small>/mês</small></p>
+<p class="bill" data-m="cobrado todo mês" data-a="R$ 2.990 cobrados uma vez por ano">cobrado todo mês</p>
+<ul><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Profissionais ilimitados</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Até 3 unidades</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>2.500 lembretes por mês</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tudo do Equipe</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Permissões por função</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Exportação contábil</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Gerente de conta</li></ul><a class="btn btn-o" href="#teste">Começar teste grátis</a></article>
+</div>
+<p class="trial rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 2.5v4M16 2.5v4M9 15l2 2 4-4"/></svg><span><b>14 dias de teste com todos os recursos do plano Equipe.</b> Sem cartão. No fim, você escolhe um plano ou a conta fica só para consulta.</span></p>
+</div></section>
+
+<section><div class="wrap"><div class="head rv"><p class="eyebrow">Comparativo</p><h2>Cada plano, linha por linha</h2></div>
+<div class="tw rv" tabindex="0" role="region" aria-label="Tabela comparativa dos planos (role para os lados no celular)"><table><caption style="position:absolute;left:-9999px">Comparativo dos planos Solo, Equipe e Rede</caption><thead><tr><th scope="col">Recurso</th><th scope="col">Solo</th><th scope="col" class="hl">Equipe</th><th scope="col">Rede</th></tr></thead><tbody><tr class="g"><th colspan="4" scope="colgroup">Capacidade</th></tr><tr><th scope="row">Profissionais na agenda</th><td>1</td><td class="hl">até 5</td><td>ilimitados</td></tr><tr><th scope="row">Unidades</th><td>1</td><td class="hl">1</td><td>até 3</td></tr><tr><th scope="row">Lembretes por mês</th><td>150</td><td class="hl">600</td><td>2.500</td></tr><tr class="g"><th colspan="4" scope="colgroup">Agenda e lembretes</th></tr><tr><th scope="row">Link de agendamento online</th><td><span class="y" role="img" aria-label="Incluído">✓</span></td><td class="hl"><span class="y" role="img" aria-label="Incluído">✓</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr><th scope="row">Confirmação com 1 toque</th><td><span class="y" role="img" aria-label="Incluído">✓</span></td><td class="hl"><span class="y" role="img" aria-label="Incluído">✓</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr><th scope="row">Lista de espera automática</th><td><span class="no" role="img" aria-label="Não incluído">—</span></td><td class="hl"><span class="y" role="img" aria-label="Incluído">✓</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr class="g"><th colspan="4" scope="colgroup">Crescimento</th></tr><tr><th scope="row">Reativação de pacientes sumidos</th><td><span class="no" role="img" aria-label="Não incluído">—</span></td><td class="hl"><span class="y" role="img" aria-label="Incluído">✓</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr><th scope="row">Painel de faltas e receita recuperada</th><td><span class="no" role="img" aria-label="Não incluído">—</span></td><td class="hl"><span class="y" role="img" aria-label="Incluído">✓</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr class="g"><th colspan="4" scope="colgroup">Gestão</th></tr><tr><th scope="row">Permissões por função</th><td><span class="no" role="img" aria-label="Não incluído">—</span></td><td class="hl"><span class="no" role="img" aria-label="Não incluído">—</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr><th scope="row">Exportação para a contabilidade</th><td><span class="no" role="img" aria-label="Não incluído">—</span></td><td class="hl"><span class="no" role="img" aria-label="Não incluído">—</span></td><td><span class="y" role="img" aria-label="Incluído">✓</span></td></tr><tr><th scope="row">Suporte</th><td>e-mail</td><td class="hl">WhatsApp</td><td>gerente de conta</td></tr></tbody></table></div></div></section>
+
+<section class="dark"><div class="wrap gar rv"><div class="seal" aria-hidden="true"><span><b>30</b>dias</span></div><div><h2>Garantia de 30 dias depois de assinar</h2><p>Se, no primeiro mês pago, as faltas não caírem, escreva para a gente e devolvemos o valor. Sem formulário, sem pergunta. (Garantia fictícia, parte do conceito.)</p></div></div></section>
+
+<section id="faq"><div class="wrap"><div class="head rv"><p class="eyebrow">Dúvidas</p><h2>Perguntas que todo dono faz</h2></div>
+<div class="faq rv">
+<details><summary>Preciso trocar o número do WhatsApp da clínica?</summary><p>Não. Você conecta o número que já usa, lendo um código na tela. O paciente recebe a mensagem de um contato que ele já conhece.</p></details>
+<details><summary>O paciente precisa instalar alguma coisa?</summary><p>Nada. Ele só responde 1 ou 2 na própria conversa do WhatsApp. O link de agendamento abre no navegador.</p></details>
+<details><summary>E se o paciente não responder?</summary><p>Você define a regra: reenviar 2 horas antes, avisar a recepção ou deixar o horário como está. Quem não confirma aparece em destaque na agenda.</p></details>
+<details><summary>Posso importar a agenda que já tenho?</summary><p>Sim, por planilha (CSV) ou pelo Google Agenda. A importação leva alguns minutos e você revisa antes de ativar os lembretes.</p></details>
+<details><summary>Como ficam os dados dos pacientes?</summary><p>Guardamos só nome, telefone e horário, o necessário para o lembrete. Você pode exportar ou apagar tudo quando quiser. Veja a página de <a href="privacidade/">privacidade</a>.</p></details>
+<details><summary>O que acontece quando acabam os 14 dias?</summary><p>Você escolhe um plano ou não faz nada. Sem escolha, a conta vira só consulta: os lembretes param e nada é cobrado.</p></details>
+</div></div></section>
+
+<section class="dark" id="teste"><div class="wrap test">
+<div class="rv"><p class="eyebrow">Teste grátis</p><h2>14 dias para ver a agenda confirmar sozinha</h2>
+<ul><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem cartão de crédito</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Todos os recursos do plano Equipe</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ajuda para importar sua agenda</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Fim do teste sem cobrança nem renovação</li></ul></div>
+<form class="rv" id="form" novalidate><div id="fields" style="display:grid;gap:18px"><h3>Comece agora</h3>
+<div class="fld"><label for="nome">Seu nome</label><input id="nome" name="nome" autocomplete="name" required aria-describedby="e1"><p class="err" id="e1">Diga como podemos chamar você.</p></div>
+<div class="fld"><label for="zap">WhatsApp com DDD</label><input id="zap" name="zap" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(41) 90000-0000" required aria-describedby="e2"><p class="err" id="e2">Digite DDD e número, por exemplo (41) 90000-0000.</p></div>
+<div class="row2"><div class="fld"><label for="tipo">Seu negócio</label><select id="tipo" name="tipo"><option>Clínica</option><option>Salão</option><option>Barbearia</option><option>Outro</option></select></div><div class="fld"><label for="qt">Profissionais</label><select id="qt" name="qt"><option>1</option><option>2 a 5</option><option>6 a 15</option><option>Mais de 15</option></select></div></div>
+<button class="btn btn-c" type="submit">Criar minha conta de teste</button>
+<small>Demonstração: o formulário não envia nada. Em um produto real, você receberia o acesso por WhatsApp.</small></div>
+<div class="ok" id="ok" role="status" tabindex="-1"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Tudo certo, <span id="nm"></span>!</h3><p>Se este fosse um produto real, o acesso chegaria no seu WhatsApp em alguns minutos. Aqui, nenhum dado foi enviado.</p></div></form>
+</div></section>
+
+<section class="cta-f"><div class="wrap rv"><h2>Sua agenda merece bater no ritmo certo</h2><p>Teste por 14 dias e compare a agenda de hoje com a de daqui a duas semanas.</p><div class="cta"><a class="btn btn-c" href="#teste">Testar 14 dias grátis <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M11 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="btn btn-o" href="#planos">Ver planos</a></div></div></section>
+</main>
+<footer class="foot"><div class="wrap">
+<div class="cols">
+<div><a class="logo" href="./"><svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect width="40" height="40" rx="11" fill="#0D2620"/><path d="M6 22h8l3.5-9 5 17 4-10 2 2H34" fill="none" stroke="#FF5A36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Pulso</a><p>Agenda e lembretes por WhatsApp para clínicas e salões. Marca fictícia de exemplo.</p></div>
+<div><h2>Página</h2><ul><li><a href="#recursos">Recursos</a></li><li><a href="#como">Como funciona</a></li><li><a href="#planos">Planos</a></li><li><a href="#faq">Dúvidas</a></li></ul></div>
+<div><h2>Contato (exemplo)</h2><ul><li>ola@pulso.example</li><li>(41) 0000-0000</li><li>Seg a sex, 9h às 18h</li></ul></div>
+<div><h2>Legal</h2><ul><li><a href="privacidade/">Privacidade</a></li></ul></div>
+</div>
+<div class="small"><span>Pulso é uma marca fictícia. Preços, métricas, depoimentos, garantia e contatos são exemplos de portfólio.</span>
+<span>Foto: <a href="https://commons.wikimedia.org/wiki/File:Hair_salon_-_Arlington,_MA.jpg" target="_blank" rel="noopener">Wikimedia Commons, CC0</a> · Fontes Bricolage Grotesque e Instrument Sans (SIL OFL) · Site por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span></div>
+</div></footer>
+<div class="mbar" id="mbar"><a class="btn btn-c" href="#teste">Testar 14 dias grátis</a></div>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
