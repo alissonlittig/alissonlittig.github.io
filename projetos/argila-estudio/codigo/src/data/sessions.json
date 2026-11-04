@@ -1,0 +1,170 @@
+[
+ {
+  "id": "s1",
+  "classId": "wheel-basics",
+  "date": "2026-11-09",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s2",
+  "classId": "wheel-basics",
+  "date": "2026-11-12",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s3",
+  "classId": "wheel-basics",
+  "date": "2026-11-15",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s4",
+  "classId": "handbuilding",
+  "date": "2026-11-11",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s5",
+  "classId": "handbuilding",
+  "date": "2026-11-14",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s6",
+  "classId": "handbuilding",
+  "date": "2026-11-17",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s7",
+  "classId": "glaze-lab",
+  "date": "2026-11-13",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s8",
+  "classId": "glaze-lab",
+  "date": "2026-11-16",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s9",
+  "classId": "glaze-lab",
+  "date": "2026-11-19",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s10",
+  "classId": "trimming",
+  "date": "2026-11-15",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s11",
+  "classId": "trimming",
+  "date": "2026-11-18",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s12",
+  "classId": "trimming",
+  "date": "2026-11-21",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s13",
+  "classId": "kids-clay",
+  "date": "2026-11-17",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s14",
+  "classId": "kids-clay",
+  "date": "2026-11-20",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s15",
+  "classId": "kids-clay",
+  "date": "2026-11-23",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s16",
+  "classId": "raku",
+  "date": "2026-11-19",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s17",
+  "classId": "raku",
+  "date": "2026-11-22",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s18",
+  "classId": "raku",
+  "date": "2026-11-25",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s19",
+  "classId": "date-night",
+  "date": "2026-11-21",
+  "time": "10:00",
+  "seats": 6
+ },
+ {
+  "id": "s20",
+  "classId": "date-night",
+  "date": "2026-11-24",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s21",
+  "classId": "date-night",
+  "date": "2026-11-27",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s22",
+  "classId": "sculpt",
+  "date": "2026-11-23",
+  "time": "14:00",
+  "seats": 8
+ },
+ {
+  "id": "s23",
+  "classId": "sculpt",
+  "date": "2026-11-26",
+  "time": "18:30",
+  "seats": 4
+ },
+ {
+  "id": "s24",
+  "classId": "sculpt",
+  "date": "2026-11-29",
+  "time": "10:00",
+  "seats": 6
+ }
+]

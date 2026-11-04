@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Argila &amp; Fogo · React + TypeScript · Alisson Littig</title>
+<meta name="description" content="Aplicativo em React e TypeScript para agendar aulas de cerâmica: busca, filtros, favoritos, reservas com validação e testes. Demo e código.">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/argila-estudio/">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/projeto.css">
+</head>
+<body>
+<a class="skip" href="#principal">Pular para o conteúdo</a>
+<header class="bar wrap"><a class="back" href="/#websites"><span aria-hidden="true">←</span>Portfólio do Alisson</a><span class="badge">React</span></header>
+<main id="principal">
+<section class="ph wrap">
+<h1>Argila &amp; Fogo</h1>
+<p class="lede">Aplicativo web em React + TypeScript para um ateliê de cerâmica fictício: o aluno busca aulas, filtra, salva as favoritas e reserva a vaga, com controle de lotação.</p>
+<div class="actions"><a class="btn btn-primary" href="app/">Abrir o aplicativo</a><a class="btn" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/projetos/argila-estudio/codigo" rel="noopener">Ver o código</a></div>
+<figure class="shot"><img src="/assets/img/argila-d.webp" width="1200" height="750" alt="Tela inicial do aplicativo Argila e Fogo, com a lista de aulas de cerâmica."></figure>
+</section>
+
+<section class="sec wrap">
+<h2>O que o app faz</h2>
+<ul class="pp">
+<li><b>Busca e filtros</b><span>Por texto, categoria, nível e preço, mais a lista de favoritas.</span></li>
+<li><b>Reserva com validação</b><span>O formulário aponta o erro em cada campo e desconta a vaga da turma.</span></li>
+<li><b>Minhas reservas</b><span>Lista e cancelamento, guardados no navegador.</span></li>
+<li><b>Estado previsível</b><span>Context e useReducer, rotas com React Router, tipos estritos em todo o código.</span></li>
+<li><b>Testado</b><span>10 testes automatizados (Vitest) e lint sem erros.</span></li>
+<li><b>Responsivo</b><span>Feito para celular e computador, com foco visível e contraste AA.</span></li>
+</ul>
+<ul class="stack" aria-label="Tecnologias"><li>React 19</li><li>TypeScript</li><li>Vite</li><li>React Router</li><li>Vitest</li><li>ESLint</li></ul>
+</section>
+
+<section class="sec wrap">
+<h2>Telas</h2>
+<div class="shots">
+<figure class="shot"><img src="img/aulas.webp" width="1366" height="1070" loading="lazy" alt="Lista de aulas com campo de busca e filtros de categoria, nível e preço."><figcaption>Aulas, busca e filtros</figcaption></figure>
+<figure class="shot"><img src="img/reserva.webp" width="1298" height="1400" loading="lazy" alt="Formulário de reserva com mensagens de erro de validação nos campos."><figcaption>Reserva com validação</figcaption></figure>
+</div>
+</section>
+
+<section class="sec wrap">
+<h2>Rodar no seu computador</h2>
+<pre class="cmd">npm install
+npm run dev      # servidor local
+npm test         # testes
+npm run build    # site estático em dist/</pre>
+<p class="txt">O código-fonte está em <a href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/projetos/argila-estudio/codigo" rel="noopener">codigo/</a>, sem <code>node_modules</code>. O README tem os detalhes.</p>
+</section>
+</main>
+<footer class="foot2"><div class="wrap">
+<p>Ateliê e aulas fictícios, criados para este exemplo. Os dados são de exemplo e as reservas ficam só no seu navegador.</p>
+<p><a href="/">Portfólio de Alisson Littig</a></p>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,98 @@
+[
+ {
+  "id": "wheel-basics",
+  "title": "Wheel Throwing Basics",
+  "category": "Wheel",
+  "level": "Beginner",
+  "duration": 150,
+  "price": 95,
+  "teacher": "Marina Costa",
+  "summary": "Centre clay, pull a cylinder and finish your first bowl.",
+  "description": "Two and a half hours at the wheel with a small group. You will learn wedging, centring, opening and pulling walls. Every student leaves with two pieces that we glaze and fire for you.",
+  "color": "#b4532a"
+ },
+ {
+  "id": "handbuilding",
+  "title": "Handbuilding Evening",
+  "category": "Handbuilding",
+  "level": "Beginner",
+  "duration": 120,
+  "price": 70,
+  "teacher": "Tiago Reis",
+  "summary": "Pinch, coil and slab: make a planter or a small vase without a wheel.",
+  "description": "A relaxed evening session on the three core handbuilding techniques. No experience needed, aprons provided.",
+  "color": "#8a6a4f"
+ },
+ {
+  "id": "glaze-lab",
+  "title": "Glaze Chemistry Lab",
+  "category": "Glazing",
+  "level": "Intermediate",
+  "duration": 180,
+  "price": 120,
+  "teacher": "Helena Prado",
+  "summary": "Test tiles, colour mixing and why glazes behave the way they do.",
+  "description": "We mix and fire a set of test tiles together. You will understand cones, oxides and how to fix crawling and pinholing.",
+  "color": "#4f6d6a"
+ },
+ {
+  "id": "trimming",
+  "title": "Trimming & Finishing",
+  "category": "Wheel",
+  "level": "Intermediate",
+  "duration": 120,
+  "price": 85,
+  "teacher": "Marina Costa",
+  "summary": "Foot rings, handles and clean edges on leather-hard pieces.",
+  "description": "Bring two pieces from a previous class or use ours. Focus on tools, timing and the small details that make work look professional.",
+  "color": "#9a7b3f"
+ },
+ {
+  "id": "kids-clay",
+  "title": "Little Potters (ages 7-12)",
+  "category": "Family",
+  "level": "Beginner",
+  "duration": 90,
+  "price": 55,
+  "teacher": "Tiago Reis",
+  "summary": "Play-based clay morning for kids, with a parent welcome to join.",
+  "description": "Kids make a pinch pot animal and a small dish. Everything is non-toxic and washable.",
+  "color": "#c26b4a"
+ },
+ {
+  "id": "raku",
+  "title": "Raku Firing Day",
+  "category": "Firing",
+  "level": "Advanced",
+  "duration": 240,
+  "price": 180,
+  "teacher": "Helena Prado",
+  "summary": "Outdoor raku firing with reduction, smoke and crackle glazes.",
+  "description": "For students who already throw or handbuild. Bring pre-bisqued pieces. Safety gear provided, expect to get a little smoky.",
+  "color": "#5b4b6b"
+ },
+ {
+  "id": "date-night",
+  "title": "Date Night at the Wheel",
+  "category": "Wheel",
+  "level": "Beginner",
+  "duration": 120,
+  "price": 160,
+  "teacher": "Marina Costa",
+  "summary": "Two people, one wheel and a lot of laughing.",
+  "description": "Price is per pair. A friendly intro to throwing with snacks included.",
+  "color": "#a8465a"
+ },
+ {
+  "id": "sculpt",
+  "title": "Figure Sculpting",
+  "category": "Handbuilding",
+  "level": "Advanced",
+  "duration": 180,
+  "price": 130,
+  "teacher": "Tiago Reis",
+  "summary": "Build a hollow figure from a reference and learn to dry it safely.",
+  "description": "Armatures, hollowing and joining. Class size is limited to six.",
+  "color": "#6e7b45"
+ }
+]

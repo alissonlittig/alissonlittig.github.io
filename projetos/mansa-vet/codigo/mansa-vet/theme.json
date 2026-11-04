@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": { "contentSize": "720px", "wideSize": "1180px" },
+    "color": {
+      "palette": [
+        { "slug": "cream", "name": "Cream", "color": "#FAF6EF" },
+        { "slug": "sand", "name": "Sand", "color": "#EDE3D0" },
+        { "slug": "forest", "name": "Forest", "color": "#1F3D36" },
+        { "slug": "clay", "name": "Clay", "color": "#B4532A" },
+        { "slug": "ink", "name": "Ink", "color": "#1B2421" },
+        { "slug": "sage", "name": "Sage", "color": "#A9BFA8" }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontFamilies": [
+        { "slug": "display", "name": "Fraunces", "fontFamily": "'Fraunces', Georgia, serif",
+          "fontFace": [{ "fontFamily": "Fraunces", "fontWeight": "100 900", "fontStyle": "normal", "src": ["file:./assets/fonts/fraunces-latin-wght-normal.woff2"] }] },
+        { "slug": "body", "name": "Inter", "fontFamily": "'Inter', system-ui, sans-serif",
+          "fontFace": [{ "fontFamily": "Inter", "fontWeight": "100 900", "fontStyle": "normal", "src": ["file:./assets/fonts/inter-latin-wght-normal.woff2"] }] }
+      ],
+      "fontSizes": [
+        { "slug": "small", "size": "0.875rem", "name": "Small" },
+        { "slug": "base", "size": "1.0625rem", "name": "Base" },
+        { "slug": "large", "size": "clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem)", "name": "Large" },
+        { "slug": "xl", "size": "clamp(2rem, 1.4rem + 2.4vw, 3.25rem)", "name": "XL" }
+      ]
+    }
+  },
+  "styles": {
+    "color": { "background": "var(--wp--preset--color--cream)", "text": "var(--wp--preset--color--ink)" },
+    "typography": { "fontFamily": "var(--wp--preset--font-family--body)", "fontSize": "var(--wp--preset--font-size--base)", "lineHeight": "1.65" },
+    "elements": {
+      "heading": { "typography": { "fontFamily": "var(--wp--preset--font-family--display)", "fontWeight": "500", "lineHeight": "1.1" } },
+      "link": { "color": { "text": "var(--wp--preset--color--clay)" } }
+    }
+  }
+}
