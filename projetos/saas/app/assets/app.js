@@ -122,8 +122,8 @@ function kpis(A){
   const card = (l, v, d, sub, sp) => `<article class="card kpi"><div class="l">${l}</div><div class="v num">${v}</div><div class="d">${d}<span>${sub}</span></div>${sp}</article>`;
   const ratioBar = e.ratio == null ? '' : `<svg class="spark" viewBox="0 0 100 34" aria-hidden="true"><rect x="0" y="14" width="100" height="8" rx="4" fill="${T.grid}"/><rect x="0" y="14" width="${Math.min(100, e.ratio / 6 * 100).toFixed(1)}" height="8" rx="4" fill="${e.ratio >= 3 ? T.st[2] : T.st[1]}"/><rect x="49" y="10" width="2" height="16" fill="${T.text}"/></svg>`;
   $('#kpis').innerHTML =
-    card('MRR', brlC(A[t].mrr), delta(A[t].mrr, pf >= 0 ? A[pf].mrr : null, 'rel', true), `${N0.format(A[t].n)} clientes ativos`, spark(win.map(m => A[m].mrr))) +
-    card('ARR', brlC(A[t].mrr * 12), delta(A[t].mrr, pf >= 0 ? A[pf].mrr : null, 'rel', true), 'MRR × 12', spark(win.map(m => A[m].mrr))) +
+    card('MRR', brlC(A[t].mrr), delta(A[t].mrr, t - len >= 0 ? A[t - len].mrr : null, 'rel', true), `${N0.format(A[t].n)} clientes ativos`, spark(win.map(m => A[m].mrr))) +
+    card('ARR', brlC(A[t].mrr * 12), delta(A[t].mrr, t - len >= 0 ? A[t - len].mrr : null, 'rel', true), 'MRR × 12', spark(win.map(m => A[m].mrr))) +
     card('Novo MRR', brlC(sum(A, 'nw', f, t)), delta(sum(A, 'nw', f, t), f - len >= 0 ? sum(A, 'nw', f - len, f - 1) : null, 'rel', true), `${N0.format(sum(A, 'nwn', f, t))} novos clientes`, spark(win.map(m => A[m].nw))) +
     card('Churn de receita', pct(cr(f, t), 2), delta(cr(f, t), f - len >= 0 ? cr(f - len, f - 1) : null, 'pp', false), 'ao mês, média do período', spark(win.map(m => m ? safe(A[m].ch, A[m - 1].mrr) : 0).slice(win[0] ? 0 : 1))) +
     card('NRR 12 meses', nr == null ? '—' : pct(nr, 1), delta(nr, nrp, 'pp', true), 'base de 12 meses atrás', spark(nrS)) +

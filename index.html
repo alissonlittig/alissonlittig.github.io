@@ -357,7 +357,7 @@
   }
   window.addEventListener('hashchange',show);show();
   tabs.forEach(function(t){t.addEventListener('click',function(e){e.preventDefault();history.replaceState(null,'',t.getAttribute('href'));show()})});
-  if(location.hash==='#projetos')document.getElementById('projetos').scrollIntoView();
+  if(panels.some(function(p){return '#'+p.id===location.hash})||location.hash==='#projetos')document.getElementById('projetos').scrollIntoView();
 
 })();
 </script>
