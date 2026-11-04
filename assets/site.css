@@ -111,12 +111,16 @@ h2{font-weight:800;font-stretch:75%;text-transform:uppercase;font-size:clamp(36p
 .about p+p{margin-top:16px}
 
 /* abas de trabalhos */
-.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0 auto clamp(32px,4vw,48px)}
-.tabs a{display:inline-flex;align-items:baseline;gap:10px;min-height:48px;padding:10px 24px;border:1.5px solid var(--line);border-radius:99px;text-decoration:none;color:var(--mut);font-weight:700;font-stretch:75%;text-transform:uppercase;letter-spacing:.04em;font-size:20px}
-.tabs a small{font-size:14px;font-stretch:100%;opacity:.8}
-.tabs a:hover{color:var(--tx);border-color:var(--tx)}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:0 auto clamp(32px,4vw,48px)}
+.tabs a{display:inline-flex;align-items:baseline;gap:10px;min-height:60px;padding:12px 30px;border:2px solid var(--ac);background:rgba(255,122,47,.1);border-radius:99px;text-decoration:none;color:var(--tx);font-weight:800;font-stretch:75%;text-transform:uppercase;letter-spacing:.04em;font-size:26px;transition:background .15s}
+.tabs a small{font-size:16px;font-stretch:100%;opacity:.85}
+.tabs a:hover{background:rgba(255,122,47,.25)}
 .tabs a[aria-selected="true"]{background:var(--ac);border-color:var(--ac);color:#0b0b0b}
 .panel[hidden]{display:none}
 .grid.two .tile.big:first-child{grid-column:span 3}
 @media(max-width:900px){.grid.two .tile.big:first-child{grid-column:span 6}}
-@media(max-width:480px){.tabs{gap:8px}.tabs a{padding:8px 16px;font-size:18px}}
+@media(max-width:480px){.tabs{gap:8px}.tabs a{min-height:52px;padding:10px 20px;font-size:22px}}
+
+.role{margin:18px 0 0;font-weight:800;font-stretch:75%;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(18px,2.4vw,24px);color:var(--ac)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0 0;padding:0}
+.chips li{padding:6px 14px;border:1px solid var(--line);border-radius:99px;color:var(--tx);font-size:15px}
