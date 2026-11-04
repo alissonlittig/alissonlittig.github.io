@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trilha Azul · Painel de logística e frota · dashboard interativo</title>
+<meta name="description" content="Operação com 13 centros de distribuição e 4 modalidades: entregas no prazo, ocupação, custo por entrega e ranking de centros. Demonstração com dados fictícios.">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/logistica/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Trilha Azul · Painel de logística e frota">
+<meta property="og:description" content="Operação com 13 centros de distribuição e 4 modalidades: entregas no prazo, ocupação, custo por entrega e ranking de centros.">
+<meta property="og:image" content="https://alissonlittig.github.io/projetos/logistica/capa.webp">
+<meta property="og:url" content="https://alissonlittig.github.io/projetos/logistica/">
+<meta name="theme-color" content="#0b0b0b">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;padding-bottom:20px}
+.back{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--mut);font-weight:600;font-size:16px}
+.back:hover{color:var(--tx)}.back span{margin-right:8px}
+.pg{text-align:center;padding-top:clamp(24px,4vw,48px);padding-bottom:clamp(48px,7vw,96px)}
+.pg h1{font-size:clamp(40px,6.4vw,84px);max-width:16ch}
+.eyebrow{color:var(--ac);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:15px;margin-bottom:12px}
+.cover{display:block;margin:clamp(28px,4vw,48px) auto 0;max-width:1100px;border-radius:var(--r);overflow:hidden;background:var(--panel)}
+.cover img{width:100%;height:auto}
+.pg ul{list-style:none;padding:0;max-width:34em;margin:32px auto 0;text-align:left}
+.pg li{padding:12px 0;border-top:1px solid var(--line);color:#d0cfc8}.pg li:last-child{border-bottom:1px solid var(--line)}
+.nota{color:var(--mut);font-size:15px;margin-top:20px}
+@media(max-width:700px){.bar .btn{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#principal">Pular para o conteúdo</a>
+<header class="bar wrap">
+  <a class="back" href="/#dashboards"><span aria-hidden="true">←</span>Portfólio do Alisson</a>
+  <a class="btn btn-primary" href="https://wa.me/5533999038198?text=Oi%2C%20Alisson!%20Vi%20os%20dashboards%20do%20seu%20portf%C3%B3lio%20e%20quero%20um%20painel%20assim%20para%20a%20minha%20empresa." rel="noopener">Quero um painel assim</a>
+</header>
+<main id="principal" class="pg wrap">
+  <p class="eyebrow">Dashboard · Trilha Azul</p>
+  <h1>Painel de logística e frota</h1>
+  <p class="lede">Operação com 13 centros de distribuição e 4 modalidades: entregas no prazo, ocupação, custo por entrega e ranking de centros.</p>
+  <div class="actions"><a class="btn btn-primary" href="app/">Abrir o dashboard</a><a class="btn" href="https://wa.me/5533999038198?text=Oi%2C%20Alisson!%20Vi%20os%20dashboards%20do%20seu%20portf%C3%B3lio%20e%20quero%20um%20painel%20assim%20para%20a%20minha%20empresa." rel="noopener">Quero um painel assim</a></div>
+  <a class="cover" href="app/" aria-label="Abrir o dashboard Trilha Azul"><img src="capa.webp" width="1200" height="750" alt="Tela do dashboard Trilha Azul: indicadores no topo e gráficos abaixo"></a>
+  <ul><li>6 indicadores, 9 gráficos e 3 tabelas</li><li>Filtros por período, região, centro e modalidade</li><li>Clique nos gráficos para detalhar</li><li>Tema claro e escuro, funciona no celular</li></ul>
+  <p class="nota">Demonstração com dados fictícios e marca fictícia. Abre melhor em tela grande, mas funciona no celular.</p>
+</main>
+<footer class="foot">Alisson Littig · Curitiba · 2026</footer>
+</body>
+</html>

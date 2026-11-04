@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel Financeiro (CFO) · Vetor Norte S.A.</title>
+<meta name="description" content="Dashboard financeiro interativo: DRE, fluxo de caixa, aging, orçamento x real, inadimplência e indicadores. Dados fictícios.">
+<link rel="stylesheet" href="assets/app.css">
+<script>try{var t=localStorage.getItem('fin-tema')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-8M22 19H2"/></svg></div>
+      <div><h1>Painel Financeiro · Vetor Norte S.A.</h1><p>Diretoria financeira (CFO) · Indústria e serviços · 4 regiões</p></div>
+    </div>
+    <span class="asof"><span class="dot"></span>Posição em 03/11/2026 · realizado até out/26</span>
+    <button class="btn" id="tema" type="button" aria-label="Alternar modo claro e escuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span id="temaTxt">Modo escuro</span></button>
+  </header>
+
+  <section class="filters" aria-label="Filtros">
+    <div class="fbar">
+      <div class="fld"><label for="fPer">Período</label>
+        <select id="fPer"><option value="1m">Último mês (out/26)</option><option value="3m">Últimos 3 meses</option><option value="6m">Últimos 6 meses</option><option value="12m" selected>Últimos 12 meses</option><option value="ytd">Ano até out/26</option><option value="24m">Todo o histórico (24 meses)</option></select></div>
+      <div class="fld"><label for="fReg">Região</label><select id="fReg"></select></div>
+      <div class="fld"><label for="fLin">Linha de negócio</label><select id="fLin"></select></div>
+      <button class="btn ghost" id="limpar" type="button">Limpar filtros</button>
+    </div>
+    <div class="chips" id="chips" aria-live="polite"></div>
+  </section>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores"></section>
+
+  <main class="grid">
+    <article class="card s6"><div class="ch"><div><h2>EBITDA e margem EBITDA</h2><p class="sub" id="subEb"></p></div></div><div class="cv"><canvas id="cEb" role="img" aria-label="EBITDA mensal e margem"></canvas></div></article>
+    <article class="card s6"><div class="ch"><div><h2>Da receita bruta ao lucro líquido</h2><p class="sub" id="subWf"></p></div></div><div class="cv"><canvas id="cWf" role="img" aria-label="Cascata da DRE"></canvas></div></article>
+
+    <article class="card s7"><div class="ch"><div><h2>Fluxo de caixa: realizado x previsto</h2><p class="sub">Entradas e saídas realizadas; linha tracejada = fluxo líquido previsto; faixa final = projeção de 3 meses</p></div></div><div class="cv tall"><canvas id="cCx" role="img" aria-label="Fluxo de caixa"></canvas></div></article>
+    <article class="card s5"><div class="ch"><div><h2>Orçamento x real por centro de custo</h2><p class="sub" id="subOr"></p></div></div><div class="cv tall"><canvas id="cOr" role="img" aria-label="Orçado e realizado por centro de custo"></canvas></div></article>
+
+    <article class="card s4"><div class="ch"><div><h2>Aging de contas a receber e a pagar</h2><p class="sub" id="subAg"></p></div></div><div class="cv"><canvas id="cAg" role="img" aria-label="Aging por faixa de atraso"></canvas></div></article>
+    <article class="card s4"><div class="ch"><div><h2>Inadimplência</h2><p class="sub">% da receita líquida faturada com atraso superior a 30 dias</p></div></div><div class="cv"><canvas id="cIn" role="img" aria-label="Inadimplência mensal"></canvas></div></article>
+    <article class="card s4"><div class="ch"><div><h2>Margem por região</h2><p class="sub">Clique em uma barra para filtrar a região</p></div></div><div class="cv"><canvas id="cRg" role="img" aria-label="Margens por região"></canvas></div></article>
+
+    <article class="card s8"><div class="ch"><div><h2>DRE mensal</h2><p class="sub" id="subDre"></p></div><button class="btn" id="csvDre" type="button">Exportar CSV</button></div><div class="tw dre"><table id="tDre"></table></div></article>
+    <article class="card s4"><div class="ch"><div><h2>Receita líquida por linha</h2><p class="sub">Clique em uma fatia para filtrar a linha</p></div></div><div class="cv dn"><canvas id="cLn" role="img" aria-label="Receita por linha de negócio"></canvas></div><div class="lt" id="lt"></div></article>
+
+    <article class="card s12"><div class="ch"><div><h2>Contas a pagar e a receber</h2><p class="sub" id="subTit"></p></div><button class="btn" id="csvTit" type="button">Exportar CSV</button></div>
+      <div class="tools"><input type="search" id="q" placeholder="Buscar por documento ou contraparte" aria-label="Buscar títulos">
+        <div class="seg" role="group" aria-label="Tipo"><button type="button" data-t="Todos" aria-pressed="true">Todos</button><button type="button" data-t="Receber" aria-pressed="false">A receber</button><button type="button" data-t="Pagar" aria-pressed="false">A pagar</button></div></div>
+      <div class="tw"><table id="tTit"></table></div>
+      <div class="pg"><span id="pgInfo"></span><div><button class="btn" id="prev" type="button">Anterior</button><button class="btn" id="next" type="button">Próxima</button></div></div>
+    </article>
+  </main>
+  <p class="note">Vetor Norte S.A. é uma empresa fictícia. Todos os números são dados sintéticos gerados para demonstração.</p>
+</div>
+<script src="assets/chart.umd.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

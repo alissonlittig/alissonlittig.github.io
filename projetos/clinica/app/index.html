@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meridiana Clínicas · Painel de operação e atendimento (demonstração)</title>
+<meta name="description" content="Dashboard interativo de rede de clínicas: agendamentos, faltas, ocupação de agenda, faturamento por convênio, tempo de espera, NPS e retorno de pacientes. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b7a75'/%3E%3Cpath d='M16 8v16M8 16h16' stroke='white' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+    <div><h1>Meridiana Clínicas</h1><p>Operação e atendimento · Rede de 8 unidades</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-reg">Região</label><select id="f-reg"></select></div>
+  <div class="fld"><label for="f-uni">Unidade</label><select id="f-uni"></select></div>
+  <div class="fld"><label for="f-esp">Especialidade</label><select id="f-esp"></select></div>
+  <div class="fld"><label for="f-pag">Pagador</label><select id="f-pag"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos para filtrar o painel.</span></div>
+  <div class="empty" id="empty" role="status">Sem atendimentos para esta combinação de filtros. Ajuste ou limpe os filtros.</div>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c8"><h2>Agendamentos, faltas e cancelamentos</h2><p class="sub">Últimos 12 meses até o fim do período · linha = taxa de faltas (no-show) sobre os horários ocupados</p><div class="cv"><canvas id="ch-mes" role="img" aria-label="Atendimentos, faltas e cancelamentos por mês, com taxa de faltas"></canvas></div></div>
+    <div class="card panel c4"><h2>Ocupação por especialidade</h2><p class="sub">Horários ocupados ÷ horários ofertados</p><div class="cv"><canvas id="ch-esp" role="img" aria-label="Ocupação da agenda por especialidade"></canvas></div></div>
+
+    <div class="card panel c7"><div class="ph"><div><h2>Faturamento: convênios × particular</h2><p class="sub">Receita mensal empilhada por pagador</p></div><div class="mix" id="mix"></div></div><div class="cv tall"><canvas id="ch-pag" role="img" aria-label="Faturamento mensal por pagador"></canvas></div></div>
+    <div class="card panel c5"><h2>Mapa de ocupação da agenda</h2><p class="sub">Dia da semana × horário · padrão estimado para o recorte atual</p><div class="hm" id="hm" role="img" aria-label="Mapa de calor da ocupação por dia da semana e horário"></div><div class="lg"><span>menos</span><i></i><span>mais ocupado</span></div></div>
+
+    <div class="card panel c5"><h2>Faltas por antecedência do agendamento</h2><p class="sub">Quanto mais longe a consulta, maior a falta · barras = consultas, linha = % de faltas</p><div class="cv tall"><canvas id="ch-ant" role="img" aria-label="Taxa de faltas por antecedência do agendamento"></canvas></div></div>
+    <div class="card panel c7"><h2>Unidades: ocupação × tempo de espera</h2><p class="sub">Tamanho da bolha = atendimentos. Clique numa bolha para filtrar a unidade.</p><div class="cv tall"><canvas id="ch-bol" role="img" aria-label="Ocupação versus tempo de espera por unidade"></canvas></div></div>
+
+    <div class="card panel c6"><div class="ph"><div><h2>NPS mensal</h2><p class="sub">Linha tracejada = meta de 70 pontos</p></div><div class="mix" id="npsmix"></div></div><div class="cv"><canvas id="ch-nps" role="img" aria-label="NPS por mês"></canvas></div></div>
+    <div class="card panel c6"><h2>Pacientes novos e recorrentes</h2><p class="sub">Atendimentos por mês · linha = retorno em até 90 dias</p><div class="cv"><canvas id="ch-ret" role="img" aria-label="Pacientes novos e recorrentes por mês e taxa de retorno"></canvas></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-p" aria-selected="true">Profissionais</button><button role="tab" id="tab-u" aria-selected="false">Unidades</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="pg"><span id="pginfo" class="num"></span><div id="pgbtns"></div></div>
+    </div>
+  </section>
+</main>
+<footer>Meridiana Clínicas é uma empresa fictícia criada para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si; qualquer semelhança com empresas reais é coincidência.</footer>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

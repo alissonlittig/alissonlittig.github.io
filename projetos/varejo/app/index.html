@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Praça Nova · Painel comercial de varejo (demonstração)</title>
+<meta name="description" content="Dashboard interativo de rede de lojas e e-commerce: faturamento, ticket médio, conversão, curva ABC, estoque e devoluções. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232b4fd6'/%3E%3Cpath d='M9 23V9h7a4.5 4.5 0 010 9H9' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19V5h7a4.5 4.5 0 010 9H6"/></svg></div>
+    <div><h1>Praça Nova</h1><p>Painel comercial · Varejo omnichannel</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-reg">Região</label><select id="f-reg"></select></div>
+  <div class="fld"><label for="f-uni">Unidade</label><select id="f-uni"></select></div>
+  <div class="fld"><label for="f-can">Canal</label><select id="f-can"></select></div>
+  <div class="fld"><label for="f-cat">Categoria</label><select id="f-cat"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos para filtrar o painel.</span></div>
+  <div class="empty" id="empty" role="status">Sem vendas para esta combinação de filtros (por exemplo, loja física com canal online). Ajuste ou limpe os filtros.</div>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c8"><div class="ph"><div><h2>Faturamento mensal</h2><p class="sub">Últimos 12 meses até o fim do período · linha tracejada = mesmo mês do ano anterior</p></div></div><div class="cv"><canvas id="ch-mes" role="img" aria-label="Faturamento mensal com comparação ao ano anterior"></canvas></div></div>
+    <div class="card panel c4"><h2>Faturamento por categoria</h2><p class="sub">Participação no período</p><div class="cv"><canvas id="ch-cat" role="img" aria-label="Participação das categorias no faturamento"></canvas></div></div>
+
+    <div class="card panel c6"><h2>Vendas por canal</h2><p class="sub">Faturamento mensal empilhado por canal</p><div class="cv"><canvas id="ch-can" role="img" aria-label="Faturamento mensal por canal"></canvas></div></div>
+    <div class="card panel c6"><h2>Ranking por região</h2><p class="sub">Faturamento no período; “Online” reúne site, app e marketplace</p><div class="cv"><canvas id="ch-reg" role="img" aria-label="Ranking de faturamento por região"></canvas></div></div>
+
+    <div class="card panel c8"><div class="ph"><div><h2>Curva ABC de produtos</h2><p class="sub">Faturamento por SKU (barras) e participação acumulada (linha)</p></div><div class="abc" id="abc"></div></div><div class="cv tall"><canvas id="ch-abc" role="img" aria-label="Curva ABC de produtos"></canvas></div></div>
+    <div class="card panel c4"><h2>Devoluções por motivo</h2><p class="sub">Valor devolvido no período</p><div class="cv tall"><canvas id="ch-dev" role="img" aria-label="Devoluções por motivo"></canvas></div></div>
+
+    <div class="card panel c7"><h2>Unidades: conversão × ticket médio</h2><p class="sub">Tamanho da bolha = faturamento. Clique numa bolha para filtrar a unidade.</p><div class="cv tall"><canvas id="ch-bol" role="img" aria-label="Conversão versus ticket médio por unidade"></canvas></div></div>
+    <div class="card panel c5"><h2>Saúde do estoque por categoria</h2><p class="sub">SKUs por situação · posição em 31/10/2026, rede toda</p><div class="cv tall"><canvas id="ch-est" role="img" aria-label="Situação do estoque por categoria"></canvas></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-p" aria-selected="true">Produtos</button><button role="tab" id="tab-u" aria-selected="false">Unidades</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="pg"><span id="pginfo" class="num"></span><div id="pgbtns"></div></div>
+    </div>
+  </section>
+</main>
+<footer>Praça Nova é uma empresa fictícia criada para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si; qualquer semelhança com empresas reais é coincidência.</footer>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

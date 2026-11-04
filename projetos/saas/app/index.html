@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vértice Cloud · Painel de receita recorrente e vendas B2B (demonstração)</title>
+<meta name="description" content="Dashboard interativo de SaaS B2B: MRR e ARR, funil comercial, pipeline, churn, LTV/CAC, coorte de retenção, metas por vendedor e previsão. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234338ca'/%3E%3Cpath d='M8 10l8 13 8-13' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7l7 11 7-11"/></svg></div>
+    <div><h1>Vértice Cloud</h1><p>Receita recorrente e vendas · SaaS B2B</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-reg">Região</label><select id="f-reg"></select></div>
+  <div class="fld"><label for="f-pl">Plano</label><select id="f-pl"></select></div>
+  <div class="fld"><label for="f-ch">Canal de aquisição</label><select id="f-ch"></select></div>
+  <div class="fld"><label for="f-rep">Vendedor</label><select id="f-rep"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos para filtrar o painel.</span></div>
+  <div class="empty" id="empty" role="status">Sem dados para esta combinação de filtros (por exemplo, um vendedor de outra região). Ajuste ou limpe os filtros.</div>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c7"><h2>Evolução do MRR por plano</h2><p class="sub">Receita recorrente mensal no fim de cada mês · clique numa barra para analisar o mês</p><div class="cv"><canvas id="ch-mrr" role="img" aria-label="MRR mensal empilhado por plano"></canvas></div></div>
+    <div class="card panel c5"><h2>Ponte do MRR no período</h2><p class="sub" id="br-sub">Do MRR inicial ao final: novos, expansão, contração e churn</p><div class="cv"><canvas id="ch-ponte" role="img" aria-label="Ponte do MRR: início, novos, expansão, contração, churn e fim"></canvas></div></div>
+
+    <div class="card panel c5"><h2>Funil comercial</h2><p class="sub" id="fn-sub">Lead → MQL → oportunidade → proposta → negociação → ganho</p><div class="cv tall"><canvas id="ch-funil" role="img" aria-label="Funil comercial por estágio"></canvas></div></div>
+    <div class="card panel c7"><h2>Pipeline aberto por estágio</h2><p class="sub" id="pp-sub">MRR potencial das oportunidades em andamento, por plano · clique para filtrar o plano</p><div class="cv tall"><canvas id="ch-pipe" role="img" aria-label="Pipeline aberto por estágio e plano"></canvas></div></div>
+
+    <div class="card panel c8">
+      <div class="ph"><div><h2>Coorte de retenção</h2><p class="sub" id="co-sub">Clientes que entraram em cada mês, acompanhados mês a mês desde a contratação</p></div>
+        <div class="seg" role="group" aria-label="Métrica da coorte"><button type="button" id="co-l" aria-pressed="true">Clientes</button><button type="button" id="co-r" aria-pressed="false">Receita (NRR)</button></div></div>
+      <div class="hm-w" id="coh"></div><div class="lg" id="co-lg"></div>
+    </div>
+    <div class="card panel c4"><h2>Churn mensal</h2><p class="sub">MRR perdido (barras) e taxa sobre o MRR do mês anterior (linhas)</p><div class="cv tall"><canvas id="ch-churn" role="img" aria-label="Churn mensal em reais e em percentual"></canvas></div></div>
+
+    <div class="card panel c7"><h2>Atingimento de meta por vendedor</h2><p class="sub">Novo MRR fechado ÷ meta do período · considera todos os planos e canais · clique para filtrar o vendedor</p><div class="cv tall"><canvas id="ch-meta" role="img" aria-label="Atingimento de meta por vendedor"></canvas></div></div>
+    <div class="card panel c5"><h2>LTV × CAC por canal</h2><p class="sub">Tamanho da bolha = novos clientes. Acima da linha tracejada, LTV ≥ 3× o CAC.</p><div class="cv tall"><canvas id="ch-ltv" role="img" aria-label="LTV versus CAC por canal de aquisição"></canvas></div></div>
+
+    <div class="card panel c12"><h2>Previsão de MRR</h2><p class="sub">Projeção de 6 meses a partir do fim do período, com cenários conservador, base e otimista</p><div class="fc-note" id="fc-note"></div><div class="cv tall"><canvas id="ch-prev" role="img" aria-label="Previsão de MRR para os próximos seis meses"></canvas></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-o" aria-selected="true">Oportunidades abertas</button><button role="tab" id="tab-c" aria-selected="false">Clientes</button><button role="tab" id="tab-v" aria-selected="false">Vendedores</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="pg"><span id="pginfo" class="num"></span><div id="pgbtns"></div></div>
+    </div>
+  </section>
+</main>
+<footer>Vértice Cloud é uma empresa fictícia criada para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si; qualquer semelhança com empresas reais é coincidência. LTV considera margem bruta de 80% e vida útil máxima de 48 meses.</footer>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/dados.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
