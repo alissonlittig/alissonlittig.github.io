@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Casa Tempero · Painel de restaurante e delivery (demonstração)</title>
+<meta name="description" content="Dashboard interativo de restaurante com salão e delivery: pedidos por canal, ticket médio, horário de pico, CMV, pratos campeões, curva ABC, tempo de entrega e avaliações. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b8431f'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='white' stroke-width='2.6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a2 2 0 004 0V3M9 12v9M17 21V3c-2.2 1.4-3 4-3 7v3h3"/></svg></div>
+    <div><h1>Casa Tempero</h1><p>Painel de operação · Salão e delivery</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-uni">Unidade</label><select id="f-uni"></select></div>
+  <div class="fld"><label for="f-can">Canal</label><select id="f-can"></select></div>
+  <div class="fld"><label for="f-cat">Categoria</label><select id="f-cat"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos para filtrar o painel.</span></div>
+  <div class="empty" id="empty" role="status">Sem vendas para esta combinação de filtros. Ajuste ou limpe os filtros.</div>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c8"><h2>Faturamento mensal</h2><p class="sub">Últimos 12 meses até o fim do período · linha tracejada = mesmo mês do ano anterior · clique numa barra para ver só aquele mês</p><div class="cv"><canvas id="ch-mes" role="img" aria-label="Faturamento mensal com comparação ao ano anterior"></canvas></div></div>
+    <div class="card panel c4"><h2>Faturamento por canal</h2><p class="sub">Salão, marketplace e app próprio</p><div class="cv"><canvas id="ch-can" role="img" aria-label="Participação dos canais no faturamento"></canvas></div></div>
+
+    <div class="card panel c7"><h2>Horário de pico</h2><p class="sub" id="heat-sub">Média de pedidos por hora, por dia da semana</p><div id="heat" class="heat" role="img" aria-label="Mapa de calor de pedidos por dia da semana e hora"></div><div class="heat-leg"><span>menos</span><i></i><span>mais pedidos</span></div></div>
+    <div class="card panel c5"><h2>CMV por categoria</h2><p class="sub">Custo da mercadoria vendida sobre o faturamento · período atual × anterior</p><div class="cv"><canvas id="ch-cmv" role="img" aria-label="CMV por categoria no período atual e anterior"></canvas></div></div>
+
+    <div class="card panel c8"><div class="ph"><div><h2>Curva ABC de pratos</h2><p class="sub">Faturamento por prato (barras) e participação acumulada (linha)</p></div><div class="abc" id="abc"></div></div><div class="cv tall"><canvas id="ch-abc" role="img" aria-label="Curva ABC de pratos"></canvas></div></div>
+    <div class="card panel c4"><h2>Avaliações dos clientes</h2><p class="sub" id="av-sub">Distribuição das notas</p><div class="cv tall"><canvas id="ch-av" role="img" aria-label="Distribuição das notas de avaliação"></canvas></div></div>
+
+    <div class="card panel c4"><h2>Tempo de entrega</h2><p class="sub">Média mensal em minutos · meta de 45 min</p><div class="cv tall"><canvas id="ch-ent" role="img" aria-label="Tempo médio de entrega por mês e canal"></canvas></div></div>
+    <div class="card panel c4"><h2>Unidades: entrega × nota</h2><p class="sub">Tamanho da bolha = faturamento. Clique para filtrar a unidade.</p><div class="cv tall"><canvas id="ch-bol" role="img" aria-label="Tempo de entrega versus nota por unidade"></canvas></div></div>
+    <div class="card panel c4"><h2>Quanto sobra de cada R$ 100</h2><p class="sub">Depois do CMV e das taxas do canal · clique para filtrar</p><div class="cv tall"><canvas id="ch-sob" role="img" aria-label="Custo, taxa e sobra por R$ 100 vendidos em cada canal"></canvas></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-p" aria-selected="true">Pratos</button><button role="tab" id="tab-u" aria-selected="false">Unidades</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="pg"><span id="pginfo" class="num"></span><div id="pgbtns"></div></div>
+    </div>
+  </section>
+</main>
+<footer>Casa Tempero e o marketplace “Pedeaí” são fictícios, criados para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si. Com uma categoria filtrada, pedidos e ticket passam a contar só os pedidos que levam aquela categoria; tempo de entrega e notas seguem o total. No cardápio, popularidade e margem são comparadas à média do filtro atual.</footer>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orla Serviços · Painel de RH e pessoas (demonstração)</title>
+<meta name="description" content="Dashboard interativo de RH: headcount, turnover, absenteísmo, tempo de contratação, funil de recrutamento, folha por área, diversidade, treinamentos e eNPS. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c3aed'/%3E%3Ccircle cx='16' cy='12' r='4.5' fill='white'/%3E%3Cpath d='M7 25c1-5 5-7 9-7s8 2 9 7' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.6 3-5.4 6-5.4s5.4 1.8 6 5.4"/><path d="M16 5a3.2 3.2 0 010 6M18.5 14.8c1.5.7 2.3 2.2 2.5 4.2"/></svg></div>
+    <div><h1>Orla Serviços</h1><p>Painel de RH e pessoas · 4 unidades</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-uni">Unidade</label><select id="f-uni"></select></div>
+  <div class="fld"><label for="f-are">Área</label><select id="f-are"></select></div>
+  <div class="fld"><label for="f-niv">Nível</label><select id="f-niv"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos e nas linhas da tabela para filtrar o painel.</span></div>
+  <div class="empty" id="empty" role="status">Sem colaboradores para esta combinação de filtros. Ajuste ou limpe os filtros.</div>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c8"><h2>Headcount e movimentação</h2><p class="sub">Últimos 12 meses até o fim do período · barras = admissões (acima) e desligamentos (abaixo) · linha = quadro no fim do mês</p><div class="cv"><canvas id="ch-hc" role="img" aria-label="Headcount mensal com admissões e desligamentos"></canvas></div></div>
+    <div class="card panel c4"><h2>Diversidade por nível</h2><p class="sub">% do quadro, média do período</p><div class="cv"><canvas id="ch-div" role="img" aria-label="Percentual de mulheres e de pessoas pretas e pardas por nível"></canvas></div></div>
+
+    <div class="card panel c6"><h2>Turnover por área</h2><p class="sub">Anualizado no período · voluntário (pedido de demissão) e involuntário</p><div class="cv"><canvas id="ch-tur" role="img" aria-label="Turnover anualizado por área"></canvas></div></div>
+    <div class="card panel c6"><h2>Absenteísmo mensal</h2><p class="sub">% de dias de trabalho perdidos por faltas e atestados · tracejado = ano anterior · pontilhado = meta 3,5%</p><div class="cv"><canvas id="ch-abs" role="img" aria-label="Absenteísmo mensal comparado ao ano anterior e à meta"></canvas></div></div>
+
+    <div class="card panel c5"><h2>Funil de recrutamento</h2><p class="sub">Do currículo recebido à contratação, no período</p><div class="fmeta" id="fmeta"></div><div class="cv"><canvas id="ch-fun" role="img" aria-label="Funil de recrutamento"></canvas></div></div>
+    <div class="card panel c7"><h2>eNPS por área</h2><p class="sub">Promotores menos detratores (pesquisa de pulso mensal) · verde ≥ 30 · âmbar 0 a 29 · vermelho &lt; 0</p><div class="cv"><canvas id="ch-enps" role="img" aria-label="eNPS por área"></canvas></div></div>
+
+    <div class="card panel c7"><h2>Folha por área</h2><p class="sub">Custo mensal de pessoal (salários, benefícios e encargos) · clique numa cor para filtrar a área</p><div class="cv tall"><canvas id="ch-fol" role="img" aria-label="Folha mensal por área"></canvas></div></div>
+    <div class="card panel c5"><h2>Treinamentos</h2><p class="sub">Horas por colaborador (barras) e % de colaboradores treinados no mês (linha)</p><div class="cv tall"><canvas id="ch-tre" role="img" aria-label="Horas de treinamento por colaborador e participação"></canvas></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-e" aria-selected="true">Equipes</button><button role="tab" id="tab-a" aria-selected="false">Áreas</button><button role="tab" id="tab-u" aria-selected="false">Unidades</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="pg"><span id="pginfo" class="num"></span><div id="pgbtns"></div></div>
+    </div>
+  </section>
+</main>
+<footer>Orla Serviços é uma empresa fictícia criada para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si; qualquer semelhança com empresas reais é coincidência.</footer>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

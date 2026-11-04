@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orla Pet · Painel de marketing digital (demonstração)</title>
+<meta name="description" content="Dashboard interativo de marketing digital: investimento x retorno por canal, CPC, CPA, ROAS, funil, campanhas, criativos, coorte de leads e metas do mês. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b3fd1'/%3E%3Ccircle cx='16' cy='20' r='5' fill='white'/%3E%3Ccircle cx='8.5' cy='14' r='2.4' fill='white'/%3E%3Ccircle cx='23.5' cy='14' r='2.4' fill='white'/%3E%3Ccircle cx='12.5' cy='9' r='2.4' fill='white'/%3E%3Ccircle cx='19.5' cy='9' r='2.4' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><ellipse cx="12" cy="15.5" rx="4.6" ry="4"/><circle cx="5.8" cy="11" r="2"/><circle cx="18.2" cy="11" r="2"/><circle cx="9.3" cy="6.4" r="2"/><circle cx="14.7" cy="6.4" r="2"/></svg></div>
+    <div><h1>Orla Pet</h1><p>Painel de marketing digital · Loja online de produtos pet</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-can">Canal</label><select id="f-can"></select></div>
+  <div class="fld"><label for="f-obj">Objetivo</label><select id="f-obj"></select></div>
+  <div class="fld"><label for="f-lin">Linha de produto</label><select id="f-lin"></select></div>
+  <div class="fld"><label for="f-cmp">Campanha</label><select id="f-cmp"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos e na tabela para filtrar o painel.</span></div>
+  <div class="empty" id="empty" role="status">Sem campanhas para esta combinação de filtros (por exemplo, retenção em canal de mídia paga). Ajuste ou limpe os filtros.</div>
+
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c8"><div class="ph"><div><h2>Investimento × receita</h2><p class="sub">Últimos 12 meses até o fim do período · barras = investimento, linha = receita atribuída, tracejado = ROAS (eixo à direita)</p></div></div><div class="cv"><canvas id="ch-mes" role="img" aria-label="Investimento, receita e ROAS por mês"></canvas></div></div>
+    <div class="card panel c4"><h2>Onde o dinheiro vai</h2><p class="sub">Participação de cada canal no investimento</p><div class="cv"><canvas id="ch-mix" role="img" aria-label="Participação dos canais no investimento"></canvas></div></div>
+
+    <div class="card panel c5"><h2>Funil de mídia</h2><p class="sub">Impressão → clique → lead → venda no período · escala logarítmica nas barras</p><div class="fn" id="funil"></div><p class="fn-note" id="fn-note"></p></div>
+    <div class="card panel c7"><h2>Custo por clique e por venda</h2><p class="sub">CPC (eixo esquerdo) e CPA (eixo direito) nos últimos 12 meses</p><div class="cv tall"><canvas id="ch-cus" role="img" aria-label="Evolução de CPC e CPA"></canvas></div></div>
+
+    <div class="card panel c4"><h2>ROAS por canal</h2><p class="sub">Receita atribuída para cada R$ 1 investido</p><div class="cv tall"><canvas id="ch-roas" role="img" aria-label="ROAS por canal"></canvas></div></div>
+    <div class="card panel c8"><h2>Campanhas: custo por venda × ROAS</h2><p class="sub">Tamanho da bolha = investimento. Clique numa bolha para filtrar a campanha.</p><div class="cv tall"><canvas id="ch-bol" role="img" aria-label="CPA versus ROAS por campanha"></canvas></div></div>
+
+    <div class="card panel c7"><h2>Coorte de leads</h2><p class="sub">% dos leads captados em cada mês que já virou venda, mês a mês (acumulado) · últimos 8 meses até o fim do período</p><div class="tw"><table class="coh" id="coh"></table></div></div>
+    <div class="card panel c5"><div class="ph"><div><h2>Metas do mês</h2><p class="sub" id="meta-sub"></p></div></div><div class="goals" id="goals"></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-c" aria-selected="true">Campanhas</button><button role="tab" id="tab-k" aria-selected="false">Criativos</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="pg"><span id="pginfo" class="num"></span><div id="pgbtns"></div></div>
+    </div>
+  </section>
+</main>
+<footer>Orla Pet é uma empresa fictícia criada para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si; qualquer semelhança com empresas reais é coincidência.</footer>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

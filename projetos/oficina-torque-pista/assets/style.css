@@ -1,0 +1,98 @@
+:root{--bg:#0e0f11;--bg2:#16181b;--line:#2a2d32;--tx:#ecebe6;--mut:#a3a69f;--acc:#ffb81c;--acc2:#ff5a1f;--ok:#7bd88f;--r:14px}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:16px/1.6 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,.disp{font-family:"Bahnschrift","Arial Narrow","Segoe UI",sans-serif;font-stretch:condensed;text-transform:uppercase;letter-spacing:.01em;line-height:1.05}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.5rem;border-radius:10px;font-weight:700;text-decoration:none;border:2px solid var(--acc);background:var(--acc);color:#16120a;cursor:pointer;font-size:1rem;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px -8px var(--acc)}
+.btn.ghost{background:transparent;color:var(--tx);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--acc);box-shadow:none}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+header{position:sticky;top:0;z-index:20;background:rgba(14,15,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:.6rem;font-size:1.35rem;text-decoration:none;font-weight:700}
+.logo svg{width:30px;height:30px}
+nav{display:flex;gap:1.6rem;align-items:center}
+nav a{text-decoration:none;color:var(--mut);font-size:.95rem}
+nav a:hover{color:var(--tx)}
+nav a.btn{padding:.5rem 1rem;color:#16120a;font-size:.9rem}
+.hero{padding:72px 0 64px;background:radial-gradient(900px 400px at 85% 10%,rgba(255,184,28,.12),transparent),repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,255,255,.015) 22px 44px)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.tag{display:inline-block;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:.2rem .8rem;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.1rem}
+h1{font-size:clamp(2.5rem,6vw,4.6rem)}
+h1 em{font-style:normal;color:var(--acc)}
+.hero p.lead{color:var(--mut);font-size:1.15rem;margin:1.2rem 0 1.8rem;max-width:34em}
+.hero .cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.facts{display:flex;gap:2rem;margin-top:2.2rem;flex-wrap:wrap}
+.facts b{display:block;font-size:1.9rem;color:var(--acc);font-family:"Bahnschrift",sans-serif}
+.facts span{color:var(--mut);font-size:.85rem}
+.quote{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.quote h2{font-size:1.6rem;margin-bottom:.3rem}
+.quote p.s{color:var(--mut);font-size:.9rem;margin-bottom:.4rem}
+label{display:block;font-size:.8rem;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin:.9rem 0 .3rem}
+input,select{width:100%;padding:.8rem 1rem;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--tx);font:inherit}
+input#placa{font:700 1.5rem "Consolas",monospace;text-align:center;letter-spacing:.2em;text-transform:uppercase;border:2px solid #fff;background:#f3f3ee;color:#111;border-top:14px solid #1f4fb3}
+input#placa::placeholder{color:#6b6b66}
+.quote .btn{width:100%;justify-content:center;margin-top:1.2rem}
+.err{color:#ff8a6b;font-size:.85rem;min-height:1.2em;margin-top:.4rem}
+section{padding:80px 0}
+section.alt{background:var(--bg2);border-block:1px solid var(--line)}
+.sh{margin-bottom:2.4rem;max-width:40em}
+.sh h2{font-size:clamp(2rem,4vw,3rem)}
+.sh p{color:var(--mut);margin-top:.6rem}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:border-color .2s,transform .2s}
+section.alt .card{background:var(--bg)}
+.card:hover{border-color:var(--acc);transform:translateY(-3px)}
+.card svg{width:44px;height:44px;color:var(--acc);margin-bottom:1rem}
+.card h3{font-size:1.4rem;margin-bottom:.4rem}
+.card p{color:var(--mut);font-size:.95rem}
+.card .pr{margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem;color:var(--mut)}
+.card .pr b{font:700 1.5rem "Bahnschrift",sans-serif;color:var(--tx)}
+.steps{counter-reset:s;grid-template-columns:repeat(4,1fr)}
+.steps .card::before{counter-increment:s;content:"0" counter(s);font:700 2.6rem "Bahnschrift",sans-serif;color:var(--acc);display:block;line-height:1;margin-bottom:.8rem}
+.offer{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.deal{border-radius:var(--r);padding:30px;border:1px solid var(--line);background:linear-gradient(135deg,#1d1a10,var(--bg2))}
+.deal.hot{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#1a1005;border:0}
+.deal h3{font-size:1.8rem}
+.deal .big{font:700 3.4rem "Bahnschrift",sans-serif;line-height:1;margin:.6rem 0}
+.deal ul{list-style:none;padding:0}
+.deal li{padding:.25rem 0 .25rem 1.4rem;position:relative}
+.deal li::before{content:"";position:absolute;left:0;top:.9rem;width:.7rem;height:2px;background:currentColor}
+.deal small{display:block;margin-top:1rem;opacity:.8}
+.guar{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
+.seal{width:190px;height:190px;border-radius:50%;border:3px solid var(--acc);display:grid;place-content:center;text-align:center;box-shadow:inset 0 0 0 8px var(--bg2),inset 0 0 0 10px var(--line)}
+.seal b{font:700 3.6rem "Bahnschrift",sans-serif;color:var(--acc);line-height:1}
+.seal span{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
+.guar h2{font-size:clamp(2rem,4vw,3rem)}
+.guar ul{list-style:none;padding:0;display:grid;gap:.5rem;margin-top:1rem}
+.guar li::before{content:"✓ ";color:var(--ok);font-weight:700}
+.stars{color:var(--acc);letter-spacing:.15em;margin-bottom:.6rem}
+.rev .who{margin-top:1rem;font-size:.85rem;color:var(--mut);display:flex;align-items:center;gap:.7rem}
+.av{width:38px;height:38px;border-radius:50%;background:var(--line);display:grid;place-content:center;font-weight:700;color:var(--acc)}
+.mapbox{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
+.map{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#15171a}
+.map svg{display:block;width:100%;height:100%;min-height:300px}
+.info{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.info h3{font-size:1.4rem;margin-bottom:.5rem}
+.hours{list-style:none;padding:0;margin:.6rem 0 1rem}
+.hours li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+details{background:var(--bg2);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+summary{padding:1rem 1.2rem;cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--acc);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{padding:0 1.2rem 1.1rem;color:var(--mut)}
+.final{text-align:center;background:linear-gradient(180deg,var(--bg),#1d1a10)}
+.final h2{font-size:clamp(2.2rem,5vw,3.8rem);margin-bottom:1rem}
+.final p{color:var(--mut);margin-bottom:1.6rem}
+footer{border-top:1px solid var(--line);padding:28px 0 90px;color:var(--mut);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.wa{position:fixed;right:18px;bottom:18px;z-index:30;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-content:center;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.wa svg{width:32px;height:32px}
+@media(max-width:900px){.hero .wrap,.offer,.mapbox,.guar{grid-template-columns:1fr}.g3,.steps{grid-template-columns:1fr 1fr}nav a:not(.btn){display:none}.seal{margin:auto}}
+@media(max-width:560px){.g3,.steps{grid-template-columns:1fr}section{padding:56px 0}.hero{padding:44px 0}.facts{gap:1.2rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
