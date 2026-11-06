@@ -1,0 +1,9 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "steps": [
+    { "step": "setSiteLanguage", "language": "pt_BR" },
+    { "step": "activateTheme", "themeFolderName": "tacho-cozinha" },
+    { "step": "runPHP", "code": "<?php require '/wordpress/wp-content/tacho-bp/seed.php';" }
+  ]
+}

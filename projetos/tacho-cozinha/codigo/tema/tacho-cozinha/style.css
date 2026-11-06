@@ -1,0 +1,12 @@
+/*
+Theme Name: Tacho Cozinha
+Theme URI: https://alissonlittig.github.io/
+Author: Alisson Littig
+Description: Custom theme for Tacho, a fictional Minas-style restaurant. Portfolio piece: menu as a custom post type with a section taxonomy, table bookings stored as private posts, nonce + honeypot + validated form, Customizer settings and theme.json design tokens.
+Version: 1.0.0
+Requires at least: 6.4
+Requires PHP: 7.4
+License: GPL-2.0-or-later
+Text Domain: tacho
+*/
+/* Visual styles live in assets/css/main.css (enqueued in functions.php). */
