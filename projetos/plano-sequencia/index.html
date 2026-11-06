@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plano Sequência: CRM para estúdio de audiovisual (JavaScript)</title>
+<meta name="description" content="CRM de exemplo para um estúdio fictício de audiovisual: projetos por etapa, valores e mudança de etapa. JavaScript puro, sem framework nem servidor.">
+<link rel="canonical" href="https://alissonlittig.github.io/projetos/plano-sequencia/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23b4532a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script type="module" src="assets/app.js"></script>
+</head>
+<body>
+<a class="pular" href="#quadro">Ir para o quadro</a>
+<header class="topo">
+  <a class="voltar" href="../../">&larr; Portfólio</a>
+  <h1>Plano Sequência</h1>
+  <p class="sub">CRM de exemplo para um estúdio audiovisual fictício. Projetos por etapa, valores e um resumo do que está em aberto.</p>
+</header>
+
+<main>
+  <dl class="resumo" id="resumo" aria-label="Resumo por etapa"></dl>
+
+  <details class="novo" open>
+    <summary>Novo projeto</summary>
+    <form id="novo" class="form" novalidate>
+      <label>Cliente <input name="cliente" maxlength="80" autocomplete="off" required></label>
+      <label>Projeto <input name="titulo" maxlength="80" autocomplete="off" required></label>
+      <label>Valor (R$) <input name="valor" type="number" min="0" step="0.01" inputmode="decimal" required></label>
+      <label>Etapa
+        <select name="etapa" id="f-etapa">
+          <option value="Lead" selected>Lead</option>
+          <option value="Orçamento">Orçamento</option>
+          <option value="Negociação">Negociação</option>
+          <option value="Produção">Produção</option>
+          <option value="Entregue">Entregue</option>
+        </select>
+      </label>
+      <button type="submit" class="btn">Adicionar</button>
+      <p id="aviso" class="aviso" role="status" aria-live="polite"></p>
+    </form>
+  </details>
+
+  <div id="quadro" class="quadro"></div>
+</main>
+
+<footer class="rodape">
+  <p>Dados fictícios, guardados só neste navegador. Feito em HTML, CSS e JavaScript puro, sem framework e sem servidor. Testes: <code>node --test teste.mjs</code>.</p>
+</footer>
+</body>
+</html>
