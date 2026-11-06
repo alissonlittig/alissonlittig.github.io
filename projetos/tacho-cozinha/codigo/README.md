@@ -45,6 +45,8 @@ On Windows Git Bash, prefix with `MSYS_NO_PATHCONV=1`.
 
 HTTP smoke test (pages, menu counts, and every validation rule of the booking form) against a running site:
 
+Needs a running WordPress with the theme active; the URL argument is required.
+
 ```bash
 python tests/smoke.py http://127.0.0.1:9420
 ```

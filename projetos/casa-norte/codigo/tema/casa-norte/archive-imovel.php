@@ -11,7 +11,7 @@ global $wp_query;
 <section class="page-head">
 	<div class="wrap">
 		<p class="eyebrow">Imóveis</p>
-		<h1>Encontre o seu</h1>
+		<h1>Encontre o seu imóvel</h1>
 		<?php get_template_part( 'template-parts/filtro' ); ?>
 	</div>
 </section>

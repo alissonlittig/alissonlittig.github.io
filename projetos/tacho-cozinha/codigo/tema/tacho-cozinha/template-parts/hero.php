@@ -12,7 +12,7 @@
 		<div class="hero-art" aria-hidden="true">
 			<?php echo tacho_art( 7 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<ul class="stats">
-				<li><strong>11</strong><span>anos de casa</span></li>
+				<li><strong>12</strong><span>anos de casa</span></li>
 				<li><strong>32</strong><span>lugares</span></li>
 				<li><strong>4,8</strong><span>nota média</span></li>
 			</ul>

@@ -46,6 +46,8 @@ On Windows Git Bash, prefix with `MSYS_NO_PATHCONV=1`.
 
 HTTP smoke test: pages, listing counts for each filter combination (including garbage input) and every validation rule of the lead form:
 
+Needs a running WordPress with the theme active; the URL argument is required.
+
 ```bash
 python tests/smoke.py http://127.0.0.1:9430
 ```
