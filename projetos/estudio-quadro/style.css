@@ -37,6 +37,15 @@ h2 { margin: 0 0 16px; font: 600 22px/1.2 var(--serif); }
 .etapa span { color: var(--muted); font-size: 14px; }
 .etapa strong { font: 600 30px/1 var(--serif); }
 .etapa small { color: var(--accent); font-weight: 600; font-size: 14px; }
+.etapa-topo { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.etapa-topo strong { font: 600 26px/1 var(--serif); }
+.cards { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+.cards:empty::before { content: "Nenhum ensaio"; color: var(--muted); font-size: 14px; }
+.card { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 2px; background: var(--card); font-size: 14px; }
+.card strong { font: 600 15px/1.3 var(--sans); }
+.card span { color: var(--muted); overflow-wrap: anywhere; }
+.card .num { color: var(--ink); }
+.card select { margin-top: 6px; font-size: 14px; padding: 6px 8px; justify-self: start; }
 
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
