@@ -1,0 +1,80 @@
+:root {
+  --paper: #f4f1ea;
+  --card: #fbfaf6;
+  --ink: #1f2a2c;
+  --muted: #646d6a;
+  --line: #d9d4c7;
+  --accent: #1d6b66;
+  --accent-ink: #ffffff;
+  --neg: #9a3b2e;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--sans); overflow-x: hidden; }
+#app { max-width: 1040px; margin: 0 auto; padding: 24px 16px 56px; }
+.carregando { color: var(--muted); }
+
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.marca { margin: 0; font: 600 28px/1 var(--serif); letter-spacing: .01em; }
+.aviso { margin: 0; color: var(--muted); font-size: 14px; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 24px; }
+.tabs button {
+  font: 500 15px/1 var(--sans); color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; cursor: pointer;
+}
+.tabs button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.tabs button:focus-visible, input:focus-visible, select:focus-visible, button[type="submit"]:focus-visible {
+  outline: 3px solid #9cc9c4; outline-offset: 2px;
+}
+
+main section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+h2 { margin: 0 0 16px; font: 600 22px/1.2 var(--serif); }
+
+.etapas { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.etapa { border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 4px; background: #fff; }
+.etapa span { color: var(--muted); font-size: 14px; }
+.etapa strong { font: 600 30px/1 var(--serif); }
+.etapa small { color: var(--accent); font-weight: 600; font-size: 14px; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+thead th { color: var(--muted); font-weight: 500; font-size: 14px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+select { font: 15px var(--sans); padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); max-width: 100%; }
+
+.dre { overflow-x: auto; }
+.dre tbody th { font-weight: 500; }
+.dre tr.sub th, .dre tr.sub td { color: var(--muted); }
+.dre tr.tot th, .dre tr.tot td { font-weight: 700; color: var(--accent); }
+.dre tr:last-child th, .dre tr:last-child td { border-bottom: 0; }
+
+.form { display: grid; gap: 14px; max-width: 460px; }
+.form label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+.form input { font: 16px var(--sans); color: var(--ink); padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; min-width: 0; }
+.form button[type="submit"] {
+  justify-self: start; font: 600 15px var(--sans); background: var(--accent); color: var(--accent-ink);
+  border: 0; border-radius: 999px; padding: 12px 20px; cursor: pointer;
+}
+.erro { margin: 0; color: var(--neg); font-size: 14px; min-height: 1.5em; }
+
+@media (max-width: 760px) {
+  .etapas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .etapa:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  main section { padding: 14px; }
+  table.lista thead { display: none; }
+  table.lista, table.lista tbody, table.lista tr, table.lista td { display: block; width: 100%; }
+  table.lista tr { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; background: #fff; }
+  table.lista td { border: 0; padding: 4px 0; display: flex; justify-content: space-between; gap: 12px; text-align: right; }
+  table.lista td::before { content: attr(data-label); color: var(--muted); font-size: 14px; text-align: left; }
+  table.lista td.num { white-space: normal; }
+}
+@media (max-width: 420px) {
+  .tabs button { padding: 9px 12px; font-size: 14px; }
+}
+.unid { margin: -8px 0 12px; color: var(--muted); font-size: 14px; }
+@media (max-width: 760px) {
+  .dre th, .dre td { padding: 10px 4px; font-size: 14px; }
+  .dre thead th:first-child, .dre tbody th { width: 84px; padding-right: 6px; }
+}
