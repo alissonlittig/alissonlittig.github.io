@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retorno — CRM de clínica de estética (demo)</title>
+<meta name="description" content="Demo de CRM para clínica de estética: controle de retornos, receita recorrente e carteira de clientes. Dados fictícios, salvos no navegador.">
+<style>
+:root{--bg:#f6f3ee;--card:#fff;--ink:#23201c;--mut:#6b655c;--line:#e4ded4;--sage:#3f5d4c;--sage2:#e3ece6;--warn:#a4571a;--warnbg:#fbeedd;--bad:#9b2c2c;--badbg:#f9e3e3}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:20px clamp(16px,4vw,48px);border-bottom:1px solid var(--line);background:var(--card)}
+h1{font:600 24px/1 Georgia,serif;margin:0;letter-spacing:.01em}h1 span{color:var(--sage)}
+.sub{color:var(--mut);font-size:13px;margin:4px 0 0}
+main{padding:24px clamp(16px,4vw,48px);max-width:1200px;margin:auto}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:22px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.kpi b{display:block;font:600 28px/1.2 Georgia,serif}.kpi small{color:var(--mut)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+input,select,button{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+input[type=search]{flex:1;min-width:180px}
+button{cursor:pointer;background:var(--sage);color:#fff;border-color:var(--sage);font-weight:600}
+button.ghost{background:#fff;color:var(--sage)}
+:focus-visible{outline:3px solid #7aa38c;outline-offset:2px}
+.tw{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);cursor:pointer;user-select:none}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12.5px;font-weight:600}
+.ok{background:var(--sage2);color:var(--sage)}.soon{background:var(--warnbg);color:var(--warn)}.late{background:var(--badbg);color:var(--bad)}
+dialog{border:0;border-radius:14px;padding:24px;width:min(420px,92vw)}dialog::backdrop{background:#0006}
+dialog label{display:block;margin:10px 0 4px;font-size:13px;color:var(--mut)}dialog input,dialog select{width:100%}
+.row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.note{color:var(--mut);font-size:13px;margin-top:16px}
+@media(max-width:560px){h1{font-size:21px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{padding:12px}.kpi b{font-size:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Retor<span>no</span></h1><p class="sub">CRM de clínica de estética · demo com dados fictícios</p></div>
+  <button id="novo">+ Novo cliente</button>
+</header>
+<main>
+  <section class="kpis" aria-label="Indicadores">
+    <div class="kpi"><small>Clientes ativos</small><b id="k1">0</b></div>
+    <div class="kpi"><small>Retornos atrasados</small><b id="k2">0</b></div>
+    <div class="kpi"><small>Vencem em 15 dias</small><b id="k3">0</b></div>
+    <div class="kpi"><small>Receita mensal prevista</small><b id="k4">R$ 0</b></div>
+  </section>
+  <div class="bar">
+    <input type="search" id="q" placeholder="Buscar cliente ou procedimento" aria-label="Buscar">
+    <select id="f" aria-label="Filtrar situação"><option value="">Todas as situações</option><option value="late">Atrasados</option><option value="soon">Vencem em 15 dias</option><option value="ok">Em dia</option></select>
+  </div>
+  <div class="tw"><table><thead><tr>
+    <th data-k="nome">Cliente</th><th data-k="proc">Procedimento</th><th data-k="dias">Próximo retorno</th><th data-k="valor">Valor mensal</th><th>Situação</th></tr></thead>
+    <tbody id="tb"></tbody></table></div>
+  <p class="note">Clique no título da coluna para ordenar. Os dados ficam só no seu navegador (localStorage); nada é enviado.</p>
+</main>
+<dialog id="dlg"><form method="dialog" id="fm">
+  <h2 style="margin:0;font:600 20px Georgia,serif">Novo cliente</h2>
+  <label for="n">Nome</label><input id="n" required maxlength="60">
+  <label for="p">Procedimento</label><select id="p"><option>Limpeza de pele</option><option>Drenagem</option><option>Peeling</option><option>Massagem modeladora</option><option>Depilação a laser</option></select>
+  <label for="d">Dias até o retorno (negativo = atrasado)</label><input id="d" type="number" min="-365" max="365" value="30" required>
+  <label for="v">Valor mensal (R$)</label><input id="v" type="number" min="0" max="20000" value="180" required>
+  <div class="row"><button type="button" class="ghost" id="cx">Cancelar</button><button>Salvar</button></div>
+</form></dialog>
+<script>
+const KEY="retorno-demo-v1";
+const seed=[["Helena Duarte","Limpeza de pele",-6,220],["Marta Quintela","Drenagem",4,340],["Camila Rocha","Peeling",12,280],["Beatriz Lemos","Massagem modeladora",25,260],["Sofia Andrade","Depilação a laser",-2,190],["Paula Nogueira","Limpeza de pele",38,220],["Renata Vilar","Drenagem",9,340],["Letícia Prado","Peeling",51,280],["Aline Bastos","Massagem modeladora",-11,260],["Juliana Teles","Depilação a laser",19,190]].map(([nome,proc,dias,valor])=>({nome,proc,dias,valor}));
+let data;try{data=JSON.parse(localStorage.getItem(KEY))||seed}catch(e){data=seed}
+let sort={k:"dias",asc:true};
+const $=id=>document.getElementById(id);
+const sit=d=>d<0?"late":d<=15?"soon":"ok";
+const lab={late:"Atrasado",soon:"Em breve",ok:"Em dia"};
+const brl=n=>n.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(){
+  $("k1").textContent=data.length;
+  $("k2").textContent=data.filter(c=>c.dias<0).length;
+  $("k3").textContent=data.filter(c=>c.dias>=0&&c.dias<=15).length;
+  $("k4").textContent=brl(data.reduce((s,c)=>s+c.valor,0));
+  const q=$("q").value.trim().toLowerCase(),f=$("f").value;
+  const rows=data.filter(c=>(!q||(c.nome+" "+c.proc).toLowerCase().includes(q))&&(!f||sit(c.dias)==f))
+    .sort((a,b)=>(a[sort.k]>b[sort.k]?1:a[sort.k]<b[sort.k]?-1:0)*(sort.asc?1:-1));
+  $("tb").innerHTML=rows.map(c=>{const s=sit(c.dias);return `<tr><td>${esc(c.nome)}</td><td>${esc(c.proc)}</td><td>${c.dias<0?`há ${-c.dias} dias`:c.dias===0?"hoje":`em ${c.dias} dias`}</td><td>${brl(c.valor)}</td><td><span class="pill ${s}">${lab[s]}</span></td></tr>`}).join("")||`<tr><td colspan="5">Nenhum cliente encontrado.</td></tr>`;
+}
+document.querySelectorAll("th[data-k]").forEach(th=>th.onclick=()=>{sort={k:th.dataset.k,asc:sort.k==th.dataset.k?!sort.asc:true};render()});
+$("q").oninput=$("f").onchange=render;
+$("novo").onclick=()=>$("dlg").showModal();$("cx").onclick=()=>$("dlg").close();
+$("fm").onsubmit=()=>{data.push({nome:$("n").value.trim(),proc:$("p").value,dias:+$("d").value,valor:+$("v").value});localStorage.setItem(KEY,JSON.stringify(data));$("fm").reset();render()};
+render();
+</script>
+</body>
+</html>

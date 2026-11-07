@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oliva Café — torrefação artesanal (demo)</title>
+<meta name="description" content="Landing page de exemplo para uma torrefação artesanal de cafés especiais. Marca fictícia.">
+<style>
+:root{--ink:#201a15;--cream:#f7f1e6;--olive:#4a5a2c;--clay:#b5532b;--mut:#5f554a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:17px/1.65 "Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--cream)}
+a{color:inherit}:focus-visible{outline:3px solid var(--clay);outline-offset:3px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px clamp(18px,5vw,64px)}
+.logo{font:700 24px Georgia,serif;text-decoration:none}.logo i{color:var(--clay)}
+nav a.cta,.btn{background:var(--ink);color:var(--cream);padding:12px 22px;border-radius:99px;text-decoration:none;font-weight:600;font-size:15px;display:inline-block}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:40px clamp(18px,5vw,64px) 72px;max-width:1280px;margin:auto}
+h1{font:700 clamp(38px,6vw,68px)/1.04 Georgia,serif;margin:0 0 20px;letter-spacing:-.02em}
+h1 em{color:var(--clay)}
+.lead{font-size:19px;color:var(--mut);max-width:34em}
+.art{aspect-ratio:4/5;border-radius:200px 200px 24px 24px;background:radial-gradient(circle at 50% 38%,#d9a066 0 14%,transparent 15%),radial-gradient(circle at 50% 38%,#6b3b1f 0 34%,transparent 35%),linear-gradient(160deg,var(--olive),#2d3a18);position:relative;overflow:hidden}
+.art::after{content:"";position:absolute;left:50%;top:22%;width:6px;height:32%;background:var(--cream);border-radius:6px;transform:translateX(-50%) rotate(8deg);opacity:.9}
+section{padding:72px clamp(18px,5vw,64px);max-width:1280px;margin:auto}
+h2{font:700 clamp(28px,4vw,42px)/1.15 Georgia,serif;margin:0 0 32px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.c{background:#fff;border-radius:18px;padding:26px;border:1px solid #e6dccb}
+.c b{font:700 22px Georgia,serif;display:block}.c small{color:var(--clay);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+.c p{color:var(--mut);margin:10px 0 16px}.c .p{font-weight:700;color:var(--ink)}
+.band{background:var(--olive);color:var(--cream);max-width:none}
+.band div{max-width:1280px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+.band b{font:700 44px Georgia,serif;display:block}
+footer{padding:36px clamp(18px,5vw,64px);color:var(--mut);font-size:14px;text-align:center}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-bottom:40px}.art{max-width:300px;margin:auto;order:-1}section{padding:48px 18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="#">Oliva<i>.</i></a><a class="cta" href="#assinar">Assinar</a></nav>
+<header class="hero">
+  <div>
+    <h1>Café torrado <em>na semana</em> em que chega à sua mesa.</h1>
+    <p class="lead">Lotes pequenos de produtores do Cerrado Mineiro e da Mantiqueira, torrados sob encomenda e enviados em até 48 horas.</p>
+    <p><a class="btn" href="#assinar">Receber o primeiro pacote</a></p>
+  </div>
+  <div class="art" role="img" aria-label="Ilustração de um grão de café"></div>
+</header>
+<section id="cafes">
+  <h2>Três cafés para começar</h2>
+  <div class="cards">
+    <article class="c"><small>Cerrado Mineiro</small><b>Pôr do Sol</b><p>Chocolate ao leite, amêndoa e final longo. Torra média.</p><span class="p">R$ 42 · 250 g</span></article>
+    <article class="c"><small>Mantiqueira</small><b>Serra Alta</b><p>Frutas amarelas, mel e acidez cítrica delicada. Torra clara.</p><span class="p">R$ 48 · 250 g</span></article>
+    <article class="c"><small>Sul de Minas</small><b>Casa Velha</b><p>Cacau, caramelo e corpo cheio. Ótimo no espresso. Torra média-escura.</p><span class="p">R$ 39 · 250 g</span></article>
+  </div>
+</section>
+<section class="band"><div>
+  <p><b>48 h</b>da torra até o envio</p><p><b>12</b>produtores parceiros</p><p><b>100%</b>grãos arábica especiais</p>
+</div></section>
+<section id="assinar">
+  <h2>Assinatura mensal, sem fidelidade</h2>
+  <p class="lead">Escolha o café, a moagem e a frequência. Pause ou cancele quando quiser.</p>
+  <p><a class="btn" href="#cafes">Ver os cafés</a></p>
+</section>
+<footer>Oliva Café é uma marca fictícia — página de demonstração de portfólio. Os botões não realizam compras.</footer>
+</body>
+</html>
