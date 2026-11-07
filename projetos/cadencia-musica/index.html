@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadência — Escola de Música · Aula experimental gratuita</title>
+<meta name="description" content="Piano, violão, bateria, canto e violino em turmas pequenas. Agende sua aula experimental gratuita de 40 minutos na Cadência. Site de demonstração com dados fictícios.">
+<meta name="theme-color" content="#14110f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+
+<header class="top" id="top">
+  <a class="brand" href="#top" aria-label="Cadência, início">
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 20c3-8 5 6 8-4s5 6 8-2" fill="none" stroke="var(--brass)" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>Cadência</span>
+  </a>
+  <nav aria-label="Principal">
+    <a href="#instrumentos">Instrumentos</a>
+    <a href="#metodo">Método</a>
+    <a href="#professores">Professores</a>
+    <a href="#planos">Planos</a>
+    <a href="#faq">Dúvidas</a>
+  </nav>
+  <a class="btn btn-sm" href="#agendar">Aula experimental</a>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Escola de música · Curitiba</p>
+    <h1>Todo mundo tem uma <em>música</em> para tocar.</h1>
+    <p class="lead">Turmas de até 4 alunos, professores que ainda sobem em palco e uma primeira aula de 40 minutos por nossa conta. Você chega sem saber nada e sai tocando.</p>
+    <div class="cta-row">
+      <a class="btn" href="#agendar">Agendar aula grátis</a>
+      <a class="link-arrow" href="#metodo">Como funciona</a>
+    </div>
+    <ul class="proof" aria-label="Números da escola">
+      <li><b>412</b><span>alunos ativos</span></li>
+      <li><b>9</b><span>anos de estrada</span></li>
+      <li><b>4,9</b><span>nota média das aulas</span></li>
+    </ul>
+  </div>
+  <div class="hero-play" aria-labelledby="play-h">
+    <h2 id="play-h" class="eyebrow">Experimente agora</h2>
+    <p class="hint">Toque nas teclas ou use <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> <kbd>F</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>J</kbd> <kbd>K</kbd>.</p>
+    <div class="keys" id="keys" role="group" aria-label="Teclado de uma oitava"></div>
+    <p class="note" id="note" aria-live="polite">Dó, Ré, Mi… você já está tocando.</p>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 C 100 10, 200 110, 300 60 S 500 10, 600 60 S 800 110, 900 60 S 1100 10, 1200 60" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M0 70 C 120 30, 220 100, 330 70 S 520 30, 640 70 S 820 100, 930 70 S 1110 30, 1200 70" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/></svg>
+</section>
+
+<section class="sec" id="instrumentos">
+  <header class="sec-head"><p class="eyebrow">01 · Instrumentos</p><h2>Cinco salas, cinco jeitos de começar.</h2></header>
+  <div class="grid-inst" id="inst-grid"></div>
+</section>
+
+<section class="sec dark" id="metodo">
+  <header class="sec-head"><p class="eyebrow">02 · Método</p><h2>Do primeiro acorde ao primeiro show em 12 semanas.</h2></header>
+  <ol class="steps">
+    <li><span class="n">1</span><h3>Aula experimental</h3><p>40 minutos com o professor do instrumento. Você toca, ele ouve, e juntos definem o que você quer tirar da música.</p></li>
+    <li><span class="n">2</span><h3>Plano sob medida</h3><p>Repertório escolhido por você, dividido em metas de duas semanas. Sem apostila genérica.</p></li>
+    <li><span class="n">3</span><h3>Roda de sábado</h3><p>Todo mês os alunos tocam entre si, em clima de sala de estar. É onde o medo de palco acaba.</p></li>
+  </ol>
+</section>
+
+<section class="sec" id="professores">
+  <header class="sec-head"><p class="eyebrow">03 · Professores</p><h2>Quem ensina também toca.</h2></header>
+  <div class="teachers" id="teachers"></div>
+</section>
+
+<section class="sec band" id="agendar">
+  <header class="sec-head"><p class="eyebrow">04 · Aula experimental</p><h2>Escolha o dia. A gente guarda a sala.</h2></header>
+  <div class="book">
+    <form id="form" novalidate autocomplete="off" aria-describedby="demo-note">
+      <fieldset>
+        <legend>1 · Instrumento</legend>
+        <div class="chips" id="f-inst" role="radiogroup" aria-label="Instrumento"></div>
+        <p class="err" id="e-instrument" role="alert"></p>
+      </fieldset>
+      <fieldset>
+        <legend>2 · Dia</legend>
+        <div class="chips days" id="f-day" role="radiogroup" aria-label="Dia"></div>
+        <p class="err" id="e-day" role="alert"></p>
+      </fieldset>
+      <fieldset>
+        <legend>3 · Horário</legend>
+        <div class="chips times" id="f-time" role="radiogroup" aria-label="Horário"></div>
+        <p class="err" id="e-time" role="alert"></p>
+      </fieldset>
+      <fieldset class="fields">
+        <legend>4 · Seus dados</legend>
+        <label>Nome completo<input name="name" id="name" autocomplete="name" placeholder="Ex.: Ana Souza"><span class="err" id="e-name" role="alert"></span></label>
+        <label>WhatsApp<input name="phone" id="phone" inputmode="tel" autocomplete="tel" placeholder="(41) 90000-0000"><span class="err" id="e-phone" role="alert"></span></label>
+      </fieldset>
+      <button class="btn" type="submit">Confirmar aula grátis</button>
+      <p class="demo" id="demo-note">Demonstração: nada é enviado nem salvo. Os horários são fictícios.</p>
+    </form>
+    <aside class="ticket" id="ticket" aria-live="polite">
+      <p class="eyebrow">Seu ingresso</p>
+      <p class="ticket-main" id="t-main">Escolha instrumento, dia e horário.</p>
+      <dl>
+        <div><dt>Professor</dt><dd id="t-teacher">—</dd></div>
+        <div><dt>Quando</dt><dd id="t-when">—</dd></div>
+        <div><dt>Duração</dt><dd>40 min · grátis</dd></div>
+        <div><dt>Traga</dt><dd>Só você. O instrumento é nosso.</dd></div>
+      </dl>
+      <p class="ok" id="t-ok" hidden></p>
+    </aside>
+  </div>
+</section>
+
+<section class="sec" id="planos">
+  <header class="sec-head"><p class="eyebrow">05 · Planos</p><h2>Preço claro, sem matrícula.</h2></header>
+  <div class="plans">
+    <article><h3>Essencial</h3><p class="price">R$ 249<small>/mês</small></p><ul><li>4 aulas em turma de até 4</li><li>1 instrumento</li><li>Roda de sábado</li></ul><a class="btn btn-line" href="#agendar">Começar pela experimental</a></article>
+    <article class="hi"><span class="tag">Mais escolhido</span><h3>Individual</h3><p class="price">R$ 389<small>/mês</small></p><ul><li>4 aulas particulares de 50 min</li><li>Repertório 100% seu</li><li>Gravação das aulas para estudar</li></ul><a class="btn" href="#agendar">Começar pela experimental</a></article>
+    <article><h3>Família</h3><p class="price">R$ 599<small>/mês</small></p><ul><li>Até 3 pessoas da mesma casa</li><li>Instrumentos diferentes</li><li>Apresentação de fim de ano</li></ul><a class="btn btn-line" href="#agendar">Começar pela experimental</a></article>
+  </div>
+</section>
+
+<section class="sec" id="vozes">
+  <header class="sec-head"><p class="eyebrow">06 · Alunos</p><h2>O que eles dizem (depois de errar bastante).</h2></header>
+  <div class="quotes">
+    <blockquote><p>Aos 47 anos achei que era tarde. Na terceira aula eu já tocava a música do meu casamento.</p><footer>Renato, aluno de violão <em>(depoimento fictício)</em></footer></blockquote>
+    <blockquote><p>Minha filha tinha vergonha de cantar. Hoje ela pede para abrir a roda de sábado.</p><footer>Cláudia, mãe da Bia <em>(depoimento fictício)</em></footer></blockquote>
+    <blockquote><p>A sala da bateria é isolada de verdade. Dá para estudar à noite sem a vizinhança reclamar.</p><footer>Diego, aluno de bateria <em>(depoimento fictício)</em></footer></blockquote>
+  </div>
+</section>
+
+<section class="sec narrow" id="faq">
+  <header class="sec-head"><p class="eyebrow">07 · Dúvidas</p><h2>O que todo mundo pergunta.</h2></header>
+  <details><summary>Preciso saber ler partitura?</summary><p>Não. Ensinamos leitura aos poucos, só quando ela ajuda você a tocar o que quer.</p></details>
+  <details><summary>A aula experimental tem algum compromisso?</summary><p>Nenhum. Não pedimos cartão e você não precisa voltar. Se gostar, escolhe um plano na hora.</p></details>
+  <details><summary>Crianças podem fazer?</summary><p>A partir de 6 anos no piano e no violino, 8 nos demais instrumentos. Um responsável acompanha a primeira aula.</p></details>
+  <details><summary>Preciso ter o instrumento em casa?</summary><p>Para começar, não. Emprestamos por 30 dias. Ajudamos você a escolher o seu quando chegar a hora.</p></details>
+  <details><summary>Posso remarcar aulas?</summary><p>Sim, com 12 horas de antecedência e sem custo.</p></details>
+</section>
+</main>
+
+<footer class="foot">
+  <div>
+    <p class="brand-line">Cadência</p>
+    <p>Rua das Palmeiras, 128 · Curitiba, PR<br>Seg a sáb, 9h às 21h</p>
+  </div>
+  <p class="legal">Projeto de portfólio. A escola, os professores, endereço, números e depoimentos são fictícios. Código aberto em <a href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/projetos/cadencia-musica">GitHub</a>.</p>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
