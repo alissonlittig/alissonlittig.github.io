@@ -148,3 +148,25 @@ h2{font-weight:800;font-stretch:75%;text-transform:uppercase;font-size:clamp(36p
 .faq details p{color:#cfcec7;padding:0 0 20px;max-width:42em}
 @media(max-width:1000px){.pkgs{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.pkgs{grid-template-columns:1fr}}
+
+/* hero extra, clientes, filtro */
+.value{margin:22px auto 0;max-width:30em;font-weight:600;font-size:clamp(20px,2.2vw,26px);line-height:1.35}
+.clients{padding-bottom:clamp(40px,6vw,72px)}
+.clients .fict{margin-top:0}
+.cl-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cl{display:flex;flex-direction:column;gap:6px;text-align:center;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,2.6vw,32px)}
+.cl:hover{border-color:var(--ac)}
+.cl b{font-weight:800;font-stretch:75%;text-transform:uppercase;font-size:clamp(24px,2.6vw,32px);line-height:1.1}
+.cl span{color:#cfcec7}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.filt{max-width:880px;margin:0 auto clamp(28px,4vw,44px);text-align:center}
+.filt input{width:100%;min-height:54px;padding:0 24px;border-radius:99px;border:1.5px solid var(--line);background:var(--panel);color:var(--tx);font:500 17px var(--sans)}
+.filt input:focus-visible{border-color:var(--ac)}
+.fchips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.fchips button{font:700 14px var(--sans);min-height:44px;padding:0 16px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--mut);cursor:pointer}
+.fchips button:hover{color:var(--tx);border-color:var(--tx)}
+.fchips button[aria-pressed="true"]{background:var(--ac);border-color:var(--ac);color:#0b0b0b}
+.fcount{color:var(--mut);margin-top:12px;min-height:1.6em;font-size:15px}
+.filtering .fict,.filtering .tabs{display:none}
+.tile[hidden],.grid[hidden]{display:none}
+@media(max-width:700px){.cl-row{grid-template-columns:1fr}}
