@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brasa · CRM para buffet de eventos (demo)</title>
+<meta name="description" content="Demo de CRM para buffet de eventos: quadro de propostas, filtro por tipo de evento e receita prevista. Dados fictícios.">
+<style>
+:root{--bg:#14110f;--card:#1e1a17;--line:#352d27;--tx:#f3ece4;--mu:#a89d92;--ac:#e8743b;--ac2:#f2b66d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,Segoe UI,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--line)}
+h1{font:600 22px Georgia,serif;margin:0;letter-spacing:.02em}h1 span{color:var(--ac)}
+.sub{color:var(--mu);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:16px 24px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font-size:22px;color:var(--ac2)}.kpi small{color:var(--mu)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;padding:0 24px 12px}
+input,select,button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+button{cursor:pointer}button.p{background:var(--ac);border-color:var(--ac);color:#1a0f08;font-weight:600}
+button:disabled{opacity:.35;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,.c:focus-visible{outline:2px solid var(--ac2);outline-offset:2px}
+.board{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:12px;padding:0 24px 28px;overflow-x:auto}
+.col{background:#191512;border:1px solid var(--line);border-radius:12px;padding:10px;min-height:260px}
+.col h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin:2px 4px 10px;display:flex;justify-content:space-between}
+.col.over{border-color:var(--ac)}
+.c{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:grab}
+.c b{display:block}.c small{color:var(--mu)}.c .v{color:var(--ac2);font-weight:600}
+.c .mv{display:flex;gap:6px;margin-top:8px}.c .mv button{padding:2px 9px;font-size:13px}
+.c .note{margin-top:6px;font-size:13px;color:var(--mu)}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;border:1px solid var(--ac);color:var(--ac);margin-top:4px}
+dialog{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:14px;padding:20px;width:min(420px,92vw)}
+dialog::backdrop{background:#000a}label{display:block;margin:8px 0 2px;font-size:13px;color:var(--mu)}dialog input,dialog select{width:100%}
+footer{padding:0 24px 24px;color:var(--mu);font-size:12px}
+@media(max-width:700px){.board{grid-template-columns:repeat(5,82vw)}header,.kpis,.bar,.board,footer{padding-left:14px;padding-right:14px}}
+</style>
+</head>
+<body>
+<header><div><h1><span>Brasa</span> · CRM de eventos</h1><div class="sub">Buffet de casamentos, aniversários e corporativo · demo com dados fictícios</div></div>
+<button class="p" id="novo">+ Novo lead</button></header>
+<section class="kpis" id="kpis" aria-label="Resumo"></section>
+<div class="bar"><input id="q" type="search" placeholder="Buscar cliente ou tipo de evento" aria-label="Buscar" style="flex:1;min-width:200px"><select id="tp" aria-label="Filtrar por tipo"><option value="">Todos os tipos</option><option>Casamento</option><option>Aniversário</option><option>Corporativo</option><option>Formatura</option></select></div>
+<main class="board" id="board"></main>
+<dialog id="dlg"><form method="dialog" id="f"><h2 style="margin:0 0 6px;font:600 18px Georgia,serif">Novo lead</h2>
+<label for="n">Cliente</label><input id="n" required><label for="t">Tipo de evento</label><select id="t"><option>Casamento</option><option>Aniversário</option><option>Corporativo</option><option>Formatura</option></select>
+<label for="g">Convidados</label><input id="g" type="number" min="10" value="80" required><label for="d">Data do evento</label><input id="d" type="date" required>
+<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button type="button" id="x">Cancelar</button><button class="p">Salvar</button></div></form></dialog>
+<footer>Os dados ficam só no seu navegador (localStorage). Valor estimado = convidados × preço por pessoa do tipo de evento. Arraste os cartões ou use as setas.</footer>
+<script>
+var ST=["Novo lead","Orçamento","Degustação","Contrato","Realizado"],PP={Casamento:310,"Aniversário":170,Corporativo:140,Formatura:220},K="brasa-crm-v1";
+var brl=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0})};
+function dt(n){var d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+var seed=[["Camila e Rafael","Casamento",140,0,120,"Quer cerimônia no jardim"],["Studio Orbe","Corporativo",90,0,25,"Confraternização de fim de ano"],["Helena (15 anos)","Aniversário",60,1,45,"Tema florestal, 2 opções veganas"],["Turma Direito","Formatura",200,1,150,"Pediu 3 propostas"],["Marcos e Bia","Casamento",110,2,90,"Degustação sábado 11h"],["Clínica Vitta","Corporativo",70,2,30,"Coffee break + almoço"],["Joana (40 anos)","Aniversário",50,3,38,"Sinal pago"],["Léo e Dani","Casamento",160,3,200,"Contrato assinado, falta cardápio final"],["Banco Meridiano","Corporativo",120,4,-12,"Avaliação 5 estrelas"],["Família Prado","Aniversário",45,4,-30,"Indicou 2 amigos"]];
+var L;try{L=JSON.parse(localStorage.getItem(K)||"null")}catch(e){L=null}
+L=L||seed.map(function(s,i){return{id:i+1,n:s[0],t:s[1],g:s[2],s:s[3],d:dt(s[4]),note:s[5]}});
+function save(){try{localStorage.setItem(K,JSON.stringify(L))}catch(e){}}
+function val(l){return l.g*PP[l.t]}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function render(){
+ var q=document.getElementById("q").value.toLowerCase(),tp=document.getElementById("tp").value;
+ var F=L.filter(function(l){return(!tp||l.t===tp)&&(!q||(l.n+" "+l.t).toLowerCase().indexOf(q)>-1)});
+ var aberto=F.filter(function(l){return l.s<3}),fech=F.filter(function(l){return l.s>=3});
+ var conv=F.length?Math.round(100*fech.length/F.length):0;
+ document.getElementById("kpis").innerHTML=[["Leads em andamento",aberto.length],["Receita prevista (contratos)",brl(fech.reduce(function(a,l){return a+val(l)},0))],["Pipeline em aberto",brl(aberto.reduce(function(a,l){return a+val(l)},0))],["Conversão",conv+"%"]].map(function(k){return'<div class="kpi"><b>'+k[1]+"</b><small>"+k[0]+"</small></div>"}).join("");
+ document.getElementById("board").innerHTML=ST.map(function(name,i){var it=F.filter(function(l){return l.s===i}).sort(function(a,b){return a.d<b.d?-1:1});
+  return'<section class="col" data-s="'+i+'" aria-label="'+name+'"><h2>'+name+"<span>"+it.length+"</span></h2>"+it.map(function(l){
+   var dias=Math.round((new Date(l.d)-new Date(dt(0)))/864e5),hot=l.s<4&&dias>=0&&dias<=30;
+   return'<div class="c" draggable="true" tabindex="0" data-id="'+l.id+'"><b>'+esc(l.n)+"</b><small>"+esc(l.t)+" · "+l.g+" convidados</small><div class=\"v\">"+brl(val(l))+'</div><small>Evento em '+l.d.split("-").reverse().join("/")+"</small>"+(hot?'<br><span class="tag">menos de 30 dias</span>':"")+'<div class="note">'+esc(l.note||"")+'</div><div class="mv"><button data-m="-1" aria-label="Voltar etapa"'+(i==0?" disabled":"")+'>←</button><button data-m="1" aria-label="Avançar etapa"'+(i==4?" disabled":"")+">→</button></div></div>"}).join("")+"</section>"}).join("");
+}
+function mover(id,s){L.forEach(function(l){if(l.id==id&&s>=0&&s<5)l.s=s});save();render()}
+var B=document.getElementById("board");
+B.addEventListener("click",function(e){var b=e.target.closest("button[data-m]");if(!b)return;var c=b.closest(".c"),l=L.filter(function(x){return x.id==c.dataset.id})[0];mover(l.id,l.s+ +b.dataset.m)});
+B.addEventListener("dragstart",function(e){var c=e.target.closest(".c");if(c)e.dataTransfer.setData("text/plain",c.dataset.id)});
+B.addEventListener("dragover",function(e){var c=e.target.closest(".col");if(c){e.preventDefault();c.classList.add("over")}});
+B.addEventListener("dragleave",function(e){var c=e.target.closest(".col");if(c)c.classList.remove("over")});
+B.addEventListener("drop",function(e){var c=e.target.closest(".col");if(c){e.preventDefault();mover(e.dataTransfer.getData("text/plain"),+c.dataset.s)}});
+document.getElementById("q").oninput=render;document.getElementById("tp").onchange=render;
+var dlg=document.getElementById("dlg");
+document.getElementById("novo").onclick=function(){document.getElementById("d").value=dt(60);dlg.showModal()};
+document.getElementById("x").onclick=function(){dlg.close()};
+document.getElementById("f").onsubmit=function(){L.push({id:Date.now(),n:document.getElementById("n").value.trim(),t:document.getElementById("t").value,g:+document.getElementById("g").value,s:0,d:document.getElementById("d").value,note:"Lead novo"});save();render();this.reset()};
+render();
+</script>
+</body>
+</html>
