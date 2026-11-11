@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raízes na Maré</title>
+<meta name="description" content="Protótipo acadêmico de app para jovens aprenderem e participarem da cultura caiçara. UFPR, Design da Informação. Não é um produto oficial do Instituto Raiz Caiçara.">
+<meta name="theme-color" content="#2A5099">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#app">Pular para o conteúdo</a>
+<div class="shell" data-mode="app">
+  <header class="top">
+    <svg class="logo" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#2A5099"/><path d="M0 20 Q5 16 10 20 T20 20 T30 20 V30 H0Z" fill="#F2B84B"/></svg>
+    Raízes na Maré
+  </header>
+  <main id="app" tabindex="-1"><noscript><p style="padding:20px">Este protótipo precisa de JavaScript para funcionar.</p></noscript></main>
+  <nav class="tabbar" id="tabbar" aria-label="Menu principal"></nav>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+<dialog id="dlg"></dialog>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
