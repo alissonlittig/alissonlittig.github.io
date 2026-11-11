@@ -1,0 +1,391 @@
+{
+  "name": "Support triage: classify, draft reply, ticket log, urgent alert",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "support-triage",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "fefa17b5-8487-55a5-84e4-28bbead86586",
+      "name": "Support webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        300
+      ],
+      "webhookId": "support-triage-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3256df3-dfd2-54fb-9003-a6c51b798d13",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "55a5bc0f-0aec-53fc-960f-0ff4b42e1011",
+              "name": "use_ai",
+              "value": "false",
+              "type": "string"
+            },
+            {
+              "id": "317ab244-d5b6-52cb-8988-adf03f5843fd",
+              "name": "ai_url",
+              "value": "http://127.0.0.1:8099/v1/chat/completions",
+              "type": "string"
+            },
+            {
+              "id": "1d7dbe6a-dbda-531d-81a4-d428c61f5a7b",
+              "name": "ai_model",
+              "value": "llama3.2:1b",
+              "type": "string"
+            },
+            {
+              "id": "a74d6c3a-a6a5-5cf4-afc6-9ed3479fbb1d",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8099/notify",
+              "type": "string"
+            },
+            {
+              "id": "71ec343f-1a75-5877-8678-e303bcf59db3",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        300
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $input.first().json.body || {};\nconst subject = String(b.subject || ''), body = String(b.body || ''), from = String(b.from || '');\nconst t = (subject + ' ' + body).toLowerCase();\nif (!t.trim()) throw new Error('Empty message');\nconst has = r => r.test(t);\nconst category = has(/(refund|reembols|charge|cobran|invoice|fatura|boleto|payment|pagamento)/) ? 'billing'\n  : has(/(error|erro|crash|bug|not working|n[aã]o funciona|travou|broken|down|fora do ar)/) ? 'bug'\n  : has(/(price|pricing|quote|or[cç]amento|plan|plano|demo|trial)/) ? 'sales'\n  : has(/(how|como|where|onde|can i|posso|\\?)/) ? 'question' : 'other';\nconst urgency = has(/(urgent|urgente|asap|immediately|agora|down|fora do ar|lost money|perdi|cannot access|n[aã]o consigo acessar)/) ? 'high' : 'normal';\nconst neg = has(/(angry|terrible|worst|pessimo|péssimo|horrible|unacceptable|inaceitável|cancel)/);\nconst pt = has(/(não|nao |você|voce|preciso|olá|obrigad|fatura|cobran|ajuda|por favor)/);\nconst R = {\n  billing: ['We are reviewing the charge on your account and will confirm within one business day.', 'Estamos revisando a cobrança na sua conta e confirmamos em até um dia útil.'],\n  bug: ['Sorry about the trouble. Our team is looking into it; could you share a screenshot or the steps to reproduce?', 'Desculpe o transtorno. Nossa equipe está verificando; pode enviar um print ou os passos para reproduzir?'],\n  sales: ['Thanks for your interest! Here is a short overview and a link to book a call.', 'Obrigado pelo interesse! Segue um resumo e o link para agendar uma conversa.'],\n  question: ['Good question - here is the short answer, and our help center has the full guide.', 'Boa pergunta! Segue a resposta resumida; a central de ajuda tem o guia completo.'],\n  other: ['Thanks for writing. A teammate will read this and get back to you.', 'Obrigado pelo contato. Alguém da equipe vai ler e responder.']};\nreturn [{json: {received_at: new Date().toISOString(), from, subject, body, category, urgency: neg && urgency === 'normal' ? 'high' : urgency, sentiment: neg ? 'negative' : 'neutral',\n  reply: R[category][pt ? 1 : 0], source: 'rules', lang: pt ? 'pt' : 'en'}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "b7357db7-0dca-50ad-a9dc-16f7298c5305",
+      "name": "Rules triage",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9f537d0d-c220-5a11-bac3-4302b843b880",
+              "leftValue": "={{ $('Config').first().json.use_ai }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d92a57df-0b4f-5242-8626-9423aafff31e",
+      "name": "Use AI?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.ai_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({model: $('Config').first().json.ai_model, temperature: 0, messages: [{role: 'system', content: 'Classify the support message. Answer ONLY JSON: {\"category\":\"billing|bug|sales|question|other\",\"urgency\":\"high|normal\",\"reply\":\"short polite draft reply in the sender language\"}'}, {role: 'user', content: $('Rules triage').first().json.subject + '\\n' + $('Rules triage').first().json.body}]}) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "2a70ebf2-b473-5931-931d-d7488221ac83",
+      "name": "LLM classify (OpenAI-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        220
+      ],
+      "onError": "continueRegularOutput",
+      "notes": "Works with Ollama (http://localhost:11434/v1/chat/completions) or any OpenAI-compatible API.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const base = $('Rules triage').first().json;\nconst r = $input.first().json;\ntry {\n  const content = r.choices[0].message.content;\n  const a = JSON.parse(content.slice(content.indexOf('{'), content.lastIndexOf('}') + 1));\n  if (!['billing','bug','sales','question','other'].includes(a.category)) throw new Error('bad category');\n  return [{json: {...base, category: a.category, urgency: a.urgency === 'high' ? 'high' : base.urgency, reply: a.reply || base.reply, source: 'ai'}}];\n} catch (e) {\n  // Visible fallback: the ticket records that rules were used and why.\n  return [{json: {...base, source: 'rules-fallback', ai_error: String(r.error || e.message).slice(0, 120)}}];\n}\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "0370575f-0639-50d9-bd02-47f88a137e0f",
+      "name": "Merge AI result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst j = $input.first().json;\nconst line = ['received_at','from','subject','category','urgency','sentiment','source','reply'].map(k => q(j[k])).join(',') + '\\n';\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(line, 'utf8'), 'tickets.csv', 'text/plain');\nreturn [{json: j, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "8eb161d0-de41-5f59-82af-4a6cc0716e9e",
+      "name": "Build ticket CSV line",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/tickets.csv' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "6f007562-9a32-57ca-988b-b34add5ea288",
+      "name": "Append to tickets.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5260f13e-6fac-572d-8e22-899babdde0cb",
+              "leftValue": "={{ $('Build ticket CSV line').first().json.urgency }}",
+              "rightValue": "high",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3bc308ba-a7b2-5aa4-aecd-8a527f82c159",
+      "name": "Urgent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1780,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: 'URGENT ' + $('Build ticket CSV line').first().json.category + ' ticket from ' + $('Build ticket CSV line').first().json.from + ': ' + $('Build ticket CSV line').first().json.subject}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        220
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({category: $('Build ticket CSV line').first().json.category, urgency: $('Build ticket CSV line').first().json.urgency, source: $('Build ticket CSV line').first().json.source, draft_reply: $('Build ticket CSV line').first().json.reply}) }}",
+        "options": {}
+      },
+      "id": "9482e40b-b125-5ce0-8bfd-faaa72eeabba",
+      "name": "Respond with draft",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2220,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Support webhook": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Rules triage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rules triage": {
+      "main": [
+        [
+          {
+            "node": "Use AI?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Use AI?": {
+      "main": [
+        [
+          {
+            "node": "LLM classify (OpenAI-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build ticket CSV line",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM classify (OpenAI-compatible)": {
+      "main": [
+        [
+          {
+            "node": "Merge AI result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge AI result": {
+      "main": [
+        [
+          {
+            "node": "Build ticket CSV line",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build ticket CSV line": {
+      "main": [
+        [
+          {
+            "node": "Append to tickets.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to tickets.csv": {
+      "main": [
+        [
+          {
+            "node": "Urgent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Urgent?": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond with draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify (Telegram-compatible)": {
+      "main": [
+        [
+          {
+            "node": "Respond with draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

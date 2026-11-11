@@ -1,0 +1,297 @@
+{
+ "title": {
+  "pt": "Monitor de preço e estoque com alerta",
+  "en": "Price and stock monitor with alerts"
+ },
+ "tag": {
+  "pt": "Monitoramento · scraping · alerta",
+  "en": "Monitoring · scraping · alert"
+ },
+ "summary": {
+  "pt": "A cada 30 minutos o n8n lê a página do produto, compara com o último retrato salvo e só avisa no Telegram quando preço ou estoque mudam. A primeira execução só cria a linha de base. Escolha o estado da página e aperte Rodar, duas vezes.",
+  "en": "Every 30 minutes n8n reads the product page, compares it with the last saved snapshot and pings Telegram only when price or stock changes. The first run only sets the baseline. Pick the page state and press Run, twice."
+ },
+ "input": {
+  "trigger": {
+   "pt": "Schedule a cada 30 min (ou Run now) · GET da página do produto",
+   "en": "Schedule every 30 min (or Run now) · GET the product page"
+  },
+  "note": {
+   "pt": "Passo a passo: 1) rode com \"Página original\" (cria a linha de base, sem alerta); 2) escolha \"Preço caiu\" e rode: o alerta sai. O retrato fica guardado entre as execuções, como o arquivo do workflow; \"Limpar memória\" apaga. O erro simulado derruba a leitura da página: nada é salvo e nenhum alerta falso sai.",
+   "en": "Step by step: 1) run \"Original page\" (sets the baseline, no alert); 2) pick \"Price dropped\" and run: the alert fires. The snapshot is kept between runs, like the workflow's file; \"Clear memory\" erases it. The simulated failure takes the page fetch down: nothing is saved and no false alert goes out."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Página original",
+     "en": "1. Original page"
+    },
+    "values": {
+     "name": "Tênis Corrida Aero 2",
+     "price": "299.90",
+     "stock": "12"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Preço caiu",
+     "en": "2. Price dropped"
+    },
+    "values": {
+     "name": "Tênis Corrida Aero 2",
+     "price": "249.90",
+     "stock": "3"
+    }
+   },
+   {
+    "label": {
+     "pt": "Esgotou",
+     "en": "Sold out"
+    },
+    "values": {
+     "name": "Tênis Corrida Aero 2",
+     "price": "249.90",
+     "stock": "0"
+    }
+   },
+   {
+    "label": {
+     "pt": "Voltou ao estoque",
+     "en": "Back in stock"
+    },
+    "values": {
+     "name": "Tênis Corrida Aero 2",
+     "price": "249.90",
+     "stock": "20"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "name",
+    "type": "text",
+    "value": "Tênis Corrida Aero 2",
+    "label": {
+     "pt": "Nome na página",
+     "en": "Name on the page"
+    }
+   },
+   {
+    "key": "price",
+    "type": "text",
+    "value": "299.90",
+    "label": {
+     "pt": "Preço na página (R$)",
+     "en": "Price on the page (R$)"
+    }
+   },
+   {
+    "key": "stock",
+    "type": "text",
+    "value": "12",
+    "label": {
+     "pt": "Unidades em estoque",
+     "en": "Units in stock"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "trigger",
+   "name": "Every 30 min",
+   "icon": "loop",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Schedule · ou Run now",
+    "en": "Schedule · or Run now"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · URL da página e chat",
+    "en": "Set · page URL and chat"
+   }
+  },
+  {
+   "id": "fetch",
+   "name": "Fetch product page",
+   "icon": "http",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP Request · GET",
+    "en": "HTTP Request · GET"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "Extract name/price/stock",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "HTML · seletores CSS",
+    "en": "HTML · CSS selectors"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read last snapshot",
+   "icon": "memory",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "cmp",
+   "name": "Compare with last",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Code · diferenças",
+    "en": "Code · differences"
+   }
+  },
+  {
+   "id": "save",
+   "name": "Save new snapshot",
+   "icon": "file",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · write",
+    "en": "Read/Write Files · write"
+   }
+  },
+  {
+   "id": "chg",
+   "name": "Changed?",
+   "icon": "if",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "IF · changed = true",
+    "en": "IF · changed = true"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify (Telegram)",
+   "icon": "bell",
+   "col": 8,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "trigger",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "fetch"
+  },
+  {
+   "from": "fetch",
+   "to": "extract"
+  },
+  {
+   "from": "extract",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "cmp"
+  },
+  {
+   "from": "cmp",
+   "to": "save"
+  },
+  {
+   "from": "save",
+   "to": "chg"
+  },
+  {
+   "from": "chg",
+   "to": "notify",
+   "when": "true"
+  }
+ ],
+ "failure": {
+  "node": "fetch",
+  "continueOnFail": false,
+  "message": {
+   "pt": "ETIMEDOUT: a página da loja não respondeu (simulado)",
+   "en": "ETIMEDOUT: the shop page did not answer (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Quem revende ou compra de uma loja online precisa saber na hora quando o preço cai ou o produto esgota. Conferir a página na mão, várias vezes ao dia, não escala e a oportunidade passa.",
+   "en": "Anyone who resells or buys from an online shop needs to know right away when a price drops or an item sells out. Checking the page by hand all day does not scale and the chance is gone."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n lê a página a cada 30 minutos, extrai nome, preço e estoque por seletores CSS, compara com o último retrato salvo e manda alerta só quando algo mudou: queda ou alta de preço, esgotado, de volta ao estoque. A primeira leitura só grava a linha de base.",
+   "en": "An n8n workflow reads the page every 30 minutes, extracts name, price and stock with CSS selectors, compares with the last saved snapshot and alerts only when something changed: a price drop or rise, sold out, back in stock. The first read only stores the baseline."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: conferindo 5 produtos a cada 2 h, são ~10 min por dia de olhar página, cerca de 1h por semana, e o alerta chega em até 30 min da mudança. Dados fictícios; a página da demo é um servidor local, não uma loja real.",
+   "en": "An estimate, not a measurement: checking 5 products every 2 h is ~10 min a day of looking at pages, about 1 h a week, and the alert lands within 30 min of the change. Fictional data; the demo page was a local server, not a real shop."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Schedule Trigger",
+   "HTTP Request",
+   "HTML Extract",
+   "Read/Write Files",
+   "Code (JS)",
+   "IF",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. A página da loja aqui é montada a partir dos campos acima; no original é um servidor local de teste. Para usar numa loja real, ajuste o seletor e confira se o site permite a leitura.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. The shop page here is built from the fields above; in the original it was a local test server. To use it on a real shop, adjust the selectors and check the site allows reading."
+  }
+ },
+ "recorded": [
+  {
+   "before": [
+    {
+     "name": "Tênis Corrida Aero 2",
+     "price": "299.90",
+     "stock": "12"
+    }
+   ],
+   "input": {
+    "name": "Tênis Corrida Aero 2",
+    "price": "249.90",
+    "stock": "3"
+   },
+   "expect": {
+    "changed": true,
+    "changes": "price 299.9 -> 249.9 (DROP); stock 12 -> 3",
+    "notify": "PRICE/STOCK ALERT - Tênis Corrida Aero 2: price 299.9 -> 249.9 (DROP); stock 12 -> 3"
+   }
+  }
+ ],
+ "slug": "03-monitor-de-preco",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

@@ -1,0 +1,264 @@
+{
+  "name": "Lead capture -> classify -> reply -> CSV -> alert",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-capture",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d55a4830-7c9d-5fb9-89bf-974ca878e3fd",
+      "name": "Lead form webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        300
+      ],
+      "webhookId": "lead-capture-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3256df3-dfd2-54fb-9003-a6c51b798d13",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "a74d6c3a-a6a5-5cf4-afc6-9ed3479fbb1d",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8099/notify",
+              "type": "string"
+            },
+            {
+              "id": "71ec343f-1a75-5877-8678-e303bcf59db3",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        300
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $input.first().json.body || {};\nconst name = String(b.name || '').trim(), email = String(b.email || '').trim().toLowerCase();\nconst msg = String(b.message || ''), company = String(b.company || '').trim();\nconst budget = Number(String(b.budget || '0').replace(/[^0-9.]/g, '')) || 0;\nconst txt = (msg + ' ' + (b.service || '')).toLowerCase();\nif (!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email)) throw new Error('Invalid or missing email');\nconst spam = /(backlinks|seo ranking|crypto|casino|guaranteed traffic|viagra)/.test(txt);\nlet score = 0; const why = [];\nif (budget >= 2000) { score += 2; why.push('budget>=2000'); } else if (budget >= 500) { score += 1; why.push('budget>=500'); }\nif (/(urgent|asap|urgente|this week|esta semana|hoje)/.test(txt)) { score += 1; why.push('urgent'); }\nif (/(quote|pricing|price|orçamento|orcamento|proposal|proposta|contratar|hire)/.test(txt)) { score += 1; why.push('buying intent'); }\nif (company) { score += 1; why.push('company given'); }\nconst priority = spam ? 'spam' : score >= 3 ? 'hot' : score >= 1 ? 'warm' : 'cold';\nconst pt = /(olá|ola|preciso|gostaria|orçamento|orcamento|quero|bom dia|boa tarde|proposta)/.test(txt) || b.lang === 'pt';\nconst first = name.split(' ')[0] || (pt ? 'tudo bem' : 'there');\nconst sla = priority === 'hot' ? (pt ? 'em até 2 horas' : 'within 2 hours') : (pt ? 'em até 1 dia útil' : 'within 1 business day');\nconst reply = priority === 'spam' ? '' : pt ? `Olá, ${first}! Recebemos sua mensagem e respondemos ${sla}.` : `Hi ${first}, thanks for reaching out. We will reply ${sla}.`;\nreturn [{json: {received_at: new Date().toISOString(), name, email, company, budget, service: b.service || '', message: msg, score, priority, why: why.join('; '), lang: pt ? 'pt' : 'en', reply}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "c420d880-17e0-58e2-9951-3272f73de3cf",
+      "name": "Classify lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst j = $input.first().json;\nconst line = ['received_at','name','email','company','budget','service','priority','score','why','message'].map(k => q(j[k])).join(',') + '\\n';\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(line, 'utf8'), 'leads.csv', 'text/plain');\nreturn [{json: j, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "c5d0215d-c77a-5017-b62b-b75cb3aa63f0",
+      "name": "Build CSV line",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/leads.csv' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "46815fae-24a8-51a0-a79b-8e9e963831ae",
+      "name": "Append to leads.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "136c6c0a-a657-580b-82d5-ae89770dacb9",
+              "leftValue": "={{ $('Classify lead').first().json.priority }}",
+              "rightValue": "hot",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "da79277f-58f0-5af6-9ceb-de967a97f511",
+      "name": "Hot lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: 'HOT LEAD: ' + $('Classify lead').first().json.name + ' <' + $('Classify lead').first().json.email + '> budget ' + $('Classify lead').first().json.budget + ' | ' + $('Classify lead').first().json.why}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        220
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ok: true, priority: $('Classify lead').first().json.priority, reply: $('Classify lead').first().json.reply}) }}",
+        "options": {}
+      },
+      "id": "8ea34af1-8dea-53f9-90de-53583ce5003e",
+      "name": "Respond to visitor",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Lead form webhook": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Classify lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify lead": {
+      "main": [
+        [
+          {
+            "node": "Build CSV line",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build CSV line": {
+      "main": [
+        [
+          {
+            "node": "Append to leads.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to leads.csv": {
+      "main": [
+        [
+          {
+            "node": "Hot lead?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hot lead?": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to visitor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify (Telegram-compatible)": {
+      "main": [
+        [
+          {
+            "node": "Respond to visitor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

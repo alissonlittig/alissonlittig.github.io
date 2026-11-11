@@ -1,0 +1,426 @@
+{
+  "name": "Lead enrichment from public pages -> scored CRM sheet (deduped)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "27884039-452d-5593-b84f-75b9681c75bb",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "030f54d4-d1b8-5271-a7aa-5dd5db24dd76",
+      "name": "Every Monday 07:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8095b9d-f78a-547c-8322-3144a50468f8",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "beff4f17-415f-5d8e-8000-7205b03c5ea0",
+              "name": "leads_file",
+              "value": "leads_input.csv",
+              "type": "string"
+            },
+            {
+              "id": "208698c2-32cf-5c73-998b-ebcf494a5296",
+              "name": "crm_file",
+              "value": "crm.csv",
+              "type": "string"
+            },
+            {
+              "id": "139250af-15a5-5cf9-8dde-7e3db4e723a8",
+              "name": "pages_base",
+              "value": "http://127.0.0.1:8098/sites/",
+              "type": "string"
+            },
+            {
+              "id": "05742192-2f83-57de-8b00-d5d228b3de2a",
+              "name": "hot_score",
+              "value": "70",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8098/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        260
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.leads_file }}",
+        "options": {}
+      },
+      "id": "3c02be32-d998-583d-bad1-60f06910dbf2",
+      "name": "Read leads_input.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "options": {}
+      },
+      "id": "84feb22b-181c-5aab-a75e-e9ac6e490359",
+      "name": "Parse CSV",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        680,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').first().json.pages_base + $json.domain_slug }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 15000
+        }
+      },
+      "id": "1fb5f4e3-e72d-5cb2-9000-3a4c04b31069",
+      "name": "Fetch public company page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        260
+      ],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Public pages only. Retries once, never fails the whole run on a 404. Respect robots.txt and each site's terms before pointing this at real sites.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const lead = $('Parse CSV').item.json;\nconst r = $input.item.json;\nconst status = Number(r.statusCode || 0);\nconst base = {company: lead.company, domain: lead.domain_slug, source: lead.source};\nif (status !== 200) return {json: {...base, status: 'unreachable', score: 0, note: 'HTTP ' + (status || 'error')}};\nconst html = String(r.data || '');\nconst pick = re => { const m = html.match(re); return m ? m[1].trim() : ''; };\nconst desc = pick(/<meta name=\"description\" content=\"([^\"]*)\"/i);\nconst email = pick(/mailto:([^\"]+)\"/i), phone = pick(/<span class=\"tel\">([^<]*)</i), industry = pick(/Industry:\\s*([^<]+)</i);\nconst emp = desc.match(/(\\d+)\\s*(?:employees|people|accountants|dentists|team members)/i);\nconst size = emp ? Number(emp[1]) : null;\nconst tech = (desc.match(/WordPress|Shopify|Wix|Squarespace/i) || [''])[0];\nconst signals = [];\nif (/hiring/i.test(desc)) signals.push('hiring');\nif (/Series [A-D]|funded|raised/i.test(desc)) signals.push('funded');\nlet score = 20; const why = [];\nif (size >= 10 && size <= 200) { score += 25; why.push('size 10-200'); } else if (size >= 3) { score += 10; why.push('small team'); }\nif (email) { score += 20; why.push('public e-mail'); }\nif (phone) { score += 10; why.push('phone'); }\nif (signals.length) { score += 15; why.push(signals.join('+')); }\nif (/Logistics|Healthcare|Finance/i.test(industry)) { score += 10; why.push('target industry'); }\nreturn {json: {...base, status: 'enriched', industry, size: size ?? '', tech, contact_email: email, phone, signals: signals.join('+'), score, why: why.join('; '), note: ''}};\n",
+        "mode": "runOnceForEachItem"
+      },
+      "id": "254ac8f5-a9b5-55f3-922f-af08fad91b69",
+      "name": "Extract signals and score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json: {leads: $input.all().map(i => i.json)}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "48952f5b-2452-57d2-b316-066218a7faf7",
+      "name": "Collect all leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.crm_file }}",
+        "options": {}
+      },
+      "id": "0de6d125-28a7-515f-b2da-dbda3b841b48",
+      "name": "Read current crm.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        260
+      ],
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "Missing file = empty CRM.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst COLS = [\"domain\", \"company\", \"status\", \"score\", \"industry\", \"size\", \"tech\", \"contact_email\", \"phone\", \"signals\", \"why\", \"source\", \"first_seen\", \"last_enriched\", \"note\"];\nconst parse = txt => { const rows = []; let row = [], cur = '', inq = false;\n  for (let i = 0; i < txt.length; i++) { const c = txt[i];\n    if (inq) { if (c === '\"' && txt[i + 1] === '\"') { cur += '\"'; i++; } else if (c === '\"') inq = false; else cur += c; }\n    else if (c === '\"') inq = true; else if (c === ',') { row.push(cur); cur = ''; } else if (c === '\\n') { row.push(cur); rows.push(row); row = []; cur = ''; } else if (c !== '\\r') cur += c; }\n  return rows; };\nconst crm = {};\nconst it = $input.first();\nif (it.binary && it.binary.data) {\n  const rows = parse((await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8')); const h = rows.shift();\n  rows.filter(r => r.length === h.length).forEach(r => { const o = {}; h.forEach((k, i) => o[k] = r[i]); crm[o.domain] = o; });\n}\nconst today = new Date().toISOString().slice(0, 10);\nlet added = 0, updated = 0;\nfor (const l of $('Collect all leads').first().json.leads) {\n  const old = crm[l.domain];\n  if (old) { updated++; crm[l.domain] = {...old, ...l, first_seen: old.first_seen, last_enriched: today}; }\n  else { added++; crm[l.domain] = {...l, first_seen: today, last_enriched: today}; }\n}\nconst all = Object.values(crm).sort((a, b) => Number(b.score) - Number(a.score));\nconst csv = COLS.join(',') + '\\n' + all.map(o => COLS.map(k => q(o[k])).join(',')).join('\\n') + '\\n';\nconst hot = all.filter(o => Number(o.score) >= Number($('Config').first().json.hot_score));\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(csv, 'utf8'), 'crm.csv', 'text/csv');\nreturn [{json: {added, updated, total: all.length, hot: hot.map(o => `${o.company} (${o.score})`), unreachable: all.filter(o => o.status === 'unreachable').length}, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "250db716-dae7-5b10-ab9d-165690821fa4",
+      "name": "Upsert into CRM (dedupe by domain)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.crm_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "7ba7269c-e5dd-5521-8b96-2c69391c030a",
+      "name": "Save crm.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d0be5ad5-4091-50e9-9ace-7a3e664ca033",
+              "leftValue": "={{ $('Upsert into CRM (dedupe by domain)').first().json.hot.length > 0 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "7d5106e0-5e46-5dcf-a36b-7eab2ce1ef5c",
+      "name": "Any hot leads?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2220,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: 'CRM refreshed: +' + $('Upsert into CRM (dedupe by domain)').first().json.added + ' new, ' + $('Upsert into CRM (dedupe by domain)').first().json.updated + ' updated, ' + $('Upsert into CRM (dedupe by domain)').first().json.unreachable + ' unreachable. Hot: ' + $('Upsert into CRM (dedupe by domain)').first().json.hot.join(', ')}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2440,
+        200
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Run now (manual)": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every Monday 07:00": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read leads_input.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read leads_input.csv": {
+      "main": [
+        [
+          {
+            "node": "Parse CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse CSV": {
+      "main": [
+        [
+          {
+            "node": "Fetch public company page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch public company page": {
+      "main": [
+        [
+          {
+            "node": "Extract signals and score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract signals and score": {
+      "main": [
+        [
+          {
+            "node": "Collect all leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect all leads": {
+      "main": [
+        [
+          {
+            "node": "Read current crm.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read current crm.csv": {
+      "main": [
+        [
+          {
+            "node": "Upsert into CRM (dedupe by domain)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert into CRM (dedupe by domain)": {
+      "main": [
+        [
+          {
+            "node": "Save crm.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save crm.csv": {
+      "main": [
+        [
+          {
+            "node": "Any hot leads?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any hot leads?": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

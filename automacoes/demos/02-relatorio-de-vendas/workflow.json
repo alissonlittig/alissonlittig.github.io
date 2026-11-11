@@ -1,0 +1,256 @@
+{
+  "name": "Daily sales report from CSV -> summary -> Telegram",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "27884039-452d-5593-b84f-75b9681c75bb",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 20
+            }
+          ]
+        }
+      },
+      "id": "12f9d231-4731-5103-aad9-22ee60241c36",
+      "name": "Every day 20:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3256df3-dfd2-54fb-9003-a6c51b798d13",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "0750e969-80c7-5743-a4ef-50c929b1c333",
+              "name": "sales_file",
+              "value": "sample_sales.csv",
+              "type": "string"
+            },
+            {
+              "id": "8c221fc9-35d2-57fd-bb1b-eef7f1441b1c",
+              "name": "report_date",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "d90b985f-9fe4-5416-9825-e99a6a8e50f3",
+              "name": "currency",
+              "value": "R$",
+              "type": "string"
+            },
+            {
+              "id": "a74d6c3a-a6a5-5cf4-afc6-9ed3479fbb1d",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8099/notify",
+              "type": "string"
+            },
+            {
+              "id": "71ec343f-1a75-5877-8678-e303bcf59db3",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        300
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.sales_file }}",
+        "options": {}
+      },
+      "id": "c772b302-4424-539f-b54f-eba2bd3deb91",
+      "name": "Read sales CSV",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "options": {}
+      },
+      "id": "0374db3a-b456-587c-8f7c-a1561db0e4bf",
+      "name": "CSV to rows",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const cfg = $('Config').first().json, rows = $input.all().map(i => i.json);\nconst day = cfg.report_date || rows.map(r => r.date).sort().pop();\nconst prev = new Date(day + 'T00:00:00Z'); prev.setUTCDate(prev.getUTCDate() - 1);\nconst pd = prev.toISOString().slice(0, 10);\nconst sum = d => rows.filter(r => r.date === d).reduce((a, r) => a + Number(r.total), 0);\nconst today = rows.filter(r => r.date === day);\nif (!today.length) throw new Error('No sales for ' + day);\nconst by = (k) => { const m = {}; today.forEach(r => m[r[k]] = (m[r[k]] || 0) + Number(r.total)); return Object.entries(m).sort((a, b) => b[1] - a[1]); };\nconst total = sum(day), prevTotal = sum(pd), n = today.length;\nconst money = v => cfg.currency + ' ' + v.toFixed(2).replace('.', ',').replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.');\nconst delta = prevTotal ? ((total - prevTotal) / prevTotal * 100) : null;\nconst dtxt = delta === null ? 'n/a' : (delta >= 0 ? '+' : '') + delta.toFixed(1) + '%';\nconst top = by('product').slice(0, 3), pay = by('payment'), store = by('store');\nconst li = a => a.map(([k, v]) => `- ${k}: ${money(v)}`).join('\\n');\nconst md = `# Daily sales report - ${day}\\n\\n- Revenue: **${money(total)}** (${n} sales, avg ticket ${money(total / n)})\\n- Vs ${pd}: ${dtxt} (${money(prevTotal)})\\n\\n## Top products\\n${li(top)}\\n\\n## By payment\\n${li(pay)}\\n\\n## By store\\n${li(store)}\\n`;\nconst text = `Sales ${day}: ${money(total)} | ${n} sales | ticket ${money(total / n)} | vs prev day ${dtxt} | top: ${top[0][0]}`;\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(md, 'utf8'), 'report_' + day + '.md', 'text/markdown');\nreturn [{json: {day, total, n, text}, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "218de7af-876d-5081-bbf9-8fbbbfe21214",
+      "name": "Summarize day",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/report_' + $('Summarize day').first().json.day + '.md' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "dc25e8b9-2889-5687-8fa7-1e553a933eff",
+      "name": "Save report .md",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Summarize day').first().json.text}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        300
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Run now (manual)": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every day 20:00": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read sales CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read sales CSV": {
+      "main": [
+        [
+          {
+            "node": "CSV to rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CSV to rows": {
+      "main": [
+        [
+          {
+            "node": "Summarize day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize day": {
+      "main": [
+        [
+          {
+            "node": "Save report .md",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save report .md": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

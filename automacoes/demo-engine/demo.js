@@ -85,7 +85,7 @@
       CFG.input.fields.forEach(function (f) {
         var lab = el('label', 'fld'); lab.appendChild(el('span', '', esc(L(f.label))));
         var inp;
-        if (f.type === 'textarea') inp = el('textarea'); else if (f.type === 'select') { inp = el('select'); f.options.forEach(function (o) { inp.appendChild(new Option(L(o.label || o), o.value != null ? o.value : o)); }); } else { inp = el('input'); inp.type = f.type || 'text'; }
+        if (f.type === 'textarea') { inp = el('textarea'); inp.rows = f.rows || (String(f.value || '').split(String.fromCharCode(10)).length > 4 ? 9 : 3); } else if (f.type === 'select') { inp = el('select'); f.options.forEach(function (o) { inp.appendChild(new Option(L(o.label || o), o.value != null ? o.value : o)); }); } else { inp = el('input'); inp.type = f.type || 'text'; }
         inp.name = f.key; inp.id = 'f-' + f.key; if (f.type !== 'select') inp.autocomplete = 'off';
         inp.oninput = inp.onchange = function () { form[f.key] = inp.value; };
         lab.appendChild(inp); fh.appendChild(lab);
@@ -198,9 +198,10 @@
       $('#res').innerHTML = ''; status('run', T('running'));
       var simMode = $('#sim').value, F = CFG.failure, retried = false;
       var data = JSON.parse(JSON.stringify(form)); CFG.input.fields.forEach(function (f) { if (f.type === 'number' && data[f.key] !== '') data[f.key] = Number(data[f.key]); });
-      var cur = LG.start, input = { body: data }, total = 0, steps = 0, failed = null, trace = [];
+      var queue = [{ id: LG.start, input: { body: data } }], cur, input, total = 0, steps = 0, failed = null, trace = [];
       ctx.sim = simMode; ctx.failedNode = null;
-      while (cur && steps++ < 40) {
+      while (queue.length && steps++ < 40) {
+        var qi = queue.shift(); cur = qi.id; input = qi.input;
         var n = byId[cur], fn = LG.nodes[cur], x = { input: input, state: 'run' };
         (execs[cur] = execs[cur] || []).push(x); paintNode(cur); follow(cur); if (!selected || true) { selected = cur; iter = null; document.querySelectorAll('.nd').forEach(function (b) { b.setAttribute('aria-pressed', b.id === 'n-' + cur); }); drawInspector(); }
         var res, err = null, isSim = simMode !== 'none' && F && F.node === cur && !retried;
@@ -222,8 +223,10 @@
         input = isSim && simMode === 'perm' ? (res && res.out) || input : res.out;
         var nexts = res.next != null ? [].concat(res.next) : null, ei = -1;
         for (var k = 0; k < CFG.edges.length; k++) { var e = CFG.edges[k]; if (e.from !== cur) continue; if (nexts ? nexts.indexOf(e.to) >= 0 : (e.when ? e.when === res.branch : true)) { ei = k; break; } }
-        if (res.end || ei < 0) { cur = null; break; }
-        await dotAlong(ei, 520 / speed); cur = CFG.edges[ei].to;
+        var eis = ei >= 0 ? [ei] : [];
+        if (nexts && nexts.length > 1) { eis = []; CFG.edges.forEach(function (e2, k2) { if (e2.from === cur && nexts.indexOf(e2.to) >= 0) eis.push(k2); }); } // ramos em paralelo (ex.: Switch com itens em varias saidas)
+        if (res.end || !eis.length) continue;
+        for (var q2 = 0; q2 < eis.length; q2++) { await dotAlong(eis[q2], 520 / speed); var to2 = CFG.edges[eis[q2]].to; if (!queue.some(function (z) { return z.id === to2; })) queue.push({ id: to2, input: input }); }
       }
       var okRun = !failed; if (failed) CFG.nodes.forEach(function (n) { /* nós não alcançados ficam idle */ });
       lastMeta = { kind: okRun ? 'ok' : 'err', txt: okRun ? T('okk') + (ctx.failedNode ? (LANG === 'pt' ? ' (erro tratado)' : ' (failure handled)') : '') : T('fail') + ': ' + failed.message, n: Object.keys(execs).length, ms: total };

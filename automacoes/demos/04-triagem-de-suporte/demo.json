@@ -1,0 +1,423 @@
+{
+ "title": {
+  "pt": "Triagem de mensagens de suporte com IA opcional",
+  "en": "Support triage with optional AI"
+ },
+ "tag": {
+  "pt": "Webhook · classificação · fallback",
+  "en": "Webhook · classification · fallback"
+ },
+ "summary": {
+  "pt": "Cada mensagem chega por webhook, as regras definem assunto, urgência e tom, um rascunho de resposta sai no idioma do cliente, o ticket vai para a planilha e só o urgente avisa a equipe. Com a IA ligada, o modelo opina; se ele cair, as regras assumem e o ticket registra isso. Edite a mensagem e aperte Rodar.",
+  "en": "Each message arrives by webhook, rules set topic, urgency and tone, a draft reply comes out in the customer's language, the ticket lands in the sheet and only urgent ones ping the team. With AI on, the model weighs in; if it goes down, the rules take over and the ticket records it. Edit the message and press Run."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/support-triage  (application/json)",
+   "en": "POST /webhook/support-triage  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: ligue \"Usar IA\" e escolha o erro simulado \"Permanente\": o nó do modelo falha e o ticket sai com source = rules-fallback, visível na planilha. O modelo aqui é um substituto de teste (o mesmo da execução gravada), não um modelo de verdade.",
+   "en": "Tip: turn \"Use AI\" on and pick the simulated \"Permanent\" failure: the model node fails and the ticket comes out with source = rules-fallback, visible in the sheet. The model here is a test stand-in (the same as the recorded run), not a real model."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Cobrança em PT",
+     "en": "Billing in PT"
+    },
+    "values": {
+     "from": "ana@shop.example",
+     "subject": "Cobrança duplicada",
+     "body": "Fui cobrada duas vezes na fatura, preciso de ajuda urgente",
+     "use_ai": "false"
+    }
+   },
+   {
+    "label": {
+     "pt": "Erro e cancelamento",
+     "en": "Bug and cancel"
+    },
+    "values": {
+     "from": "sam@cafe.example",
+     "subject": "Checkout error",
+     "body": "The checkout page crashes when I pay. This is terrible, I want to cancel.",
+     "use_ai": "false"
+    }
+   },
+   {
+    "label": {
+     "pt": "Comercial",
+     "en": "Sales"
+    },
+    "values": {
+     "from": "lee@x.example",
+     "subject": "Pricing",
+     "body": "Do you have a plan for 5 users?",
+     "use_ai": "false"
+    }
+   },
+   {
+    "label": {
+     "pt": "Reembolso com IA",
+     "en": "Refund with AI"
+    },
+    "values": {
+     "from": "kim@z.example",
+     "subject": "Refund",
+     "body": "I was charged twice, please refund the extra payment. Urgent.",
+     "use_ai": "true"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "from",
+    "type": "text",
+    "value": "ana@shop.example",
+    "label": {
+     "pt": "De",
+     "en": "From"
+    }
+   },
+   {
+    "key": "subject",
+    "type": "text",
+    "value": "Cobrança duplicada",
+    "label": {
+     "pt": "Assunto",
+     "en": "Subject"
+    }
+   },
+   {
+    "key": "body",
+    "type": "textarea",
+    "value": "Fui cobrada duas vezes na fatura, preciso de ajuda urgente",
+    "label": {
+     "pt": "Mensagem",
+     "en": "Message"
+    }
+   },
+   {
+    "key": "use_ai",
+    "type": "select",
+    "value": "false",
+    "label": {
+     "pt": "Usar IA para classificar",
+     "en": "Use AI to classify"
+    },
+    "options": [
+     {
+      "label": {
+       "pt": "Não, só regras",
+       "en": "No, rules only"
+      },
+      "value": "false"
+     },
+     {
+      "label": {
+       "pt": "Sim (modelo simulado)",
+       "en": "Yes (simulated model)"
+      },
+      "value": "true"
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Support webhook",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · use_ai, URLs, chat",
+    "en": "Set · use_ai, URLs, chat"
+   }
+  },
+  {
+   "id": "rules",
+   "name": "Rules triage",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Code · regras",
+    "en": "Code · rules"
+   }
+  },
+  {
+   "id": "useai",
+   "name": "Use AI?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "IF · use_ai = true",
+    "en": "IF · use_ai = true"
+   }
+  },
+  {
+   "id": "llm",
+   "name": "LLM classify",
+   "icon": "llm",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request · OpenAI-compatível",
+    "en": "HTTP Request · OpenAI-compatible"
+   }
+  },
+  {
+   "id": "merge",
+   "name": "Merge AI result",
+   "icon": "code",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "Code · mescla ou cai p/ regras",
+    "en": "Code · merge or fall back"
+   }
+  },
+  {
+   "id": "csv",
+   "name": "Build ticket CSV line",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · monta a linha",
+    "en": "Code · builds the row"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to tickets.csv",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "urgent",
+   "name": "Urgent?",
+   "icon": "if",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "IF · urgency = high",
+    "en": "IF · urgency = high"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify (Telegram)",
+   "icon": "bell",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond with draft",
+   "icon": "respond",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "rules"
+  },
+  {
+   "from": "rules",
+   "to": "useai"
+  },
+  {
+   "from": "useai",
+   "to": "llm",
+   "when": "true"
+  },
+  {
+   "from": "useai",
+   "to": "csv",
+   "when": "false"
+  },
+  {
+   "from": "llm",
+   "to": "merge"
+  },
+  {
+   "from": "merge",
+   "to": "csv"
+  },
+  {
+   "from": "csv",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "urgent"
+  },
+  {
+   "from": "urgent",
+   "to": "notify",
+   "when": "true"
+  },
+  {
+   "from": "urgent",
+   "to": "respond",
+   "when": "false"
+  },
+  {
+   "from": "notify",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "llm",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: o endpoint do modelo está fora do ar (simulado)",
+   "en": "ECONNREFUSED: the model endpoint is down (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "A caixa de suporte mistura cobrança, erro, dúvida e venda. Quem lê primeiro decide a ordem na mão, o urgente se perde no meio e ninguém tem um registro para ver o que mais chega.",
+   "en": "The support inbox mixes billing, bugs, questions and sales. Whoever reads first sets the order by hand, the urgent one gets lost and nobody keeps a record of what comes in."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n classifica cada mensagem por assunto, urgência e tom com regras, escreve um rascunho de resposta no idioma do cliente, registra o ticket em CSV e avisa a equipe só quando é urgente. Um modelo de IA pode refinar a classificação; se estiver fora do ar, o ticket usa as regras e marca source = rules-fallback.",
+   "en": "An n8n workflow classifies each message by topic, urgency and tone with rules, writes a draft reply in the customer's language, logs the ticket to CSV and pings the team only when it is urgent. An AI model can refine the classification; if it is down, the ticket uses the rules and records source = rules-fallback."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~2 min de leitura e roteamento por mensagem; com 30 mensagens por dia são cerca de 1h por dia, e o urgente é avisado em segundos. A qualidade das regras foi testada em poucos casos, não em volume real. Dados fictícios.",
+   "en": "An estimate, not a measurement: ~2 min of reading and routing per message; at 30 messages a day that is about 1 h a day, and the urgent one is flagged in seconds. The rules were tested on a handful of cases, not at real volume. Fictional data."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "IF",
+   "HTTP Request (OpenAI-compatível)",
+   "Read/Write Files",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. O modelo aqui é um servidor de teste que devolve uma resposta fixa; o workflow não foi testado com um modelo de verdade. O erro simulado reproduz o que a execução gravada mostrou com o endpoint fora do ar.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. The model here is a test server that returns a fixed answer; the workflow was not tested with a real model. The simulated failure reproduces what the recorded run showed with the endpoint down."
+  }
+ },
+ "recorded": [
+  {
+   "input": {
+    "from": "ana@shop.example",
+    "subject": "Cobrança duplicada",
+    "body": "Fui cobrada duas vezes na fatura, preciso de ajuda urgente",
+    "use_ai": "false"
+   },
+   "expect": {
+    "category": "billing",
+    "urgency": "high",
+    "sentiment": "neutral",
+    "source": "rules",
+    "reply": "Estamos revisando a cobrança na sua conta e confirmamos em até um dia útil."
+   }
+  },
+  {
+   "input": {
+    "from": "sam@cafe.example",
+    "subject": "Checkout error",
+    "body": "The checkout page crashes when I pay. This is terrible, I want to cancel.",
+    "use_ai": "false"
+   },
+   "expect": {
+    "category": "bug",
+    "urgency": "high",
+    "sentiment": "negative",
+    "source": "rules",
+    "reply": "Sorry about the trouble. Our team is looking into it; could you share a screenshot or the steps to reproduce?"
+   }
+  },
+  {
+   "input": {
+    "from": "lee@x.example",
+    "subject": "Pricing",
+    "body": "Do you have a plan for 5 users?",
+    "use_ai": "false"
+   },
+   "expect": {
+    "category": "sales",
+    "urgency": "normal",
+    "sentiment": "neutral",
+    "source": "rules",
+    "reply": "Thanks for your interest! Here is a short overview and a link to book a call."
+   }
+  },
+  {
+   "input": {
+    "from": "kim@z.example",
+    "subject": "Refund",
+    "body": "urgent refund",
+    "use_ai": "true"
+   },
+   "expect": {
+    "category": "billing",
+    "urgency": "high",
+    "sentiment": "neutral",
+    "source": "ai",
+    "reply": "Thanks for reaching out. We are on it and will get back to you shortly."
+   }
+  },
+  {
+   "input": {
+    "from": "kim@z.example",
+    "subject": "Refund",
+    "body": "urgent refund",
+    "use_ai": "true"
+   },
+   "fallback": true,
+   "expect": {
+    "category": "billing",
+    "urgency": "high",
+    "sentiment": "neutral",
+    "source": "rules-fallback",
+    "reply": "We are reviewing the charge on your account and will confirm within one business day."
+   }
+  }
+ ],
+ "slug": "04-triagem-de-suporte",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

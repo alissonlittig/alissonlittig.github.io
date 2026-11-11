@@ -1,0 +1,310 @@
+{
+ "title": {
+  "pt": "Perguntas sobre documentos com fonte citada",
+  "en": "Questions over documents, with cited sources"
+ },
+ "tag": {
+  "pt": "RAG · busca · citação",
+  "en": "RAG · search · citation"
+ },
+ "summary": {
+  "pt": "Pergunte em inglês sobre 5 documentos da empresa (devoluções, garantia, frete, suporte, privacidade). O n8n recupera os trechos mais próximos, monta a resposta com citação de arquivo, seção e parágrafo, e recusa quando os documentos não sustentam a resposta, em vez de inventar.",
+  "en": "Ask in English about 5 company documents (returns, warranty, shipping, support, privacy). n8n retrieves the closest passages, builds the answer with file, section and paragraph citations, and refuses when the documents cannot support an answer instead of making one up."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/ask-docs  {question}",
+   "en": "POST /webhook/ask-docs  {question}"
+  },
+  "note": {
+   "pt": "Dica: a última pergunta (gift cards) não está nos documentos e é recusada. Suba a nota mínima para 0.5 e veja respostas fracas virarem recusa. A busca é lexical TF-IDF, sem embeddings neurais, então as palavras da pergunta precisam aparecer nos textos. O índice dos 5 documentos já está pronto (o fluxo de indexação é um segundo gatilho do workflow).",
+   "en": "Tip: the last question (gift cards) is not in the documents and gets refused. Raise the minimum score to 0.5 and watch weak answers turn into refusals. Search is lexical TF-IDF, not neural embeddings, so the question's words must appear in the texts. The 5-document index is already built (the indexing flow is a second trigger of the workflow)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Devolução",
+     "en": "Returns"
+    },
+    "values": {
+     "question": "How long do I have to return an unopened appliance?",
+     "min_score": "0.15"
+    }
+   },
+   {
+    "label": {
+     "pt": "Garantia",
+     "en": "Warranty"
+    },
+    "values": {
+     "question": "Is the air fryer warranty longer than 24 months?",
+     "min_score": "0.15"
+    }
+   },
+   {
+    "label": {
+     "pt": "Frete expresso",
+     "en": "Express shipping"
+    },
+    "values": {
+     "question": "How fast is express delivery and what does it cost?",
+     "min_score": "0.15"
+    }
+   },
+   {
+    "label": {
+     "pt": "Telefone",
+     "en": "Phone line"
+    },
+    "values": {
+     "question": "Is there a phone line for support?",
+     "min_score": "0.15"
+    }
+   },
+   {
+    "label": {
+     "pt": "Fora dos documentos",
+     "en": "Not in the documents"
+    },
+    "values": {
+     "question": "Do you sell gift cards?",
+     "min_score": "0.15"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "question",
+    "type": "textarea",
+    "value": "How long do I have to return an unopened appliance?",
+    "label": {
+     "pt": "Pergunta (em inglês)",
+     "en": "Question (in English)"
+    }
+   },
+   {
+    "key": "min_score",
+    "type": "text",
+    "value": "0.15",
+    "label": {
+     "pt": "Nota mínima para responder",
+     "en": "Minimum score to answer"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Question webhook",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · top_k e min_score",
+    "en": "Set · top_k and min_score"
+   }
+  },
+  {
+   "id": "readidx",
+   "name": "Read index",
+   "icon": "memory",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · rag_index.json",
+    "en": "Read/Write Files · rag_index.json"
+   }
+  },
+  {
+   "id": "retrieve",
+   "name": "Retrieve top chunks",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · TF-IDF + cosseno",
+    "en": "Code · TF-IDF + cosine"
+   }
+  },
+  {
+   "id": "enough",
+   "name": "Enough evidence?",
+   "icon": "if",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "IF · nota >= mínimo",
+    "en": "IF · score >= minimum"
+   }
+  },
+  {
+   "id": "compose",
+   "name": "Compose answer with citations",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Code · resposta + fontes",
+    "en": "Code · answer + sources"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond: answer + sources",
+   "icon": "respond",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "refuse",
+   "name": "Respond: not in documents",
+   "icon": "respond",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "readidx"
+  },
+  {
+   "from": "readidx",
+   "to": "retrieve"
+  },
+  {
+   "from": "retrieve",
+   "to": "enough"
+  },
+  {
+   "from": "enough",
+   "to": "compose",
+   "when": "true"
+  },
+  {
+   "from": "enough",
+   "to": "refuse",
+   "when": "false"
+  },
+  {
+   "from": "compose",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "readidx",
+  "continueOnFail": false,
+  "message": {
+   "pt": "ENOENT: rag_index.json não existe, rode o fluxo de indexação primeiro (simulado)",
+   "en": "ENOENT: rag_index.json does not exist, run the indexing flow first (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "A equipe de atendimento responde as mesmas perguntas sobre prazo, garantia e frete todo dia, procurando em PDFs e manuais. Cada um responde de um jeito e ninguém sabe de onde veio a informação.",
+   "en": "The support team answers the same questions about deadlines, warranty and shipping every day, hunting through PDFs and manuals. Everyone answers differently and nobody knows where the information came from."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n indexa os documentos da empresa (trechos de duas frases com pesos TF-IDF) e, a cada pergunta, recupera os 3 trechos mais próximos, monta a resposta com a frase mais relevante e cita arquivo, seção e parágrafo. Se a melhor nota fica abaixo do mínimo, responde que não achou e passa para uma pessoa.",
+   "en": "An n8n workflow indexes the company documents (two-sentence passages with TF-IDF weights) and, for each question, retrieves the 3 closest passages, builds the answer from the most relevant sentence and cites file, section and paragraph. If the best score falls below the minimum, it says it found nothing and hands over to a person."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~3 min para achar a resposta em documentos; com 20 perguntas repetidas por dia são cerca de 1h por dia, e toda resposta vem com a fonte para conferir. Testado em 5 perguntas sobre 5 documentos curtos; documentos longos pedem outro método de busca. Dados fictícios.",
+   "en": "An estimate, not a measurement: ~3 min to find an answer in documents; at 20 repeated questions a day that is about 1 h a day, and every answer comes with the source to check. Tested on 5 questions over 5 short documents; long documents call for another search method. Fictional data."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Read/Write Files",
+   "Extract From File",
+   "Code (JS)",
+   "IF",
+   "TF-IDF (sem LLM)"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. Não há modelo de linguagem: a resposta é a frase mais relevante do trecho recuperado, por isso é curta e literal. O índice aqui é montado no seu navegador com o mesmo código do nó de indexação.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. There is no language model: the answer is the most relevant sentence of the retrieved passage, so it is short and literal. The index here is built in your browser with the same code as the indexing node."
+  }
+ },
+ "recorded": [
+  {
+   "input": {
+    "question": "How long do I have to return an unopened appliance?",
+    "min_score": "0.15"
+   },
+   "expect": {
+    "answer": "Customers may return any unused appliance within 30 days of delivery for a full refund. [1]",
+    "sources": "[1] returns-policy.md - Returns policy (para 1, score 0.309); [2] returns-policy.md - Returns policy (para 3, score 0.177); [3] returns-policy.md - Returns policy (para 2, score 0.126)"
+   }
+  },
+  {
+   "input": {
+    "question": "Is the air fryer warranty longer than 24 months?",
+    "min_score": "0.15"
+   },
+   "expect": {
+    "answer": "The air fryer and the blender motor have an extended 36-month warranty when registered within 30 days of purchase. All Brisa appliances include a 24-month limited warranty that covers manufacturing defects. [1]",
+    "sources": "[1] warranty.md - Warranty (para 1, score 0.542); [2] warranty.md - Warranty (para 2, score 0.368); [3] warranty.md - Warranty (para 5, score 0.121)"
+   }
+  },
+  {
+   "input": {
+    "question": "How fast is express delivery and what does it cost?",
+    "min_score": "0.15"
+   },
+   "expect": {
+    "answer": "Express delivery takes 1 to 2 business days and costs US$ 14.90. Standard delivery takes 3 to 5 business days in the US. [1]",
+    "sources": "[1] shipping.md - Shipping (para 2, score 0.503); [2] shipping.md - Shipping (para 3, score 0.496); [3] shipping.md - Shipping (para 1, score 0.085)"
+   }
+  },
+  {
+   "input": {
+    "question": "Is there a phone line for support?",
+    "min_score": "0.15"
+   },
+   "expect": {
+    "answer": "There is no phone line. [1]",
+    "sources": "[1] support-hours.md - Support hours and channels (para 2, score 0.538); [2] support-hours.md - Support hours and channels (para 1, score 0.404); [3] warranty.md - Warranty (para 5, score 0.082)"
+   }
+  },
+  {
+   "input": {
+    "question": "Do you sell gift cards?",
+    "min_score": "0.15"
+   },
+   "expect": {
+    "answer": "I could not find this in the company documents. A human will follow up.",
+    "sources": "none"
+   }
+  }
+ ],
+ "slug": "07-perguntas-sobre-documentos",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

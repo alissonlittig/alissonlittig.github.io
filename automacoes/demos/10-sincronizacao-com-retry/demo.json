@@ -1,0 +1,481 @@
+{
+ "title": {
+  "pt": "Sincronização por webhook com retry e dead-letter",
+  "en": "Webhook sync with retry and dead-letter"
+ },
+ "tag": {
+  "pt": "APIs · idempotência · retry · fila de falhas",
+  "en": "APIs · idempotency · retry · failure queue"
+ },
+ "summary": {
+  "pt": "O pedido chega por webhook do Sistema A, é validado e traduzido para o formato do Sistema B e enviado com chave de idempotência. Se o Sistema B falhar, tenta 3 vezes; se continuar fora, o pedido vai para a fila dead-letter com alerta, e nada se perde. Pedido inválido volta 400. Edite o pedido e aperte Rodar.",
+  "en": "The order arrives by webhook from System A, is validated and mapped to System B's format and sent with an idempotency key. If System B fails, it retries 3 times; if it stays down, the order goes to the dead-letter queue with an alert and nothing is lost. An invalid order returns 400. Edit the order and press Run."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/order-sync  (application/json)",
+   "en": "POST /webhook/order-sync  (application/json)"
+  },
+  "note": {
+   "pt": "Sistema B de teste: ids terminados em -F falham nas 2 primeiras tentativas e passam na 3ª; terminados em -X ficam sempre fora do ar. Rode o mesmo pedido duas vezes e a segunda volta duplicate = true, sem criar outro. O estado do Sistema B persiste entre execuções; \"Limpar memória\" o esvazia. Também dá para forçar a falha no menu de erro simulado.",
+   "en": "The test System B: ids ending in -F fail the first 2 attempts and pass on the 3rd; ids ending in -X are always down. Run the same order twice and the second returns duplicate = true, without creating another. System B's state persists between runs; \"Clear memory\" empties it. You can also force the failure from the simulated-error menu."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Pedido válido",
+     "en": "Valid order"
+    },
+    "values": {
+     "id": "ORD-2002",
+     "customer_email": "ana@example.com",
+     "customer_name": "Ana Souza",
+     "sku": "KT-170",
+     "qty": "2",
+     "unit_price": "39.9"
+    }
+   },
+   {
+    "label": {
+     "pt": "Falha 2x, passa na 3ª",
+     "en": "Fails twice, passes on the 3rd"
+    },
+    "values": {
+     "id": "ORD-2001-F",
+     "customer_email": "ana@example.com",
+     "customer_name": "Ana Souza",
+     "sku": "KT-170",
+     "qty": "2",
+     "unit_price": "39.9"
+    }
+   },
+   {
+    "label": {
+     "pt": "Sistema B fora (dead-letter)",
+     "en": "System B down (dead-letter)"
+    },
+    "values": {
+     "id": "ORD-2003-X",
+     "customer_email": "ana@example.com",
+     "customer_name": "Ana Souza",
+     "sku": "KT-170",
+     "qty": "2",
+     "unit_price": "39.9"
+    }
+   },
+   {
+    "label": {
+     "pt": "Pedido inválido",
+     "en": "Invalid order"
+    },
+    "values": {
+     "id": "",
+     "customer_email": "nope",
+     "customer_name": "",
+     "sku": "",
+     "qty": "0",
+     "unit_price": "0"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "id",
+    "type": "text",
+    "value": "ORD-2002",
+    "label": {
+     "pt": "ID do pedido",
+     "en": "Order id"
+    }
+   },
+   {
+    "key": "customer_email",
+    "type": "text",
+    "value": "ana@example.com",
+    "label": {
+     "pt": "E-mail do cliente",
+     "en": "Customer e-mail"
+    }
+   },
+   {
+    "key": "customer_name",
+    "type": "text",
+    "value": "Ana Souza",
+    "label": {
+     "pt": "Nome do cliente",
+     "en": "Customer name"
+    }
+   },
+   {
+    "key": "sku",
+    "type": "text",
+    "value": "KT-170",
+    "label": {
+     "pt": "SKU (vazio = sem itens)",
+     "en": "SKU (empty = no items)"
+    }
+   },
+   {
+    "key": "qty",
+    "type": "text",
+    "value": "2",
+    "label": {
+     "pt": "Quantidade",
+     "en": "Quantity"
+    }
+   },
+   {
+    "key": "unit_price",
+    "type": "text",
+    "value": "39.9",
+    "label": {
+     "pt": "Preço unitário (US$)",
+     "en": "Unit price (US$)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Order webhook (System A)",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · URL do Sistema B",
+    "en": "Set · System B URL"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Validate and map to B",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Code · valida e traduz",
+    "en": "Code · validates and maps"
+   }
+  },
+  {
+   "id": "valid",
+   "name": "Valid order?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "IF · valid = true",
+    "en": "IF · valid = true"
+   }
+  },
+  {
+   "id": "post",
+   "name": "POST to System B (retry x3)",
+   "icon": "http",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP Request · Idempotency-Key",
+    "en": "HTTP Request · Idempotency-Key"
+   }
+  },
+  {
+   "id": "log",
+   "name": "Log success line",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Code · linha do log",
+    "en": "Code · log line"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to sync_log.csv",
+   "icon": "sheet",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "r200",
+   "name": "Respond 200 synced",
+   "icon": "respond",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "r400",
+   "name": "Respond 400 invalid order",
+   "icon": "respond",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "dead",
+   "name": "Build dead-letter record",
+   "icon": "code",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "Code · registro da falha",
+    "en": "Code · failure record"
+   }
+  },
+  {
+   "id": "deadfile",
+   "name": "Append to dead_letter.jsonl",
+   "icon": "file",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify (Telegram)",
+   "icon": "bell",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  },
+  {
+   "id": "r202",
+   "name": "Respond 202 queued",
+   "icon": "respond",
+   "col": 7,
+   "row": 2,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "validate"
+  },
+  {
+   "from": "validate",
+   "to": "valid"
+  },
+  {
+   "from": "valid",
+   "to": "post",
+   "when": "true"
+  },
+  {
+   "from": "valid",
+   "to": "r400",
+   "when": "false"
+  },
+  {
+   "from": "post",
+   "to": "log",
+   "when": "success"
+  },
+  {
+   "from": "post",
+   "to": "dead",
+   "when": "error"
+  },
+  {
+   "from": "log",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "r200"
+  },
+  {
+   "from": "dead",
+   "to": "deadfile"
+  },
+  {
+   "from": "deadfile",
+   "to": "notify"
+  },
+  {
+   "from": "notify",
+   "to": "r202"
+  }
+ ],
+ "failure": {
+  "node": "post",
+  "continueOnFail": true,
+  "message": {
+   "pt": "503: Sistema B indisponível (simulado)",
+   "en": "503: System B unavailable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Dois sistemas precisam trocar pedidos em tempo real. Quando um cai, o pedido some, ou chega duplicado quando alguém reenvia na mão. Ninguém descobre até o cliente reclamar.",
+   "en": "Two systems must exchange orders in real time. When one goes down the order vanishes, or arrives twice when someone resends by hand. Nobody finds out until the customer complains."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe o evento do Sistema A, valida e traduz para o formato do Sistema B e envia com chave de idempotência, então reenviar não duplica. Em falha tenta 3 vezes; se o Sistema B continuar fora, grava o pedido numa fila dead-letter, alerta a equipe e responde 202 para o Sistema A saber que ficou na fila. Pedido inválido volta 400 com a lista de erros.",
+   "en": "An n8n workflow receives the event from System A, validates and maps it to System B's format and sends it with an idempotency key, so resending does not duplicate. On failure it retries 3 times; if System B stays down it saves the order in a dead-letter queue, alerts the team and answers 202 so System A knows it was queued. An invalid order returns 400 with the list of errors."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: sem a fila, cada pedido perdido custa ~15 min para achar e refazer à mão; com 3 por semana são cerca de 45 min por semana, fora o risco de duplicar. O replay da fila é manual, não está incluído. Sistemas e dados fictícios.",
+   "en": "An estimate, not a measurement: without the queue each lost order costs ~15 min to find and redo by hand; at 3 a week that is about 45 min a week, not counting the risk of duplicates. Replaying the queue is manual and not included. Fictional systems and data."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "IF",
+   "HTTP Request (retry)",
+   "Respond to Webhook",
+   "Read/Write Files"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. O Sistema B aqui é um simulador em JavaScript com as mesmas regras do servidor de teste da execução gravada (ids -F e -X). Os 3 retries aparecem na saída do nó; o intervalo entre tentativas é encurtado na animação.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. System B here is a JavaScript simulator with the same rules as the recorded run's test server (-F and -X ids). The 3 retries show in the node output; the wait between attempts is shortened in the animation."
+  }
+ },
+ "recorded": [
+  {
+   "fresh": true,
+   "input": {
+    "id": "ORD-2001-F",
+    "customer_email": "ana@example.com",
+    "customer_name": "Ana Souza",
+    "sku": "KT-170",
+    "qty": "2",
+    "unit_price": "39.9"
+   },
+   "expect": {
+    "code": 200,
+    "status": "synced",
+    "id": "B-ORD-2001-F",
+    "duplicate": false,
+    "attempts": 3
+   }
+  },
+  {
+   "fresh": true,
+   "input": {
+    "id": "ORD-2002",
+    "customer_email": "ana@example.com",
+    "customer_name": "Ana Souza",
+    "sku": "KT-170",
+    "qty": "2",
+    "unit_price": "39.9"
+   },
+   "expect": {
+    "code": 200,
+    "status": "synced",
+    "id": "B-ORD-2002",
+    "duplicate": false,
+    "attempts": 1
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "id": "ORD-2002",
+     "customer_email": "ana@example.com",
+     "customer_name": "Ana Souza",
+     "sku": "KT-170",
+     "qty": "2",
+     "unit_price": "39.9"
+    }
+   ],
+   "input": {
+    "id": "ORD-2002",
+    "customer_email": "ana@example.com",
+    "customer_name": "Ana Souza",
+    "sku": "KT-170",
+    "qty": "2",
+    "unit_price": "39.9"
+   },
+   "expect": {
+    "code": 200,
+    "status": "synced",
+    "id": "B-ORD-2002",
+    "duplicate": true,
+    "attempts": 1
+   }
+  },
+  {
+   "fresh": true,
+   "input": {
+    "id": "ORD-2003-X",
+    "customer_email": "ana@example.com",
+    "customer_name": "Ana Souza",
+    "sku": "KT-170",
+    "qty": "2",
+    "unit_price": "39.9"
+   },
+   "expect": {
+    "code": 202,
+    "status": "queued",
+    "dead": 1,
+    "alert": "SYNC FAILED after 3 tries: order ORD-2003-X queued in dead_letter.jsonl",
+    "attempts": 3
+   }
+  },
+  {
+   "fresh": true,
+   "input": {
+    "id": "",
+    "customer_email": "nope",
+    "customer_name": "",
+    "sku": "",
+    "qty": "0",
+    "unit_price": "0"
+   },
+   "expect": {
+    "code": 400,
+    "errors": [
+     "id is required",
+     "customer_email is invalid",
+     "items must be a non-empty array",
+     "order total must be positive"
+    ]
+   }
+  }
+ ],
+ "slug": "10-sincronizacao-com-retry",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

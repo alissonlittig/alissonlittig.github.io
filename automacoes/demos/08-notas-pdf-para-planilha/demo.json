@@ -1,0 +1,395 @@
+{
+ "title": {
+  "pt": "PDFs de nota para planilha com fila de revisão",
+  "en": "Invoice PDFs to a sheet with a review queue"
+ },
+ "tag": {
+  "pt": "Extração de dados · validação · deduplicação",
+  "en": "Data extraction · validation · dedup"
+ },
+ "summary": {
+  "pt": "Todo dia útil o n8n lê os PDFs de nota, extrai fornecedor, número, data e valores, confere se subtotal + imposto fecha com o total e manda cada nota para a planilha certa: lançada, em revisão ou duplicada. Edite o texto das notas e aperte Rodar. Rode duas vezes para ver que nada é lançado em dobro.",
+  "en": "Every weekday n8n reads the invoice PDFs, extracts vendor, number, date and amounts, checks that subtotal + tax matches the total and sends each invoice to the right sheet: booked, under review or duplicate. Edit the invoice text and press Run. Run it twice to see nothing is booked twice."
+ },
+ "input": {
+  "trigger": {
+   "pt": "Schedule seg-sex 08:00 (ou Run now) · lê data/invoices/*.pdf",
+   "en": "Schedule Mon-Fri 08:00 (or Run now) · reads data/invoices/*.pdf"
+  },
+  "note": {
+   "pt": "Cada bloco começa com ### nome-do-arquivo.pdf e traz o texto que o n8n extrai do PDF. As planilhas persistem entre execuções, como os arquivos: rode \"5 PDFs gravados\" duas vezes e a segunda dá 5 duplicadas, como na execução real. \"Limpar memória\" esvazia as planilhas. O erro simulado atinge o Telegram.",
+   "en": "Each block starts with ### file-name.pdf and holds the text n8n extracts from the PDF. The sheets persist between runs, like the files: run \"5 recorded PDFs\" twice and the second gives 5 duplicates, as in the real run. \"Clear memory\" empties the sheets. The simulated failure hits Telegram."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "5 PDFs gravados",
+     "en": "5 recorded PDFs"
+    },
+    "values": {
+     "pdfs": "### acme-packaging-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### bluepeak-cloud-2210.pdf\nBluePeak Cloud Services\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: BP-2210\nInvoice date: 2026-11-05\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nHosting - October 320.00\nSubtotal: 320.00\nVAT: 32.00\nTotal due: USD 399.00\n\n### copy-of-acme-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### lumen-print-310.pdf\nLumen Print Shop\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: LP-310\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFlyers x1000 95.00\nSubtotal: 95.00\nVAT: 9.50\nTotal due: USD 104.50\n\n### northwind-freight-77.pdf\nNorthwind Freight\nFictional sample data - not a real invoice\nINVOICE\nInvoice #: NF-77\nDate: 2026-11-02\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFreight Austin-NYC 2,450.00\nSubtotal: 2,450.00\nVAT: 0.00\nTotal due: USD 2,450.00"
+    }
+   },
+   {
+    "label": {
+     "pt": "Uma nota nova limpa",
+     "en": "One clean new invoice"
+    },
+    "values": {
+     "pdfs": "### paperline-5001.pdf\nPaperline Supplies\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: PL-5001\nInvoice date: 2026-11-09\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCopy paper x40 600.00\nToner x3 240.00\nSubtotal: 840.00\nVAT: 84.00\nTotal due: USD 924.00"
+    }
+   },
+   {
+    "label": {
+     "pt": "Total que não fecha",
+     "en": "Total that does not add up"
+    },
+    "values": {
+     "pdfs": "### bluepeak-cloud-2210.pdf\nBluePeak Cloud Services\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: BP-2210\nInvoice date: 2026-11-05\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nHosting - October 320.00\nSubtotal: 320.00\nVAT: 32.00\nTotal due: USD 399.00"
+    }
+   },
+   {
+    "label": {
+     "pt": "Sem data",
+     "en": "No date"
+    },
+    "values": {
+     "pdfs": "### lumen-print-310.pdf\nLumen Print Shop\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: LP-310\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFlyers x1000 95.00\nSubtotal: 95.00\nVAT: 9.50\nTotal due: USD 104.50"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "pdfs",
+    "type": "textarea",
+    "value": "### acme-packaging-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### bluepeak-cloud-2210.pdf\nBluePeak Cloud Services\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: BP-2210\nInvoice date: 2026-11-05\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nHosting - October 320.00\nSubtotal: 320.00\nVAT: 32.00\nTotal due: USD 399.00\n\n### copy-of-acme-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### lumen-print-310.pdf\nLumen Print Shop\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: LP-310\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFlyers x1000 95.00\nSubtotal: 95.00\nVAT: 9.50\nTotal due: USD 104.50\n\n### northwind-freight-77.pdf\nNorthwind Freight\nFictional sample data - not a real invoice\nINVOICE\nInvoice #: NF-77\nDate: 2026-11-02\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFreight Austin-NYC 2,450.00\nSubtotal: 2,450.00\nVAT: 0.00\nTotal due: USD 2,450.00",
+    "label": {
+     "pt": "Texto dos PDFs (edite à vontade)",
+     "en": "PDF text (edit freely)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "trigger",
+   "name": "Every weekday 08:00",
+   "icon": "loop",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Schedule · ou Run now",
+    "en": "Schedule · or Run now"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · pastas e chat",
+    "en": "Set · folders and chat"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read invoice PDFs",
+   "icon": "file",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · glob",
+    "en": "Read/Write Files · glob"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "Extract text from PDF",
+   "icon": "pdf",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Extract From File · PDF",
+    "en": "Extract From File · PDF"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse invoice fields",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · regex dos campos",
+    "en": "Code · field regex"
+   }
+  },
+  {
+   "id": "collect",
+   "name": "Collect all invoices",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Code · junta os itens",
+    "en": "Code · gathers the items"
+   }
+  },
+  {
+   "id": "exist",
+   "name": "Read existing sheets",
+   "icon": "memory",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "route",
+   "name": "Route: ok / review / duplicate",
+   "icon": "code",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "Code · valida e roteia",
+    "en": "Code · validates and routes"
+   }
+  },
+  {
+   "id": "summarize",
+   "name": "Summarize",
+   "icon": "code",
+   "col": 0,
+   "row": 1,
+   "sub": {
+    "pt": "Code · texto do resumo",
+    "en": "Code · summary text"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify (Telegram)",
+   "icon": "bell",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  },
+  {
+   "id": "switch",
+   "name": "Which queue?",
+   "icon": "switch",
+   "col": 3,
+   "row": 2,
+   "sub": {
+    "pt": "Switch · ok / review / duplicate",
+    "en": "Switch · ok / review / duplicate"
+   }
+  },
+  {
+   "id": "a_ok",
+   "name": "Append to invoices.csv",
+   "icon": "sheet",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "a_review",
+   "name": "Append to invoices_review.csv",
+   "icon": "sheet",
+   "col": 4,
+   "row": 2,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "skip",
+   "name": "Skip duplicate (no write)",
+   "icon": "set",
+   "col": 4,
+   "row": 3,
+   "sub": {
+    "pt": "No Operation",
+    "en": "No Operation"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "trigger",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "extract"
+  },
+  {
+   "from": "extract",
+   "to": "parse"
+  },
+  {
+   "from": "parse",
+   "to": "collect"
+  },
+  {
+   "from": "collect",
+   "to": "exist"
+  },
+  {
+   "from": "exist",
+   "to": "route"
+  },
+  {
+   "from": "route",
+   "to": "switch",
+   "route": [
+    [
+     7,
+     0,
+     "b"
+    ],
+    [
+     3,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "route",
+   "to": "summarize",
+   "route": [
+    [
+     7,
+     0,
+     "b"
+    ],
+    [
+     0,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "summarize",
+   "to": "notify"
+  },
+  {
+   "from": "switch",
+   "to": "a_ok",
+   "when": "ok"
+  },
+  {
+   "from": "switch",
+   "to": "a_review",
+   "when": "review"
+  },
+  {
+   "from": "switch",
+   "to": "skip",
+   "when": "duplicate"
+  }
+ ],
+ "failure": {
+  "node": "notify",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Alguém digita à mão, numa planilha, as notas dos fornecedores. Aparecem erros de digitação, notas com total que não fecha passam batido e a mesma nota entra duas vezes.",
+   "en": "Someone retypes supplier invoices into a spreadsheet by hand. Typos creep in, invoices whose total does not add up slip through and the same invoice gets booked twice."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n lê os PDFs da pasta, extrai fornecedor, número, data, subtotal, imposto e total com expressões regulares que aceitam variações de rótulo, valida (campos obrigatórios e subtotal + imposto = total) e roteia: o que está certo vai para a planilha, o que falha vai para a fila de revisão com o motivo, e o que já foi lançado é ignorado. Um resumo vai ao Telegram.",
+   "en": "An n8n workflow reads the PDFs in the folder, extracts vendor, number, date, subtotal, tax and total with regular expressions that accept label variants, validates (required fields and subtotal + tax = total) and routes: valid ones go to the sheet, failures go to the review queue with the reason, and anything already booked is skipped. A summary goes to Telegram."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~4 min por nota digitada e conferida à mão; com 30 notas por semana são cerca de 2h por semana, e as notas duvidosas aparecem com o motivo em vez de entrar erradas. Funciona com PDF de texto; imagem escaneada precisaria de OCR (não incluído). Dados fictícios.",
+   "en": "An estimate, not a measurement: ~4 min per invoice typed and checked by hand; at 30 invoices a week that is about 2 h a week, and doubtful invoices show up with the reason instead of going in wrong. Works with text-based PDFs; scanned images would need OCR (not included). Fictional data."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Schedule Trigger",
+   "Read/Write Files",
+   "Extract From File (PDF)",
+   "Code (JS)",
+   "Switch",
+   "HTTP Request"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. Aqui o texto do PDF já vem extraído (você o edita); a leitura do arquivo PDF em si foi feita pelo n8n na execução gravada.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. Here the PDF text arrives already extracted (you edit it); reading the PDF file itself was done by n8n in the recorded run."
+  }
+ },
+ "recorded": [
+  {
+   "fresh": true,
+   "input": {
+    "pdfs": "### acme-packaging-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### bluepeak-cloud-2210.pdf\nBluePeak Cloud Services\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: BP-2210\nInvoice date: 2026-11-05\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nHosting - October 320.00\nSubtotal: 320.00\nVAT: 32.00\nTotal due: USD 399.00\n\n### copy-of-acme-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### lumen-print-310.pdf\nLumen Print Shop\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: LP-310\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFlyers x1000 95.00\nSubtotal: 95.00\nVAT: 9.50\nTotal due: USD 104.50\n\n### northwind-freight-77.pdf\nNorthwind Freight\nFictional sample data - not a real invoice\nINVOICE\nInvoice #: NF-77\nDate: 2026-11-02\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFreight Austin-NYC 2,450.00\nSubtotal: 2,450.00\nVAT: 0.00\nTotal due: USD 2,450.00"
+   },
+   "expect": {
+    "ok": [
+     "AP-0412",
+     "NF-77"
+    ],
+    "review": [
+     "BP-2210|total mismatch (320 + 32 != 399)",
+     "LP-310|missing date"
+    ],
+    "text": "Invoices: 2 booked (USD 3968.00), 2 sent to review (bluepeak-cloud-2210.pdf: total mismatch (320 + 32 != 399) | lumen-print-310.pdf: missing date), 1 duplicate skipped (already booked or in review)."
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "pdfs": "### acme-packaging-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### bluepeak-cloud-2210.pdf\nBluePeak Cloud Services\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: BP-2210\nInvoice date: 2026-11-05\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nHosting - October 320.00\nSubtotal: 320.00\nVAT: 32.00\nTotal due: USD 399.00\n\n### copy-of-acme-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### lumen-print-310.pdf\nLumen Print Shop\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: LP-310\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFlyers x1000 95.00\nSubtotal: 95.00\nVAT: 9.50\nTotal due: USD 104.50\n\n### northwind-freight-77.pdf\nNorthwind Freight\nFictional sample data - not a real invoice\nINVOICE\nInvoice #: NF-77\nDate: 2026-11-02\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFreight Austin-NYC 2,450.00\nSubtotal: 2,450.00\nVAT: 0.00\nTotal due: USD 2,450.00"
+    }
+   ],
+   "input": {
+    "pdfs": "### acme-packaging-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### bluepeak-cloud-2210.pdf\nBluePeak Cloud Services\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: BP-2210\nInvoice date: 2026-11-05\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nHosting - October 320.00\nSubtotal: 320.00\nVAT: 32.00\nTotal due: USD 399.00\n\n### copy-of-acme-0412.pdf\nAcme Packaging Co.\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: AP-0412\nInvoice date: 2026-10-28\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nCardboard boxes x500 1,200.00\nPallet wrap x20 180.00\nSubtotal: 1,380.00\nVAT: 138.00\nTotal due: USD 1,518.00\n\n### lumen-print-310.pdf\nLumen Print Shop\nFictional sample data - not a real invoice\nINVOICE\nInvoice No: LP-310\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFlyers x1000 95.00\nSubtotal: 95.00\nVAT: 9.50\nTotal due: USD 104.50\n\n### northwind-freight-77.pdf\nNorthwind Freight\nFictional sample data - not a real invoice\nINVOICE\nInvoice #: NF-77\nDate: 2026-11-02\nBill to: Brisa Home Appliances Ltd.\nDescription Amount\nFreight Austin-NYC 2,450.00\nSubtotal: 2,450.00\nVAT: 0.00\nTotal due: USD 2,450.00"
+   },
+   "expect": {
+    "ok": [
+     "AP-0412",
+     "NF-77"
+    ],
+    "review": [
+     "BP-2210|total mismatch (320 + 32 != 399)",
+     "LP-310|missing date"
+    ],
+    "text": "Invoices: 0 booked (USD 0.00), 0 sent to review (), 5 duplicate skipped (already booked or in review)."
+   }
+  }
+ ],
+ "slug": "08-notas-pdf-para-planilha",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

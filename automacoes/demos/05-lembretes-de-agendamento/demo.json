@@ -1,0 +1,265 @@
+{
+ "title": {
+  "pt": "Lembretes de agendamento por WhatsApp",
+  "en": "Appointment reminders for WhatsApp"
+ },
+ "tag": {
+  "pt": "Agenda · mensagens · resumo",
+  "en": "Scheduling · messages · summary"
+ },
+ "summary": {
+  "pt": "Todo fim de tarde o n8n lê a agenda, separa quem tem horário amanhã, escreve o lembrete de cada cliente com link de WhatsApp pronto e avisa o dono com a lista. Edite a agenda, escolha o dia de hoje e aperte Rodar.",
+  "en": "Every late afternoon n8n reads the schedule, picks who is booked tomorrow, writes each client's reminder with a ready WhatsApp link and tells the owner the list. Edit the schedule, pick today's date and press Run."
+ },
+ "input": {
+  "trigger": {
+   "pt": "Schedule 18:00 (ou Run now) · lê data/sample_appointments.csv",
+   "en": "Schedule 18:00 (or Run now) · reads data/sample_appointments.csv"
+  },
+  "note": {
+   "pt": "Dica: com hoje = 2026-11-13 não há ninguém amanhã e o fluxo para no \"Any reminders?\", sem mandar aviso vazio. O link wa.me só abre o WhatsApp com o texto pronto; a mensagem não é enviada por aqui.",
+   "en": "Tip: with today = 2026-11-13 nobody is booked tomorrow and the flow stops at \"Any reminders?\", sending no empty notice. The wa.me link only opens WhatsApp with the text ready; no message is sent from here."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Hoje = 10/11 (3 amanhã)",
+     "en": "Today = Nov 10 (3 tomorrow)"
+    },
+    "values": {
+     "today": "2026-11-10",
+     "business": "Studio Aurora",
+     "csv": "client,phone,service,date,time\nMarina Souza,5541999990001,Corte + escova,2026-11-11,10:00\nRafael Lima,5541999990002,Limpeza de pele,2026-11-11,14:30\nCamila Dias,5541999990003,Consulta retorno,2026-11-12,09:00\nJoão Pereira,5541999990004,Barba,2026-11-11,16:00\nAline Rocha,5541999990005,Manicure,2026-11-10,17:00"
+    }
+   },
+   {
+    "label": {
+     "pt": "Hoje = 11/11 (1 amanhã)",
+     "en": "Today = Nov 11 (1 tomorrow)"
+    },
+    "values": {
+     "today": "2026-11-11",
+     "business": "Studio Aurora",
+     "csv": "client,phone,service,date,time\nMarina Souza,5541999990001,Corte + escova,2026-11-11,10:00\nRafael Lima,5541999990002,Limpeza de pele,2026-11-11,14:30\nCamila Dias,5541999990003,Consulta retorno,2026-11-12,09:00\nJoão Pereira,5541999990004,Barba,2026-11-11,16:00\nAline Rocha,5541999990005,Manicure,2026-11-10,17:00"
+    }
+   },
+   {
+    "label": {
+     "pt": "Hoje = 13/11 (ninguém)",
+     "en": "Today = Nov 13 (nobody)"
+    },
+    "values": {
+     "today": "2026-11-13",
+     "business": "Studio Aurora",
+     "csv": "client,phone,service,date,time\nMarina Souza,5541999990001,Corte + escova,2026-11-11,10:00\nRafael Lima,5541999990002,Limpeza de pele,2026-11-11,14:30\nCamila Dias,5541999990003,Consulta retorno,2026-11-12,09:00\nJoão Pereira,5541999990004,Barba,2026-11-11,16:00\nAline Rocha,5541999990005,Manicure,2026-11-10,17:00"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "today",
+    "type": "text",
+    "value": "2026-11-10",
+    "label": {
+     "pt": "Hoje (AAAA-MM-DD)",
+     "en": "Today (YYYY-MM-DD)"
+    }
+   },
+   {
+    "key": "business",
+    "type": "text",
+    "value": "Studio Aurora",
+    "label": {
+     "pt": "Nome do negócio",
+     "en": "Business name"
+    }
+   },
+   {
+    "key": "csv",
+    "type": "textarea",
+    "value": "client,phone,service,date,time\nMarina Souza,5541999990001,Corte + escova,2026-11-11,10:00\nRafael Lima,5541999990002,Limpeza de pele,2026-11-11,14:30\nCamila Dias,5541999990003,Consulta retorno,2026-11-12,09:00\nJoão Pereira,5541999990004,Barba,2026-11-11,16:00\nAline Rocha,5541999990005,Manicure,2026-11-10,17:00",
+    "label": {
+     "pt": "Agenda (CSV, edite à vontade)",
+     "en": "Schedule (CSV, edit freely)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "trigger",
+   "name": "Every day 18:00",
+   "icon": "loop",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Schedule · ou Run now",
+    "en": "Schedule · or Run now"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · negócio, hoje, chat",
+    "en": "Set · business, today, chat"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read appointments CSV",
+   "icon": "file",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "rows",
+   "name": "CSV to rows",
+   "icon": "sheet",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Extract From File · CSV",
+    "en": "Extract From File · CSV"
+   }
+  },
+  {
+   "id": "pick",
+   "name": "Pick tomorrow + write messages",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · filtra e escreve",
+    "en": "Code · filters and writes"
+   }
+  },
+  {
+   "id": "any",
+   "name": "Any reminders?",
+   "icon": "if",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "IF · count > 0",
+    "en": "IF · count > 0"
+   }
+  },
+  {
+   "id": "outbox",
+   "name": "Append to reminders_outbox.csv",
+   "icon": "sheet",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify owner (Telegram)",
+   "icon": "bell",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "trigger",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "rows"
+  },
+  {
+   "from": "rows",
+   "to": "pick"
+  },
+  {
+   "from": "pick",
+   "to": "any"
+  },
+  {
+   "from": "any",
+   "to": "outbox",
+   "when": "true"
+  },
+  {
+   "from": "outbox",
+   "to": "notify"
+  }
+ ],
+ "failure": {
+  "node": "notify",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Salão, clínica e estúdio perdem horário com falta: o cliente esquece. Lembrar um a um por mensagem toma tempo da recepção e é a primeira coisa a ser deixada de lado em dia cheio.",
+   "en": "Salons, clinics and studios lose slots to no-shows: the client forgets. Reminding one by one takes reception time and is the first thing dropped on a busy day."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n lê a agenda no fim da tarde, separa os horários de amanhã, escreve o lembrete com nome, serviço e hora, gera o link de WhatsApp de cada um, grava a fila de envio em CSV e manda ao dono o resumo da lista. Quem envia continua sendo a pessoa, com um clique.",
+   "en": "An n8n workflow reads the schedule in the late afternoon, picks tomorrow's slots, writes the reminder with name, service and time, builds each client's WhatsApp link, saves the outbox as CSV and sends the owner a summary. A person still sends it, with one click."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~2 min por cliente para lembrar à mão; com 8 clientes por dia são ~16 min, perto de 1h30 por semana devolvida à recepção. Redução de faltas depende do negócio e não foi medida. Dados fictícios.",
+   "en": "An estimate, not a measurement: ~2 min per client to remind by hand; with 8 clients a day that is ~16 min, close to 1.5 h a week handed back to reception. Any drop in no-shows depends on the business and was not measured. Fictional data."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Schedule Trigger",
+   "Read/Write Files",
+   "Extract From File",
+   "Code (JS)",
+   "IF",
+   "HTTP Request",
+   "WhatsApp (link wa.me)"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. Nenhuma mensagem é enviada: o workflow monta o texto e o link wa.me; o envio automático exigiria a API oficial do WhatsApp, que não foi usada.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. No message is sent: the workflow builds the text and the wa.me link; automatic sending would need the official WhatsApp API, which was not used."
+  }
+ },
+ "recorded": [
+  {
+   "input": {
+    "today": "2026-11-10",
+    "business": "Studio Aurora",
+    "csv": "client,phone,service,date,time\nMarina Souza,5541999990001,Corte + escova,2026-11-11,10:00\nRafael Lima,5541999990002,Limpeza de pele,2026-11-11,14:30\nCamila Dias,5541999990003,Consulta retorno,2026-11-12,09:00\nJoão Pereira,5541999990004,Barba,2026-11-11,16:00\nAline Rocha,5541999990005,Manicure,2026-11-10,17:00"
+   },
+   "expect": {
+    "count": 3,
+    "text": "3 reminder(s) queued for 2026-11-11: 10:00 Marina Souza, 14:30 Rafael Lima, 16:00 João Pereira",
+    "first_msg": "Olá, Marina! Lembrete: Corte + escova amanhã às 10:00 no Studio Aurora. Responda 1 para confirmar ou 2 para remarcar.",
+    "first_link": "https://wa.me/5541999990001?text=Ol%C3%A1%2C%20Marina!%20Lembrete%3A%20Corte%20%2B%20escova%20amanh%C3%A3%20%C3%A0s%2010%3A00%20no%20Studio%20Aurora.%20Responda%201%20para%20confirmar%20ou%202%20para%20remarcar."
+   }
+  }
+ ],
+ "slug": "05-lembretes-de-agendamento",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

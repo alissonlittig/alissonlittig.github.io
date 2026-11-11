@@ -1,0 +1,368 @@
+{
+ "title": {
+  "pt": "Leads enriquecidos em planilha de CRM",
+  "en": "Leads enriched into a CRM sheet"
+ },
+ "tag": {
+  "pt": "CRM · enriquecimento · pontuação",
+  "en": "CRM · enrichment · scoring"
+ },
+ "summary": {
+  "pt": "O n8n lê a lista de empresas, abre o site público de cada uma, extrai porte, e-mail, telefone, setor e sinais de crescimento, dá uma nota de aderência e grava no CRM sem duplicar por domínio. Site fora do ar vira \"unreachable\" sem derrubar a rodada. Edite as listas e aperte Rodar, duas vezes.",
+  "en": "n8n reads the company list, opens each public site, extracts size, e-mail, phone, industry and growth signals, scores the fit and writes to the CRM without duplicating by domain. A dead site becomes \"unreachable\" without breaking the run. Edit the lists and press Run, twice."
+ },
+ "input": {
+  "trigger": {
+   "pt": "Schedule segunda 07:00 (ou Run now) · lê data/leads_input.csv",
+   "en": "Schedule Monday 07:00 (or Run now) · reads data/leads_input.csv"
+  },
+  "note": {
+   "pt": "Rode uma vez: 5 linhas novas. Rode de novo: 0 novas, 5 atualizadas (sem duplicar). O CRM persiste entre execuções; \"Limpar memória\" o esvazia. O erro simulado permanente derruba todos os sites: cada lead vira unreachable e a rodada termina mesmo assim, como o workflow faz (Continue On Fail). As páginas são fictícias e editáveis; domínio sem página dá 404.",
+   "en": "Run once: 5 new rows. Run again: 0 new, 5 updated (no duplicates). The CRM persists between runs; \"Clear memory\" empties it. The permanent simulated failure takes every site down: each lead becomes unreachable and the run still finishes, as the workflow does (Continue On Fail). The pages are fictional and editable; a domain with no page gives a 404."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "5 leads gravados",
+     "en": "5 recorded leads"
+    },
+    "values": {
+     "leads": "company,domain_slug,source\nBrightPath Dental,brightpath,trade show list\nKilnworks Ceramics,kilnworks,newsletter signup\nOrbit Logix,orbitlogix,webinar attendee\nGreenleaf Accounting,greenleaf,partner referral\nGhost Company,ghostco,old spreadsheet",
+     "pages": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+     "hot_score": "70"
+    }
+   },
+   {
+    "label": {
+     "pt": "Só a Orbit Logix",
+     "en": "Orbit Logix only"
+    },
+    "values": {
+     "leads": "company,domain_slug,source\nOrbit Logix,orbitlogix,webinar attendee",
+     "pages": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+     "hot_score": "70"
+    }
+   },
+   {
+    "label": {
+     "pt": "Exigir nota 90",
+     "en": "Require score 90"
+    },
+    "values": {
+     "leads": "company,domain_slug,source\nBrightPath Dental,brightpath,trade show list\nKilnworks Ceramics,kilnworks,newsletter signup\nOrbit Logix,orbitlogix,webinar attendee\nGreenleaf Accounting,greenleaf,partner referral\nGhost Company,ghostco,old spreadsheet",
+     "pages": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+     "hot_score": "90"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "leads",
+    "type": "textarea",
+    "value": "company,domain_slug,source\nBrightPath Dental,brightpath,trade show list\nKilnworks Ceramics,kilnworks,newsletter signup\nOrbit Logix,orbitlogix,webinar attendee\nGreenleaf Accounting,greenleaf,partner referral\nGhost Company,ghostco,old spreadsheet",
+    "label": {
+     "pt": "Lista de leads (CSV)",
+     "en": "Lead list (CSV)"
+    }
+   },
+   {
+    "key": "pages",
+    "type": "textarea",
+    "value": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+    "label": {
+     "pt": "Sites públicos fictícios (domínio | nome | descrição | e-mail | telefone | setor)",
+     "en": "Fictional public sites (domain | name | description | e-mail | phone | industry)"
+    }
+   },
+   {
+    "key": "hot_score",
+    "type": "text",
+    "value": "70",
+    "label": {
+     "pt": "Nota para lead quente",
+     "en": "Score for a hot lead"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "trigger",
+   "name": "Every Monday 07:00",
+   "icon": "loop",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Schedule · ou Run now",
+    "en": "Schedule · or Run now"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · arquivos e hot_score",
+    "en": "Set · files and hot_score"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read leads_input.csv",
+   "icon": "file",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse CSV",
+   "icon": "sheet",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Extract From File · CSV",
+    "en": "Extract From File · CSV"
+   }
+  },
+  {
+   "id": "fetch",
+   "name": "Fetch public company page",
+   "icon": "http",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP Request · retry x2",
+    "en": "HTTP Request · retry x2"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "Extract signals and score",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Code · sinais e nota",
+    "en": "Code · signals and score"
+   }
+  },
+  {
+   "id": "collect",
+   "name": "Collect all leads",
+   "icon": "code",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Code · junta os itens",
+    "en": "Code · gathers the items"
+   }
+  },
+  {
+   "id": "readcrm",
+   "name": "Read current crm.csv",
+   "icon": "memory",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "upsert",
+   "name": "Upsert into CRM",
+   "icon": "code",
+   "col": 0,
+   "row": 1,
+   "sub": {
+    "pt": "Code · dedupe por domínio",
+    "en": "Code · dedupe by domain"
+   }
+  },
+  {
+   "id": "save",
+   "name": "Save crm.csv",
+   "icon": "file",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · write",
+    "en": "Read/Write Files · write"
+   }
+  },
+  {
+   "id": "hot",
+   "name": "Any hot leads?",
+   "icon": "if",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "IF · hot.length > 0",
+    "en": "IF · hot.length > 0"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify (Telegram)",
+   "icon": "bell",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "trigger",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "parse"
+  },
+  {
+   "from": "parse",
+   "to": "fetch"
+  },
+  {
+   "from": "fetch",
+   "to": "extract"
+  },
+  {
+   "from": "extract",
+   "to": "collect"
+  },
+  {
+   "from": "collect",
+   "to": "readcrm"
+  },
+  {
+   "from": "readcrm",
+   "to": "upsert",
+   "route": [
+    [
+     7,
+     0,
+     "b"
+    ],
+    [
+     0,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "upsert",
+   "to": "save"
+  },
+  {
+   "from": "save",
+   "to": "hot"
+  },
+  {
+   "from": "hot",
+   "to": "notify",
+   "when": "true"
+  }
+ ],
+ "failure": {
+  "node": "fetch",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ETIMEDOUT: os sites não responderam (simulado)",
+   "en": "ETIMEDOUT: the sites did not answer (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "A lista de contatos de eventos e newsletters fica numa planilha sem contexto: ninguém sabe quais empresas valem uma ligação. Pesquisar uma a uma no Google toma horas e a lista acaba duplicada.",
+   "en": "The contact list from events and newsletters sits in a spreadsheet with no context: nobody knows which companies are worth a call. Researching them one by one takes hours and the list ends up duplicated."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n lê a lista, abre o site público de cada empresa, extrai porte, e-mail, telefone, setor e sinais como contratação e investimento, dá uma nota de 0 a 100 por regras claras, grava no CRM sem duplicar por domínio e avisa quando aparecem leads quentes. Site que não abre vira unreachable e não derruba a rodada.",
+   "en": "An n8n workflow reads the list, opens each company's public site, extracts size, e-mail, phone, industry and signals such as hiring and funding, scores 0 to 100 with clear rules, writes to the CRM without duplicating by domain and pings when hot leads appear. A site that does not open becomes unreachable and does not break the run."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~6 min por empresa pesquisada à mão; com 40 empresas por semana são cerca de 4h por semana, com nota e motivo registrados. Os pesos da nota são regras minhas de exemplo, não um modelo validado. Páginas e empresas fictícias.",
+   "en": "An estimate, not a measurement: ~6 min per company researched by hand; with 40 companies a week that is about 4 h a week, with score and reason recorded. The score weights are example rules, not a validated model. Fictional pages and companies."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Schedule Trigger",
+   "Extract From File",
+   "HTTP Request (retry)",
+   "Code (JS)",
+   "IF",
+   "Read/Write Files"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. As páginas dos sites são texto fictício que você pode editar; no original eram servidas por um servidor local de teste. Antes de apontar para sites reais, respeite robots.txt e os termos de cada site.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. The site pages are fictional text you can edit; in the original they were served by a local test server. Before pointing it at real sites, respect robots.txt and each site terms."
+  }
+ },
+ "recorded": [
+  {
+   "fresh": true,
+   "input": {
+    "leads": "company,domain_slug,source\nBrightPath Dental,brightpath,trade show list\nKilnworks Ceramics,kilnworks,newsletter signup\nOrbit Logix,orbitlogix,webinar attendee\nGreenleaf Accounting,greenleaf,partner referral\nGhost Company,ghostco,old spreadsheet",
+    "pages": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+    "hot_score": "70"
+   },
+   "expect": {
+    "rows": [
+     "orbitlogix|enriched|100|Logistics|85",
+     "brightpath|enriched|85|Healthcare|12",
+     "kilnworks|enriched|50|Retail|3",
+     "greenleaf|enriched|40|Finance|6",
+     "ghostco|unreachable|0||"
+    ],
+    "text": "CRM refreshed: +5 new, 0 updated, 1 unreachable. Hot: Orbit Logix (100), BrightPath Dental (85)"
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "leads": "company,domain_slug,source\nBrightPath Dental,brightpath,trade show list\nKilnworks Ceramics,kilnworks,newsletter signup\nOrbit Logix,orbitlogix,webinar attendee\nGreenleaf Accounting,greenleaf,partner referral\nGhost Company,ghostco,old spreadsheet",
+     "pages": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+     "hot_score": "70"
+    }
+   ],
+   "input": {
+    "leads": "company,domain_slug,source\nBrightPath Dental,brightpath,trade show list\nKilnworks Ceramics,kilnworks,newsletter signup\nOrbit Logix,orbitlogix,webinar attendee\nGreenleaf Accounting,greenleaf,partner referral\nGhost Company,ghostco,old spreadsheet",
+    "pages": "brightpath | BrightPath Dental | Family dental clinic in Austin with online booking and 12 dentists. Built on WordPress. | hello@brightpath.example | +1 512 555 0142 | Healthcare\nkilnworks | Kilnworks Ceramics | Handmade ceramics shop. 3 people. Shopify store, ships worldwide. | studio@kilnworks.example |  | Retail\norbitlogix | Orbit Logix | Freight forwarding software for mid-size logistics firms. 85 employees, Series B, hiring operations analysts. | sales@orbitlogix.example | +44 20 5550 0188 | Logistics\ngreenleaf | Greenleaf Accounting | Bookkeeping and tax services for small businesses. 6 accountants. |  |  | Finance",
+    "hot_score": "70"
+   },
+   "expect": {
+    "rows": [
+     "orbitlogix|enriched|100|Logistics|85",
+     "brightpath|enriched|85|Healthcare|12",
+     "kilnworks|enriched|50|Retail|3",
+     "greenleaf|enriched|40|Finance|6",
+     "ghostco|unreachable|0||"
+    ],
+    "text": "CRM refreshed: +0 new, 5 updated, 1 unreachable. Hot: Orbit Logix (100), BrightPath Dental (85)"
+   }
+  }
+ ],
+ "slug": "09-leads-para-crm",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}

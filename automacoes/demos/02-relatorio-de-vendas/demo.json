@@ -1,0 +1,238 @@
+{
+ "title": {
+  "pt": "Relatório diário de vendas no Telegram",
+  "en": "Daily sales report on Telegram"
+ },
+ "tag": {
+  "pt": "Relatório · CSV · resumo",
+  "en": "Reporting · CSV · summary"
+ },
+ "summary": {
+  "pt": "Toda noite o n8n lê o CSV de vendas, calcula receita, ticket médio e variação contra o dia anterior, grava o relatório em Markdown e manda o resumo pronto no Telegram. Edite as vendas, escolha o dia e aperte Rodar.",
+  "en": "Every evening n8n reads the sales CSV, computes revenue, average ticket and change against the previous day, saves a Markdown report and sends the ready summary on Telegram. Edit the sales, pick the day and press Run."
+ },
+ "input": {
+  "trigger": {
+   "pt": "Schedule 20:00 (ou Run now) · lê data/sample_sales.csv",
+   "en": "Schedule 20:00 (or Run now) · reads data/sample_sales.csv"
+  },
+  "note": {
+   "pt": "Dica: use o dia 2026-11-12 (sem vendas) para ver o fluxo parar com erro claro em vez de mandar relatório vazio. O erro simulado atinge o Telegram: o relatório já está salvo e o fluxo segue (Continue On Fail).",
+   "en": "Tip: use the day 2026-11-12 (no sales) to see the flow stop with a clear error instead of sending an empty report. The simulated failure hits Telegram: the report is already saved and the flow goes on (Continue On Fail)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Dia mais recente (10/11)",
+     "en": "Latest day (Nov 10)"
+    },
+    "values": {
+     "report_date": "",
+     "csv": "sale_id,date,time,product,qty,unit_price,total,payment,store\nV1110000,2026-11-10,19:03,Calça Jeans,2,129.9,259.8,pix,Loja Centro\nV1110001,2026-11-10,09:58,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1110002,2026-11-10,15:04,Camiseta Básica,2,49.9,99.8,cartao_credito,Loja Centro\nV1110003,2026-11-10,09:52,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Centro\nV1110004,2026-11-10,18:03,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Centro\nV1110005,2026-11-10,17:54,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Shopping\nV1110006,2026-11-10,17:07,Boné Aba Reta,1,59.9,59.9,cartao_debito,Loja Centro\nV1110007,2026-11-10,18:40,Camiseta Básica,3,49.9,149.7,cartao_credito,Loja Shopping\nV1110008,2026-11-10,10:36,Camiseta Básica,3,49.9,149.7,pix,Loja Centro\nV1110009,2026-11-10,17:27,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Shopping\nV1110010,2026-11-10,14:19,Jaqueta Corta-Vento,2,189.9,379.8,cartao_credito,Loja Centro\nV1110011,2026-11-10,10:36,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Shopping\nV1110012,2026-11-10,16:18,Tênis Corrida Aero 2,3,299.9,899.7,pix,Loja Centro\nV1110013,2026-11-10,11:48,Jaqueta Corta-Vento,2,189.9,379.8,cartao_debito,Loja Centro\nV1110014,2026-11-10,09:42,Boné Aba Reta,2,59.9,119.8,pix,Loja Shopping\nV1110015,2026-11-10,14:38,Tênis Corrida Aero 2,3,299.9,899.7,dinheiro,Loja Shopping\nV1110016,2026-11-10,13:30,Camiseta Básica,1,49.9,49.9,pix,Loja Centro\nV1110017,2026-11-10,13:41,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1110018,2026-11-10,19:22,Meia Esportiva (par),2,19.9,39.8,pix,Loja Shopping\nV1110019,2026-11-10,18:07,Tênis Corrida Aero 2,1,299.9,299.9,dinheiro,Loja Centro\nV1110020,2026-11-10,11:47,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1110021,2026-11-10,10:10,Boné Aba Reta,2,59.9,119.8,dinheiro,Loja Shopping\nV1110022,2026-11-10,11:52,Jaqueta Corta-Vento,2,189.9,379.8,dinheiro,Loja Shopping\nV1109000,2026-11-09,15:14,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1109001,2026-11-09,12:42,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Centro\nV1109002,2026-11-09,11:16,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Centro\nV1109003,2026-11-09,17:23,Calça Jeans,2,129.9,259.8,cartao_debito,Loja Centro\nV1109004,2026-11-09,18:41,Meia Esportiva (par),3,19.9,59.7,pix,Loja Shopping\nV1109005,2026-11-09,15:25,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1109006,2026-11-09,19:25,Camiseta Básica,2,49.9,99.8,pix,Loja Centro\nV1109007,2026-11-09,16:10,Camiseta Básica,1,49.9,49.9,pix,Loja Shopping\nV1109008,2026-11-09,10:00,Jaqueta Corta-Vento,1,189.9,189.9,cartao_credito,Loja Centro\nV1109009,2026-11-09,09:04,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Shopping\nV1109010,2026-11-09,13:22,Calça Jeans,3,129.9,389.7,cartao_debito,Loja Shopping\nV1109011,2026-11-09,16:29,Camiseta Básica,1,49.9,49.9,dinheiro,Loja Shopping\nV1109012,2026-11-09,11:06,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Shopping\nV1109013,2026-11-09,11:33,Boné Aba Reta,3,59.9,179.7,pix,Loja Centro\nV1109014,2026-11-09,11:44,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Shopping\nV1109015,2026-11-09,13:33,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Centro\nV1109016,2026-11-09,17:34,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Centro\nV1109017,2026-11-09,12:52,Jaqueta Corta-Vento,1,189.9,189.9,dinheiro,Loja Centro\nV1109018,2026-11-09,16:22,Calça Jeans,3,129.9,389.7,pix,Loja Centro\nV1109019,2026-11-09,13:12,Tênis Corrida Aero 2,2,299.9,599.8,cartao_debito,Loja Shopping\nV1109020,2026-11-09,14:05,Meia Esportiva (par),2,19.9,39.8,cartao_credito,Loja Centro\nV1109021,2026-11-09,12:21,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1109022,2026-11-09,09:30,Jaqueta Corta-Vento,3,189.9,569.7,cartao_debito,Loja Centro\nV1109023,2026-11-09,15:50,Meia Esportiva (par),1,19.9,19.9,cartao_credito,Loja Shopping"
+    }
+   },
+   {
+    "label": {
+     "pt": "Dia 09/11 (sem dia anterior)",
+     "en": "Nov 9 (no previous day)"
+    },
+    "values": {
+     "report_date": "2026-11-09",
+     "csv": "sale_id,date,time,product,qty,unit_price,total,payment,store\nV1110000,2026-11-10,19:03,Calça Jeans,2,129.9,259.8,pix,Loja Centro\nV1110001,2026-11-10,09:58,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1110002,2026-11-10,15:04,Camiseta Básica,2,49.9,99.8,cartao_credito,Loja Centro\nV1110003,2026-11-10,09:52,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Centro\nV1110004,2026-11-10,18:03,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Centro\nV1110005,2026-11-10,17:54,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Shopping\nV1110006,2026-11-10,17:07,Boné Aba Reta,1,59.9,59.9,cartao_debito,Loja Centro\nV1110007,2026-11-10,18:40,Camiseta Básica,3,49.9,149.7,cartao_credito,Loja Shopping\nV1110008,2026-11-10,10:36,Camiseta Básica,3,49.9,149.7,pix,Loja Centro\nV1110009,2026-11-10,17:27,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Shopping\nV1110010,2026-11-10,14:19,Jaqueta Corta-Vento,2,189.9,379.8,cartao_credito,Loja Centro\nV1110011,2026-11-10,10:36,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Shopping\nV1110012,2026-11-10,16:18,Tênis Corrida Aero 2,3,299.9,899.7,pix,Loja Centro\nV1110013,2026-11-10,11:48,Jaqueta Corta-Vento,2,189.9,379.8,cartao_debito,Loja Centro\nV1110014,2026-11-10,09:42,Boné Aba Reta,2,59.9,119.8,pix,Loja Shopping\nV1110015,2026-11-10,14:38,Tênis Corrida Aero 2,3,299.9,899.7,dinheiro,Loja Shopping\nV1110016,2026-11-10,13:30,Camiseta Básica,1,49.9,49.9,pix,Loja Centro\nV1110017,2026-11-10,13:41,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1110018,2026-11-10,19:22,Meia Esportiva (par),2,19.9,39.8,pix,Loja Shopping\nV1110019,2026-11-10,18:07,Tênis Corrida Aero 2,1,299.9,299.9,dinheiro,Loja Centro\nV1110020,2026-11-10,11:47,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1110021,2026-11-10,10:10,Boné Aba Reta,2,59.9,119.8,dinheiro,Loja Shopping\nV1110022,2026-11-10,11:52,Jaqueta Corta-Vento,2,189.9,379.8,dinheiro,Loja Shopping\nV1109000,2026-11-09,15:14,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1109001,2026-11-09,12:42,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Centro\nV1109002,2026-11-09,11:16,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Centro\nV1109003,2026-11-09,17:23,Calça Jeans,2,129.9,259.8,cartao_debito,Loja Centro\nV1109004,2026-11-09,18:41,Meia Esportiva (par),3,19.9,59.7,pix,Loja Shopping\nV1109005,2026-11-09,15:25,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1109006,2026-11-09,19:25,Camiseta Básica,2,49.9,99.8,pix,Loja Centro\nV1109007,2026-11-09,16:10,Camiseta Básica,1,49.9,49.9,pix,Loja Shopping\nV1109008,2026-11-09,10:00,Jaqueta Corta-Vento,1,189.9,189.9,cartao_credito,Loja Centro\nV1109009,2026-11-09,09:04,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Shopping\nV1109010,2026-11-09,13:22,Calça Jeans,3,129.9,389.7,cartao_debito,Loja Shopping\nV1109011,2026-11-09,16:29,Camiseta Básica,1,49.9,49.9,dinheiro,Loja Shopping\nV1109012,2026-11-09,11:06,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Shopping\nV1109013,2026-11-09,11:33,Boné Aba Reta,3,59.9,179.7,pix,Loja Centro\nV1109014,2026-11-09,11:44,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Shopping\nV1109015,2026-11-09,13:33,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Centro\nV1109016,2026-11-09,17:34,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Centro\nV1109017,2026-11-09,12:52,Jaqueta Corta-Vento,1,189.9,189.9,dinheiro,Loja Centro\nV1109018,2026-11-09,16:22,Calça Jeans,3,129.9,389.7,pix,Loja Centro\nV1109019,2026-11-09,13:12,Tênis Corrida Aero 2,2,299.9,599.8,cartao_debito,Loja Shopping\nV1109020,2026-11-09,14:05,Meia Esportiva (par),2,19.9,39.8,cartao_credito,Loja Centro\nV1109021,2026-11-09,12:21,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1109022,2026-11-09,09:30,Jaqueta Corta-Vento,3,189.9,569.7,cartao_debito,Loja Centro\nV1109023,2026-11-09,15:50,Meia Esportiva (par),1,19.9,19.9,cartao_credito,Loja Shopping"
+    }
+   },
+   {
+    "label": {
+     "pt": "Dia sem vendas",
+     "en": "Day with no sales"
+    },
+    "values": {
+     "report_date": "2026-11-12",
+     "csv": "sale_id,date,time,product,qty,unit_price,total,payment,store\nV1110000,2026-11-10,19:03,Calça Jeans,2,129.9,259.8,pix,Loja Centro\nV1110001,2026-11-10,09:58,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1110002,2026-11-10,15:04,Camiseta Básica,2,49.9,99.8,cartao_credito,Loja Centro\nV1110003,2026-11-10,09:52,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Centro\nV1110004,2026-11-10,18:03,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Centro\nV1110005,2026-11-10,17:54,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Shopping\nV1110006,2026-11-10,17:07,Boné Aba Reta,1,59.9,59.9,cartao_debito,Loja Centro\nV1110007,2026-11-10,18:40,Camiseta Básica,3,49.9,149.7,cartao_credito,Loja Shopping\nV1110008,2026-11-10,10:36,Camiseta Básica,3,49.9,149.7,pix,Loja Centro\nV1110009,2026-11-10,17:27,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Shopping\nV1110010,2026-11-10,14:19,Jaqueta Corta-Vento,2,189.9,379.8,cartao_credito,Loja Centro\nV1110011,2026-11-10,10:36,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Shopping\nV1110012,2026-11-10,16:18,Tênis Corrida Aero 2,3,299.9,899.7,pix,Loja Centro\nV1110013,2026-11-10,11:48,Jaqueta Corta-Vento,2,189.9,379.8,cartao_debito,Loja Centro\nV1110014,2026-11-10,09:42,Boné Aba Reta,2,59.9,119.8,pix,Loja Shopping\nV1110015,2026-11-10,14:38,Tênis Corrida Aero 2,3,299.9,899.7,dinheiro,Loja Shopping\nV1110016,2026-11-10,13:30,Camiseta Básica,1,49.9,49.9,pix,Loja Centro\nV1110017,2026-11-10,13:41,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1110018,2026-11-10,19:22,Meia Esportiva (par),2,19.9,39.8,pix,Loja Shopping\nV1110019,2026-11-10,18:07,Tênis Corrida Aero 2,1,299.9,299.9,dinheiro,Loja Centro\nV1110020,2026-11-10,11:47,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1110021,2026-11-10,10:10,Boné Aba Reta,2,59.9,119.8,dinheiro,Loja Shopping\nV1110022,2026-11-10,11:52,Jaqueta Corta-Vento,2,189.9,379.8,dinheiro,Loja Shopping\nV1109000,2026-11-09,15:14,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1109001,2026-11-09,12:42,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Centro\nV1109002,2026-11-09,11:16,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Centro\nV1109003,2026-11-09,17:23,Calça Jeans,2,129.9,259.8,cartao_debito,Loja Centro\nV1109004,2026-11-09,18:41,Meia Esportiva (par),3,19.9,59.7,pix,Loja Shopping\nV1109005,2026-11-09,15:25,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1109006,2026-11-09,19:25,Camiseta Básica,2,49.9,99.8,pix,Loja Centro\nV1109007,2026-11-09,16:10,Camiseta Básica,1,49.9,49.9,pix,Loja Shopping\nV1109008,2026-11-09,10:00,Jaqueta Corta-Vento,1,189.9,189.9,cartao_credito,Loja Centro\nV1109009,2026-11-09,09:04,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Shopping\nV1109010,2026-11-09,13:22,Calça Jeans,3,129.9,389.7,cartao_debito,Loja Shopping\nV1109011,2026-11-09,16:29,Camiseta Básica,1,49.9,49.9,dinheiro,Loja Shopping\nV1109012,2026-11-09,11:06,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Shopping\nV1109013,2026-11-09,11:33,Boné Aba Reta,3,59.9,179.7,pix,Loja Centro\nV1109014,2026-11-09,11:44,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Shopping\nV1109015,2026-11-09,13:33,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Centro\nV1109016,2026-11-09,17:34,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Centro\nV1109017,2026-11-09,12:52,Jaqueta Corta-Vento,1,189.9,189.9,dinheiro,Loja Centro\nV1109018,2026-11-09,16:22,Calça Jeans,3,129.9,389.7,pix,Loja Centro\nV1109019,2026-11-09,13:12,Tênis Corrida Aero 2,2,299.9,599.8,cartao_debito,Loja Shopping\nV1109020,2026-11-09,14:05,Meia Esportiva (par),2,19.9,39.8,cartao_credito,Loja Centro\nV1109021,2026-11-09,12:21,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1109022,2026-11-09,09:30,Jaqueta Corta-Vento,3,189.9,569.7,cartao_debito,Loja Centro\nV1109023,2026-11-09,15:50,Meia Esportiva (par),1,19.9,19.9,cartao_credito,Loja Shopping"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "report_date",
+    "type": "text",
+    "value": "",
+    "label": {
+     "pt": "Dia do relatório (vazio = último dia do arquivo)",
+     "en": "Report day (empty = last day in the file)"
+    }
+   },
+   {
+    "key": "csv",
+    "type": "textarea",
+    "value": "sale_id,date,time,product,qty,unit_price,total,payment,store\nV1110000,2026-11-10,19:03,Calça Jeans,2,129.9,259.8,pix,Loja Centro\nV1110001,2026-11-10,09:58,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1110002,2026-11-10,15:04,Camiseta Básica,2,49.9,99.8,cartao_credito,Loja Centro\nV1110003,2026-11-10,09:52,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Centro\nV1110004,2026-11-10,18:03,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Centro\nV1110005,2026-11-10,17:54,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Shopping\nV1110006,2026-11-10,17:07,Boné Aba Reta,1,59.9,59.9,cartao_debito,Loja Centro\nV1110007,2026-11-10,18:40,Camiseta Básica,3,49.9,149.7,cartao_credito,Loja Shopping\nV1110008,2026-11-10,10:36,Camiseta Básica,3,49.9,149.7,pix,Loja Centro\nV1110009,2026-11-10,17:27,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Shopping\nV1110010,2026-11-10,14:19,Jaqueta Corta-Vento,2,189.9,379.8,cartao_credito,Loja Centro\nV1110011,2026-11-10,10:36,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Shopping\nV1110012,2026-11-10,16:18,Tênis Corrida Aero 2,3,299.9,899.7,pix,Loja Centro\nV1110013,2026-11-10,11:48,Jaqueta Corta-Vento,2,189.9,379.8,cartao_debito,Loja Centro\nV1110014,2026-11-10,09:42,Boné Aba Reta,2,59.9,119.8,pix,Loja Shopping\nV1110015,2026-11-10,14:38,Tênis Corrida Aero 2,3,299.9,899.7,dinheiro,Loja Shopping\nV1110016,2026-11-10,13:30,Camiseta Básica,1,49.9,49.9,pix,Loja Centro\nV1110017,2026-11-10,13:41,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1110018,2026-11-10,19:22,Meia Esportiva (par),2,19.9,39.8,pix,Loja Shopping\nV1110019,2026-11-10,18:07,Tênis Corrida Aero 2,1,299.9,299.9,dinheiro,Loja Centro\nV1110020,2026-11-10,11:47,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1110021,2026-11-10,10:10,Boné Aba Reta,2,59.9,119.8,dinheiro,Loja Shopping\nV1110022,2026-11-10,11:52,Jaqueta Corta-Vento,2,189.9,379.8,dinheiro,Loja Shopping\nV1109000,2026-11-09,15:14,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1109001,2026-11-09,12:42,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Centro\nV1109002,2026-11-09,11:16,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Centro\nV1109003,2026-11-09,17:23,Calça Jeans,2,129.9,259.8,cartao_debito,Loja Centro\nV1109004,2026-11-09,18:41,Meia Esportiva (par),3,19.9,59.7,pix,Loja Shopping\nV1109005,2026-11-09,15:25,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1109006,2026-11-09,19:25,Camiseta Básica,2,49.9,99.8,pix,Loja Centro\nV1109007,2026-11-09,16:10,Camiseta Básica,1,49.9,49.9,pix,Loja Shopping\nV1109008,2026-11-09,10:00,Jaqueta Corta-Vento,1,189.9,189.9,cartao_credito,Loja Centro\nV1109009,2026-11-09,09:04,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Shopping\nV1109010,2026-11-09,13:22,Calça Jeans,3,129.9,389.7,cartao_debito,Loja Shopping\nV1109011,2026-11-09,16:29,Camiseta Básica,1,49.9,49.9,dinheiro,Loja Shopping\nV1109012,2026-11-09,11:06,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Shopping\nV1109013,2026-11-09,11:33,Boné Aba Reta,3,59.9,179.7,pix,Loja Centro\nV1109014,2026-11-09,11:44,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Shopping\nV1109015,2026-11-09,13:33,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Centro\nV1109016,2026-11-09,17:34,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Centro\nV1109017,2026-11-09,12:52,Jaqueta Corta-Vento,1,189.9,189.9,dinheiro,Loja Centro\nV1109018,2026-11-09,16:22,Calça Jeans,3,129.9,389.7,pix,Loja Centro\nV1109019,2026-11-09,13:12,Tênis Corrida Aero 2,2,299.9,599.8,cartao_debito,Loja Shopping\nV1109020,2026-11-09,14:05,Meia Esportiva (par),2,19.9,39.8,cartao_credito,Loja Centro\nV1109021,2026-11-09,12:21,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1109022,2026-11-09,09:30,Jaqueta Corta-Vento,3,189.9,569.7,cartao_debito,Loja Centro\nV1109023,2026-11-09,15:50,Meia Esportiva (par),1,19.9,19.9,cartao_credito,Loja Shopping",
+    "label": {
+     "pt": "Vendas (CSV, edite à vontade)",
+     "en": "Sales (CSV, edit freely)"
+    },
+    "rows": 8
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "trigger",
+   "name": "Every day 20:00",
+   "icon": "loop",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Schedule · ou Run now",
+    "en": "Schedule · or Run now"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · arquivo, moeda, chat",
+    "en": "Set · file, currency, chat"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read sales CSV",
+   "icon": "file",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "rows",
+   "name": "CSV to rows",
+   "icon": "sheet",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Extract From File · CSV",
+    "en": "Extract From File · CSV"
+   }
+  },
+  {
+   "id": "sum",
+   "name": "Summarize day",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · totais e ranking",
+    "en": "Code · totals and ranking"
+   }
+  },
+  {
+   "id": "save",
+   "name": "Save report .md",
+   "icon": "file",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · write",
+    "en": "Read/Write Files · write"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify (Telegram)",
+   "icon": "bell",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP Request · sendMessage",
+    "en": "HTTP Request · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "trigger",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "rows"
+  },
+  {
+   "from": "rows",
+   "to": "sum"
+  },
+  {
+   "from": "sum",
+   "to": "save"
+  },
+  {
+   "from": "save",
+   "to": "notify"
+  }
+ ],
+ "failure": {
+  "node": "notify",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "O dono da loja fecha o caixa e depois perde tempo somando planilha para saber como foi o dia. Quando faz, o número chega tarde e sem comparação.",
+   "en": "The shop owner closes the till and then spends time adding up a spreadsheet to know how the day went. When it happens, the number arrives late and with no comparison."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n roda todo dia às 20h: lê o CSV de vendas, soma o dia, compara com o dia anterior, lista os produtos mais vendidos e a divisão por pagamento e loja, salva o relatório em Markdown e manda uma linha de resumo no Telegram.",
+   "en": "An n8n workflow runs every day at 8 pm: it reads the sales CSV, adds up the day, compares it with the previous one, lists top products and the split by payment and store, saves a Markdown report and sends a one-line summary on Telegram."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~15 min por dia de soma manual viram zero, ou seja cerca de 1h30 por semana de segunda a sábado, e o resumo chega no mesmo minuto. Dados fictícios; depende do seu volume.",
+   "en": "An estimate, not a measurement: ~15 min a day of manual adding becomes zero, about 1.5 h a week over six trading days, and the summary lands the same minute. Fictional data; depends on your volume."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Schedule Trigger",
+   "Read/Write Files",
+   "Extract From File",
+   "Code (JS)",
+   "HTTP Request",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó vem do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local (pasta example_output) conferem com esta página, por teste automatizado no repositório. O tempo por nó e o erro simulado são ilustrativos; o erro mostra Continue On Fail, não acionado na execução gravada.",
+   "en": "Each node's JSON comes from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n (example_output folder) match this page, checked by an automated test in the repo. Per-node timings and the simulated failure are illustrative; the failure shows Continue On Fail, which was not triggered in the recorded run."
+  }
+ },
+ "recorded": [
+  {
+   "input": {
+    "report_date": "",
+    "csv": "sale_id,date,time,product,qty,unit_price,total,payment,store\nV1110000,2026-11-10,19:03,Calça Jeans,2,129.9,259.8,pix,Loja Centro\nV1110001,2026-11-10,09:58,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1110002,2026-11-10,15:04,Camiseta Básica,2,49.9,99.8,cartao_credito,Loja Centro\nV1110003,2026-11-10,09:52,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Centro\nV1110004,2026-11-10,18:03,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Centro\nV1110005,2026-11-10,17:54,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Shopping\nV1110006,2026-11-10,17:07,Boné Aba Reta,1,59.9,59.9,cartao_debito,Loja Centro\nV1110007,2026-11-10,18:40,Camiseta Básica,3,49.9,149.7,cartao_credito,Loja Shopping\nV1110008,2026-11-10,10:36,Camiseta Básica,3,49.9,149.7,pix,Loja Centro\nV1110009,2026-11-10,17:27,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Shopping\nV1110010,2026-11-10,14:19,Jaqueta Corta-Vento,2,189.9,379.8,cartao_credito,Loja Centro\nV1110011,2026-11-10,10:36,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Shopping\nV1110012,2026-11-10,16:18,Tênis Corrida Aero 2,3,299.9,899.7,pix,Loja Centro\nV1110013,2026-11-10,11:48,Jaqueta Corta-Vento,2,189.9,379.8,cartao_debito,Loja Centro\nV1110014,2026-11-10,09:42,Boné Aba Reta,2,59.9,119.8,pix,Loja Shopping\nV1110015,2026-11-10,14:38,Tênis Corrida Aero 2,3,299.9,899.7,dinheiro,Loja Shopping\nV1110016,2026-11-10,13:30,Camiseta Básica,1,49.9,49.9,pix,Loja Centro\nV1110017,2026-11-10,13:41,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1110018,2026-11-10,19:22,Meia Esportiva (par),2,19.9,39.8,pix,Loja Shopping\nV1110019,2026-11-10,18:07,Tênis Corrida Aero 2,1,299.9,299.9,dinheiro,Loja Centro\nV1110020,2026-11-10,11:47,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1110021,2026-11-10,10:10,Boné Aba Reta,2,59.9,119.8,dinheiro,Loja Shopping\nV1110022,2026-11-10,11:52,Jaqueta Corta-Vento,2,189.9,379.8,dinheiro,Loja Shopping\nV1109000,2026-11-09,15:14,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro\nV1109001,2026-11-09,12:42,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Centro\nV1109002,2026-11-09,11:16,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Centro\nV1109003,2026-11-09,17:23,Calça Jeans,2,129.9,259.8,cartao_debito,Loja Centro\nV1109004,2026-11-09,18:41,Meia Esportiva (par),3,19.9,59.7,pix,Loja Shopping\nV1109005,2026-11-09,15:25,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping\nV1109006,2026-11-09,19:25,Camiseta Básica,2,49.9,99.8,pix,Loja Centro\nV1109007,2026-11-09,16:10,Camiseta Básica,1,49.9,49.9,pix,Loja Shopping\nV1109008,2026-11-09,10:00,Jaqueta Corta-Vento,1,189.9,189.9,cartao_credito,Loja Centro\nV1109009,2026-11-09,09:04,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Shopping\nV1109010,2026-11-09,13:22,Calça Jeans,3,129.9,389.7,cartao_debito,Loja Shopping\nV1109011,2026-11-09,16:29,Camiseta Básica,1,49.9,49.9,dinheiro,Loja Shopping\nV1109012,2026-11-09,11:06,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Shopping\nV1109013,2026-11-09,11:33,Boné Aba Reta,3,59.9,179.7,pix,Loja Centro\nV1109014,2026-11-09,11:44,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Shopping\nV1109015,2026-11-09,13:33,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Centro\nV1109016,2026-11-09,17:34,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Centro\nV1109017,2026-11-09,12:52,Jaqueta Corta-Vento,1,189.9,189.9,dinheiro,Loja Centro\nV1109018,2026-11-09,16:22,Calça Jeans,3,129.9,389.7,pix,Loja Centro\nV1109019,2026-11-09,13:12,Tênis Corrida Aero 2,2,299.9,599.8,cartao_debito,Loja Shopping\nV1109020,2026-11-09,14:05,Meia Esportiva (par),2,19.9,39.8,cartao_credito,Loja Centro\nV1109021,2026-11-09,12:21,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping\nV1109022,2026-11-09,09:30,Jaqueta Corta-Vento,3,189.9,569.7,cartao_debito,Loja Centro\nV1109023,2026-11-09,15:50,Meia Esportiva (par),1,19.9,19.9,cartao_credito,Loja Shopping"
+   },
+   "expect": {
+    "text": "Sales 2026-11-10: R$ 6.275,10 | 23 sales | ticket R$ 272,83 | vs prev day -3.7% | top: Tênis Corrida Aero 2",
+    "md_has": [
+     "- Tênis Corrida Aero 2: R$ 2.999,00",
+     "- Loja Centro: R$ 3.917,50",
+     "- Vs 2026-11-09: -3.7% (R$ 6.515,20)"
+    ]
+   }
+  }
+ ],
+ "slug": "02-relatorio-de-vendas",
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ }
+}
