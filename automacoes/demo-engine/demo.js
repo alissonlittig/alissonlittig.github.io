@@ -25,6 +25,7 @@
   var LANG = (function () { var l; try { l = localStorage.getItem('lang'); } catch (e) { } return l === 'en' || l === 'pt' ? l : ((navigator.language || 'pt').slice(0, 2) === 'en' ? 'en' : 'pt'); })();
   var UI = {
     run: { pt: 'Rodar', en: 'Run' }, rerun: { pt: 'Rodar de novo', en: 'Run again' },
+    drag: { pt: 'Arraste o fluxo para os lados · toque num nó para ver o JSON', en: 'Drag the flow sideways · tap a node to see its JSON' },
     back: { pt: '← Portfólio', en: '← Portfolio' },
     s1: { pt: 'Entrada (edite à vontade)', en: 'Input (edit freely)' }, s2: { pt: 'Fluxo, nó a nó', en: 'Flow, node by node' }, s3: { pt: 'Resultado', en: 'Result' }, s4: { pt: 'Estudo de caso', en: 'Case study' },
     sim: { pt: 'Simular erro', en: 'Simulate a failure' }, sim0: { pt: 'Nenhum', en: 'None' }, sim1: { pt: 'Temporário (retry resolve)', en: 'Temporary (retry fixes it)' }, sim2: { pt: 'Permanente (alerta de erro)', en: 'Permanent (error alert)' },
@@ -60,7 +61,7 @@
     var NW = 136, NH = 92, GX = 172, GY = 118, PAD = 36;
     var pos = function (n) { return { x: PAD + n.col * GX, y: PAD + n.row * GY }; };
     var cols = Math.max.apply(null, CFG.nodes.map(function (n) { return n.col; })) + 1, rows = Math.max.apply(null, CFG.nodes.map(function (n) { return n.row; })) + 1;
-    var CW = PAD * 2 + (cols - 1) * GX + NW, CH = PAD * 2 + (rows - 1) * GY + NH + 30;
+    var CW = PAD * 2 + (cols - 1) * GX + NW, CH = PAD * 2 + (rows - 1) * GY + NH;
 
     function paint() {
       document.documentElement.dataset.lang = LANG; document.documentElement.lang = LANG;
@@ -104,12 +105,12 @@
       var tl = el('div', 'tools'); var sp = el('button', 'chip', esc(T('speed')) + ' 1x'); sp.type = 'button'; sp.onclick = function () { speed = speed === 1 ? 2 : speed === 2 ? 4 : 1; sp.textContent = T('speed') + ' ' + speed + 'x'; };
       var sk = el('button', 'chip', esc(T('skip'))); sk.type = 'button'; sk.onclick = function () { skip = true; };
       tl.appendChild(sp); tl.appendChild(sk); s2.appendChild(tl);
-      var fl = el('div', 'flow'); s2.appendChild(fl);
+      var fl = el('div', 'flow'); s2.appendChild(fl); fl.appendChild(el('p', 'hint', esc(T('drag'))));
       var cv = el('div', 'cv'); cv.id = 'cv'; var inner = el('div'); inner.id = 'cvi'; inner.style.width = CW + 'px'; inner.style.height = CH + 'px'; cv.appendChild(inner);
       var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('width', CW); svg.setAttribute('height', CH); svg.setAttribute('aria-hidden', 'true'); inner.appendChild(svg);
       CFG.edges.forEach(function (e, i) {
         var d = path(e), p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('d', d); p.setAttribute('class', 'ed'); p.id = 'e' + i; svg.appendChild(p);
-        if (e.when) { var b2 = pt(e.to, 'l'), tx = document.createElementNS('http://www.w3.org/2000/svg', 'text'); tx.setAttribute('class', 'edl'); tx.setAttribute('text-anchor', 'end'); tx.setAttribute('x', b2.x - 6); tx.setAttribute('y', b2.y - 7); tx.textContent = e.label || e.when; svg.appendChild(tx); }
+        if (e.when) { var L2 = p.getTotalLength(), m = p.getPointAtLength(L2 * (e.lp || .5)), tx = document.createElementNS('http://www.w3.org/2000/svg', 'text'); tx.setAttribute('class', 'edl'); tx.setAttribute('text-anchor', 'middle'); tx.setAttribute('x', m.x); tx.setAttribute('y', m.y - 6); tx.textContent = e.label || e.when; svg.appendChild(tx); }
       });
       CFG.nodes.forEach(function (n) {
         var p = pos(n), b = el('button', 'nd idle', '<i><svg viewBox="0 0 24 24" aria-hidden="true">' + (IC[n.icon] || IC.code) + '</svg></i><b>' + esc(n.name) + '</b><small></small>');
@@ -137,14 +138,20 @@
     }
     var lastResult = null, lastMeta = null;
     function fill() { CFG.input.fields.forEach(function (f) { var i = $('#f-' + f.key); if (i) { if (form[f.key] == null) form[f.key] = f.value != null ? f.value : ''; i.value = form[f.key]; } }); }
-    function sizeFit() { var cv = $('#cv'), inner = $('#cvi'); if (!cv) return; var s = Math.max(.68, Math.min(1, cv.clientWidth / CW)); inner.style.transform = 'scale(' + s + ')'; inner.dataset.s = s; cv.style.height = Math.min(CH * s + 6, 560) + 'px'; }
+    function sizeFit() { var cv = $('#cv'), inner = $('#cvi'); if (!cv) return; var narrow = cv.clientWidth < 600, s = narrow ? .8 : Math.min(1, cv.clientWidth / CW); inner.style.transform = 'scale(' + s + ')'; inner.dataset.s = s; inner.style.marginBottom = (CH * s - CH) + 'px'; inner.style.marginRight = (CW * s - CW) + 'px'; cv.style.height = (CH * s + 4) + 'px'; cv.dataset.scroll = CW * s > cv.clientWidth + 2 ? '1' : '0'; }
     window.addEventListener('resize', sizeFit);
 
     function pt(id, side) { var n = byId[id], p = pos(n); return side === 'r' ? { x: p.x + NW, y: p.y + 40 } : { x: p.x, y: p.y + 40 }; }
     function path(e) {
-      var a = pt(e.from, 'r'), b = pt(e.to, 'l');
-      if (byId[e.to].col <= byId[e.from].col) { var y = CH - 16, pa = { x: byId[e.from].col * GX + PAD + NW / 2, y: pos(byId[e.from]).y + NH }, pb = { x: pos(byId[e.to]).x + NW / 2, y: pos(byId[e.to]).y + NH }; return 'M' + pa.x + ' ' + pa.y + ' C' + pa.x + ' ' + y + ',' + pb.x + ' ' + y + ',' + pb.x + ' ' + pb.y; }
-      var dx = Math.max(30, (b.x - a.x) / 2); return 'M' + a.x + ' ' + a.y + ' C' + (a.x + dx) + ' ' + a.y + ',' + (b.x - dx) + ' ' + b.y + ',' + b.x + ' ' + b.y;
+      var A = byId[e.from], B = byId[e.to], pa = pos(A), pb = pos(B), a, b, h;
+      if (e.route) { // waypoints em grade [col,row]: sai por cima/baixo do nó, segue em y de calha entre linhas
+        var pts = e.route.map(function (r) { return { x: PAD + r[0] * GX + NW / 2, y: PAD + r[1] * GY + (r[2] === 'b' ? NH + 13 : r[2] === 't' ? -13 : NH / 2) }; });
+        a = { x: pa.x + NW / 2, y: e.rs === 'b' ? pa.y + NH : pa.y }; b = { x: pb.x + NW / 2, y: e.re === 't' ? pb.y : pb.y + NH };
+        var q = [a].concat(pts, [b]), d = 'M' + q[0].x + ' ' + q[0].y; for (var k = 1; k < q.length; k++) d += ' L' + q[k].x + ' ' + q[k].y; return d;
+      }
+      if (B.col === A.col) { var dn = B.row > A.row; a = { x: pa.x + NW / 2, y: pa.y + (dn ? NH : 0) }; b = { x: pb.x + NW / 2, y: pb.y + (dn ? 0 : NH) }; h = Math.max(24, Math.abs(b.y - a.y) / 2); return 'M' + a.x + ' ' + a.y + ' C' + a.x + ' ' + (a.y + (dn ? h : -h)) + ',' + b.x + ' ' + (b.y + (dn ? -h : h)) + ',' + b.x + ' ' + b.y; }
+      var back = B.col < A.col; a = { x: pa.x + (back ? 0 : NW), y: pa.y + 40 }; b = { x: pb.x + (back ? NW : 0), y: pb.y + 40 };
+      var dx = Math.max(24, Math.abs(b.x - a.x) / 2) * (back ? -1 : 1); return 'M' + a.x + ' ' + a.y + ' C' + (a.x + dx) + ' ' + a.y + ',' + (b.x - dx) + ' ' + b.y + ',' + b.x + ' ' + b.y;
     }
     function status(kind, txt) {
       var s = $('#stat'); if (!s) return; kind = kind || (lastMeta ? lastMeta.kind : 'idle'); txt = txt || (lastMeta ? lastMeta.txt : T('idle'));

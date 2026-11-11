@@ -1,60 +1,431 @@
 {
-  "slug": "06-agente-de-ia",
-  "title": {"pt": "Agente de IA com ferramentas e memória", "en": "AI agent with tools and memory"},
-  "tag": {"pt": "Agente · busca · planilha · calendário", "en": "Agent · search · sheet · calendar"},
-  "summary": {
-    "pt": "Pergunte sobre estoque, preço, agenda ou notícias. O agente decide qual ferramenta chamar, olha o resultado, chama outra se precisar e só então responde. A memória da sessão faz o \"quanto custa?\" lembrar do produto anterior.",
-    "en": "Ask about stock, price, your calendar or news. The agent decides which tool to call, reads the result, calls another if needed and only then answers. Session memory lets \"how much does it cost?\" remember the previous product."
+ "slug": "06-agente-de-ia",
+ "title": {
+  "pt": "Agente de IA com ferramentas e memória",
+  "en": "AI agent with tools and memory"
+ },
+ "tag": {
+  "pt": "Agente · busca · planilha · calendário",
+  "en": "Agent · search · sheet · calendar"
+ },
+ "summary": {
+  "pt": "Pergunte sobre estoque, preço, agenda ou notícias. O agente decide qual ferramenta chamar, olha o resultado, chama outra se precisar e só então responde. A memória da sessão faz o \"quanto custa?\" lembrar do produto anterior.",
+  "en": "Ask about stock, price, your calendar or news. The agent decides which tool to call, reads the result, calls another if needed and only then answers. Session memory lets \"how much does it cost?\" remember the previous product."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/agent-chat  {session_id, question}",
+   "en": "POST /webhook/agent-chat  {session_id, question}"
   },
-  "input": {
-    "trigger": {"pt": "POST /webhook/agent-chat  {session_id, question}", "en": "POST /webhook/agent-chat  {session_id, question}"},
-    "note": {"pt": "Rode as 3 perguntas em ordem: a segunda só funciona por causa da memória. Produtos: kettle, blender, air fryer, toaster, grill. O planejador desta demo é determinístico (o mesmo da execução gravada), não um modelo de linguagem de verdade.", "en": "Run the 3 questions in order: the second only works because of memory. Products: kettle, blender, air fryer, toaster, grill. This demo's planner is deterministic (the same one as the recorded run), not a real language model."},
-    "presets": [
-      {"label": {"pt": "1. Estoque e agenda", "en": "1. Stock and calendar"}, "values": {"session_id": "demo", "question": "Do we have the kettle in stock, and when am I free tomorrow?"}},
-      {"label": {"pt": "2. Pergunta de seguimento", "en": "2. Follow-up"}, "values": {"session_id": "demo", "question": "How much does it cost?"}},
-      {"label": {"pt": "3. Buscar na web", "en": "3. Web search"}, "values": {"session_id": "demo", "question": "Search the latest reviews and competitor news for kettle"}},
-      {"label": {"pt": "Sem estoque", "en": "Out of stock"}, "values": {"session_id": "demo", "question": "How many air fryer units are available?"}}
-    ],
-    "fields": [
-      {"key": "session_id", "type": "text", "value": "demo", "label": {"pt": "Sessão (id da memória)", "en": "Session (memory id)"}},
-      {"key": "question", "type": "textarea", "value": "Do we have the kettle in stock, and when am I free tomorrow?", "label": {"pt": "Pergunta", "en": "Question"}}
-    ]
+  "note": {
+   "pt": "Rode as 3 perguntas em ordem: a segunda só funciona por causa da memória. Produtos: kettle, blender, air fryer, toaster, grill. O planejador desta demo é determinístico (o mesmo da execução gravada), não um modelo de linguagem de verdade.",
+   "en": "Run the 3 questions in order: the second only works because of memory. Products: kettle, blender, air fryer, toaster, grill. This demo's planner is deterministic (the same one as the recorded run), not a real language model."
   },
-  "nodes": [
-    {"id": "webhook", "name": "Chat webhook", "icon": "webhook", "col": 0, "row": 0, "sub": {"pt": "Webhook · POST", "en": "Webhook · POST"}},
-    {"id": "config", "name": "Config", "icon": "set", "col": 1, "row": 0, "sub": {"pt": "Set · modelo e max_steps", "en": "Set · model and max_steps"}},
-    {"id": "mem", "name": "Read session memory", "icon": "memory", "col": 2, "row": 0, "sub": {"pt": "Read/Write Files", "en": "Read/Write Files"}},
-    {"id": "init", "name": "Init state", "icon": "code", "col": 3, "row": 0, "sub": {"pt": "Code · monta o prompt", "en": "Code · builds the prompt"}},
-    {"id": "llmreq", "name": "LLM request", "icon": "code", "col": 4, "row": 0, "sub": {"pt": "Code · corpo da requisição", "en": "Code · request body"}},
-    {"id": "llm", "name": "Call LLM", "icon": "llm", "col": 5, "row": 0, "sub": {"pt": "HTTP Request · API OpenAI-compatível", "en": "HTTP Request · OpenAI-compatible API"}},
-    {"id": "parse", "name": "Parse decision", "icon": "code", "col": 6, "row": 0, "sub": {"pt": "Code · ferramenta ou resposta", "en": "Code · tool or answer"}},
-    {"id": "final", "name": "Final answer?", "icon": "if", "col": 7, "row": 0, "sub": {"pt": "IF · tem resposta final", "en": "IF · has a final answer"}},
-    {"id": "save", "name": "Save session memory", "icon": "memory", "col": 8, "row": 0, "sub": {"pt": "Code + Write File", "en": "Code + Write File"}},
-    {"id": "respond", "name": "Respond with answer", "icon": "respond", "col": 9, "row": 0, "sub": {"pt": "Respond to Webhook", "en": "Respond to Webhook"}},
-    {"id": "which", "name": "Which tool?", "icon": "switch", "col": 7, "row": 2, "sub": {"pt": "Switch · decision.tool", "en": "Switch · decision.tool"}},
-    {"id": "search", "name": "Tool: web search", "icon": "http", "col": 8, "row": 1, "sub": {"pt": "HTTP Request", "en": "HTTP Request"}},
-    {"id": "lookup", "name": "Tool: look up product", "icon": "sheet", "col": 8, "row": 2, "sub": {"pt": "CSV de estoque + Code", "en": "Inventory CSV + Code"}},
-    {"id": "calendar", "name": "Tool: find free slots", "icon": "mail", "col": 8, "row": 3, "sub": {"pt": "CSV de agenda + Code", "en": "Calendar CSV + Code"}},
-    {"id": "obs", "name": "Add observation", "icon": "loop", "col": 9, "row": 2, "sub": {"pt": "Code · devolve ao LLM", "en": "Code · feeds the LLM"}}
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Estoque e agenda",
+     "en": "1. Stock and calendar"
+    },
+    "values": {
+     "session_id": "demo",
+     "question": "Do we have the kettle in stock, and when am I free tomorrow?"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Pergunta de seguimento",
+     "en": "2. Follow-up"
+    },
+    "values": {
+     "session_id": "demo",
+     "question": "How much does it cost?"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Buscar na web",
+     "en": "3. Web search"
+    },
+    "values": {
+     "session_id": "demo",
+     "question": "Search the latest reviews and competitor news for kettle"
+    }
+   },
+   {
+    "label": {
+     "pt": "Sem estoque",
+     "en": "Out of stock"
+    },
+    "values": {
+     "session_id": "demo",
+     "question": "How many air fryer units are available?"
+    }
+   }
   ],
-  "edges": [
-    {"from": "webhook", "to": "config"}, {"from": "config", "to": "mem"}, {"from": "mem", "to": "init"}, {"from": "init", "to": "llmreq"}, {"from": "llmreq", "to": "llm"}, {"from": "llm", "to": "parse"}, {"from": "parse", "to": "final"},
-    {"from": "final", "to": "save", "when": "true"}, {"from": "final", "to": "which", "when": "false"}, {"from": "save", "to": "respond"},
-    {"from": "which", "to": "search", "when": "web_search", "label": "web"}, {"from": "which", "to": "lookup", "when": "sheet_lookup", "label": "sheet"}, {"from": "which", "to": "calendar", "when": "calendar_free", "label": "calendar"},
-    {"from": "search", "to": "obs"}, {"from": "lookup", "to": "obs"}, {"from": "calendar", "to": "obs"}, {"from": "obs", "to": "llmreq"}
-  ],
-  "failure": {"node": "llm", "continueOnFail": true, "message": {"pt": "ETIMEDOUT: o endpoint do LLM não respondeu (simulado)", "en": "ETIMEDOUT: the LLM endpoint did not answer (simulated)"}},
-  "case": {
-    "problem": {"pt": "A equipe faz as mesmas perguntas operacionais o dia todo: tem em estoque, quanto custa, quando há horário livre. As respostas ficam em três lugares diferentes (planilha, agenda, web).", "en": "Staff ask the same operational questions all day: is it in stock, what does it cost, when is someone free. The answers live in three different places (sheet, calendar, web)."},
-    "solution": {"pt": "Um agente no n8n recebe a pergunta por webhook, carrega a memória da sessão e pergunta a um LLM se deve chamar uma ferramenta ou responder. As ferramentas são uma busca web, uma consulta ao CSV de estoque e um localizador de horários livres. Cada resultado volta ao LLM em um laço visível, limitado por max_steps, até haver resposta final. A resposta traz as ferramentas usadas e o número de passos.", "en": "An n8n agent receives the question over a webhook, loads the session memory and asks an LLM whether to call a tool or answer. Tools are a web search, an inventory CSV lookup and a free-slot finder. Each result goes back to the LLM in a visible loop capped by max_steps until there is a final answer. The reply includes the tools used and the step count."},
-    "gain": {"pt": "Estimativa, não medição: se 5 pessoas fazem ~6 consultas por dia de ~2 min cada, são cerca de 5 h por semana que deixam de ir para abrir planilha e agenda. Um modelo real pode errar a escolha da ferramenta; por isso há max_steps, log das ferramentas usadas e um limite claro.", "en": "An estimate, not a measurement: if 5 people make ~6 lookups a day at ~2 min each, that is about 5 h a week no longer spent opening sheets and calendars. A real model can pick the wrong tool, which is why there is a max_steps cap, a log of tools used and a clear boundary."},
-    "stack": ["n8n 2.47", "Webhook", "Code (JS)", "HTTP Request", "Switch", "Extract From File", "Ollama / OpenAI-compatible"],
-    "honesty": {"pt": "O laço do agente, a memória e as três ferramentas rodam aqui com o mesmo código do workflow. A execução gravada no n8n local usou um planejador determinístico no lugar do modelo (para ser reproduzível) e não foi testada com um modelo real. Os nós de ler e interpretar o CSV aparecem agrupados dentro de cada ferramenta. Tempos e o erro simulado são ilustrativos.", "en": "The agent loop, memory and the three tools run here with the workflow's own code. The run recorded on a local n8n used a deterministic planner in place of the model (so it is reproducible) and was not tested against a real model. The nodes that read and parse the CSVs are grouped inside each tool. Timings and the simulated failure are illustrative."}
-  },
-  "footer": {"pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.", "en": "Fictional data. Nothing is sent: everything runs in your browser."},
-  "recorded": [
-    {"input": {"session_id": "demo", "question": "Do we have the kettle in stock, and when am I free tomorrow?"}, "expect": {"answer": "Aurora electric kettle 1.7 L (kettle): 42 in stock, US$ 39.90. Free slots (60 min or more) on 2026-11-11: 10:00-11:00, 12:30-14:00, 15:00-17:00.", "tools": ["sheet_lookup", "calendar_free"], "steps": 3}},
-    {"input": {"session_id": "demo", "question": "How much does it cost?"}, "expect": {"answer": "Aurora electric kettle 1.7 L (kettle): 42 in stock, US$ 39.90.", "tools": ["sheet_lookup"], "steps": 2}},
-    {"input": {"session_id": "demo", "question": "Search the latest reviews and competitor news for kettle"}, "expect": {"answer": "Review roundup 2026: electric kettles under US$ 60 average US$ 41; 1.7 L models lead.", "tools": ["web_search"], "steps": 2}}
+  "fields": [
+   {
+    "key": "session_id",
+    "type": "text",
+    "value": "demo",
+    "label": {
+     "pt": "Sessão (id da memória)",
+     "en": "Session (memory id)"
+    }
+   },
+   {
+    "key": "question",
+    "type": "textarea",
+    "value": "Do we have the kettle in stock, and when am I free tomorrow?",
+    "label": {
+     "pt": "Pergunta",
+     "en": "Question"
+    }
+   }
   ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Chat webhook",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · modelo e max_steps",
+    "en": "Set · model and max_steps"
+   }
+  },
+  {
+   "id": "mem",
+   "name": "Read session memory",
+   "icon": "memory",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "init",
+   "name": "Init state",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · monta o prompt",
+    "en": "Code · builds the prompt"
+   }
+  },
+  {
+   "id": "llmreq",
+   "name": "LLM request",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · corpo da requisição",
+    "en": "Code · request body"
+   }
+  },
+  {
+   "id": "llm",
+   "name": "Call LLM",
+   "icon": "llm",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP Request · API OpenAI-compatível",
+    "en": "HTTP Request · OpenAI-compatible API"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse decision",
+   "icon": "code",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Code · ferramenta ou resposta",
+    "en": "Code · tool or answer"
+   }
+  },
+  {
+   "id": "final",
+   "name": "Final answer?",
+   "icon": "if",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "IF · tem resposta final",
+    "en": "IF · has a final answer"
+   }
+  },
+  {
+   "id": "save",
+   "name": "Save session memory",
+   "icon": "memory",
+   "col": 6,
+   "row": 2,
+   "sub": {
+    "pt": "Code + Write File",
+    "en": "Code + Write File"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond with answer",
+   "icon": "respond",
+   "col": 6,
+   "row": 3,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "which",
+   "name": "Which tool?",
+   "icon": "switch",
+   "col": 5,
+   "row": 2,
+   "sub": {
+    "pt": "Switch · decision.tool",
+    "en": "Switch · decision.tool"
+   }
+  },
+  {
+   "id": "search",
+   "name": "Tool: web search",
+   "icon": "http",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP Request",
+    "en": "HTTP Request"
+   }
+  },
+  {
+   "id": "lookup",
+   "name": "Tool: look up product",
+   "icon": "sheet",
+   "col": 4,
+   "row": 2,
+   "sub": {
+    "pt": "CSV de estoque + Code",
+    "en": "Inventory CSV + Code"
+   }
+  },
+  {
+   "id": "calendar",
+   "name": "Tool: find free slots",
+   "icon": "mail",
+   "col": 4,
+   "row": 3,
+   "sub": {
+    "pt": "CSV de agenda + Code",
+    "en": "Calendar CSV + Code"
+   }
+  },
+  {
+   "id": "obs",
+   "name": "Add observation",
+   "icon": "loop",
+   "col": 3,
+   "row": 2,
+   "sub": {
+    "pt": "Code · devolve ao LLM",
+    "en": "Code · feeds the LLM"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "mem"
+  },
+  {
+   "from": "mem",
+   "to": "init"
+  },
+  {
+   "from": "init",
+   "to": "llmreq"
+  },
+  {
+   "from": "llmreq",
+   "to": "llm"
+  },
+  {
+   "from": "llm",
+   "to": "parse"
+  },
+  {
+   "from": "parse",
+   "to": "final"
+  },
+  {
+   "from": "final",
+   "to": "save",
+   "when": "true"
+  },
+  {
+   "from": "final",
+   "to": "which",
+   "when": "false",
+   "lp": 0.35
+  },
+  {
+   "from": "save",
+   "to": "respond"
+  },
+  {
+   "from": "which",
+   "to": "search",
+   "when": "web_search",
+   "label": "web",
+   "lp": 0.6
+  },
+  {
+   "from": "which",
+   "to": "lookup",
+   "when": "sheet_lookup",
+   "label": "sheet",
+   "lp": 0.6
+  },
+  {
+   "from": "which",
+   "to": "calendar",
+   "when": "calendar_free",
+   "label": "calendar",
+   "lp": 0.6
+  },
+  {
+   "from": "search",
+   "to": "obs"
+  },
+  {
+   "from": "lookup",
+   "to": "obs"
+  },
+  {
+   "from": "calendar",
+   "to": "obs"
+  },
+  {
+   "from": "obs",
+   "to": "llmreq",
+   "route": [
+    [
+     3,
+     0,
+     "b"
+    ],
+    [
+     4,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "t",
+   "re": "b"
+  }
+ ],
+ "failure": {
+  "node": "llm",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ETIMEDOUT: o endpoint do LLM não respondeu (simulado)",
+   "en": "ETIMEDOUT: the LLM endpoint did not answer (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "A equipe faz as mesmas perguntas operacionais o dia todo: tem em estoque, quanto custa, quando há horário livre. As respostas ficam em três lugares diferentes (planilha, agenda, web).",
+   "en": "Staff ask the same operational questions all day: is it in stock, what does it cost, when is someone free. The answers live in three different places (sheet, calendar, web)."
+  },
+  "solution": {
+   "pt": "Um agente no n8n recebe a pergunta por webhook, carrega a memória da sessão e pergunta a um LLM se deve chamar uma ferramenta ou responder. As ferramentas são uma busca web, uma consulta ao CSV de estoque e um localizador de horários livres. Cada resultado volta ao LLM em um laço visível, limitado por max_steps, até haver resposta final. A resposta traz as ferramentas usadas e o número de passos.",
+   "en": "An n8n agent receives the question over a webhook, loads the session memory and asks an LLM whether to call a tool or answer. Tools are a web search, an inventory CSV lookup and a free-slot finder. Each result goes back to the LLM in a visible loop capped by max_steps until there is a final answer. The reply includes the tools used and the step count."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: se 5 pessoas fazem ~6 consultas por dia de ~2 min cada, são cerca de 5 h por semana que deixam de ir para abrir planilha e agenda. Um modelo real pode errar a escolha da ferramenta; por isso há max_steps, log das ferramentas usadas e um limite claro.",
+   "en": "An estimate, not a measurement: if 5 people make ~6 lookups a day at ~2 min each, that is about 5 h a week no longer spent opening sheets and calendars. A real model can pick the wrong tool, which is why there is a max_steps cap, a log of tools used and a clear boundary."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "HTTP Request",
+   "Switch",
+   "Extract From File",
+   "Ollama / OpenAI-compatible"
+  ],
+  "honesty": {
+   "pt": "O laço do agente, a memória e as três ferramentas rodam aqui com o mesmo código do workflow. A execução gravada no n8n local usou um planejador determinístico no lugar do modelo (para ser reproduzível) e não foi testada com um modelo real. Os nós de ler e interpretar o CSV aparecem agrupados dentro de cada ferramenta. Tempos e o erro simulado são ilustrativos.",
+   "en": "The agent loop, memory and the three tools run here with the workflow's own code. The run recorded on a local n8n used a deterministic planner in place of the model (so it is reproducible) and was not tested against a real model. The nodes that read and parse the CSVs are grouped inside each tool. Timings and the simulated failure are illustrative."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "session_id": "demo",
+    "question": "Do we have the kettle in stock, and when am I free tomorrow?"
+   },
+   "expect": {
+    "answer": "Aurora electric kettle 1.7 L (kettle): 42 in stock, US$ 39.90. Free slots (60 min or more) on 2026-11-11: 10:00-11:00, 12:30-14:00, 15:00-17:00.",
+    "tools": [
+     "sheet_lookup",
+     "calendar_free"
+    ],
+    "steps": 3
+   }
+  },
+  {
+   "input": {
+    "session_id": "demo",
+    "question": "How much does it cost?"
+   },
+   "expect": {
+    "answer": "Aurora electric kettle 1.7 L (kettle): 42 in stock, US$ 39.90.",
+    "tools": [
+     "sheet_lookup"
+    ],
+    "steps": 2
+   }
+  },
+  {
+   "input": {
+    "session_id": "demo",
+    "question": "Search the latest reviews and competitor news for kettle"
+   },
+   "expect": {
+    "answer": "Review roundup 2026: electric kettles under US$ 60 average US$ 41; 1.7 L models lead.",
+    "tools": [
+     "web_search"
+    ],
+    "steps": 2
+   }
+  }
+ ]
 }
