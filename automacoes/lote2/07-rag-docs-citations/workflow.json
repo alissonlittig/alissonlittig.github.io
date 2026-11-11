@@ -1,0 +1,416 @@
+{
+  "name": "RAG over company documents: local retrieval, answers with source citations",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f8a731ad-dbe0-5333-93df-f53484333957",
+      "name": "Index documents (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "16206b19-fdd2-56b7-a5aa-6162c69b226a",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "ac0d7daa-8087-5a00-800b-bc4fae3f7a72",
+              "name": "kb_glob",
+              "value": "./data/kb/*.md",
+              "type": "string"
+            },
+            {
+              "id": "2cf9b9e4-8227-5864-a55c-d54c6451098f",
+              "name": "index_file",
+              "value": "rag_index.json",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "0fb05ef1-4bf7-5bce-85db-a244e8be7da2",
+      "name": "Index settings",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        160
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Index settings').first().json.kb_glob }}",
+        "options": {}
+      },
+      "id": "5f78716f-1ee5-5693-b1da-98531ec533e0",
+      "name": "Read knowledge-base files",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {
+          "keepSource": "binary"
+        }
+      },
+      "id": "27b536b6-a60a-5e5f-8146-f89a64252f51",
+      "name": "Extract text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        680,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const STOP = new Set('a an the of to in on for and or is are be do does can i you we it its my your with at by from as that this what how when which who about if not no any'.split(' '));\nconst toks = s => s.toLowerCase().replace(/[^a-z0-9\\s]/g, ' ').split(/\\s+/).filter(w => w && !STOP.has(w)).map(w => w.length > 3 ? w.replace(/(ies|es|s)$/, '') : w);\n\nconst docs = $input.all().map(i => ({file: (i.binary && i.binary.data && i.binary.data.fileName) || 'unknown.md', text: String(i.json.data || i.json.text || '')}));\nconst chunks = [];\nfor (const d of docs) {\n  const lines = d.text.split(/\\r?\\n/).filter(l => l.trim());\n  const title = (lines[0] || '').replace(/^#+\\s*/, '');\n  const sents = lines.slice(1).join(' ').split(/(?<=[.!?])\\s+/).filter(Boolean);\n  for (let i = 0; i < sents.length; i++) chunks.push({file: d.file, section: title, para: i + 1, text: sents.slice(i, i + 2).join(' ')});\n}\nconst df = {};\nchunks.forEach(c => { c.tf = {}; toks(c.text + ' ' + c.section).forEach(w => c.tf[w] = (c.tf[w] || 0) + 1); Object.keys(c.tf).forEach(w => df[w] = (df[w] || 0) + 1); });\nconst N = chunks.length, idf = {};\nObject.keys(df).forEach(w => idf[w] = Math.log(1 + N / df[w]));\nchunks.forEach(c => { let n = 0; const v = {}; Object.keys(c.tf).forEach(w => { v[w] = (1 + Math.log(c.tf[w])) * idf[w]; n += v[w] * v[w]; }); n = Math.sqrt(n); Object.keys(v).forEach(w => v[w] = +(v[w] / n).toFixed(5)); c.vec = v; delete c.tf; });\nconst index = {built_at: new Date().toISOString(), docs: docs.length, chunks: N, idf, items: chunks};\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(JSON.stringify(index), 'utf8'), 'rag_index.json', 'application/json');\nreturn [{json: {docs: docs.length, chunks: N}, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "63d174c3-75dd-50da-b766-806b72bd9cb9",
+      "name": "Chunk and vectorize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Index settings').first().json.data_dir + '/' + $('Index settings').first().json.index_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "0adb06f2-7e41-539c-91d7-dd52d44cd0be",
+      "name": "Save index",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ask-docs",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "805353ac-ccbc-5d8d-80db-ae0b87f3ebea",
+      "name": "Question webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        440
+      ],
+      "webhookId": "ask-docs-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8095b9d-f78a-547c-8322-3144a50468f8",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "f3e1859b-d0a7-5dd8-9cb0-b20017557f0a",
+              "name": "index_file",
+              "value": "rag_index.json",
+              "type": "string"
+            },
+            {
+              "id": "1445887b-0082-51c1-baff-07986b37a276",
+              "name": "top_k",
+              "value": "3",
+              "type": "string"
+            },
+            {
+              "id": "847f0334-7af2-5a56-b836-256c661d058c",
+              "name": "min_score",
+              "value": "0.15",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        440
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.index_file }}",
+        "options": {}
+      },
+      "id": "35a22171-3f72-5c04-8ab0-422c7be4ac7b",
+      "name": "Read index",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const STOP = new Set('a an the of to in on for and or is are be do does can i you we it its my your with at by from as that this what how when which who about if not no any'.split(' '));\nconst toks = s => s.toLowerCase().replace(/[^a-z0-9\\s]/g, ' ').split(/\\s+/).filter(w => w && !STOP.has(w)).map(w => w.length > 3 ? w.replace(/(ies|es|s)$/, '') : w);\n\nconst cfg = $('Config').first().json;\nconst index = JSON.parse((await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8'));\nconst question = String(($('Question webhook').first().json.body || {}).question || '').trim();\nif (!question) throw new Error('Missing question');\nconst tf = {}; toks(question).forEach(w => tf[w] = (tf[w] || 0) + 1);\nconst q = {}; let n = 0;\nObject.keys(tf).forEach(w => { if (index.idf[w]) { q[w] = (1 + Math.log(tf[w])) * index.idf[w]; n += q[w] * q[w]; } });\nn = Math.sqrt(n) || 1;\nconst scored = index.items.map(c => { let s = 0; Object.keys(q).forEach(w => { if (c.vec[w]) s += (q[w] / n) * c.vec[w]; }); return {file: c.file, section: c.section, para: c.para, text: c.text, score: +s.toFixed(3)}; })\n  .sort((a, b) => b.score - a.score);\nconst top = []; const seen = new Set();\nfor (const c of scored) { const k = c.file + c.para; if (c.score > 0 && !seen.has(k) && top.length < Number(cfg.top_k)) { seen.add(k); top.push(c); } }\nreturn [{json: {question, top, best: top.length ? top[0].score : 0, enough: top.length > 0 && top[0].score >= Number(cfg.min_score)}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "197a431f-0293-54b3-a3fb-54407f837b04",
+      "name": "Retrieve top chunks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8ec57016-8b0b-5f0d-9ba7-59d039b90b54",
+              "leftValue": "={{ $json.enough }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b5ff8c40-e949-5e37-8985-5a217fe66eaf",
+      "name": "Enough evidence?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        900,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const STOP = new Set('a an the of to in on for and or is are be do does can i you we it its my your with at by from as that this what how when which who about if not no any'.split(' '));\nconst toks = s => s.toLowerCase().replace(/[^a-z0-9\\s]/g, ' ').split(/\\s+/).filter(w => w && !STOP.has(w)).map(w => w.length > 3 ? w.replace(/(ies|es|s)$/, '') : w);\n\nconst j = $input.first().json, qt = new Set(toks(j.question));\nconst best = j.top[0];\nconst ranked = best.text.split(/(?<=[.!?])\\s+/).map(s => ({s, o: toks(s).filter(w => qt.has(w)).length})).sort((a, b) => b.o - a.o);\nconst answer = ranked.filter(r => r.o > 0).slice(0, 2).map(r => r.s).join(' ') || best.text;\nconst sources = j.top.map((c, i) => ({ref: i + 1, file: c.file, section: c.section, paragraph: c.para, score: c.score}));\nreturn [{json: {answer: answer + ' [1]', sources, confidence: j.best}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "83eb04ad-ee75-53f7-a5b8-5b2b5b532122",
+      "name": "Compose answer with citations",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "53e3f954-0d38-5e1d-9832-2e1691ee3512",
+      "name": "Respond: answer + sources",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({answer: 'I could not find this in the company documents. A human will follow up.', sources: [], confidence: $json.best}) }}",
+        "options": {}
+      },
+      "id": "5133a36d-1868-5b5d-a96d-90ca09de4f4d",
+      "name": "Respond: not in documents",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        540
+      ]
+    }
+  ],
+  "connections": {
+    "Index documents (manual)": {
+      "main": [
+        [
+          {
+            "node": "Index settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Index settings": {
+      "main": [
+        [
+          {
+            "node": "Read knowledge-base files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read knowledge-base files": {
+      "main": [
+        [
+          {
+            "node": "Extract text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract text": {
+      "main": [
+        [
+          {
+            "node": "Chunk and vectorize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunk and vectorize": {
+      "main": [
+        [
+          {
+            "node": "Save index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question webhook": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read index": {
+      "main": [
+        [
+          {
+            "node": "Retrieve top chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve top chunks": {
+      "main": [
+        [
+          {
+            "node": "Enough evidence?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enough evidence?": {
+      "main": [
+        [
+          {
+            "node": "Compose answer with citations",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond: not in documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose answer with citations": {
+      "main": [
+        [
+          {
+            "node": "Respond: answer + sources",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

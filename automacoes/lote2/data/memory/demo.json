@@ -1,0 +1,17 @@
+{
+  "history": [
+    {
+      "q": "Do we have the kettle in stock, and when am I free tomorrow?",
+      "a": "Aurora electric kettle 1.7 L (kettle): 42 in stock, US$ 39.90. Free slots (60 min or more) on 2026-11-11: 10:00-11:00, 12:30-14:00, 15:00-17:00."
+    },
+    {
+      "q": "How much does it cost?",
+      "a": "Aurora electric kettle 1.7 L (kettle): 42 in stock, US$ 39.90."
+    },
+    {
+      "q": "Search the latest reviews and competitor news for kettle",
+      "a": "Review roundup 2026: electric kettles under US$ 60 average US$ 41; 1.7 L models lead."
+    }
+  ],
+  "last_product": "kettle"
+}

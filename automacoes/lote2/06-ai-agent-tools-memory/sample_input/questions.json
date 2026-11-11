@@ -1,0 +1,14 @@
+[
+  {
+    "session_id": "demo",
+    "question": "Do we have the kettle in stock, and when am I free tomorrow?"
+  },
+  {
+    "session_id": "demo",
+    "question": "How much does it cost?"
+  },
+  {
+    "session_id": "demo",
+    "question": "Search the latest reviews and competitor news for kettle"
+  }
+]

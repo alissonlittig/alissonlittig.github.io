@@ -1,0 +1,417 @@
+{
+  "name": "Two-system sync via webhook: validate, map, retry, idempotency, dead-letter queue",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "order-sync",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "aaa1c632-7f43-5a5e-af75-4d9db64750aa",
+      "name": "Order webhook (System A)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        300
+      ],
+      "webhookId": "order-sync-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8095b9d-f78a-547c-8322-3144a50468f8",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "b69cabe2-4ca6-55f8-b3c1-543b91b7d05f",
+              "name": "system_b_url",
+              "value": "http://127.0.0.1:8098/systemb/orders",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8098/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        300
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $('Order webhook (System A)').first().json.body || {};\nconst errors = [];\nif (!b.id) errors.push('id is required');\nif (!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(String(b.customer_email || ''))) errors.push('customer_email is invalid');\nif (!Array.isArray(b.items) || !b.items.length) errors.push('items must be a non-empty array');\nconst total = (b.items || []).reduce((a, i) => a + Number(i.qty || 0) * Number(i.unit_price || 0), 0);\nif (b.items && !(total > 0)) errors.push('order total must be positive');\nconst payload = {external_id: String(b.id), contact: {email: String(b.customer_email || '').toLowerCase(), name: b.customer_name || ''},\n  lines: (b.items || []).map(i => ({sku: i.sku, quantity: Number(i.qty), price: Number(i.unit_price)})), total: +total.toFixed(2), currency: b.currency || 'USD', source: 'system-a'};\nreturn [{json: {valid: errors.length === 0, errors, payload, key: String(b.id)}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "2311b780-5188-5f25-8ffe-01fc3c02b3da",
+      "name": "Validate and map to System B schema",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a353f2e0-2a75-50bd-9290-42f350d0ea8f",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2002f152-240b-5183-8601-bb05f9194717",
+      "name": "Valid order?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.system_b_url }}",
+        "options": {
+          "timeout": 10000,
+          "response": {
+            "response": {
+              "fullResponse": false
+            }
+          }
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.payload) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Idempotency-Key",
+              "value": "={{ $json.key }}"
+            }
+          ]
+        }
+      },
+      "id": "756b4a82-4a9f-5c32-89f8-b5a20195f05f",
+      "name": "POST to System B (retry x3)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        220
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueErrorOutput",
+      "notes": "Up to 3 tries, 1 s apart. The Idempotency-Key makes a repeated call safe (System B answers 200 duplicate instead of creating twice).",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst v = $('Validate and map to System B schema').first().json, r = $input.first().json;\nconst line = [new Date().toISOString(), v.key, 'synced', r.id || '', r.duplicate ? 'duplicate (already in B)' : 'created'].map(q).join(',') + '\\n';\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(line, 'utf8'), 'sync_log.csv', 'text/plain');\nreturn [{json: {id: r.id, duplicate: !!r.duplicate}, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "69fbcfab-09eb-5c8f-a57d-ef7de93eaf56",
+      "name": "Log success line",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/sync_log.csv' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "79cf7c4c-0576-5136-ab4f-c1f4927982f1",
+      "name": "Append to sync_log.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ok: true, status: 'synced', system_b_id: $('Log success line').first().json.id, duplicate: $('Log success line').first().json.duplicate}) }}",
+        "options": {}
+      },
+      "id": "b3d06873-1e93-5813-9818-2448b50987e6",
+      "name": "Respond 200 synced",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const v = $('Validate and map to System B schema').first().json, e = $input.first().json;\nconst rec = {at: new Date().toISOString(), key: v.key, payload: v.payload, error: String((e.error && (e.error.message || e.error)) || e.message || 'unknown').slice(0, 200), retries: 3};\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(JSON.stringify(rec) + '\\n', 'utf8'), 'dead_letter.jsonl', 'application/json');\nreturn [{json: rec, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "0e39669e-0da1-5942-9221-4ff2cabc1d6d",
+      "name": "Build dead-letter record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/dead_letter.jsonl' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "d99eb28b-9ae7-5fb6-920b-f360f970906f",
+      "name": "Append to dead_letter.jsonl",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: 'SYNC FAILED after 3 tries: order ' + $('Build dead-letter record').first().json.key + ' queued in dead_letter.jsonl (' + $('Build dead-letter record').first().json.error + ')'}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1560,
+        340
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ok: false, status: 'queued', message: 'System B unavailable; order saved for manual replay'}) }}",
+        "options": {
+          "responseCode": 202
+        }
+      },
+      "id": "19c00e3a-004c-5706-902e-9fb62f81296e",
+      "name": "Respond 202 queued for replay",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1780,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ok: false, errors: $json.errors}) }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "f36c8fe6-47f7-57e5-a599-d4e3dcc269b0",
+      "name": "Respond 400 invalid order",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        540
+      ]
+    }
+  ],
+  "connections": {
+    "Order webhook (System A)": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Validate and map to System B schema",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate and map to System B schema": {
+      "main": [
+        [
+          {
+            "node": "Valid order?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valid order?": {
+      "main": [
+        [
+          {
+            "node": "POST to System B (retry x3)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond 400 invalid order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST to System B (retry x3)": {
+      "main": [
+        [
+          {
+            "node": "Log success line",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build dead-letter record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log success line": {
+      "main": [
+        [
+          {
+            "node": "Append to sync_log.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to sync_log.csv": {
+      "main": [
+        [
+          {
+            "node": "Respond 200 synced",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build dead-letter record": {
+      "main": [
+        [
+          {
+            "node": "Append to dead_letter.jsonl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to dead_letter.jsonl": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify (Telegram-compatible)": {
+      "main": [
+        [
+          {
+            "node": "Respond 202 queued for replay",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

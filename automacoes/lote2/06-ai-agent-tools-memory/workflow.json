@@ -1,0 +1,670 @@
+{
+  "name": "AI agent with tools (web search, sheet, calendar) and conversation memory",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agent-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "49295a23-12ec-508f-be98-1349e761f452",
+      "name": "Chat webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        300
+      ],
+      "webhookId": "agent-chat-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8095b9d-f78a-547c-8322-3144a50468f8",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "dbdbc389-cc29-5c74-a229-6550159892e1",
+              "name": "llm_url",
+              "value": "http://127.0.0.1:8098/v1/chat/completions",
+              "type": "string"
+            },
+            {
+              "id": "517c5ded-bd25-5812-8fa1-423f4f289ce4",
+              "name": "llm_model",
+              "value": "llama3.2:3b",
+              "type": "string"
+            },
+            {
+              "id": "f9844ef4-92ca-5f8b-981c-f19dc4805405",
+              "name": "search_url",
+              "value": "http://127.0.0.1:8098/search",
+              "type": "string"
+            },
+            {
+              "id": "4b411896-76b1-586d-a225-4f5b664b71d8",
+              "name": "max_steps",
+              "value": "4",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        300
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/memory/' + String($('Chat webhook').first().json.body.session_id || 'default').replace(/[^a-zA-Z0-9_-]/g, '') + '.json' }}",
+        "options": {}
+      },
+      "id": "cec69b16-54f7-58ba-8efa-d3b21ee3c3ca",
+      "name": "Read session memory",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        420,
+        300
+      ],
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "Missing file = new conversation.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const b = $('Chat webhook').first().json.body || {};\nconst question = String(b.question || '').trim();\nif (!question) throw new Error('Missing question');\nconst session = String(b.session_id || 'default').replace(/[^a-zA-Z0-9_-]/g, '');\nlet mem = {history: [], last_product: ''};\nconst it = $input.first();\nif (it.binary && it.binary.data) mem = JSON.parse((await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8'));\nconst recent = mem.history.slice(-3).map(h => `Q: ${h.q} A: ${h.a}`).join(' | ');\nconst system = 'You are a store assistant. Tools: web_search(query), sheet_lookup(query) for stock and price, calendar_free(date). ' +\n  'Reply ONLY with JSON: {\"tool\":\"name\",\"args\":{...}} to call a tool, or {\"final\":\"answer\"} when done. ' +\n  `Memory: last_product=${mem.last_product}. Recent: ${recent}`;\nreturn [{json: {session, question, mem, steps: 0, tools_used: [], messages: [{role: 'system', content: system}, {role: 'user', content: question}]}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "d7827dd9-932a-5bd4-bfec-1c9d87f6ada4",
+      "name": "Init state",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const st = $input.first().json;\nreturn [{json: {...st, request: {model: $('Config').first().json.llm_model, temperature: 0, messages: st.messages}}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "9514a8b8-16d8-5129-ab19-8577d764860c",
+      "name": "LLM request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.llm_url }}",
+        "options": {
+          "timeout": 120000
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.request) }}"
+      },
+      "id": "55db1d3b-899b-51c6-a76a-1e28eae1c1e9",
+      "name": "Call LLM (OpenAI-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1060,
+        300
+      ],
+      "notes": "Local Ollama: http://localhost:11434/v1/chat/completions. The demo uses a deterministic mock planner.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const st = $('LLM request').last().json;\nconst content = $input.first().json.choices[0].message.content;\nconst d = JSON.parse(content);\nconst steps = st.steps + 1;\nconst decision = (d.tool && steps > Number($('Config').first().json.max_steps)) ? {final: 'Stopped: too many tool calls without an answer.'} : d;\nreturn [{json: {...st, steps, decision}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "6a852987-fa63-5ceb-b8d7-31f1b9443820",
+      "name": "Parse decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0882a060-570a-53ca-83ff-bea1c15868f4",
+              "leftValue": "={{ $json.decision.final !== undefined }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d0e41a2c-0be6-5ef9-8673-4879703aa773",
+      "name": "Final answer?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4bdd2290-2aca-56b2-9eba-765f6ac9de89",
+                    "leftValue": "={{ $json.decision.tool }}",
+                    "rightValue": "web_search",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "web_search"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d467797d-7b8e-5aaa-a465-dcdf6bce724e",
+                    "leftValue": "={{ $json.decision.tool }}",
+                    "rightValue": "sheet_lookup",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "sheet_lookup"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "442035f6-79d4-5b9d-ad7c-7d07cde78cc3",
+                    "leftValue": "={{ $json.decision.tool }}",
+                    "rightValue": "calendar_free",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "calendar_free"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "60251ba2-cf29-5b29-a374-b74d5123c732",
+      "name": "Which tool?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1720,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').first().json.search_url + '?q=' + encodeURIComponent($json.decision.args.query) }}",
+        "options": {}
+      },
+      "id": "7c211003-ec98-5335-bb6c-02b21c72d822",
+      "name": "Tool: web search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1960,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/inventory.csv' }}",
+        "options": {}
+      },
+      "id": "284fb566-c18a-5cea-b727-1429e863cad6",
+      "name": "Tool: read inventory.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "options": {}
+      },
+      "id": "8d336bb3-5ad6-571c-8aae-2ecb6a9330fe",
+      "name": "Parse inventory",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = String($('Parse decision').last().json.decision.args.query || '').toLowerCase();\nconst row = $input.all().map(i => i.json).find(r => String(r.name).toLowerCase().includes(q));\nconst summary = row ? `${row.name}: ${Number(row.stock) > 0 ? row.stock + ' in stock' : 'out of stock'}, US$ ${row.price_usd}.` : `No product matching \"${q}\" in the inventory sheet.`;\nreturn [{json: {tool: 'sheet_lookup', summary}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "cb0beac0-7f8c-523c-85d1-4866d7e299db",
+      "name": "Tool: look up product",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2360,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/calendar.csv' }}",
+        "options": {}
+      },
+      "id": "339981cf-49f3-5b3e-b454-e128a920364f",
+      "name": "Tool: read calendar.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "options": {}
+      },
+      "id": "2db05472-0c95-593c-a645-5cec4ecd65ba",
+      "name": "Parse calendar",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const date = $('Parse decision').last().json.decision.args.date;\nconst m = t => { const [h, mi] = t.split(':').map(Number); return h * 60 + mi; };\nconst f = n => String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0');\nconst busy = $input.all().map(i => i.json).filter(r => r.date === date).map(r => [m(r.start), m(r.end)]).sort((a, b) => a[0] - b[0]);\nlet cur = 9 * 60; const free = [];\nfor (const [s, e] of busy) { if (s - cur >= 60) free.push(f(cur) + '-' + f(s)); cur = Math.max(cur, e); }\nif (17 * 60 - cur >= 60) free.push(f(cur) + '-17:00');\nreturn [{json: {tool: 'calendar_free', summary: `Free slots (60 min or more) on ${date}: ${free.join(', ') || 'none'}.`}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "8460f9b7-2795-5d48-b294-c3f3426efcb6",
+      "name": "Tool: find free slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2360,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const st = $('Parse decision').last().json;\nconst o = $input.first().json;\nconst obs = {tool: st.decision.tool, summary: o.summary || (o.results && o.results[0] && o.results[0].snippet) || 'no result'};\nconst messages = [...st.messages, {role: 'assistant', content: JSON.stringify(st.decision)}, {role: 'tool', content: JSON.stringify(obs)}];\nconst {decision, ...rest} = st;\nreturn [{json: {...rest, messages, tools_used: [...st.tools_used, st.decision.tool]}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "dab174dd-b4c7-55d1-895b-e780e4aaad76",
+      "name": "Add observation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2600,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const st = $input.first().json, d = st.decision;\nconst mem = st.mem;\nmem.history.push({q: st.question, a: d.final});\nmem.history = mem.history.slice(-6);\nif (d.product) mem.last_product = d.product;\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(JSON.stringify(mem, null, 2), 'utf8'), st.session + '.json', 'application/json');\nreturn [{json: st, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "7cec943b-d3d3-50b1-9c66-093246967d4c",
+      "name": "Save session memory",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/memory/' + $json.session + '.json' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "971c0cf8-e31c-5ae8-9c84-c6e0121455b9",
+      "name": "Write memory file",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({answer: $('Save session memory').first().json.decision.final, tools_used: $('Save session memory').first().json.tools_used, steps: $('Save session memory').first().json.steps}) }}",
+        "options": {}
+      },
+      "id": "c7535a65-b3b1-58f1-9110-aec4cb82a294",
+      "name": "Respond with answer",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2160,
+        160
+      ]
+    }
+  ],
+  "connections": {
+    "Chat webhook": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read session memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read session memory": {
+      "main": [
+        [
+          {
+            "node": "Init state",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init state": {
+      "main": [
+        [
+          {
+            "node": "LLM request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM request": {
+      "main": [
+        [
+          {
+            "node": "Call LLM (OpenAI-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call LLM (OpenAI-compatible)": {
+      "main": [
+        [
+          {
+            "node": "Parse decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse decision": {
+      "main": [
+        [
+          {
+            "node": "Final answer?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final answer?": {
+      "main": [
+        [
+          {
+            "node": "Save session memory",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Which tool?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Which tool?": {
+      "main": [
+        [
+          {
+            "node": "Tool: web search",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tool: read inventory.csv",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Tool: read calendar.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: web search": {
+      "main": [
+        [
+          {
+            "node": "Add observation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: read inventory.csv": {
+      "main": [
+        [
+          {
+            "node": "Parse inventory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse inventory": {
+      "main": [
+        [
+          {
+            "node": "Tool: look up product",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: look up product": {
+      "main": [
+        [
+          {
+            "node": "Add observation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: read calendar.csv": {
+      "main": [
+        [
+          {
+            "node": "Parse calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse calendar": {
+      "main": [
+        [
+          {
+            "node": "Tool: find free slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool: find free slots": {
+      "main": [
+        [
+          {
+            "node": "Add observation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add observation": {
+      "main": [
+        [
+          {
+            "node": "LLM request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save session memory": {
+      "main": [
+        [
+          {
+            "node": "Write memory file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write memory file": {
+      "main": [
+        [
+          {
+            "node": "Respond with answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

@@ -70,6 +70,7 @@
       <a role="tab" id="t-websites" href="#websites" aria-controls="websites" aria-selected="false">Websites<small>33</small></a>
       <a role="tab" id="t-crms" href="#crms" aria-controls="crms" aria-selected="false">CRMs<small>22</small></a>
       <a role="tab" id="t-dashboards" href="#dashboards" aria-controls="dashboards" aria-selected="false">Dashboards<small>20</small></a>
+      <a role="tab" id="t-automacoes" href="#automacoes" aria-controls="automacoes" aria-selected="false">Automações<small>5</small></a>
     </div>
     <div class="filt" role="search">
       <label class="sr" for="q"><span lang="pt">Buscar projetos</span><span lang="en">Search projects</span></label>
@@ -785,6 +786,51 @@
         <p class="pend"><span lang="pt">Exemplo com dados fictícios.</span><span lang="en">Example with fictional data.</span></p>
         <p class="links"><a class="lnk" href="https://alissonlittig.github.io/financing-simulator-wasm/" rel="noopener"><span lang="pt">Abrir o app</span><span lang="en">Open the app</span></a><a class="lnk" href="https://github.com/alissonlittig/financing-simulator-wasm" rel="noopener"><span lang="pt">Código no GitHub</span><span lang="en">Code on GitHub</span></a></p>
       </article>
+  </div>
+  <div class="panel" id="automacoes" role="tabpanel" aria-labelledby="t-automacoes" tabindex="-1">
+    <p class="fict"><span lang="pt">Workflows n8n com dados fictícios, sem credenciais</span><span lang="en">n8n workflows with fictional data, no credentials</span></p>
+    <div class="grid">
+      <article class="tile">
+        <a class="pic" href="automacoes/lote2/06-ai-agent-tools-memory/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-agente-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote2/06-ai-agent-tools-memory/demo.gif">Agente de IA com ferramentas e memória</a></h3>
+        <p class="tag"><span lang="pt">Agente de IA · n8n</span><span lang="en">AI agent · n8n</span></p>
+        <p class="d"><span lang="pt">Pergunta chega por webhook; o agente decide entre buscar na web, consultar estoque (CSV) ou achar horário livre, repete até responder e guarda a memória da sessão, então "quanto custa?" funciona como continuação. O modelo da demo é um planejador simulado, trocável por Ollama ou API.</span><span lang="en">A question arrives by webhook; the agent chooses between web search, an inventory CSV lookup or a free-slot finder, loops until it can answer, and keeps session memory so "how much does it cost?" works as a follow-up. The demo model is a simulated planner, swappable for Ollama or a hosted API.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote2/06-ai-agent-tools-memory/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote2/06-ai-agent-tools-memory"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote2/07-rag-docs-citations/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-rag-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote2/07-rag-docs-citations/demo.gif">Perguntas sobre documentos com fonte citada</a></h3>
+        <p class="tag"><span lang="pt">RAG · n8n</span><span lang="en">RAG · n8n</span></p>
+        <p class="d"><span lang="pt">Indexa 5 documentos da empresa e responde com citação de arquivo, seção e parágrafo. Pergunta sem base nos documentos é recusada em vez de inventada. Busca lexical TF-IDF, sem embeddings neurais.</span><span lang="en">Indexes 5 company documents and answers with file, section and paragraph citations. A question the documents cannot support is refused instead of invented. Lexical TF-IDF retrieval, no neural embeddings.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote2/07-rag-docs-citations/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote2/07-rag-docs-citations"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote2/08-invoice-pdf-to-sheet/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-fatura-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote2/08-invoice-pdf-to-sheet/demo.gif">PDFs de nota para planilha com fila de revisão</a></h3>
+        <p class="tag"><span lang="pt">Extração de dados · n8n</span><span lang="en">Data extraction · n8n</span></p>
+        <p class="d"><span lang="pt">Lê PDFs de nota, valida o total contra os itens e lança na planilha; o que não fecha ou não tem data vai para fila de revisão. Rodar de novo não duplica nada. Em 5 PDFs: 2 lançados, 2 em revisão, 1 duplicata.</span><span lang="en">Reads invoice PDFs, checks the total against line items and posts to a sheet; anything that does not add up or lacks a date goes to a review queue. Re-running never duplicates. On 5 PDFs: 2 posted, 2 in review, 1 duplicate.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote2/08-invoice-pdf-to-sheet/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote2/08-invoice-pdf-to-sheet"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote2/09-lead-enrichment-crm/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-leads-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote2/09-lead-enrichment-crm/demo.gif">Leads enriquecidos em planilha de CRM</a></h3>
+        <p class="tag"><span lang="pt">CRM · n8n</span><span lang="en">CRM · n8n</span></p>
+        <p class="d"><span lang="pt">Para cada empresa, lê o site público, resume o negócio, dá uma nota de aderência e grava no CRM sem duplicar por domínio. Site fora do ar vira "unreachable". Dados e páginas fictícios.</span><span lang="en">For each company, reads the public site, summarizes the business, scores the fit and writes to the CRM without duplicating by domain. A dead site is flagged "unreachable". Fictional data and pages.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote2/09-lead-enrichment-crm/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote2/09-lead-enrichment-crm"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote2/10-webhook-sync-retry-deadletter/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-sync-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote2/10-webhook-sync-retry-deadletter/demo.gif">Sincronização por webhook com retry e dead-letter</a></h3>
+        <p class="tag"><span lang="pt">APIs e webhooks · n8n</span><span lang="en">APIs and webhooks · n8n</span></p>
+        <p class="d"><span lang="pt">Recebe eventos e envia a um segundo sistema com idempotência (repetido responde "duplicate"), retry com espera e, após 3 falhas, fila dead-letter com alerta. Payload inválido volta 400.</span><span lang="en">Receives events and forwards them to a second system with idempotency (a repeat returns "duplicate"), retry with backoff and, after 3 failures, a dead-letter queue with an alert. An invalid payload returns 400.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote2/10-webhook-sync-retry-deadletter/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote2/10-webhook-sync-retry-deadletter"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+    </div>
   </div>
   </div>
 </section>

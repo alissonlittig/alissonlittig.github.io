@@ -1,0 +1,3 @@
+Run 1 (5 PDFs) then run 2 (same folder again, nothing new):
+[23:47:57] Invoices: 2 booked (USD 3968.00), 2 sent to review (bluepeak-cloud-2210.pdf: total mismatch (320 + 32 != 399) | lumen-print-310.pdf: missing date), 1 duplicate skipped (already booked or in review).
+[23:48:27] Invoices: 0 booked (USD 0.00), 0 sent to review (), 5 duplicate skipped (already booked or in review).

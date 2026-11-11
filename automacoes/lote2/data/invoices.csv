@@ -1,0 +1,3 @@
+invoice_no,vendor,date,currency,subtotal,tax,total,file,issues
+"AP-0412","Acme Packaging Co.","2026-10-28","USD","1380","138","1518","acme-packaging-0412.pdf",""
+"NF-77","Northwind Freight","2026-11-02","USD","2450","0","2450","northwind-freight-77.pdf",""

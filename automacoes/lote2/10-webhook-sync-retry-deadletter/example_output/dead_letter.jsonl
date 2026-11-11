@@ -1,0 +1,1 @@
+{"at":"2026-11-11T02:51:57.027Z","key":"ORD-2003-X","payload":{"external_id":"ORD-2003-X","contact":{"email":"ana@example.com","name":"Ana Souza"},"lines":[{"sku":"KT-170","quantity":2,"price":39.9}],"total":79.8,"currency":"USD","source":"system-a"},"error":"503 - \"{\\\"error\\\": \\\"System B unavailable\\\"}\"","retries":3}

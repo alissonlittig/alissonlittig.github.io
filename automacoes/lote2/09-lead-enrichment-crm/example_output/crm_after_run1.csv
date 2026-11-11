@@ -1,0 +1,6 @@
+domain,company,status,score,industry,size,tech,contact_email,phone,signals,why,source,first_seen,last_enriched,note
+"orbitlogix","Orbit Logix","enriched","100","Logistics","85","","sales@orbitlogix.example","+44 20 5550 0188","hiring+funded","size 10-200; public e-mail; phone; hiring+funded; target industry","webinar attendee","2026-11-11","2026-11-11",""
+"brightpath","BrightPath Dental","enriched","85","Healthcare","12","WordPress","hello@brightpath.example","+1 512 555 0142","","size 10-200; public e-mail; phone; target industry","trade show list","2026-11-11","2026-11-11",""
+"kilnworks","Kilnworks Ceramics","enriched","50","Retail","3","Shopify","studio@kilnworks.example","","","small team; public e-mail","newsletter signup","2026-11-11","2026-11-11",""
+"greenleaf","Greenleaf Accounting","enriched","40","Finance","6","","","","","small team; target industry","partner referral","2026-11-11","2026-11-11",""
+"ghostco","Ghost Company","unreachable","0","","","","","","","","old spreadsheet","2026-11-11","2026-11-11","HTTP 404"

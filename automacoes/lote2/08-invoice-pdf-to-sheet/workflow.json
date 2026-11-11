@@ -1,0 +1,498 @@
+{
+  "name": "Invoice PDFs -> parsed fields -> validated sheet + review queue",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "27884039-452d-5593-b84f-75b9681c75bb",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "5adc4408-cda4-59ae-8039-023bd47a0994",
+      "name": "Every weekday 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8095b9d-f78a-547c-8322-3144a50468f8",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "f16b4931-3cdc-51e7-b462-d2d34a546941",
+              "name": "pdf_glob",
+              "value": "./data/invoices/*.pdf",
+              "type": "string"
+            },
+            {
+              "id": "38166179-befb-5212-81f8-d7ff9ae52cba",
+              "name": "ok_file",
+              "value": "invoices.csv",
+              "type": "string"
+            },
+            {
+              "id": "0049976d-b917-5d57-9339-3eabe9f7d0cc",
+              "name": "review_file",
+              "value": "invoices_review.csv",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8098/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        260
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.pdf_glob }}",
+        "options": {}
+      },
+      "id": "49970f41-1cc0-5095-95d3-1ff30f5bcbb3",
+      "name": "Read invoice PDFs",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {
+          "keepSource": "binary"
+        }
+      },
+      "id": "826f9b5d-b75a-501b-a55e-997a0e0bccb7",
+      "name": "Extract text from PDF",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        680,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const num = s => s ? Number(String(s).replace(/,/g, '')) : null;\nreturn $input.all().map(i => {\n  const t = String(i.json.text || '').replace(/\\s+/g, ' ');\n  const file = (i.binary && i.binary.data && i.binary.data.fileName) || 'unknown.pdf';\n  const m = (re) => { const r = t.match(re); return r ? r[1] : null; };\n  const vendor = m(/^(.*?)\\s*Fictional sample/i) || m(/^(.{3,40}?)\\s+INVOICE/i);\n  const tot = t.match(/Total(?: due)?:\\s*([A-Z]{3})\\s*([\\d,]+\\.\\d{2})/i);\n  const inv = {file, vendor, invoice_no: m(/Invoice\\s*(?:No\\.?|#|Number)\\s*[:\\-]?\\s*([A-Z0-9-]+)/i), date: m(/(?:Invoice date|Date)\\s*:\\s*(\\d{4}-\\d{2}-\\d{2})/i),\n    currency: tot ? tot[1] : null, subtotal: num(m(/Subtotal:\\s*([\\d,]+\\.\\d{2})/i)), tax: num(m(/(?:VAT|Tax):\\s*([\\d,]+\\.\\d{2})/i)), total: tot ? num(tot[2]) : null};\n  const issues = [];\n  ['vendor', 'invoice_no', 'date', 'total'].forEach(k => { if (!inv[k]) issues.push('missing ' + k); });\n  if (inv.subtotal != null && inv.total != null && Math.abs(inv.subtotal + (inv.tax || 0) - inv.total) > 0.01) issues.push(`total mismatch (${inv.subtotal} + ${inv.tax || 0} != ${inv.total})`);\n  return {json: {...inv, issues}};\n});\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "71d1909d-3c14-5dc7-9f61-932871fe1d1e",
+      "name": "Parse invoice fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json: {rows: $input.all().map(i => i.json)}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "15745f37-ae29-5146-870a-9c35daa75d3d",
+      "name": "Collect all invoices",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/invoices*.csv' }}",
+        "options": {}
+      },
+      "id": "5d41f77a-3bbe-50c3-b147-d5492058e454",
+      "name": "Read existing invoices.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        260
+      ],
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "Glob reads invoices.csv and invoices_review.csv, so a PDF already booked or already in review is not processed twice.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst rows = $('Collect all invoices').first().json.rows;\nconst seen = new Set();\nconst all = $input.all();\nfor (let n = 0; n < all.length; n++) {\n  if (!(all[n].binary && all[n].binary.data)) continue;\n  const txt = (await this.helpers.getBinaryDataBuffer(n, 'data')).toString('utf8');\n  txt.split(/\\r?\\n/).slice(1).filter(Boolean).forEach(l => { const c = l.split('\",\"'); seen.add((c[1] || '').replace(/\"/g, '') + '|' + (c[0] || '').replace(/\"/g, '')); });\n}\nconst out = [];\nfor (const r of rows) {\n  const key = r.vendor + '|' + r.invoice_no;\n  let route = r.issues.length ? 'review' : 'ok';\n  if (r.invoice_no && seen.has(key)) route = 'duplicate';\n  else if (route === 'ok') seen.add(key);\n  const line = ['invoice_no', 'vendor', 'date', 'currency', 'subtotal', 'tax', 'total', 'file'].map(k => q(r[k])).join(',') + ',' + q(route === 'review' ? r.issues.join('; ') : '') + '\\n';\n  const bin = await this.helpers.prepareBinaryData(Buffer.from(line, 'utf8'), 'line.csv', 'text/plain');\n  out.push({json: {...r, route}, binary: {data: bin}});\n}\nreturn out;\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "1461c20c-0458-5457-b424-6d191e7fac0c",
+      "name": "Route: ok / review / duplicate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5f66b4be-5803-5d0b-8f70-7334f4b3dea7",
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "ok",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ok"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f015c122-e3be-5ba2-b693-a393b1c25953",
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "review",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "review"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "74cf4a5a-5850-5619-8e36-ed5ee88292d7",
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "duplicate",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "duplicate"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6960c80a-bcee-510c-a5cb-18a81609b9f4",
+      "name": "Which queue?",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1780,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.ok_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "1dce0ff1-c598-5e0c-ad21-a5a0c5c81543",
+      "name": "Append to invoices.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.review_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "ec3aeb1c-f3fd-5248-acc8-bf64456a0757",
+      "name": "Append to invoices_review.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        280
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "c4eafab6-e750-51af-a816-963a6a694e1e",
+      "name": "Skip duplicate (no write)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        440
+      ],
+      "notes": "Same vendor + invoice number already booked.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $('Route: ok / review / duplicate').all().map(i => i.json);\nconst ok = rows.filter(r => r.route === 'ok'), rv = rows.filter(r => r.route === 'review'), du = rows.filter(r => r.route === 'duplicate');\nconst sum = ok.reduce((a, r) => a + r.total, 0).toFixed(2);\nconst text = `Invoices: ${ok.length} booked (USD ${sum}), ${rv.length} sent to review (${rv.map(r => r.file + ': ' + r.issues.join(', ')).join(' | ')}), ${du.length} duplicate skipped (already booked or in review).`;\nreturn [{json: {text, booked: ok.length, review: rv.length, duplicate: du.length}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "829aaab7-3ae3-5897-a401-fd62b10e40f8",
+      "name": "Summarize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $json.text}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        480
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Run now (manual)": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every weekday 08:00": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read invoice PDFs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read invoice PDFs": {
+      "main": [
+        [
+          {
+            "node": "Extract text from PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract text from PDF": {
+      "main": [
+        [
+          {
+            "node": "Parse invoice fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse invoice fields": {
+      "main": [
+        [
+          {
+            "node": "Collect all invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect all invoices": {
+      "main": [
+        [
+          {
+            "node": "Read existing invoices.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read existing invoices.csv": {
+      "main": [
+        [
+          {
+            "node": "Route: ok / review / duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route: ok / review / duplicate": {
+      "main": [
+        [
+          {
+            "node": "Which queue?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Which queue?": {
+      "main": [
+        [
+          {
+            "node": "Append to invoices.csv",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append to invoices_review.csv",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Skip duplicate (no write)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
