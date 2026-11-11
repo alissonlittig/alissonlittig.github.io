@@ -1,0 +1,55 @@
+{
+  "slug": "01-captura-de-lead",
+  "title": {"pt": "Captura de lead com resposta automática", "en": "Lead capture with instant reply"},
+  "tag": {"pt": "Webhook · classificação · alerta", "en": "Webhook · scoring · alert"},
+  "summary": {
+    "pt": "Um formulário chega por webhook, a pontuação separa lead quente, morno, frio e spam, a resposta sai em PT ou EN, a linha vai para a planilha e só o lead quente dispara alerta no Telegram. Edite o lead e aperte Rodar.",
+    "en": "A form hits a webhook, scoring sorts hot, warm, cold and spam, the reply goes out in PT or EN, a row is logged to the sheet and only hot leads fire a Telegram alert. Edit the lead and press Run."
+  },
+  "input": {
+    "trigger": {"pt": "POST /webhook/lead-capture  (application/json)", "en": "POST /webhook/lead-capture  (application/json)"},
+    "note": {"pt": "Dica: apague o e-mail para ver o fluxo falhar de verdade, como o workflow real faz. O erro simulado atinge o nó do Telegram, então use um lead quente.", "en": "Tip: clear the e-mail to see the flow fail for real, as the actual workflow does. The simulated failure hits the Telegram node, so use a hot lead."},
+    "presets": [
+      {"label": {"pt": "Lead quente", "en": "Hot lead"}, "values": {"name": "Dana Whitfield", "email": "dana@brightpath.example", "company": "BrightPath Dental", "budget": "4500", "service": "CRM automation", "message": "We need a quote ASAP for automating patient intake this week."}},
+      {"label": {"pt": "Lead frio em PT", "en": "Cold lead in PT"}, "values": {"name": "Carlos Mendes", "email": "carlos@example.com", "company": "", "budget": "", "service": "", "message": "Olá, gostaria de saber mais sobre os serviços."}},
+      {"label": {"pt": "Spam", "en": "Spam"}, "values": {"name": "Seo Bot", "email": "bot@spam.example", "company": "", "budget": "", "service": "", "message": "Guaranteed traffic and backlinks for you"}},
+      {"label": {"pt": "E-mail inválido", "en": "Invalid e-mail"}, "values": {"name": "Pedro", "email": "pedro-sem-arroba", "company": "", "budget": "", "service": "", "message": "Quero um orçamento."}}
+    ],
+    "fields": [
+      {"key": "name", "type": "text", "value": "Dana Whitfield", "label": {"pt": "Nome", "en": "Name"}},
+      {"key": "email", "type": "text", "value": "dana@brightpath.example", "label": {"pt": "E-mail", "en": "E-mail"}},
+      {"key": "company", "type": "text", "value": "BrightPath Dental", "label": {"pt": "Empresa", "en": "Company"}},
+      {"key": "budget", "type": "text", "value": "4500", "label": {"pt": "Orçamento (US$)", "en": "Budget (US$)"}},
+      {"key": "service", "type": "text", "value": "CRM automation", "label": {"pt": "Serviço", "en": "Service"}},
+      {"key": "message", "type": "textarea", "value": "We need a quote ASAP for automating patient intake this week.", "label": {"pt": "Mensagem", "en": "Message"}}
+    ]
+  },
+  "nodes": [
+    {"id": "webhook", "name": "Lead form webhook", "icon": "webhook", "col": 0, "row": 0, "sub": {"pt": "Webhook · POST", "en": "Webhook · POST"}},
+    {"id": "config", "name": "Config", "icon": "set", "col": 1, "row": 0, "sub": {"pt": "Set · URLs e chat id", "en": "Set · URLs and chat id"}},
+    {"id": "classify", "name": "Classify lead", "icon": "code", "col": 2, "row": 0, "sub": {"pt": "Code · pontuação por regras", "en": "Code · rule-based scoring"}},
+    {"id": "csv", "name": "Build CSV line", "icon": "code", "col": 3, "row": 0, "sub": {"pt": "Code · monta a linha", "en": "Code · builds the row"}},
+    {"id": "append", "name": "Append to leads.csv", "icon": "sheet", "col": 4, "row": 0, "sub": {"pt": "Read/Write Files · append", "en": "Read/Write Files · append"}},
+    {"id": "hot", "name": "Hot lead?", "icon": "if", "col": 5, "row": 0, "sub": {"pt": "IF · priority = hot", "en": "IF · priority = hot"}},
+    {"id": "notify", "name": "Notify (Telegram)", "icon": "bell", "col": 6, "row": 1, "sub": {"pt": "HTTP Request · sendMessage", "en": "HTTP Request · sendMessage"}},
+    {"id": "respond", "name": "Respond to visitor", "icon": "respond", "col": 7, "row": 0, "sub": {"pt": "Respond to Webhook", "en": "Respond to Webhook"}}
+  ],
+  "edges": [
+    {"from": "webhook", "to": "config"}, {"from": "config", "to": "classify"}, {"from": "classify", "to": "csv"}, {"from": "csv", "to": "append"}, {"from": "append", "to": "hot"},
+    {"from": "hot", "to": "notify", "when": "true"}, {"from": "hot", "to": "respond", "when": "false"}, {"from": "notify", "to": "respond"}
+  ],
+  "failure": {"node": "notify", "continueOnFail": true, "message": {"pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)", "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"}},
+  "case": {
+    "problem": {"pt": "Uma empresa pequena recebe leads pelo formulário do site e responde horas depois. O lead quente esfria, o frio toma o tempo da equipe e ninguém guarda um registro organizado.", "en": "A small business gets form leads and answers hours later. The hot lead goes cold, the cold one eats the team's time and nobody keeps a clean record."},
+    "solution": {"pt": "Um workflow no n8n recebe o formulário, pontua o lead por regras simples (orçamento, urgência, intenção de compra, empresa), responde na hora no idioma do visitante, grava a linha na planilha e avisa a equipe no Telegram só quando o lead é quente. E-mail inválido para o fluxo com erro visível; spam não recebe resposta.", "en": "An n8n workflow receives the form, scores the lead with simple rules (budget, urgency, buying intent, company), replies instantly in the visitor's language, logs the row to the sheet and pings the team on Telegram only for hot leads. An invalid e-mail stops the flow with a visible error; spam gets no reply."},
+    "gain": {"pt": "Estimativa, não medição: com ~40 leads por semana e ~3 min de triagem manual cada, são cerca de 2 h por semana devolvidas à equipe, e a primeira resposta cai de horas para segundos. Dados fictícios; o ganho real depende do volume do seu negócio.", "en": "An estimate, not a measurement: with ~40 leads a week and ~3 min of manual triage each, that is about 2 h a week handed back to the team, and the first reply drops from hours to seconds. Fictional data; the real gain depends on your volume."},
+    "stack": ["n8n 2.47", "Webhook", "Code (JS)", "Read/Write Files", "IF", "HTTP Request", "Telegram Bot API"],
+    "honesty": {"pt": "O JSON de cada nó e a classificação vêm do mesmo código dos nós Code do workflow, rodando aqui no navegador. As saídas gravadas de uma execução real no n8n local conferem com esta página (teste automatizado no repositório). O tempo por nó e o erro simulado são ilustrativos: o erro mostra a configuração Retry On Fail + Continue On Fail do n8n, que não foi acionada na execução gravada.", "en": "Each node's JSON and the scoring come from the same code as the workflow's Code nodes, running here in your browser. Outputs recorded from a real run on a local n8n match this page (automated test in the repo). Per-node timings and the simulated failure are illustrative: the failure shows n8n's Retry On Fail + Continue On Fail setting, which was not triggered in the recorded run."}
+  },
+  "footer": {"pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.", "en": "Fictional data. Nothing is sent: everything runs in your browser."},
+  "recorded": [
+    {"input": {"name": "Dana Whitfield", "email": "dana@brightpath.example", "company": "BrightPath Dental", "budget": "4500", "service": "CRM automation", "message": "We need a quote ASAP for automating patient intake this week."}, "expect": {"priority": "hot", "score": 5, "why": "budget>=2000; urgent; buying intent; company given", "notify": "HOT LEAD: Dana Whitfield <dana@brightpath.example> budget 4500 | budget>=2000; urgent; buying intent; company given"}},
+    {"input": {"name": "Carlos Mendes", "email": "carlos@example.com", "message": "Olá, gostaria de saber mais sobre os serviços."}, "expect": {"priority": "cold", "score": 0, "why": ""}},
+    {"input": {"name": "Seo Bot", "email": "bot@spam.example", "message": "Guaranteed traffic and backlinks for you"}, "expect": {"priority": "spam", "score": 0, "why": ""}}
+  ]
+}
