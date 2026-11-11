@@ -1,0 +1,2147 @@
+{
+ "healthy_week": [
+  {
+   "path": "kpi-report",
+   "input": {
+    "company": "Northwind Pottery",
+    "lang": "en",
+    "week_end": "2026-11-08",
+    "recipients": "owner@northwind.example, ops@northwind.example",
+    "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+   },
+   "http": 200,
+   "response": {
+    "company": "Northwind Pottery",
+    "week_end": "2026-11-08",
+    "revenue": 7493.05,
+    "revenue_delta_pct": 8.7,
+    "flags": 0,
+    "email": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Weekly trigger",
+    "Config",
+    "Compute KPIs",
+    "Build report",
+    "Append to log",
+    "Needs attention?",
+    "Send report e-mail",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Weekly trigger": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "543",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind.example, ops@northwind.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "543",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind.example, ops@northwind.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production",
+      "log_file": "./data/reports_15.csv",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID"
+     }
+    ],
+    "Compute KPIs": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:40.750Z"
+     }
+    ],
+    "Build report": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:40.750Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:40.750Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n"
+     }
+    ],
+    "Append to log": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:40.750Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:40.750Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n",
+      "fileName": "./data/reports_15.csv"
+     }
+    ],
+    "Needs attention?": [],
+    "Send report e-mail": [
+     {
+      "ok": true,
+      "id": 7
+     }
+    ],
+    "Build response": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:40.750Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:40.750Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n",
+      "mail_ok": true,
+      "response": {
+       "company": "Northwind Pottery",
+       "week_end": "2026-11-08",
+       "revenue": 7493.05,
+       "revenue_delta_pct": 8.7,
+       "flags": 0,
+       "email": "sent"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:40.750Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:40.750Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n",
+      "mail_ok": true,
+      "response": {
+       "company": "Northwind Pottery",
+       "week_end": "2026-11-08",
+       "revenue": 7493.05,
+       "revenue_delta_pct": 8.7,
+       "flags": 0,
+       "email": "sent"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "revenue_drop_alert_pt": [
+  {
+   "path": "kpi-report",
+   "input": {
+    "company": "Cerâmica Aurora",
+    "lang": "pt",
+    "week_end": "2026-11-08",
+    "recipients": "dona@aurora.example",
+    "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,7,640.0,2,1\n2026-11-03,6,598.5,2,1\n2026-11-04,5,512.0,1,1\n2026-11-05,6,604.25,2,0\n2026-11-06,7,700.0,2,1\n2026-11-07,8,801.9,3,1\n2026-11-08,7,735.0,2,1"
+   },
+   "http": 200,
+   "response": {
+    "company": "Cerâmica Aurora",
+    "week_end": "2026-11-08",
+    "revenue": 4591.65,
+    "revenue_delta_pct": -33.4,
+    "flags": 3,
+    "email": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Weekly trigger",
+    "Config",
+    "Compute KPIs",
+    "Build report",
+    "Append to log",
+    "Needs attention?",
+    "Alert owner (Telegram)",
+    "Send report e-mail",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Weekly trigger": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "511",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Cerâmica Aurora",
+       "lang": "pt",
+       "week_end": "2026-11-08",
+       "recipients": "dona@aurora.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,7,640.0,2,1\n2026-11-03,6,598.5,2,1\n2026-11-04,5,512.0,1,1\n2026-11-05,6,604.25,2,0\n2026-11-06,7,700.0,2,1\n2026-11-07,8,801.9,3,1\n2026-11-08,7,735.0,2,1"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "511",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Cerâmica Aurora",
+       "lang": "pt",
+       "week_end": "2026-11-08",
+       "recipients": "dona@aurora.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,7,640.0,2,1\n2026-11-03,6,598.5,2,1\n2026-11-04,5,512.0,1,1\n2026-11-05,6,604.25,2,0\n2026-11-06,7,700.0,2,1\n2026-11-07,8,801.9,3,1\n2026-11-08,7,735.0,2,1"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production",
+      "log_file": "./data/reports_15.csv",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID"
+     }
+    ],
+    "Compute KPIs": [
+     {
+      "company": "Cerâmica Aurora",
+      "lang": "pt",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "dona@aurora.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 4591.65,
+        "prev": 6891.9,
+        "delta": -33.4
+       },
+       {
+        "key": "orders",
+        "value": 46,
+        "prev": 75,
+        "delta": -38.7
+       },
+       {
+        "key": "aov",
+        "value": 99.82,
+        "prev": 91.89,
+        "delta": 8.6
+       },
+       {
+        "key": "new_customers",
+        "value": 14,
+        "prev": 27,
+        "delta": -48.1
+       },
+       {
+        "key": "refund_rate",
+        "value": 13,
+        "prev": 4,
+        "delta": 9
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 640
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 598.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 512
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 604.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 700
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 801.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 735
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [
+       "Receita caiu 33.4% sobre a semana anterior",
+       "Taxa de reembolso em 13% (limite 5%)",
+       "Novos clientes caíram 48.1%"
+      ],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:42.646Z"
+     }
+    ],
+    "Build report": [
+     {
+      "company": "Cerâmica Aurora",
+      "lang": "pt",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "dona@aurora.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 4591.65,
+        "prev": 6891.9,
+        "delta": -33.4
+       },
+       {
+        "key": "orders",
+        "value": 46,
+        "prev": 75,
+        "delta": -38.7
+       },
+       {
+        "key": "aov",
+        "value": 99.82,
+        "prev": 91.89,
+        "delta": 8.6
+       },
+       {
+        "key": "new_customers",
+        "value": 14,
+        "prev": 27,
+        "delta": -48.1
+       },
+       {
+        "key": "refund_rate",
+        "value": 13,
+        "prev": 4,
+        "delta": 9
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 640
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 598.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 512
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 604.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 700
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 801.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 735
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [
+       "Receita caiu 33.4% sobre a semana anterior",
+       "Taxa de reembolso em 13% (limite 5%)",
+       "Novos clientes caíram 48.1%"
+      ],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:42.646Z",
+      "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "dona@aurora.example",
+       "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+       "text": "Olá! Os números da semana de 2026-11-02:\n\nReceita: R$ 4.591,65  (▼ -33,4% vs semana anterior)\nPedidos: 46  (▼ -38,7% vs semana anterior)\nTicket médio: R$ 99,82  (▲ +8,6% vs semana anterior)\nNovos clientes: 14  (▼ -48,1% vs semana anterior)\nTaxa de reembolso: 13%  (▲ +9 pp vs semana anterior)\n\nReceita por dia\n▄▃▁▃▆█▇  (seg ter qua qui sex sáb dom)\nMelhor dia: sáb 2026-11-07\n\nAtenção:\n- Receita caiu 33.4% sobre a semana anterior\n- Taxa de reembolso em 13% (limite 5%)\n- Novos clientes caíram 48.1%\n\nO gráfico em anexo compara com a semana anterior.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "ATENÇÃO Cerâmica Aurora: Receita caiu 33.4% sobre a semana anterior | Taxa de reembolso em 13% (limite 5%) | Novos clientes caíram 48.1%",
+      "needs_attention": true,
+      "spark": "▄▃▁▃▆█▇",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:42.646Z\",\"2026-11-08\",\"Cerâmica Aurora\",\"4591.65\",\"46\",\"-33.4\",\"3\",\"dona@aurora.example\"\n"
+     }
+    ],
+    "Append to log": [
+     {
+      "company": "Cerâmica Aurora",
+      "lang": "pt",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "dona@aurora.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 4591.65,
+        "prev": 6891.9,
+        "delta": -33.4
+       },
+       {
+        "key": "orders",
+        "value": 46,
+        "prev": 75,
+        "delta": -38.7
+       },
+       {
+        "key": "aov",
+        "value": 99.82,
+        "prev": 91.89,
+        "delta": 8.6
+       },
+       {
+        "key": "new_customers",
+        "value": 14,
+        "prev": 27,
+        "delta": -48.1
+       },
+       {
+        "key": "refund_rate",
+        "value": 13,
+        "prev": 4,
+        "delta": 9
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 640
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 598.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 512
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 604.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 700
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 801.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 735
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [
+       "Receita caiu 33.4% sobre a semana anterior",
+       "Taxa de reembolso em 13% (limite 5%)",
+       "Novos clientes caíram 48.1%"
+      ],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:42.646Z",
+      "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "dona@aurora.example",
+       "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+       "text": "Olá! Os números da semana de 2026-11-02:\n\nReceita: R$ 4.591,65  (▼ -33,4% vs semana anterior)\nPedidos: 46  (▼ -38,7% vs semana anterior)\nTicket médio: R$ 99,82  (▲ +8,6% vs semana anterior)\nNovos clientes: 14  (▼ -48,1% vs semana anterior)\nTaxa de reembolso: 13%  (▲ +9 pp vs semana anterior)\n\nReceita por dia\n▄▃▁▃▆█▇  (seg ter qua qui sex sáb dom)\nMelhor dia: sáb 2026-11-07\n\nAtenção:\n- Receita caiu 33.4% sobre a semana anterior\n- Taxa de reembolso em 13% (limite 5%)\n- Novos clientes caíram 48.1%\n\nO gráfico em anexo compara com a semana anterior.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "ATENÇÃO Cerâmica Aurora: Receita caiu 33.4% sobre a semana anterior | Taxa de reembolso em 13% (limite 5%) | Novos clientes caíram 48.1%",
+      "needs_attention": true,
+      "spark": "▄▃▁▃▆█▇",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:42.646Z\",\"2026-11-08\",\"Cerâmica Aurora\",\"4591.65\",\"46\",\"-33.4\",\"3\",\"dona@aurora.example\"\n",
+      "fileName": "./data/reports_15.csv"
+     }
+    ],
+    "Needs attention?": [
+     {
+      "company": "Cerâmica Aurora",
+      "lang": "pt",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "dona@aurora.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 4591.65,
+        "prev": 6891.9,
+        "delta": -33.4
+       },
+       {
+        "key": "orders",
+        "value": 46,
+        "prev": 75,
+        "delta": -38.7
+       },
+       {
+        "key": "aov",
+        "value": 99.82,
+        "prev": 91.89,
+        "delta": 8.6
+       },
+       {
+        "key": "new_customers",
+        "value": 14,
+        "prev": 27,
+        "delta": -48.1
+       },
+       {
+        "key": "refund_rate",
+        "value": 13,
+        "prev": 4,
+        "delta": 9
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 640
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 598.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 512
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 604.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 700
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 801.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 735
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [
+       "Receita caiu 33.4% sobre a semana anterior",
+       "Taxa de reembolso em 13% (limite 5%)",
+       "Novos clientes caíram 48.1%"
+      ],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:42.646Z",
+      "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "dona@aurora.example",
+       "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+       "text": "Olá! Os números da semana de 2026-11-02:\n\nReceita: R$ 4.591,65  (▼ -33,4% vs semana anterior)\nPedidos: 46  (▼ -38,7% vs semana anterior)\nTicket médio: R$ 99,82  (▲ +8,6% vs semana anterior)\nNovos clientes: 14  (▼ -48,1% vs semana anterior)\nTaxa de reembolso: 13%  (▲ +9 pp vs semana anterior)\n\nReceita por dia\n▄▃▁▃▆█▇  (seg ter qua qui sex sáb dom)\nMelhor dia: sáb 2026-11-07\n\nAtenção:\n- Receita caiu 33.4% sobre a semana anterior\n- Taxa de reembolso em 13% (limite 5%)\n- Novos clientes caíram 48.1%\n\nO gráfico em anexo compara com a semana anterior.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "ATENÇÃO Cerâmica Aurora: Receita caiu 33.4% sobre a semana anterior | Taxa de reembolso em 13% (limite 5%) | Novos clientes caíram 48.1%",
+      "needs_attention": true,
+      "spark": "▄▃▁▃▆█▇",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:42.646Z\",\"2026-11-08\",\"Cerâmica Aurora\",\"4591.65\",\"46\",\"-33.4\",\"3\",\"dona@aurora.example\"\n",
+      "fileName": "./data/reports_15.csv"
+     }
+    ],
+    "Alert owner (Telegram)": [
+     {
+      "ok": true,
+      "id": 8
+     }
+    ],
+    "Send report e-mail": [
+     {
+      "ok": true,
+      "id": 9
+     }
+    ],
+    "Build response": [
+     {
+      "company": "Cerâmica Aurora",
+      "lang": "pt",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "dona@aurora.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 4591.65,
+        "prev": 6891.9,
+        "delta": -33.4
+       },
+       {
+        "key": "orders",
+        "value": 46,
+        "prev": 75,
+        "delta": -38.7
+       },
+       {
+        "key": "aov",
+        "value": 99.82,
+        "prev": 91.89,
+        "delta": 8.6
+       },
+       {
+        "key": "new_customers",
+        "value": 14,
+        "prev": 27,
+        "delta": -48.1
+       },
+       {
+        "key": "refund_rate",
+        "value": 13,
+        "prev": 4,
+        "delta": 9
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 640
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 598.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 512
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 604.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 700
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 801.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 735
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [
+       "Receita caiu 33.4% sobre a semana anterior",
+       "Taxa de reembolso em 13% (limite 5%)",
+       "Novos clientes caíram 48.1%"
+      ],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:42.646Z",
+      "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "dona@aurora.example",
+       "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+       "text": "Olá! Os números da semana de 2026-11-02:\n\nReceita: R$ 4.591,65  (▼ -33,4% vs semana anterior)\nPedidos: 46  (▼ -38,7% vs semana anterior)\nTicket médio: R$ 99,82  (▲ +8,6% vs semana anterior)\nNovos clientes: 14  (▼ -48,1% vs semana anterior)\nTaxa de reembolso: 13%  (▲ +9 pp vs semana anterior)\n\nReceita por dia\n▄▃▁▃▆█▇  (seg ter qua qui sex sáb dom)\nMelhor dia: sáb 2026-11-07\n\nAtenção:\n- Receita caiu 33.4% sobre a semana anterior\n- Taxa de reembolso em 13% (limite 5%)\n- Novos clientes caíram 48.1%\n\nO gráfico em anexo compara com a semana anterior.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "ATENÇÃO Cerâmica Aurora: Receita caiu 33.4% sobre a semana anterior | Taxa de reembolso em 13% (limite 5%) | Novos clientes caíram 48.1%",
+      "needs_attention": true,
+      "spark": "▄▃▁▃▆█▇",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:42.646Z\",\"2026-11-08\",\"Cerâmica Aurora\",\"4591.65\",\"46\",\"-33.4\",\"3\",\"dona@aurora.example\"\n",
+      "mail_ok": true,
+      "response": {
+       "company": "Cerâmica Aurora",
+       "week_end": "2026-11-08",
+       "revenue": 4591.65,
+       "revenue_delta_pct": -33.4,
+       "flags": 3,
+       "email": "sent"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "company": "Cerâmica Aurora",
+      "lang": "pt",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "dona@aurora.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 4591.65,
+        "prev": 6891.9,
+        "delta": -33.4
+       },
+       {
+        "key": "orders",
+        "value": 46,
+        "prev": 75,
+        "delta": -38.7
+       },
+       {
+        "key": "aov",
+        "value": 99.82,
+        "prev": 91.89,
+        "delta": 8.6
+       },
+       {
+        "key": "new_customers",
+        "value": 14,
+        "prev": 27,
+        "delta": -48.1
+       },
+       {
+        "key": "refund_rate",
+        "value": 13,
+        "prev": 4,
+        "delta": 9
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 640
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 598.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 512
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 604.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 700
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 801.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 735
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [
+       "Receita caiu 33.4% sobre a semana anterior",
+       "Taxa de reembolso em 13% (limite 5%)",
+       "Novos clientes caíram 48.1%"
+      ],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:42.646Z",
+      "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "dona@aurora.example",
+       "subject": "[!] Relatório semanal: Cerâmica Aurora (2026-11-02 – 2026-11-08)",
+       "text": "Olá! Os números da semana de 2026-11-02:\n\nReceita: R$ 4.591,65  (▼ -33,4% vs semana anterior)\nPedidos: 46  (▼ -38,7% vs semana anterior)\nTicket médio: R$ 99,82  (▲ +8,6% vs semana anterior)\nNovos clientes: 14  (▼ -48,1% vs semana anterior)\nTaxa de reembolso: 13%  (▲ +9 pp vs semana anterior)\n\nReceita por dia\n▄▃▁▃▆█▇  (seg ter qua qui sex sáb dom)\nMelhor dia: sáb 2026-11-07\n\nAtenção:\n- Receita caiu 33.4% sobre a semana anterior\n- Taxa de reembolso em 13% (limite 5%)\n- Novos clientes caíram 48.1%\n\nO gráfico em anexo compara com a semana anterior.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "ATENÇÃO Cerâmica Aurora: Receita caiu 33.4% sobre a semana anterior | Taxa de reembolso em 13% (limite 5%) | Novos clientes caíram 48.1%",
+      "needs_attention": true,
+      "spark": "▄▃▁▃▆█▇",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"76\" width=\"26\" height=\"74\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"92\" width=\"26\" height=\"58\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">seg</text><rect x=\"90\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"96\" width=\"26\" height=\"54\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">ter</text><rect x=\"168\" y=\"81\" width=\"26\" height=\"69\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"104\" width=\"26\" height=\"46\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">qua</text><rect x=\"246\" y=\"70\" width=\"26\" height=\"80\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"95\" width=\"26\" height=\"55\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">qui</text><rect x=\"324\" y=\"58\" width=\"26\" height=\"92\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"87\" width=\"26\" height=\"63\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">sex</text><rect x=\"402\" y=\"30\" width=\"26\" height=\"120\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"77\" width=\"26\" height=\"73\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">sáb</text><rect x=\"480\" y=\"42\" width=\"26\" height=\"108\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"83\" width=\"26\" height=\"67\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">dom</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:42.646Z\",\"2026-11-08\",\"Cerâmica Aurora\",\"4591.65\",\"46\",\"-33.4\",\"3\",\"dona@aurora.example\"\n",
+      "mail_ok": true,
+      "response": {
+       "company": "Cerâmica Aurora",
+       "week_end": "2026-11-08",
+       "revenue": 4591.65,
+       "revenue_delta_pct": -33.4,
+       "flags": 3,
+       "email": "sent"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "email_down": [
+  {
+   "path": "kpi-report",
+   "input": {
+    "company": "Northwind Pottery",
+    "lang": "en",
+    "week_end": "2026-11-08",
+    "recipients": "owner@northwind.example, ops@northwind.example",
+    "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+   },
+   "http": 200,
+   "response": {
+    "company": "Northwind Pottery",
+    "week_end": "2026-11-08",
+    "revenue": 7493.05,
+    "revenue_delta_pct": 8.7,
+    "flags": 0,
+    "email": "queued"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Weekly trigger",
+    "Config",
+    "Compute KPIs",
+    "Build report",
+    "Append to log",
+    "Needs attention?",
+    "Send report e-mail",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Weekly trigger": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "543",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind.example, ops@northwind.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "543",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind.example, ops@northwind.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production",
+      "log_file": "./data/reports_15.csv",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID"
+     }
+    ],
+    "Compute KPIs": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:44.658Z"
+     }
+    ],
+    "Build report": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:44.658Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:44.658Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n"
+     }
+    ],
+    "Append to log": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:44.658Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:44.658Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n",
+      "fileName": "./data/reports_15.csv"
+     }
+    ],
+    "Needs attention?": [],
+    "Send report e-mail": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Build response": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:44.658Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:44.658Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n",
+      "mail_ok": false,
+      "response": {
+       "company": "Northwind Pottery",
+       "week_end": "2026-11-08",
+       "revenue": 7493.05,
+       "revenue_delta_pct": 8.7,
+       "flags": 0,
+       "email": "queued"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "company": "Northwind Pottery",
+      "lang": "en",
+      "week_start": "2026-11-02",
+      "week_end": "2026-11-08",
+      "recipients": [
+       "owner@northwind.example",
+       "ops@northwind.example"
+      ],
+      "kpis": [
+       {
+        "key": "revenue",
+        "value": 7493.05,
+        "prev": 6891.9,
+        "delta": 8.7
+       },
+       {
+        "key": "orders",
+        "value": 81,
+        "prev": 75,
+        "delta": 8
+       },
+       {
+        "key": "aov",
+        "value": 92.51,
+        "prev": 91.89,
+        "delta": 0.7
+       },
+       {
+        "key": "new_customers",
+        "value": 32,
+        "prev": 27,
+        "delta": 18.5
+       },
+       {
+        "key": "refund_rate",
+        "value": 2.5,
+        "prev": 4,
+        "delta": -1.5
+       }
+      ],
+      "daily": [
+       {
+        "date": "2026-11-02",
+        "revenue": 868
+       },
+       {
+        "date": "2026-11-03",
+        "revenue": 950.5
+       },
+       {
+        "date": "2026-11-04",
+        "revenue": 842
+       },
+       {
+        "date": "2026-11-05",
+        "revenue": 931.25
+       },
+       {
+        "date": "2026-11-06",
+        "revenue": 1118
+       },
+       {
+        "date": "2026-11-07",
+        "revenue": 1480.9
+       },
+       {
+        "date": "2026-11-08",
+        "revenue": 1302.4
+       }
+      ],
+      "daily_prev": [
+       820.5,
+       905,
+       760.25,
+       880,
+       1010.75,
+       1325.4,
+       1190
+      ],
+      "best_day": "2026-11-07",
+      "flags": [],
+      "ignored_rows": 0,
+      "ts": "2026-11-11T16:12:44.658Z",
+      "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+      "email": {
+       "to": "owner@northwind.example, ops@northwind.example",
+       "subject": "Weekly report: Northwind Pottery (2026-11-02 – 2026-11-08)",
+       "text": "Hi! Your numbers for the week of 2026-11-02:\n\nRevenue: $7,493.05  (▲ +8.7% vs last week)\nOrders: 81  (▲ +8% vs last week)\nAvg. order value: $92.51  (▲ +0.7% vs last week)\nNew customers: 32  (▲ +18.5% vs last week)\nRefund rate: 2.5%  (▼ -1.5 pp vs last week)\n\nRevenue per day\n▁▂▁▂▄█▆  (Mon Tue Wed Thu Fri Sat Sun)\nBest day: Sat 2026-11-07\n\nNothing out of the ordinary.\n\nThe attached chart compares with the previous week.",
+       "attachments": [
+        {
+         "filename": "weekly-revenue.svg",
+         "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>"
+        }
+       ]
+      },
+      "alert_text": "",
+      "needs_attention": false,
+      "spark": "▁▂▁▂▄█▆",
+      "chart_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/><rect x=\"12\" y=\"84\" width=\"26\" height=\"66\" fill=\"#cfcfc8\"/><rect x=\"40\" y=\"80\" width=\"26\" height=\"70\" fill=\"#ff7a2f\"/><text x=\"40\" y=\"170\" font-size=\"11\" fill=\"#555\">Mon</text><rect x=\"90\" y=\"77\" width=\"26\" height=\"73\" fill=\"#cfcfc8\"/><rect x=\"118\" y=\"73\" width=\"26\" height=\"77\" fill=\"#ff7a2f\"/><text x=\"118\" y=\"170\" font-size=\"11\" fill=\"#555\">Tue</text><rect x=\"168\" y=\"88\" width=\"26\" height=\"62\" fill=\"#cfcfc8\"/><rect x=\"196\" y=\"82\" width=\"26\" height=\"68\" fill=\"#ff7a2f\"/><text x=\"196\" y=\"170\" font-size=\"11\" fill=\"#555\">Wed</text><rect x=\"246\" y=\"79\" width=\"26\" height=\"71\" fill=\"#cfcfc8\"/><rect x=\"274\" y=\"75\" width=\"26\" height=\"75\" fill=\"#ff7a2f\"/><text x=\"274\" y=\"170\" font-size=\"11\" fill=\"#555\">Thu</text><rect x=\"324\" y=\"68\" width=\"26\" height=\"82\" fill=\"#cfcfc8\"/><rect x=\"352\" y=\"59\" width=\"26\" height=\"91\" fill=\"#ff7a2f\"/><text x=\"352\" y=\"170\" font-size=\"11\" fill=\"#555\">Fri</text><rect x=\"402\" y=\"43\" width=\"26\" height=\"107\" fill=\"#cfcfc8\"/><rect x=\"430\" y=\"30\" width=\"26\" height=\"120\" fill=\"#ff7a2f\"/><text x=\"430\" y=\"170\" font-size=\"11\" fill=\"#555\">Sat</text><rect x=\"480\" y=\"54\" width=\"26\" height=\"96\" fill=\"#cfcfc8\"/><rect x=\"508\" y=\"44\" width=\"26\" height=\"106\" fill=\"#ff7a2f\"/><text x=\"508\" y=\"170\" font-size=\"11\" fill=\"#555\">Sun</text></svg>",
+      "csv_line": "\"2026-11-11T16:12:44.658Z\",\"2026-11-08\",\"Northwind Pottery\",\"7493.05\",\"81\",\"8.7\",\"0\",\"owner@northwind.example ops@northwind.example\"\n",
+      "mail_ok": false,
+      "response": {
+       "company": "Northwind Pottery",
+       "week_end": "2026-11-08",
+       "revenue": 7493.05,
+       "revenue_delta_pct": 8.7,
+       "flags": 0,
+       "email": "queued"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "missing_days": [
+  {
+   "path": "kpi-report",
+   "input": {
+    "company": "Northwind Pottery",
+    "lang": "en",
+    "week_end": "2026-11-08",
+    "recipients": "owner@northwind.example, ops@northwind.example",
+    "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Missing 3 day(s) of data: 2026-10-28, 2026-10-29, 2026-11-03 [line 36]",
+   "order": [
+    "Weekly trigger",
+    "Config",
+    "Compute KPIs"
+   ],
+   "nodes": {
+    "Weekly trigger": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "468",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind.example, ops@northwind.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "468",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind.example, ops@northwind.example",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production",
+      "log_file": "./data/reports_15.csv",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID"
+     }
+    ],
+    "Compute KPIs": {
+     "__error": "Missing 3 day(s) of data: 2026-10-28, 2026-10-29, 2026-11-03 [line 36]"
+    }
+   }
+  }
+ ],
+ "bad_recipient": [
+  {
+   "path": "kpi-report",
+   "input": {
+    "company": "Northwind Pottery",
+    "lang": "en",
+    "week_end": "2026-11-08",
+    "recipients": "owner@northwind",
+    "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "recipients must be valid e-mail addresses [line 36]",
+   "order": [
+    "Weekly trigger",
+    "Config",
+    "Compute KPIs"
+   ],
+   "nodes": {
+    "Weekly trigger": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "512",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "512",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "company": "Northwind Pottery",
+       "lang": "en",
+       "week_end": "2026-11-08",
+       "recipients": "owner@northwind",
+       "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/kpi-report",
+      "executionMode": "production",
+      "log_file": "./data/reports_15.csv",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID"
+     }
+    ],
+    "Compute KPIs": {
+     "__error": "recipients must be valid e-mail addresses [line 36]"
+    }
+   }
+  }
+ ]
+}

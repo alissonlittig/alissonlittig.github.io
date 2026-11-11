@@ -1,0 +1,371 @@
+{
+  "name": "Resume screening with scoring, ranking and drafted replies",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cv-screen",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f335e787-c3d8-5502-bc74-9a3c6e3e6aa0",
+      "name": "CV received",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        200
+      ],
+      "webhookId": "cv-screen-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39cf7383-d37f-56ac-8dad-479288c4d904",
+              "name": "ranking_file",
+              "value": "./data/candidates_17.csv",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "RECRUITER_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        200
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.ranking_file }}",
+        "options": {}
+      },
+      "id": "ed713adb-324a-5547-bd9f-191afaf678b1",
+      "name": "Read ranking",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        420,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst ledgerText = (await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8');\nconst out = (() => {\nconst b = input.body || {};\nconst job_title = String(b.job_title || '').trim(), name = String(b.candidate_name || '').trim(), email = String(b.email || '').trim().toLowerCase();\nconst cv = String(b.cv_text || '').replace(/\\s+/g, ' ').trim();\nconst list = v => String(v || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean);\nconst must = list(b.must_have), nice = list(b.nice_have), min_years = b.min_years === undefined || b.min_years === '' ? 0 : Number(b.min_years);\nif (!job_title) throw new Error('job_title is missing');\nif (!must.length) throw new Error('must_have needs at least one skill');\nif (!Number.isFinite(min_years) || min_years < 0 || min_years > 40) throw new Error('min_years must be a number from 0 to 40');\nif (!name) throw new Error('candidate_name is missing');\nif (!/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(email)) throw new Error('email is not valid: ' + (email || 'empty'));\nif (cv.length < 200) throw new Error('CV text too short (' + cv.length + ' characters, need 200). Scanned PDF? Send extracted text.');\nconst parse = line => { const c = []; let cur = '', q = false; for (const ch of line) { if (ch === '\"') q = !q; else if (ch === ',' && !q) { c.push(cur); cur = ''; } else cur += ch; } c.push(cur); return c; };\nconst rows = ledgerText.split(/\\r?\\n/).slice(1).filter(Boolean).map(parse).filter(r => r[2] === job_title);\nconst dup = rows.find(r => r[4] === email);\nlet h = 0; for (const ch of job_title + email) h = (h * 31 + ch.charCodeAt(0)) % 9000;\nif (dup) return { duplicate: true, candidate_id: dup[1], job_title, name, email, http_status: 409, response: { status: 'duplicate', candidate_id: dup[1], reason: 'already screened for this job', earlier_score: Number(dup[5]), earlier_decision: dup[6] } };\nconst low = cv.toLowerCase(), esc = s => s.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\nconst has = kw => new RegExp('(^|[^a-z0-9+#])' + esc(kw) + '($|[^a-z0-9+#])').test(low);\nconst matched_must = must.filter(has), missing_must = must.filter(k => !has(k)), matched_nice = nice.filter(has);\nconst ys = (low.match(/(\\d{1,2})\\+?\\s*(?:years|yrs|anos)/g) || []).map(s => parseInt(s, 10)), years = ys.length ? Math.max(...ys) : null;\nconst degree = /(bachelor|b\\.?sc|degree|graduação|bacharel|certified|certificat)/.test(low);\nconst parts = { must: Math.round(60 * matched_must.length / must.length), nice: nice.length ? Math.round(15 * matched_nice.length / nice.length) : 15, years: min_years === 0 ? 20 : years === null ? 0 : Math.round(20 * Math.min(1, years / min_years)), education: degree ? 5 : 0 };\nconst score = parts.must + parts.nice + parts.years + parts.education;\nconst decision = missing_must.length === 0 && score >= 75 ? 'shortlist' : score >= 50 ? 'maybe' : 'decline';\nconst same = rows.map(r => Number(r[5]));\nconst rank = 1 + same.filter(s => s > score).length, of = same.length + 1;\nreturn { duplicate: false, candidate_id: 'CV-' + (1000 + h), job_title, name, email, must, nice, min_years, matched_must, missing_must, matched_nice, years, parts, score, decision, rank, of, ts: new Date().toISOString() };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "f58ce398-036e-5a63-b37b-a9a3b0355ade",
+      "name": "Score CV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8b5f6fb7-3d4e-5d59-9c5a-5a72a9e5879d",
+              "leftValue": "={{ $json.duplicate }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "eb7b3159-ad62-546f-850b-05e3e231f68d",
+      "name": "Duplicate?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        820,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst first = input.name.split(' ')[0];\nconst yrs = input.years === null ? 'years not stated' : input.years + ' years';\nconst recruiter_alert = input.decision === 'shortlist' ? 'SHORTLIST ' + input.name + ' for ' + input.job_title + ': ' + input.score + '/100, rank ' + input.rank + ' of ' + input.of + '\\nMatched: ' + input.matched_must.concat(input.matched_nice).join(', ') + ' · ' + yrs + '\\nInvite DRAFTED, not sent.' : '';\nconst draft = input.decision === 'shortlist' ? { kind: 'invite', to: input.email, subject: 'Next step: ' + input.job_title, text: 'Hi ' + first + ',\\n\\nThank you for applying for ' + input.job_title + '. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\\n\\nBest regards,\\nThe hiring team' }\n  : input.decision === 'decline' ? { kind: 'decline_held', to: input.email, subject: 'Your application: ' + input.job_title, text: 'Hi ' + first + ',\\n\\nThank you for your interest in ' + input.job_title + ' and for the time you put into applying. After reviewing the role requirements, we are not moving forward with your application at this stage. We will keep your details on file and reach out if a closer match opens up.\\n\\nBest regards,\\nThe hiring team' }\n  : { kind: 'review', note: 'Borderline: a person should read this CV. Missing: ' + (input.missing_must.join(', ') || 'nothing critical') + '.' };\nconst csv_line = [input.ts, input.candidate_id, input.job_title, input.name, input.email, input.score, input.decision, input.years === null ? '' : input.years, input.missing_must.join('/')].map(Q).join(',') + '\\n';\nreturn { ...input, recruiter_alert, draft, csv_line, http_status: 200, response: { candidate_id: input.candidate_id, decision: input.decision, score: input.score, rank: input.rank + ' of ' + input.of, matched: input.matched_must.length + '/' + input.must.length + ' must-haves', missing: input.missing_must } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "11218cce-6698-5c1e-997c-7f1a4ed1dc6c",
+      "name": "Build outputs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1030,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.ranking_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "2f0f0989-8b1d-54fe-9f32-40ff5abb0737",
+      "name": "Append to ranking",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1230,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e9b3a877-1cbc-5c88-9dde-126310caf6f3",
+              "leftValue": "={{ $('Build outputs').first().json.decision }}",
+              "rightValue": "shortlist",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "37d61aab-d3fb-5cd5-a138-3eea48c7a82a",
+      "name": "Shortlist?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1430,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Build outputs').first().json.recruiter_alert}) }}",
+        "options": {}
+      },
+      "id": "ff52bba2-95b7-5f7b-8e2f-c1de782d9b0d",
+      "name": "Notify recruiter (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1640,
+        200
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the candidate is already in the ranking file.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rep = $('Build outputs').first().json;\nconst inp = $input.first().json;\nconst out = (() => {\nconst notified = !rep.recruiter_alert ? 'not_needed' : (inp && inp.ok === true && !inp.error) ? 'sent' : 'queued';\nreturn { ...rep, notified, response: { ...rep.response, recruiter_alert: notified } };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "332eadf3-88a8-5477-9e51-9c09b7e191d7",
+      "name": "Build response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {
+          "responseCode": "={{ $json.http_status }}"
+        }
+      },
+      "id": "6036e3fc-33e8-5ad1-9192-aae7c1b32234",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2060,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "CV received": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read ranking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read ranking": {
+      "main": [
+        [
+          {
+            "node": "Score CV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score CV": {
+      "main": [
+        [
+          {
+            "node": "Duplicate?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Duplicate?": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build outputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build outputs": {
+      "main": [
+        [
+          {
+            "node": "Append to ranking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to ranking": {
+      "main": [
+        [
+          {
+            "node": "Shortlist?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shortlist?": {
+      "main": [
+        [
+          {
+            "node": "Notify recruiter (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify recruiter (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

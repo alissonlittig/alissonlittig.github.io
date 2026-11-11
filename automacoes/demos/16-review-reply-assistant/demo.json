@@ -1,0 +1,364 @@
+{
+ "title": {
+  "pt": "Respostas a avaliações do Google com tom da marca e alerta de nota baixa",
+  "en": "Review replies with brand tone and low-rating alert"
+ },
+ "tag": {
+  "pt": "Webhook · rascunho · alerta · fila",
+  "en": "Webhook · draft · alert · queue"
+ },
+ "summary": {
+  "pt": "Chega uma avaliação (nota e texto). O fluxo entende o idioma e os temas, escreve uma resposta no tom da marca, decide o que pode sair e o que precisa do dono, e só alerta no Telegram quando a nota é baixa ou há termo de risco. Nada é publicado sozinho.",
+  "en": "A review comes in (stars and text). The flow detects language and topics, drafts a reply in the brand's tone, decides what can go out and what needs the owner, and only pings Telegram for a low rating or a risk term. Nothing is posted on its own."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/review-reply  (application/json)",
+   "en": "POST /webhook/review-reply  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: experimente a nota 2 em português, a de 3 estrelas formal, o texto com ameaça (escala) e a nota inválida (erro).",
+   "en": "Tip: try the 2-star review in Portuguese, the formal 3-star one, the text with a threat (escalates) and the invalid rating (error)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "5 estrelas (EN)",
+     "en": "5 stars (EN)"
+    },
+    "values": {
+     "business": "Casa Lume Bistro",
+     "owner_name": "Marta",
+     "tone": "warm",
+     "reviewer": "Daniel Ferreira",
+     "rating": 5,
+     "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+    }
+   },
+   {
+    "label": {
+     "pt": "2 estrelas (PT)",
+     "en": "2 stars (PT)"
+    },
+    "values": {
+     "business": "Padaria Boa Massa",
+     "owner_name": "Seu Carlos",
+     "tone": "warm",
+     "reviewer": "Camila Nogueira",
+     "rating": 2,
+     "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+    }
+   },
+   {
+    "label": {
+     "pt": "3 estrelas, formal",
+     "en": "3 stars, formal"
+    },
+    "values": {
+     "business": "Casa Lume Bistro",
+     "owner_name": "Marta",
+     "tone": "formal",
+     "reviewer": "Priya Nair",
+     "rating": 3,
+     "text": "Good quality but the price felt a bit high for the portion size."
+    }
+   },
+   {
+    "label": {
+     "pt": "Ameaça de processo",
+     "en": "Legal threat"
+    },
+    "values": {
+     "business": "Casa Lume Bistro",
+     "owner_name": "Marta",
+     "tone": "warm",
+     "reviewer": "Tom Becker",
+     "rating": 1,
+     "text": "I got sick after eating here and I am talking to a lawyer. Awful."
+    }
+   },
+   {
+    "label": {
+     "pt": "Nota inválida",
+     "en": "Invalid rating"
+    },
+    "values": {
+     "business": "Casa Lume Bistro",
+     "owner_name": "Marta",
+     "tone": "warm",
+     "reviewer": "Daniel Ferreira",
+     "rating": 7,
+     "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "business",
+    "type": "text",
+    "value": "Casa Lume Bistro",
+    "label": {
+     "pt": "Negócio",
+     "en": "Business"
+    }
+   },
+   {
+    "key": "owner_name",
+    "type": "text",
+    "value": "Marta",
+    "label": {
+     "pt": "Assinatura da resposta",
+     "en": "Reply signature"
+    }
+   },
+   {
+    "key": "tone",
+    "type": "select",
+    "value": "warm",
+    "label": {
+     "pt": "Tom da marca",
+     "en": "Brand tone"
+    },
+    "options": [
+     {
+      "value": "warm",
+      "label": {
+       "pt": "Caloroso",
+       "en": "Warm"
+      }
+     },
+     {
+      "value": "formal",
+      "label": {
+       "pt": "Formal",
+       "en": "Formal"
+      }
+     }
+    ]
+   },
+   {
+    "key": "reviewer",
+    "type": "text",
+    "value": "Daniel Ferreira",
+    "label": {
+     "pt": "Nome de quem avaliou",
+     "en": "Reviewer name"
+    }
+   },
+   {
+    "key": "rating",
+    "type": "text",
+    "value": "5",
+    "label": {
+     "pt": "Nota (1 a 5)",
+     "en": "Rating (1 to 5)"
+    }
+   },
+   {
+    "key": "text",
+    "type": "textarea",
+    "value": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+    "label": {
+     "pt": "Texto da avaliação",
+     "en": "Review text"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Review received",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · fila, Telegram, contato",
+    "en": "Set · queue, Telegram, contact"
+   }
+  },
+  {
+   "id": "analyze",
+   "name": "Analyze review",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Code · idioma, temas, risco",
+    "en": "Code · language, topics, risk"
+   }
+  },
+  {
+   "id": "draft",
+   "name": "Draft reply",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · resposta no tom",
+    "en": "Code · reply in tone"
+   }
+  },
+  {
+   "id": "route",
+   "name": "Route",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · status e alerta",
+    "en": "Code · status and alert"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to queue",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "owner",
+   "name": "Needs owner?",
+   "icon": "if",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "IF · nota baixa ou risco",
+    "en": "IF · low rating or risk"
+   }
+  },
+  {
+   "id": "alert",
+   "name": "Alert owner (Telegram)",
+   "icon": "bell",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  },
+  {
+   "id": "resp",
+   "name": "Build response",
+   "icon": "code",
+   "col": 8,
+   "row": 1,
+   "sub": {
+    "pt": "Code · sent ou queued",
+    "en": "Code · sent or queued"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond",
+   "icon": "respond",
+   "col": 9,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "analyze"
+  },
+  {
+   "from": "analyze",
+   "to": "draft"
+  },
+  {
+   "from": "draft",
+   "to": "route"
+  },
+  {
+   "from": "route",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "owner"
+  },
+  {
+   "from": "owner",
+   "to": "alert",
+   "when": "true"
+  },
+  {
+   "from": "owner",
+   "to": "resp",
+   "when": "false"
+  },
+  {
+   "from": "alert",
+   "to": "resp"
+  },
+  {
+   "from": "resp",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "alert",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Responder avaliações dá retorno (e pesa na busca local), mas é fácil deixar para depois, e uma avaliação de 1 estrela com ameaça fica dias sem ninguém ver. Resposta copiada e colada também soa fria.",
+   "en": "Replying to reviews pays off (and counts in local search), but it is easy to postpone, and a 1-star review with a threat can sit for days unseen. Copy-pasted replies also sound cold."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe cada avaliação, detecta idioma e temas (atendimento, espera, preço, qualidade, limpeza, entrega), escreve a resposta no tom caloroso ou formal, sem prometer reembolso nem inventar fatos, e classifica: 4-5 estrelas ficam prontas para publicar, 3 vão para revisão, 1-2 ou termos de risco (processo, intoxicação) alertam o dono no Telegram. Tudo cai numa fila.",
+   "en": "An n8n workflow takes each review, detects language and topics (service, wait, price, quality, cleanliness, delivery), writes the reply in a warm or formal tone without promising refunds or inventing facts, and classifies: 4-5 stars are ready to post, 3 go to review, 1-2 or risk terms (lawsuit, food poisoning) alert the owner on Telegram. Everything lands in a queue."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~10 avaliações por semana x ~5 min para ler, pensar e escrever = cerca de 3,5 h por mês, e o dono vê a nota baixa em minutos, não em dias. Dados fictícios.",
+   "en": "An estimate, not a measurement: ~10 reviews a week x ~5 min to read, think and write = about 3.5 h a month, and the owner sees a bad review in minutes, not days. Fictional data."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "IF",
+   "Read/Write Files",
+   "HTTP Request",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "Os rascunhos vêm de modelos de frase por tema e nota (não é IA generativa), então são corretos e educados, mas padronizados; o Code é onde um nó de LLM entraria. A demo não publica nada: o Google Business Profile exige OAuth próprio e a publicação seria feita por uma pessoa ou por um nó dedicado após aprovação. O código roda igual no navegador e foi comparado com 8 execuções reais no n8n local. A queda do Telegram é ilustrativa (a execução 'telegram_down' gravada derrubou o serviço de verdade, 3 tentativas).",
+   "en": "Drafts come from sentence templates per topic and rating (not generative AI), so they are correct and polite but standardised; the Code node is where an LLM node would go. The demo posts nothing: Google Business Profile needs its own OAuth and publishing would be done by a person or a dedicated node after approval. The code runs the same in the browser and was compared with 8 real executions on a local n8n. The Telegram outage is illustrative (the recorded 'telegram_down' run did take the service down for real, 3 attempts)."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "16-review-reply-assistant"
+}

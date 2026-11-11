@@ -1,0 +1,365 @@
+{
+ "title": {
+  "pt": "Um artigo vira posts para LinkedIn, X e newsletter, com fila de aprovação",
+  "en": "One article becomes LinkedIn, X and newsletter drafts with an approval queue"
+ },
+ "tag": {
+  "pt": "Webhook · rascunhos · verificação · agenda",
+  "en": "Webhook · drafts · brand check · schedule"
+ },
+ "summary": {
+  "pt": "Cole um artigo publicado: o fluxo tira os pontos principais, escreve um post de LinkedIn, um fio para o X e um trecho de newsletter, confere limites de tamanho e promessas arriscadas, agenda os três e avisa o editor. Nada vai ao ar sem aprovação.",
+  "en": "Paste a published article: the flow pulls the key points, writes a LinkedIn post, an X thread and a newsletter blurb, checks length limits and risky promises, schedules all three and pings the editor. Nothing goes live without approval."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/content-repurpose  (application/json)",
+   "en": "POST /webhook/content-repurpose  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: troque o tom, use o artigo em português, o que promete 'garantido 100%' (fica retido) ou um texto curto demais (erro).",
+   "en": "Tip: change the tone, use the Portuguese article, the one promising 'guaranteed 100%' (it gets held) or a too-short text (error)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Artigo em inglês",
+     "en": "English article"
+    },
+    "values": {
+     "title": "Why small teams should automate invoice follow-ups",
+     "url": "https://example.com/blog/invoice-follow-ups",
+     "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+     "tone": "professional",
+     "publish_date": "2026-11-11"
+    }
+   },
+   {
+    "label": {
+     "pt": "Português, tom leve",
+     "en": "Portuguese, friendly"
+    },
+    "values": {
+     "title": "Por que pequenas empresas devem automatizar a cobrança",
+     "url": "https://example.com/blog/cobranca-automatica",
+     "article": "Atraso de pagamento é o imposto silencioso das pequenas empresas. Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa. Quase todo esse tempo vai para as mesmas três tarefas: descobrir quem deve o quê, escrever um lembrete educado e conferir se o pagamento chegou. Automatizar esses passos não exige um sistema grande. Um fluxo agendado lê a planilha de faturas toda manhã, marca o que está há sete dias vencido e envia um lembrete curto com o link de pagamento. Testamos com 40 faturas em dois meses e o prazo médio de pagamento caiu de 21 para 14 dias. Os lembretes continuam humanos de propósito: curtos, específicos e assinados por uma pessoa de verdade. Comece com um lembrete aos sete dias, meça o resultado e só depois acrescente um segundo aos quinze dias.",
+     "tone": "friendly",
+     "publish_date": "2026-11-11"
+    }
+   },
+   {
+    "label": {
+     "pt": "Promessas arriscadas",
+     "en": "Risky claims"
+    },
+    "values": {
+     "title": "Why small teams should automate invoice follow-ups",
+     "url": "https://example.com/blog/invoice-follow-ups",
+     "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days. This method is guaranteed to work, with 100% of invoices paid on time.",
+     "tone": "professional",
+     "publish_date": "2026-11-11"
+    }
+   },
+   {
+    "label": {
+     "pt": "Texto curto demais",
+     "en": "Too short"
+    },
+    "values": {
+     "title": "Why small teams should automate invoice follow-ups",
+     "url": "https://example.com/blog/invoice-follow-ups",
+     "article": "Short note about invoices. Nothing more to say here.",
+     "tone": "professional",
+     "publish_date": "2026-11-11"
+    }
+   },
+   {
+    "label": {
+     "pt": "URL inválida",
+     "en": "Invalid URL"
+    },
+    "values": {
+     "title": "Why small teams should automate invoice follow-ups",
+     "url": "example.com/post",
+     "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+     "tone": "professional",
+     "publish_date": "2026-11-11"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "title",
+    "type": "text",
+    "value": "Why small teams should automate invoice follow-ups",
+    "label": {
+     "pt": "Título",
+     "en": "Title"
+    }
+   },
+   {
+    "key": "url",
+    "type": "text",
+    "value": "https://example.com/blog/invoice-follow-ups",
+    "label": {
+     "pt": "URL do artigo",
+     "en": "Article URL"
+    }
+   },
+   {
+    "key": "tone",
+    "type": "select",
+    "value": "professional",
+    "label": {
+     "pt": "Tom",
+     "en": "Tone"
+    },
+    "options": [
+     {
+      "value": "professional",
+      "label": {
+       "pt": "Profissional",
+       "en": "Professional"
+      }
+     },
+     {
+      "value": "friendly",
+      "label": {
+       "pt": "Leve",
+       "en": "Friendly"
+      }
+     }
+    ]
+   },
+   {
+    "key": "publish_date",
+    "type": "text",
+    "value": "2026-11-11",
+    "label": {
+     "pt": "Data de publicação (AAAA-MM-DD)",
+     "en": "Publish date (YYYY-MM-DD)"
+    }
+   },
+   {
+    "key": "article",
+    "type": "textarea",
+    "value": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+    "label": {
+     "pt": "Texto do artigo",
+     "en": "Article text"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Article published",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · fila e Telegram",
+    "en": "Set · queue and Telegram"
+   }
+  },
+  {
+   "id": "analyze",
+   "name": "Analyze article",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Code · pontos e palavras-chave",
+    "en": "Code · key points and keywords"
+   }
+  },
+  {
+   "id": "draft",
+   "name": "Draft posts",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · LinkedIn, X, newsletter",
+    "en": "Code · LinkedIn, X, newsletter"
+   }
+  },
+  {
+   "id": "brand",
+   "name": "Brand check",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Code · promessas e limites",
+    "en": "Code · claims and limits"
+   }
+  },
+  {
+   "id": "flag",
+   "name": "Flagged?",
+   "icon": "if",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "IF · flagged",
+    "en": "IF · flagged"
+   }
+  },
+  {
+   "id": "hold",
+   "name": "Hold for edit",
+   "icon": "code",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Code · agenda e status",
+    "en": "Code · schedule and status"
+   }
+  },
+  {
+   "id": "queue",
+   "name": "Queue for approval",
+   "icon": "code",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "Code · agenda e status",
+    "en": "Code · schedule and status"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond to caller",
+   "icon": "respond",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to queue",
+   "icon": "sheet",
+   "col": 8,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify editor (Telegram)",
+   "icon": "bell",
+   "col": 9,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "analyze"
+  },
+  {
+   "from": "analyze",
+   "to": "draft"
+  },
+  {
+   "from": "draft",
+   "to": "brand"
+  },
+  {
+   "from": "brand",
+   "to": "flag"
+  },
+  {
+   "from": "flag",
+   "to": "hold",
+   "when": "true"
+  },
+  {
+   "from": "flag",
+   "to": "queue",
+   "when": "false"
+  },
+  {
+   "from": "hold",
+   "to": "respond"
+  },
+  {
+   "from": "queue",
+   "to": "respond"
+  },
+  {
+   "from": "respond",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "notify"
+  }
+ ],
+ "failure": {
+  "node": "notify",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Publicar um artigo é só metade do trabalho: depois alguém reescreve para o LinkedIn, monta um fio, resume para a newsletter e agenda tudo. Costuma ficar para depois, e o texto morre no blog.",
+   "en": "Publishing an article is half the job: then someone rewrites it for LinkedIn, builds a thread, summarises it for the newsletter and schedules it all. It usually gets postponed and the article dies on the blog."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe o artigo, escolhe os três pontos mais fortes (números e termos do título pesam mais), escreve os três rascunhos no tom pedido e no idioma do texto, respeita o limite de 280 caracteres do X e de 3.000 do LinkedIn, barra promessas do tipo 'garantido' ou '100%' e agenda terça a quinta às 9h, o fio no dia seguinte e a newsletter na sexta. Tudo entra numa fila como pendente de aprovação e o editor recebe o aviso no Telegram.",
+   "en": "An n8n workflow takes the article, picks the three strongest points (numbers and title terms weigh more), writes the three drafts in the requested tone and the text's language, respects X's 280 and LinkedIn's 3,000 character limits, blocks promises like 'guaranteed' or '100%' and schedules Tue to Thu at 9:00, the thread the next day and the newsletter on Friday. Everything lands in a queue as pending approval and the editor is pinged on Telegram."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~1 artigo por semana e ~45 min para adaptar e agendar cada canal = cerca de 3 h por mês devolvidas, com a vantagem de que nada fica sem ser divulgado. Dados fictícios; o real depende da sua frequência.",
+   "en": "An estimate, not a measurement: ~1 article a week and ~45 min to adapt and schedule each channel = about 3 h a month handed back, with the bonus that nothing goes unpromoted. Fictional data; the real figure depends on your cadence."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "IF",
+   "Read/Write Files",
+   "HTTP Request",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "Os rascunhos são montados por regras e modelos de frase (resumo por extração de frases, não geração), então têm a voz do artigo mas pouca criatividade; o Code é onde um nó de LLM entraria para reescrever. Não há publicação automática: a demo só enfileira. O código roda igual no navegador e foi comparado com 6 execuções reais no n8n local. Tempo por nó e a queda do Telegram são ilustrativos (a execução 'telegram_down' gravada derrubou o serviço de verdade, 3 tentativas).",
+   "en": "Drafts are built from rules and sentence templates (extractive summary, not generation), so they carry the article's voice but little creativity; the Code node is where an LLM node would rewrite. Nothing is published automatically: the demo only queues. The code runs the same in the browser and was compared with 6 real executions on a local n8n. Per-node timings and the Telegram outage are illustrative (the recorded 'telegram_down' run did take the service down for real, 3 attempts)."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "14-content-repurposing-queue"
+}

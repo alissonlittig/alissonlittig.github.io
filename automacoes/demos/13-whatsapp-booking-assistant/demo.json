@@ -1,0 +1,446 @@
+{
+ "title": {
+  "pt": "Assistente de agendamento por WhatsApp",
+  "en": "WhatsApp booking assistant"
+ },
+ "tag": {
+  "pt": "WhatsApp · agenda · intenção · alerta",
+  "en": "WhatsApp · calendar · intent · alert"
+ },
+ "summary": {
+  "pt": "Uma cliente escreve no WhatsApp do salão. O fluxo entende o pedido (marcar, remarcar, cancelar, preço), consulta a agenda, confirma o horário livre ou oferece os mais próximos, responde na hora e só chama o dono quando precisa de gente. Escreva uma mensagem e aperte Rodar.",
+  "en": "A customer writes to the salon's WhatsApp. The flow understands the request (book, cancel, price), checks the calendar, confirms a free slot or offers the nearest ones, replies instantly and only calls the owner when a human is needed. Write a message and press Run."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/wa-booking  (mensagem recebida do WhatsApp)",
+   "en": "POST /webhook/wa-booking  (incoming WhatsApp message)"
+  },
+  "note": {
+   "pt": "Hoje na demo é quarta, 11/11/2026. A agenda já tem Marcos às 10:00 e Bia às 14:00 (2 h) na quinta. Tente pedir às 14h, cancelar, perguntar preço, ou mandar uma mensagem vazia (erro).",
+   "en": "Today in the demo is Wednesday, 11/11/2026. The agenda already has Marcos at 10:00 and Bia at 14:00 (2 h) on Thursday. Try asking for 14h, cancelling, asking the price, or sending an empty message (error)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Horário livre",
+     "en": "Free slot"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Oi! Quero cortar o cabelo amanhã às 11h"
+    }
+   },
+   {
+    "label": {
+     "pt": "Horário ocupado",
+     "en": "Taken slot"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Queria uma coloração amanhã às 14h"
+    }
+   },
+   {
+    "label": {
+     "pt": "Só o período",
+     "en": "Only the period"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Tem vaga pra barba na sexta de manhã?"
+    }
+   },
+   {
+    "label": {
+     "pt": "Falta o serviço",
+     "en": "Missing service"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Oi, quero marcar um horário"
+    }
+   },
+   {
+    "label": {
+     "pt": "Cancelar",
+     "en": "Cancel"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Preciso desmarcar meu horário, não vou poder ir"
+    }
+   },
+   {
+    "label": {
+     "pt": "Pergunta de preço",
+     "en": "Price question"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Quanto custa a escova?"
+    }
+   },
+   {
+    "label": {
+     "pt": "Pede um humano",
+     "en": "Needs a human"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": "Meu secador chegou com defeito, vocês trocam?"
+    }
+   },
+   {
+    "label": {
+     "pt": "Mensagem vazia",
+     "en": "Empty message"
+    },
+    "values": {
+     "from": "5541999990000",
+     "name": "Camila Rocha",
+     "text": ""
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "name",
+    "type": "text",
+    "value": "Camila Rocha",
+    "label": {
+     "pt": "Nome no WhatsApp",
+     "en": "WhatsApp name"
+    }
+   },
+   {
+    "key": "from",
+    "type": "text",
+    "value": "5541999990000",
+    "label": {
+     "pt": "Telefone (com DDI)",
+     "en": "Phone (with country code)"
+    }
+   },
+   {
+    "key": "text",
+    "type": "textarea",
+    "value": "Oi! Quero cortar o cabelo amanhã às 11h",
+    "label": {
+     "pt": "Mensagem da cliente",
+     "en": "Customer message"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "WhatsApp message",
+   "icon": "webhook",
+   "col": 0,
+   "row": 1,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "Set · URLs e data",
+    "en": "Set · URLs and date"
+   }
+  },
+  {
+   "id": "understand",
+   "name": "Understand message",
+   "icon": "code",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "Code · intenção, serviço, data, hora",
+    "en": "Code · intent, service, date, time"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read agenda",
+   "icon": "file",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "slots",
+   "name": "Find slots",
+   "icon": "code",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "Code · conflitos e horários livres",
+    "en": "Code · conflicts and free slots"
+   }
+  },
+  {
+   "id": "route",
+   "name": "Outcome",
+   "icon": "switch",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "Switch · 5 caminhos",
+    "en": "Switch · 5 paths"
+   }
+  },
+  {
+   "id": "book",
+   "name": "Confirm booking",
+   "icon": "code",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Code",
+    "en": "Code"
+   }
+  },
+  {
+   "id": "offer",
+   "name": "Offer slots",
+   "icon": "code",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "Code",
+    "en": "Code"
+   }
+  },
+  {
+   "id": "cancel",
+   "name": "Cancel booking",
+   "icon": "code",
+   "col": 6,
+   "row": 2,
+   "sub": {
+    "pt": "Code",
+    "en": "Code"
+   }
+  },
+  {
+   "id": "info",
+   "name": "Answer price question",
+   "icon": "code",
+   "col": 6,
+   "row": 3,
+   "sub": {
+    "pt": "Code",
+    "en": "Code"
+   }
+  },
+  {
+   "id": "handoff",
+   "name": "Hand off to a human",
+   "icon": "code",
+   "col": 6,
+   "row": 4,
+   "sub": {
+    "pt": "Code",
+    "en": "Code"
+   }
+  },
+  {
+   "id": "ack",
+   "name": "Acknowledge webhook",
+   "icon": "respond",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook · 200",
+    "en": "Respond to Webhook · 200"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to agenda",
+   "icon": "sheet",
+   "col": 8,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "send",
+   "name": "Send WhatsApp reply",
+   "icon": "http",
+   "col": 9,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP · Cloud API",
+    "en": "HTTP · Cloud API"
+   }
+  },
+  {
+   "id": "alertif",
+   "name": "Alert the owner?",
+   "icon": "if",
+   "col": 10,
+   "row": 1,
+   "sub": {
+    "pt": "IF · humano ou envio falhou",
+    "en": "IF · human needed or send failed"
+   }
+  },
+  {
+   "id": "alert",
+   "name": "Alert owner (Telegram)",
+   "icon": "bell",
+   "col": 11,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "understand"
+  },
+  {
+   "from": "understand",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "slots"
+  },
+  {
+   "from": "slots",
+   "to": "route"
+  },
+  {
+   "from": "route",
+   "to": "book",
+   "when": "book"
+  },
+  {
+   "from": "route",
+   "to": "offer",
+   "when": "offer"
+  },
+  {
+   "from": "route",
+   "to": "cancel",
+   "when": "cancel"
+  },
+  {
+   "from": "route",
+   "to": "info",
+   "when": "info"
+  },
+  {
+   "from": "route",
+   "to": "handoff",
+   "when": "handoff"
+  },
+  {
+   "from": "book",
+   "to": "ack"
+  },
+  {
+   "from": "offer",
+   "to": "ack"
+  },
+  {
+   "from": "cancel",
+   "to": "ack"
+  },
+  {
+   "from": "info",
+   "to": "ack"
+  },
+  {
+   "from": "handoff",
+   "to": "ack"
+  },
+  {
+   "from": "ack",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "send"
+  },
+  {
+   "from": "send",
+   "to": "alertif"
+  },
+  {
+   "from": "alertif",
+   "to": "alert",
+   "when": "true"
+  }
+ ],
+ "failure": {
+  "node": "send",
+  "continueOnFail": true,
+  "message": {
+   "pt": "503 Service Unavailable: API do WhatsApp (simulado)",
+   "en": "503 Service Unavailable: WhatsApp API (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "O salão vive no WhatsApp: a dona responde entre um cliente e outro, perde pedido de horário, marca em cima de outro e esquece de avisar quem cancelou. Quem manda mensagem à noite só tem resposta no dia seguinte.",
+   "en": "The salon lives on WhatsApp: the owner answers between customers, misses requests, double-books and forgets who cancelled. Anyone who writes at night waits until the next day."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe cada mensagem, entende o que a pessoa quer (serviço, dia, hora ou período), confere conflitos na agenda levando em conta a duração de cada serviço, confirma na hora ou oferece os três horários mais próximos, e cancela quando pedido. Preço é respondido sozinho; reclamação e assunto estranho vão para a dona no Telegram. Se o WhatsApp cair, o agendamento já está salvo e a dona é avisada.",
+   "en": "An n8n workflow receives each message, understands what the person wants (service, day, time or period), checks the calendar for conflicts using each service's duration, confirms on the spot or offers the three nearest slots, and cancels on request. Prices are answered automatically; complaints and odd requests go to the owner on Telegram. If WhatsApp goes down, the booking is already saved and the owner is alerted."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~25 pedidos de horário por semana e ~4 min de ida e volta cada = cerca de 1h40 por semana devolvidas, mais respostas fora do expediente. Dados fictícios; o real depende do volume.",
+   "en": "An estimate, not a measurement: ~25 booking requests a week and ~4 min of back-and-forth each = about 1 h 40 a week handed back, plus answers outside business hours. Fictional data; the real figure depends on volume."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "Switch",
+   "Read/Write Files",
+   "HTTP Request",
+   "WhatsApp Cloud API",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "A mensagem entra pelo corpo simplificado do webhook (num WhatsApp real, um nó mapeia o payload da Cloud API para estes três campos). O entendimento do texto é por regras e palavras-chave em português, não por LLM: cobre o essencial e passa o resto para um humano, que é o ramo 'Pede um humano'. O código é o mesmo do workflow, comparado com 10 execuções reais no n8n local. Tempo por nó e a queda da API são ilustrativos (a execução 'whatsapp_down' gravada derrubou a API de verdade, 3 tentativas). A agenda é um CSV; no uso real seria Google Calendar ou o seu sistema.",
+   "en": "The message enters through a simplified webhook body (on real WhatsApp a node maps the Cloud API payload to these three fields). Text understanding is rules and keywords in Portuguese, not an LLM: it covers the essentials and hands the rest to a human, which is the 'Needs a human' branch. The code is the same as the workflow, compared with 10 real executions on a local n8n. Per-node timings and the API outage are illustrative (the recorded 'whatsapp_down' run did take the API down for real, 3 attempts). The agenda is a CSV; in real use it would be Google Calendar or your own system."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "13-whatsapp-booking-assistant"
+}

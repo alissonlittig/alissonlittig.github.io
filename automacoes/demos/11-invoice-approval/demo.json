@@ -1,0 +1,586 @@
+{
+ "title": {
+  "pt": "Aprovação de fatura com humano no circuito",
+  "en": "Invoice approval with a human in the loop"
+ },
+ "tag": {
+  "pt": "Webhook · regras · aprovação · auditoria",
+  "en": "Webhook · rules · approval · audit trail"
+ },
+ "summary": {
+  "pt": "Uma fatura chega por webhook; regras decidem se paga sozinha, precisa do gestor ou do diretor, ou é bloqueada por duplicidade. O aprovador responde pelo Telegram e tudo fica num livro-razão. Escolha um exemplo, edite e aperte Rodar.",
+  "en": "An invoice arrives by webhook; rules decide whether it pays itself, needs the manager or director, or is blocked as a duplicate. The approver answers on Telegram and everything lands in a ledger. Pick an example, edit it and press Run."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/invoice-submit  (depois POST /webhook/invoice-decision)",
+   "en": "POST /webhook/invoice-submit  (then POST /webhook/invoice-decision)"
+  },
+  "note": {
+   "pt": "Dica: tente a fatura duplicada (NW-2208), o aprovador errado, ou o erro simulado do Telegram (use uma fatura que gere aviso).",
+   "en": "Tip: try the duplicate (NW-2208), the wrong approver, or the simulated Telegram failure (use any invoice that sends a message)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Pequena (aprova sozinha)",
+     "en": "Small (auto-approved)"
+    },
+    "values": {
+     "vendor": "Northwind Supplies",
+     "invoice_no": "NW-2301",
+     "amount": "240.00",
+     "currency": "USD",
+     "due_date": "2026-11-20",
+     "po_number": "PO-204",
+     "description": "Printer paper, 20 reams",
+     "decision": "approve",
+     "decided_by": "assigned"
+    }
+   },
+   {
+    "label": {
+     "pt": "Gestor aprova",
+     "en": "Manager approves"
+    },
+    "values": {
+     "vendor": "Cloudnine Hosting",
+     "invoice_no": "CH-5521",
+     "amount": "2890.00",
+     "currency": "USD",
+     "due_date": "2026-11-30",
+     "po_number": "PO-118",
+     "description": "Annual hosting renewal",
+     "decision": "approve",
+     "decided_by": "assigned"
+    }
+   },
+   {
+    "label": {
+     "pt": "Diretor rejeita (urgente)",
+     "en": "Director rejects (rush)"
+    },
+    "values": {
+     "vendor": "Bluefin Events",
+     "invoice_no": "BE-90",
+     "amount": "12400.00",
+     "currency": "EUR",
+     "due_date": "2026-11-12",
+     "po_number": "",
+     "description": "Conference sponsorship",
+     "decision": "reject",
+     "decided_by": "assigned"
+    }
+   },
+   {
+    "label": {
+     "pt": "Duplicada",
+     "en": "Duplicate"
+    },
+    "values": {
+     "vendor": "Northwind Supplies",
+     "invoice_no": "NW-2208",
+     "amount": "318.40",
+     "currency": "USD",
+     "due_date": "2026-11-20",
+     "po_number": "PO-190",
+     "description": "Resubmitted by mistake",
+     "decision": "approve",
+     "decided_by": "assigned"
+    }
+   },
+   {
+    "label": {
+     "pt": "Aprovador errado",
+     "en": "Wrong approver"
+    },
+    "values": {
+     "vendor": "Cloudnine Hosting",
+     "invoice_no": "CH-5522",
+     "amount": "1900.00",
+     "currency": "USD",
+     "due_date": "2026-11-20",
+     "po_number": "PO-119",
+     "description": "Extra storage",
+     "decision": "approve",
+     "decided_by": "Pedro Alves"
+    }
+   },
+   {
+    "label": {
+     "pt": "Valor inválido",
+     "en": "Invalid amount"
+    },
+    "values": {
+     "vendor": "Northwind Supplies",
+     "invoice_no": "NW-2302",
+     "amount": "free",
+     "currency": "USD",
+     "due_date": "2026-11-20",
+     "po_number": "PO-204",
+     "description": "Printer paper, 20 reams",
+     "decision": "approve",
+     "decided_by": "assigned"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "vendor",
+    "type": "text",
+    "value": "Northwind Supplies",
+    "label": {
+     "pt": "Fornecedor",
+     "en": "Vendor"
+    }
+   },
+   {
+    "key": "invoice_no",
+    "type": "text",
+    "value": "NW-2301",
+    "label": {
+     "pt": "Nº da fatura",
+     "en": "Invoice no."
+    }
+   },
+   {
+    "key": "amount",
+    "type": "text",
+    "value": "240.00",
+    "label": {
+     "pt": "Valor",
+     "en": "Amount"
+    }
+   },
+   {
+    "key": "currency",
+    "type": "select",
+    "value": "USD",
+    "label": {
+     "pt": "Moeda",
+     "en": "Currency"
+    },
+    "options": [
+     {
+      "value": "USD",
+      "label": "USD"
+     },
+     {
+      "value": "EUR",
+      "label": "EUR"
+     }
+    ]
+   },
+   {
+    "key": "due_date",
+    "type": "text",
+    "value": "2026-11-20",
+    "label": {
+     "pt": "Vencimento (AAAA-MM-DD)",
+     "en": "Due date (YYYY-MM-DD)"
+    }
+   },
+   {
+    "key": "po_number",
+    "type": "text",
+    "value": "PO-204",
+    "label": {
+     "pt": "Pedido de compra (PO)",
+     "en": "Purchase order (PO)"
+    }
+   },
+   {
+    "key": "description",
+    "type": "textarea",
+    "value": "Printer paper, 20 reams",
+    "label": {
+     "pt": "Descrição",
+     "en": "Description"
+    }
+   },
+   {
+    "key": "decision",
+    "type": "select",
+    "value": "approve",
+    "label": {
+     "pt": "Resposta do aprovador",
+     "en": "Approver's answer"
+    },
+    "options": [
+     {
+      "value": "approve",
+      "label": {
+       "pt": "Aprovar",
+       "en": "Approve"
+      }
+     },
+     {
+      "value": "reject",
+      "label": {
+       "pt": "Rejeitar",
+       "en": "Reject"
+      }
+     },
+     {
+      "value": "wait",
+      "label": {
+       "pt": "Ainda não respondeu",
+       "en": "Not answered yet"
+      }
+     }
+    ]
+   },
+   {
+    "key": "decided_by",
+    "type": "select",
+    "value": "assigned",
+    "label": {
+     "pt": "Quem clicou",
+     "en": "Who clicked"
+    },
+    "options": [
+     {
+      "value": "assigned",
+      "label": {
+       "pt": "O aprovador designado",
+       "en": "The assigned approver"
+      }
+     },
+     {
+      "value": "Pedro Alves",
+      "label": {
+       "pt": "Outra pessoa (Pedro Alves)",
+       "en": "Someone else (Pedro Alves)"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Invoice submitted",
+   "icon": "webhook",
+   "col": 0,
+   "row": 1,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "Set · limites e aprovadores",
+    "en": "Set · limits and approvers"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read ledger",
+   "icon": "file",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "check",
+   "name": "Check invoice",
+   "icon": "code",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "Code · validação e regras",
+    "en": "Code · validation and rules"
+   }
+  },
+  {
+   "id": "route",
+   "name": "Route",
+   "icon": "switch",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "Switch · auto / aprovação / bloqueio",
+    "en": "Switch · auto / approval / blocked"
+   }
+  },
+  {
+   "id": "auto",
+   "name": "Auto-approve",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Code · aprova e agenda",
+    "en": "Code · approve and schedule"
+   }
+  },
+  {
+   "id": "req",
+   "name": "Request approval",
+   "icon": "code",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "Code · pedido com botões",
+    "en": "Code · request with buttons"
+   }
+  },
+  {
+   "id": "block",
+   "name": "Block and explain",
+   "icon": "code",
+   "col": 5,
+   "row": 2,
+   "sub": {
+    "pt": "Code · bloqueia e explica",
+    "en": "Code · block and explain"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond to submitter",
+   "icon": "respond",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to ledger",
+   "icon": "sheet",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify finance (Telegram)",
+   "icon": "bell",
+   "col": 8,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP · sendMessage + botões",
+    "en": "HTTP · sendMessage + buttons"
+   }
+  },
+  {
+   "id": "dweb",
+   "name": "Approver decision",
+   "icon": "webhook",
+   "col": 9,
+   "row": 1,
+   "sub": {
+    "pt": "Webhook · clique do aprovador",
+    "en": "Webhook · approver click"
+   }
+  },
+  {
+   "id": "dcfg",
+   "name": "Config (decision)",
+   "icon": "set",
+   "col": 10,
+   "row": 1,
+   "sub": {
+    "pt": "Set",
+    "en": "Set"
+   }
+  },
+  {
+   "id": "dread",
+   "name": "Read ledger (decision)",
+   "icon": "file",
+   "col": 11,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files",
+    "en": "Read/Write Files"
+   }
+  },
+  {
+   "id": "apply",
+   "name": "Apply decision",
+   "icon": "code",
+   "col": 12,
+   "row": 1,
+   "sub": {
+    "pt": "Code · quem, quando, uma vez",
+    "en": "Code · who, when, once"
+   }
+  },
+  {
+   "id": "drespond",
+   "name": "Respond to approver",
+   "icon": "respond",
+   "col": 13,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  },
+  {
+   "id": "dappend",
+   "name": "Append decision",
+   "icon": "sheet",
+   "col": 14,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "dnotify",
+   "name": "Notify finance (decision)",
+   "icon": "bell",
+   "col": 15,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "check"
+  },
+  {
+   "from": "check",
+   "to": "route"
+  },
+  {
+   "from": "route",
+   "to": "auto",
+   "when": "auto"
+  },
+  {
+   "from": "route",
+   "to": "req",
+   "when": "approval"
+  },
+  {
+   "from": "route",
+   "to": "block",
+   "when": "blocked"
+  },
+  {
+   "from": "auto",
+   "to": "respond"
+  },
+  {
+   "from": "req",
+   "to": "respond"
+  },
+  {
+   "from": "block",
+   "to": "respond"
+  },
+  {
+   "from": "respond",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "notify"
+  },
+  {
+   "from": "notify",
+   "to": "dweb",
+   "when": "decide",
+   "label": {
+    "pt": "aprovador clica",
+    "en": "approver clicks"
+   }
+  },
+  {
+   "from": "dweb",
+   "to": "dcfg"
+  },
+  {
+   "from": "dcfg",
+   "to": "dread"
+  },
+  {
+   "from": "dread",
+   "to": "apply"
+  },
+  {
+   "from": "apply",
+   "to": "drespond"
+  },
+  {
+   "from": "drespond",
+   "to": "dappend"
+  },
+  {
+   "from": "dappend",
+   "to": "dnotify"
+  }
+ ],
+ "failure": {
+  "node": "notify",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Faturas chegam por e-mail e WhatsApp. Alguém confere se já foi paga, descobre quem pode aprovar, cobra a resposta e depois lança. Duplicatas escapam e ninguém sabe quem aprovou o quê.",
+   "en": "Invoices arrive by e-mail and chat. Someone checks whether it was already paid, finds who may approve, chases the answer and then books it. Duplicates slip through and nobody knows who approved what."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n valida a fatura, procura duplicata no livro-razão e aplica limites: até US$ 500 de fornecedor conhecido com PO é aprovada sozinha; até US$ 5.000 vai para a gestora; acima disso, para o diretor. O aprovador recebe botões no Telegram, só o aprovador designado decide, e só uma vez. Cada passo vira uma linha do livro-razão.",
+   "en": "An n8n workflow validates the invoice, looks for a duplicate in the ledger and applies limits: up to US$ 500 from a known vendor with a PO is approved by itself; up to US$ 5,000 goes to the manager; above that, to the director. The approver gets buttons on Telegram, only the assigned approver decides, and only once. Every step becomes a ledger row."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: com ~60 faturas por mês e ~5 min de conferência e cobrança cada, são cerca de 5 h por mês devolvidas, e a principal vantagem é evitar pagamento em duplicidade e ter trilha de auditoria. Dados fictícios; o ganho real depende do seu volume.",
+   "en": "An estimate, not a measurement: with ~60 invoices a month and ~5 min of checking and chasing each, that is about 5 h a month handed back, and the main benefit is avoiding double payments and having an audit trail. Fictional data; the real gain depends on your volume."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook (2)",
+   "Switch",
+   "Code (JS)",
+   "Read/Write Files",
+   "HTTP Request",
+   "Telegram Bot API (inline buttons)"
+  ],
+  "honesty": {
+   "pt": "O JSON de cada nó Code é o mesmo código do workflow, rodando aqui no navegador, e um teste automatizado compara com as 7 execuções reais gravadas no n8n local. A tela de decisão é simulada pela escolha 'Resposta do aprovador'; no n8n real é um segundo webhook chamado pelo botão do Telegram. Tempo por nó e o erro do Telegram são ilustrativos (o retry/continue-on-fail está configurado no nó, mas não foi disparado na execução gravada). Sem LLM: as regras são determinísticas, de propósito.",
+   "en": "Each Code node's JSON is the same code as the workflow, running here in your browser, and an automated test compares it with the 7 real executions recorded on a local n8n. The decision step is simulated by the 'Approver's answer' choice; in real n8n it is a second webhook called by the Telegram button. Per-node timings and the Telegram failure are illustrative (retry/continue-on-fail is configured on the node but was not triggered in the recorded run). No LLM: the rules are deterministic on purpose."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "11-invoice-approval"
+}

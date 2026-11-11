@@ -1,0 +1,335 @@
+{
+  "name": "Weekly KPI report with chart, anomaly alert and e-mail",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kpi-report",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0a83dcf6-40b4-5929-9662-6db59cb5d087",
+      "name": "Weekly trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        200
+      ],
+      "webhookId": "kpi-report-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a8dd3d8-e2ca-54ee-b869-a35ec54bf807",
+              "name": "log_file",
+              "value": "./data/reports_15.csv",
+              "type": "string"
+            },
+            {
+              "id": "5c365ece-b7df-5a81-a52e-1d9e821bd506",
+              "name": "mail_url",
+              "value": "http://127.0.0.1:8097/mail",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "OWNER_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        200
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst out = (() => {\nconst b = input.body || {};\nconst company = String(b.company || '').trim(), lang = b.lang === 'pt' ? 'pt' : 'en', week_end = String(b.week_end || '').trim();\nconst recipients = String(b.recipients || '').split(',').map(s => s.trim()).filter(Boolean);\nif (!company) throw new Error('company is missing');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(week_end)) throw new Error('week_end must be YYYY-MM-DD');\nif (!recipients.length || recipients.some(r => !/^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$/i.test(r))) throw new Error('recipients must be valid e-mail addresses');\nconst lines = String(b.csv || '').split(/\\r?\\n/).map(l => l.trim()).filter(Boolean);\nconst head = (lines.shift() || '').toLowerCase().replace(/\\s/g, '');\nif (head !== 'date,orders,revenue,new_customers,refunds') throw new Error('CSV header must be date,orders,revenue,new_customers,refunds');\nconst addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };\nconst byDate = {};\nfor (const l of lines) { const c = l.split(',').map(s => s.trim()); const n = c.slice(1).map(Number); if (c.length !== 5 || !/^\\d{4}-\\d{2}-\\d{2}$/.test(c[0]) || n.some(x => !Number.isFinite(x) || x < 0)) throw new Error('Bad CSV row: ' + l); byDate[c[0]] = n; }\nconst days = []; for (let k = 13; k >= 0; k--) days.push(addDays(week_end, -k));\nconst missing = days.filter(d => !byDate[d]);\nif (missing.length) throw new Error('Missing ' + missing.length + ' day(s) of data: ' + missing.slice(0, 3).join(', ') + (missing.length > 3 ? ', ...' : ''));\nconst sum = ds => ds.reduce((a, d) => { const r = byDate[d]; return { orders: a.orders + r[0], revenue: Math.round((a.revenue + r[1]) * 100) / 100, customers: a.customers + r[2], refunds: a.refunds + r[3] }; }, { orders: 0, revenue: 0, customers: 0, refunds: 0 });\nconst cur = sum(days.slice(7)), prev = sum(days.slice(0, 7));\nconst r1 = x => Math.round(x * 10) / 10, r2 = x => Math.round(x * 100) / 100;\nconst pct = (a, p) => p ? r1((a - p) / p * 100) : null;\nconst aov = s => s.orders ? r2(s.revenue / s.orders) : 0, rate = s => s.orders ? r1(s.refunds / s.orders * 100) : 0;\nconst kpis = [\n  { key: 'revenue', value: cur.revenue, prev: prev.revenue, delta: pct(cur.revenue, prev.revenue) },\n  { key: 'orders', value: cur.orders, prev: prev.orders, delta: pct(cur.orders, prev.orders) },\n  { key: 'aov', value: aov(cur), prev: aov(prev), delta: pct(aov(cur), aov(prev)) },\n  { key: 'new_customers', value: cur.customers, prev: prev.customers, delta: pct(cur.customers, prev.customers) },\n  { key: 'refund_rate', value: rate(cur), prev: rate(prev), delta: r1(rate(cur) - rate(prev)) }];\nconst daily = days.slice(7).map(d => ({ date: d, revenue: byDate[d][1] })), daily_prev = days.slice(0, 7).map(d => byDate[d][1]);\nconst flags = [], pt = lang === 'pt';\nif (kpis[0].delta !== null && kpis[0].delta <= -20) flags.push(pt ? 'Receita caiu ' + Math.abs(kpis[0].delta) + '% sobre a semana anterior' : 'Revenue fell ' + Math.abs(kpis[0].delta) + '% versus the previous week');\nif (kpis[4].value > 5) flags.push(pt ? 'Taxa de reembolso em ' + kpis[4].value + '% (limite 5%)' : 'Refund rate at ' + kpis[4].value + '% (limit 5%)');\nif (kpis[3].delta !== null && kpis[3].delta <= -30) flags.push(pt ? 'Novos clientes caíram ' + Math.abs(kpis[3].delta) + '%' : 'New customers fell ' + Math.abs(kpis[3].delta) + '%');\nconst best = daily.slice().sort((a, c) => c.revenue - a.revenue || a.date.localeCompare(c.date))[0];\nreturn { company, lang, week_start: days[7], week_end, recipients, kpis, daily, daily_prev, best_day: best.date, flags, ignored_rows: lines.length > 14 ? lines.length - 14 : 0, ts: new Date().toISOString() };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "d45c06a5-a354-5fc0-b81f-2b6e26469576",
+      "name": "Compute KPIs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst pt = input.lang === 'pt';\nconst money = n => { const p = n.toFixed(2).split('.'); return (pt ? 'R$ ' : '$') + p[0].replace(/\\B(?=(\\d{3})+(?!\\d))/g, pt ? '.' : ',') + (pt ? ',' : '.') + p[1]; };\nconst num = n => String(n).replace(/\\B(?=(\\d{3})+(?!\\d))/g, pt ? '.' : ',');\nconst LB = { revenue: pt ? 'Receita' : 'Revenue', orders: pt ? 'Pedidos' : 'Orders', aov: pt ? 'Ticket médio' : 'Avg. order value', new_customers: pt ? 'Novos clientes' : 'New customers', refund_rate: pt ? 'Taxa de reembolso' : 'Refund rate' };\nconst val = k => k.key === 'revenue' || k.key === 'aov' ? money(k.value) : k.key === 'refund_rate' ? String(k.value).replace('.', pt ? ',' : '.') + '%' : num(k.value);\nconst dl = k => k.delta === null ? 'n/a' : (k.delta > 0 ? '+' : '') + String(k.delta).replace('.', pt ? ',' : '.') + (k.key === 'refund_rate' ? ' pp' : '%');\nconst arrow = k => k.delta === null || k.delta === 0 ? '=' : k.delta > 0 ? '▲' : '▼';\nconst DN = pt ? ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'] : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];\nconst dn = d => DN[new Date(d + 'T00:00:00Z').getUTCDay()];\nconst vals = input.daily.map(d => d.revenue), mx = Math.max(...vals), mn = Math.min(...vals), blocks = '▁▂▃▄▅▆▇█';\nconst spark = vals.map(v => blocks[Math.min(7, Math.floor((v - mn) / ((mx - mn) || 1) * 7.999))]).join('');\nconst svgmax = Math.max(...vals, ...input.daily_prev, 1);\nconst bars = input.daily.map((d, i) => { const h = Math.round(120 * d.revenue / svgmax), hp = Math.round(120 * input.daily_prev[i] / svgmax), x = 12 + i * 78; return '<rect x=\"' + x + '\" y=\"' + (150 - hp) + '\" width=\"26\" height=\"' + hp + '\" fill=\"#cfcfc8\"/><rect x=\"' + (x + 28) + '\" y=\"' + (150 - h) + '\" width=\"26\" height=\"' + h + '\" fill=\"#ff7a2f\"/><text x=\"' + (x + 28) + '\" y=\"170\" font-size=\"11\" fill=\"#555\">' + dn(d.date) + '</text>'; }).join('');\nconst chart_svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"560\" height=\"180\" viewBox=\"0 0 560 180\"><rect width=\"100%\" height=\"100%\" fill=\"#fff\"/>' + bars + '</svg>';\nconst subject = (input.flags.length ? '[!] ' : '') + (pt ? 'Relatório semanal' : 'Weekly report') + ': ' + input.company + ' (' + input.week_start + ' – ' + input.week_end + ')';\nconst row = k => LB[k.key] + ': ' + val(k) + '  (' + arrow(k) + ' ' + dl(k) + (pt ? ' vs semana anterior)' : ' vs last week)');\nconst text = (pt ? 'Olá! Os números da semana de ' : 'Hi! Your numbers for the week of ') + input.week_start + ':\\n\\n' + input.kpis.map(row).join('\\n')\n  + '\\n\\n' + (pt ? 'Receita por dia' : 'Revenue per day') + '\\n' + spark + '  (' + input.daily.map(d => dn(d.date)).join(' ') + ')\\n' + (pt ? 'Melhor dia: ' : 'Best day: ') + dn(input.best_day) + ' ' + input.best_day\n  + (input.flags.length ? '\\n\\n' + (pt ? 'Atenção:' : 'Needs attention:') + '\\n' + input.flags.map(f => '- ' + f).join('\\n') : '\\n\\n' + (pt ? 'Nada fora do normal.' : 'Nothing out of the ordinary.'))\n  + '\\n\\n' + (pt ? 'O gráfico em anexo compara com a semana anterior.' : 'The attached chart compares with the previous week.');\nconst email = { to: input.recipients.join(', '), subject, text, attachments: [{ filename: 'weekly-revenue.svg', content: chart_svg }] };\nconst alert_text = input.flags.length ? (pt ? 'ATENÇÃO ' : 'ATTENTION ') + input.company + ': ' + input.flags.join(' | ') : '';\nconst csv_line = [input.ts, input.week_end, input.company, input.kpis[0].value, input.kpis[1].value, input.kpis[0].delta, input.flags.length, input.recipients.join(' ')].map(Q).join(',') + '\\n';\nreturn { ...input, subject, email, alert_text, needs_attention: input.flags.length > 0, spark, chart_svg, csv_line };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "8a02f8b2-6cef-542b-8086-7de0dda1eb75",
+      "name": "Build report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.log_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "2ca2e8e9-cf65-5855-9f49-e0d6b90bb697",
+      "name": "Append to log",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        820,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "df08eda7-2e82-5426-bead-631b6de968ed",
+              "leftValue": "={{ $('Build report').first().json.needs_attention }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "472c81c1-63cb-5bc4-b25b-321479dfa68f",
+      "name": "Needs attention?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1020,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Build report').first().json.alert_text}) }}",
+        "options": {}
+      },
+      "id": "6d193821-415c-575d-b6ca-1b78f7dec8c0",
+      "name": "Alert owner (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1230,
+        100
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Only when a KPI crosses a threshold.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.mail_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Build report').first().json.email) }}",
+        "options": {}
+      },
+      "id": "1e9003f2-cd80-5f3a-8893-5293e46df8d0",
+      "name": "Send report e-mail",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1440,
+        200
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the report stays in the log and the response says queued.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rep = $('Build report').first().json;\nconst mail = $input.first().json;\nconst out = (() => {\nconst mail_ok = !!(mail && mail.ok === true && !mail.error);\nreturn { ...rep, mail_ok, response: { company: rep.company, week_end: rep.week_end, revenue: rep.kpis[0].value, revenue_delta_pct: rep.kpis[0].delta, flags: rep.flags.length, email: mail_ok ? 'sent' : 'queued' } };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "332eadf3-88a8-5477-9e51-9c09b7e191d7",
+      "name": "Build response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1650,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {}
+      },
+      "id": "6036e3fc-33e8-5ad1-9192-aae7c1b32234",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1860,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Weekly trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Compute KPIs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute KPIs": {
+      "main": [
+        [
+          {
+            "node": "Build report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build report": {
+      "main": [
+        [
+          {
+            "node": "Append to log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to log": {
+      "main": [
+        [
+          {
+            "node": "Needs attention?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs attention?": {
+      "main": [
+        [
+          {
+            "node": "Alert owner (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send report e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert owner (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Send report e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send report e-mail": {
+      "main": [
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

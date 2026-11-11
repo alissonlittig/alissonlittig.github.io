@@ -1,0 +1,381 @@
+{
+  "name": "Meeting notes to tasks, CRM note and recap",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "meeting-notes",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ff2d3345-877b-5978-9ea5-776c4875ed0e",
+      "name": "Meeting transcript",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        200
+      ],
+      "webhookId": "meeting-notes-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8bd5056-fc3e-5104-8617-432d567173d0",
+              "name": "tasks_file",
+              "value": "./data/tasks_12.csv",
+              "type": "string"
+            },
+            {
+              "id": "d8ba0a6d-5d23-5a02-8d25-14755e4c78a0",
+              "name": "crm_url",
+              "value": "http://127.0.0.1:8097/crm/notes",
+              "type": "string"
+            },
+            {
+              "id": "5c365ece-b7df-5a81-a52e-1d9e821bd506",
+              "name": "mail_url",
+              "value": "http://127.0.0.1:8097/mail",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "ORGANIZER_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "e50149ee-c4f7-50e6-afc8-b6d355601e96",
+              "name": "today",
+              "value": "2026-11-11",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        230,
+        200
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst b = input.body || {};\nconst title = String(b.title || '').trim(), date = String(b.date || input.today).trim();\nconst attendees = String(b.attendees || '').split(',').map(s => s.trim()).filter(Boolean);\nconst lines = String(b.transcript || '').split(/\\r?\\n/).map(l => l.trim()).filter(Boolean);\nconst turns = lines.map(l => { const m = l.match(/^([A-Za-zÀ-ÿ'. -]{2,30}):\\s*(.+)$/); return m ? { who: m[1].trim(), text: m[2].trim() } : null; }).filter(Boolean);\nif (!title) throw new Error('title is missing');\nif (!attendees.length) throw new Error('No attendees listed');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(date)) throw new Error('date must be YYYY-MM-DD');\nif (turns.length < 3) throw new Error('Transcript too short: need at least 3 \"Name: text\" lines (got ' + turns.length + ')');\nconst all = turns.map(t => t.text).join(' ');\nconst lang = /\\b(vamos|preciso|pode|prazo|até|amanhã|sexta|decidimos|combinado|reunião|obrigad[oa]|você|vou|fechado)\\b/i.test(all) ? 'pt' : 'en';\nconst att = attendees.map(a => ({ name: a, key: a.split(' ')[0].toLowerCase() }));\nconst findAtt = s => att.find(a => a.key === String(s).toLowerCase());\nconst days = { monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, sunday: 0, segunda: 1, terça: 2, terca: 2, quarta: 3, quinta: 4, sexta: 5, sábado: 6, sabado: 6, domingo: 0 };\nconst addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };\nconst dow = new Date(date + 'T00:00:00Z').getUTCDay();\nconst dueOf = t => {\n  const s = t.toLowerCase(); let m;\n  if ((m = s.match(/\\b(20\\d{2}-\\d{2}-\\d{2})\\b/))) return m[1];\n  if (/\\b(tomorrow|amanhã|amanha)\\b/.test(s)) return addDays(date, 1);\n  if (/\\b(today|hoje|end of (the )?day)\\b/.test(s)) return date;\n  if (/(next week|semana que vem|próxima semana)/.test(s)) return addDays(date, ((8 - dow) % 7 || 7) + 4);\n  for (const k in days) if (new RegExp('\\\\b' + k + '\\\\b').test(s)) return addDays(date, ((days[k] - dow + 7) % 7) || 7);\n  return '';\n};\nconst cap = s => s.charAt(0).toUpperCase() + s.slice(1);\nconst decisions = [], actions = [], context = [];\nfor (const t of turns) {\n  for (const sent of t.text.split(/(?<=[.!?])\\s+/).filter(Boolean)) {\n    let owner = null, task = null, m;\n    if ((m = sent.match(/^([A-Za-zÀ-ÿ]+),?\\s+(?:can|could|would|pode|consegue)\\s+you\\s+(.+)$/i)) || (m = sent.match(/^([A-Za-zÀ-ÿ]+),?\\s+(?:você\\s+)?(?:pode|consegue)\\s+(.+)$/i))) { owner = findAtt(m[1]); task = m[2]; }\n    else if ((m = sent.match(/\\b(?:I'll|I will|I can take|I'm going to|vou|eu faço|eu mando|fico com)\\s+(.+)$/i))) { owner = findAtt(t.who.split(' ')[0]); task = m[1]; }\n    if (task) { task = cap(task.replace(/[.!?]+$/, '').replace(/^(also|também)\\s+/i, '')); actions.push({ task, owner: owner ? owner.name : '', due: dueOf(sent), by: t.who }); continue; }\n    if (/\\b(we (decided|agreed)|let's go with|decided to|agreed on|decidimos|ficou combinado|vamos com|fechado)\\b/i.test(sent)) { decisions.push(sent.replace(/[.!?]+$/, '')); continue; }\n    const score = (sent.length > 40 && sent.length < 170 ? 1 : 0) + (/\\d/.test(sent) ? 2 : 0) + (/(launch|budget|deadline|customer|price|churn|release|prazo|orçamento|cliente|lançamento|preço)/i.test(sent) ? 2 : 0);\n    if (score >= 2) context.push({ s: sent.replace(/[.!?]+$/, ''), score });\n  }\n}\nconst summary = context.sort((a, b) => b.score - a.score).slice(0, 3).map(c => c.s);\nconst review = actions.filter(a => !a.owner || !a.due).map(a => a.task + ' (' + [!a.owner ? 'no owner' : '', !a.due ? 'no due date' : ''].filter(Boolean).join(', ') + ')');\nreturn { title, date, lang, attendees, turns: turns.length, summary, decisions, actions, needs_review: review.length, review_items: review, crm_account: String(b.crm_account || ''), ts: new Date().toISOString() };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "cd4784cf-bd3d-51ba-b425-c963da6d5c02",
+      "name": "Extract notes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst csv_line = input.actions.map(a => [input.ts, input.title, a.task, a.owner || 'UNASSIGNED', a.due || 'NO DATE', a.owner && a.due ? 'open' : 'needs review'].map(Q).join(',') + '\\n').join('');\nreturn { ...input, csv_line, task_rows: input.actions.length };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "0ab308bb-562a-5d82-9095-16ff273e33b4",
+      "name": "Build tasks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.tasks_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "72edb197-9cdb-5b88-adf5-8c21c5ba8d61",
+      "name": "Append to tasks.csv",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        860,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.crm_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({account: $('Build tasks').first().json.crm_account, title: $('Build tasks').first().json.title, date: $('Build tasks').first().json.date, summary: $('Build tasks').first().json.summary, decisions: $('Build tasks').first().json.decisions, tasks: $('Build tasks').first().json.actions.length}) }}",
+        "options": {}
+      },
+      "id": "d7e14eac-4ddb-5cb3-8183-a9d5a2d1a4c3",
+      "name": "Save note to CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1070,
+        200
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the tasks and the e-mail still go out, and the recap says the CRM note is queued.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Build tasks').first().json;\nconst crm = $input.first().json;\nconst out = (() => {\nconst crm_ok = !!(crm && crm.ok === true && !crm.error);\nconst pt = input.lang === 'pt';\nconst li = a => '- ' + (a.owner || (pt ? 'SEM RESPONSÁVEL' : 'UNASSIGNED')) + ': ' + a.task + ' (' + (a.due || (pt ? 'sem prazo' : 'no due date')) + ')';\nconst sec = (h, arr, f) => arr.length ? h + '\\n' + arr.map(f).join('\\n') + '\\n\\n' : '';\nconst subject = (pt ? 'Resumo: ' : 'Recap: ') + input.title + ' (' + input.date + ')';\nconst text = (pt ? 'Olá, segue o resumo da reunião.\\n\\n' : 'Hi all, here is the recap.\\n\\n') + sec(pt ? 'Resumo' : 'Summary', input.summary, s => '- ' + s) + sec(pt ? 'Decisões' : 'Decisions', input.decisions, s => '- ' + s) + sec(pt ? 'Ações' : 'Action items', input.actions, li)\n  + (crm_ok ? (pt ? 'Nota salva no CRM (#' + crm.id + ').' : 'Note saved to the CRM (#' + crm.id + ').') : (pt ? 'CRM indisponível: a nota ficou na fila para reenvio.' : 'CRM unavailable: the note was queued for retry.'));\nconst review_text = input.needs_review ? 'REVIEW NEEDED: ' + input.title + '\\n' + input.review_items.map(x => '- ' + x).join('\\n') : '';\nreturn { ...input, crm_ok, crm_id: crm_ok ? crm.id : null, email: { to: input.attendees.join(', '), subject, text }, review_text, response: { meeting: input.title, decisions: input.decisions.length, actions: input.actions.length, needs_review: input.needs_review, crm: crm_ok ? 'saved' : 'queued' } };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "c3d9e8cb-9e68-5546-b630-c3103b850ff4",
+      "name": "Build recap",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "460dce1b-fc21-5565-a639-7f07de02175e",
+              "leftValue": "={{ $json.needs_review }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "bb08dbf7-6356-5b6f-a89c-acd21c95d1e9",
+      "name": "Items need review?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1490,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Build recap').first().json.review_text}) }}",
+        "options": {}
+      },
+      "id": "901b3b8b-d01a-52d3-b607-8b2a91a75a58",
+      "name": "Ask organizer (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1700,
+        100
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Only when an action item has no owner or no due date.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.mail_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Build recap').first().json.email) }}",
+        "options": {}
+      },
+      "id": "87c1aa8c-c667-551c-a8c0-3d7c431d0f10",
+      "name": "Send recap e-mail",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1910,
+        200
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Mail API stand-in; swap for the Gmail / SMTP node.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($('Build recap').first().json.response) }}",
+        "options": {}
+      },
+      "id": "6036e3fc-33e8-5ad1-9192-aae7c1b32234",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2120,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Meeting transcript": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Extract notes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract notes": {
+      "main": [
+        [
+          {
+            "node": "Build tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build tasks": {
+      "main": [
+        [
+          {
+            "node": "Append to tasks.csv",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to tasks.csv": {
+      "main": [
+        [
+          {
+            "node": "Save note to CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save note to CRM": {
+      "main": [
+        [
+          {
+            "node": "Build recap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build recap": {
+      "main": [
+        [
+          {
+            "node": "Items need review?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Items need review?": {
+      "main": [
+        [
+          {
+            "node": "Ask organizer (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send recap e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask organizer (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Send recap e-mail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send recap e-mail": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

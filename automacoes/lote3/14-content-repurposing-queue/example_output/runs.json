@@ -1,0 +1,1692 @@
+{
+ "ready_for_approval": [
+  {
+   "path": "content-repurpose",
+   "input": {
+    "title": "Why small teams should automate invoice follow-ups",
+    "url": "https://example.com/blog/invoice-follow-ups",
+    "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+    "tone": "professional",
+    "publish_date": "2026-11-11"
+   },
+   "http": 202,
+   "response": {
+    "content_id": "CT-why-small-teams-should-a",
+    "status": "pending_approval",
+    "scheduled": {
+     "linkedin": "2026-11-12 09:00",
+     "x_thread": "2026-11-13 12:00",
+     "newsletter": "2026-11-13 08:00"
+    }
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Article published",
+    "Config",
+    "Analyze article",
+    "Draft posts",
+    "Brand check",
+    "Flagged?",
+    "Queue for approval",
+    "Respond to caller",
+    "Append to queue",
+    "Notify editor (Telegram)"
+   ],
+   "nodes": {
+    "Article published": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "981",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "981",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production",
+      "queue_file": "./data/queue_14.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "EDITOR_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Analyze article": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "Late payments are the quiet tax on small businesses",
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140
+     }
+    ],
+    "Draft posts": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "Late payments are the quiet tax on small businesses",
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– Late payments are the quiet tax on small businesses\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 Late payments are the quiet tax on small businesses",
+       "3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• Late payments are the quiet tax on small businesses\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 457,
+       "max_tweet": 112,
+       "trimmed": 0
+      }
+     }
+    ],
+    "Brand check": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "Late payments are the quiet tax on small businesses",
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– Late payments are the quiet tax on small businesses\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 Late payments are the quiet tax on small businesses",
+       "3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• Late payments are the quiet tax on small businesses\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 457,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false
+     }
+    ],
+    "Flagged?": [],
+    "Queue for approval": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "Late payments are the quiet tax on small businesses",
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– Late payments are the quiet tax on small businesses\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 Late payments are the quiet tax on small businesses",
+       "3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• Late payments are the quiet tax on small businesses\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 457,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-why-small-teams-should-a",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"457\",\"New article: Why small teams should automate invoice follow-ups What is worth keeping: – Late payments are the quiet tax on small businesses – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days Read the full piece: https://example.com/blog/invoice-follow-ups #Payment #Reminder #Invoices\"\n\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Why small teams should automate invoice follow-ups A thread: (1/5) || 2/5 Late payments are the quiet tax on small businesses || 3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"367\",\"Why small teams should automate invoice follow-ups\"\n",
+      "message": "READY FOR APPROVAL: Why small teams should automate invoice follow-ups\nLinkedIn 2026-11-12 09:00 (457 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-why-small-teams-should-a",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Respond to caller": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "Late payments are the quiet tax on small businesses",
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– Late payments are the quiet tax on small businesses\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 Late payments are the quiet tax on small businesses",
+       "3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• Late payments are the quiet tax on small businesses\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 457,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-why-small-teams-should-a",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"457\",\"New article: Why small teams should automate invoice follow-ups What is worth keeping: – Late payments are the quiet tax on small businesses – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days Read the full piece: https://example.com/blog/invoice-follow-ups #Payment #Reminder #Invoices\"\n\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Why small teams should automate invoice follow-ups A thread: (1/5) || 2/5 Late payments are the quiet tax on small businesses || 3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"367\",\"Why small teams should automate invoice follow-ups\"\n",
+      "message": "READY FOR APPROVAL: Why small teams should automate invoice follow-ups\nLinkedIn 2026-11-12 09:00 (457 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-why-small-teams-should-a",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Append to queue": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "Late payments are the quiet tax on small businesses",
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– Late payments are the quiet tax on small businesses\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 Late payments are the quiet tax on small businesses",
+       "3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• Late payments are the quiet tax on small businesses\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 457,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-why-small-teams-should-a",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"457\",\"New article: Why small teams should automate invoice follow-ups What is worth keeping: – Late payments are the quiet tax on small businesses – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days Read the full piece: https://example.com/blog/invoice-follow-ups #Payment #Reminder #Invoices\"\n\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Why small teams should automate invoice follow-ups A thread: (1/5) || 2/5 Late payments are the quiet tax on small businesses || 3/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 4/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:36.967Z\",\"CT-why-small-teams-should-a\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"367\",\"Why small teams should automate invoice follow-ups\"\n",
+      "message": "READY FOR APPROVAL: Why small teams should automate invoice follow-ups\nLinkedIn 2026-11-12 09:00 (457 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-why-small-teams-should-a",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      },
+      "fileName": "./data/queue_14.csv"
+     }
+    ],
+    "Notify editor (Telegram)": [
+     {
+      "ok": true,
+      "id": 56
+     }
+    ]
+   }
+  }
+ ],
+ "friendly_portuguese": [
+  {
+   "path": "content-repurpose",
+   "input": {
+    "title": "Por que pequenas empresas devem automatizar a cobrança",
+    "url": "https://example.com/blog/cobranca-automatica",
+    "article": "Atraso de pagamento é o imposto silencioso das pequenas empresas. Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa. Quase todo esse tempo vai para as mesmas três tarefas: descobrir quem deve o quê, escrever um lembrete educado e conferir se o pagamento chegou. Automatizar esses passos não exige um sistema grande. Um fluxo agendado lê a planilha de faturas toda manhã, marca o que está há sete dias vencido e envia um lembrete curto com o link de pagamento. Testamos com 40 faturas em dois meses e o prazo médio de pagamento caiu de 21 para 14 dias. Os lembretes continuam humanos de propósito: curtos, específicos e assinados por uma pessoa de verdade. Comece com um lembrete aos sete dias, meça o resultado e só depois acrescente um segundo aos quinze dias.",
+    "tone": "friendly",
+    "publish_date": "2026-11-11"
+   },
+   "http": 202,
+   "response": {
+    "content_id": "CT-por-que-pequenas-empresa",
+    "status": "pending_approval",
+    "scheduled": {
+     "linkedin": "2026-11-12 09:00",
+     "x_thread": "2026-11-13 12:00",
+     "newsletter": "2026-11-13 08:00"
+    }
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Article published",
+    "Config",
+    "Analyze article",
+    "Draft posts",
+    "Brand check",
+    "Flagged?",
+    "Queue for approval",
+    "Respond to caller",
+    "Append to queue",
+    "Notify editor (Telegram)"
+   ],
+   "nodes": {
+    "Article published": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "1096",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Por que pequenas empresas devem automatizar a cobrança",
+       "url": "https://example.com/blog/cobranca-automatica",
+       "article": "Atraso de pagamento é o imposto silencioso das pequenas empresas. Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa. Quase todo esse tempo vai para as mesmas três tarefas: descobrir quem deve o quê, escrever um lembrete educado e conferir se o pagamento chegou. Automatizar esses passos não exige um sistema grande. Um fluxo agendado lê a planilha de faturas toda manhã, marca o que está há sete dias vencido e envia um lembrete curto com o link de pagamento. Testamos com 40 faturas em dois meses e o prazo médio de pagamento caiu de 21 para 14 dias. Os lembretes continuam humanos de propósito: curtos, específicos e assinados por uma pessoa de verdade. Comece com um lembrete aos sete dias, meça o resultado e só depois acrescente um segundo aos quinze dias.",
+       "tone": "friendly",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "1096",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Por que pequenas empresas devem automatizar a cobrança",
+       "url": "https://example.com/blog/cobranca-automatica",
+       "article": "Atraso de pagamento é o imposto silencioso das pequenas empresas. Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa. Quase todo esse tempo vai para as mesmas três tarefas: descobrir quem deve o quê, escrever um lembrete educado e conferir se o pagamento chegou. Automatizar esses passos não exige um sistema grande. Um fluxo agendado lê a planilha de faturas toda manhã, marca o que está há sete dias vencido e envia um lembrete curto com o link de pagamento. Testamos com 40 faturas em dois meses e o prazo médio de pagamento caiu de 21 para 14 dias. Os lembretes continuam humanos de propósito: curtos, específicos e assinados por uma pessoa de verdade. Comece com um lembrete aos sete dias, meça o resultado e só depois acrescente um segundo aos quinze dias.",
+       "tone": "friendly",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production",
+      "queue_file": "./data/queue_14.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "EDITOR_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Analyze article": [
+     {
+      "title": "Por que pequenas empresas devem automatizar a cobrança",
+      "url": "https://example.com/blog/cobranca-automatica",
+      "tone": "friendly",
+      "publish_date": "2026-11-11",
+      "lang": "pt",
+      "points": [
+       "Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "Automatizar esses passos não exige um sistema grande"
+      ],
+      "keywords": [
+       "pagamento",
+       "faturas",
+       "lembrete"
+      ],
+      "words": 145
+     }
+    ],
+    "Draft posts": [
+     {
+      "title": "Por que pequenas empresas devem automatizar a cobrança",
+      "url": "https://example.com/blog/cobranca-automatica",
+      "tone": "friendly",
+      "publish_date": "2026-11-11",
+      "lang": "pt",
+      "points": [
+       "Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "Automatizar esses passos não exige um sistema grande"
+      ],
+      "keywords": [
+       "pagamento",
+       "faturas",
+       "lembrete"
+      ],
+      "words": 145,
+      "linkedin": "Saiu do forno: Por que pequenas empresas devem automatizar a cobrança\n\nO que vale guardar:\n– Atraso de pagamento é o imposto silencioso das pequenas empresas\n– Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n– Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica\n\n#Pagamento #Faturas #Lembrete",
+      "thread": [
+       "Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5)",
+       "2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "4/5 Automatizar esses passos não exige um sistema grande",
+       "Texto completo: https://example.com/blog/cobranca-automatica (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Por que pequenas empresas devem automatizar a cobrança",
+       "body": "Olá! Esta semana no blog:\n\n• Atraso de pagamento é o imposto silencioso das pequenas empresas\n• Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n• Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica"
+      },
+      "limits": {
+       "linkedin_chars": 425,
+       "max_tweet": 121,
+       "trimmed": 0
+      }
+     }
+    ],
+    "Brand check": [
+     {
+      "title": "Por que pequenas empresas devem automatizar a cobrança",
+      "url": "https://example.com/blog/cobranca-automatica",
+      "tone": "friendly",
+      "publish_date": "2026-11-11",
+      "lang": "pt",
+      "points": [
+       "Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "Automatizar esses passos não exige um sistema grande"
+      ],
+      "keywords": [
+       "pagamento",
+       "faturas",
+       "lembrete"
+      ],
+      "words": 145,
+      "linkedin": "Saiu do forno: Por que pequenas empresas devem automatizar a cobrança\n\nO que vale guardar:\n– Atraso de pagamento é o imposto silencioso das pequenas empresas\n– Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n– Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica\n\n#Pagamento #Faturas #Lembrete",
+      "thread": [
+       "Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5)",
+       "2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "4/5 Automatizar esses passos não exige um sistema grande",
+       "Texto completo: https://example.com/blog/cobranca-automatica (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Por que pequenas empresas devem automatizar a cobrança",
+       "body": "Olá! Esta semana no blog:\n\n• Atraso de pagamento é o imposto silencioso das pequenas empresas\n• Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n• Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica"
+      },
+      "limits": {
+       "linkedin_chars": 425,
+       "max_tweet": 121,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false
+     }
+    ],
+    "Flagged?": [],
+    "Queue for approval": [
+     {
+      "title": "Por que pequenas empresas devem automatizar a cobrança",
+      "url": "https://example.com/blog/cobranca-automatica",
+      "tone": "friendly",
+      "publish_date": "2026-11-11",
+      "lang": "pt",
+      "points": [
+       "Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "Automatizar esses passos não exige um sistema grande"
+      ],
+      "keywords": [
+       "pagamento",
+       "faturas",
+       "lembrete"
+      ],
+      "words": 145,
+      "linkedin": "Saiu do forno: Por que pequenas empresas devem automatizar a cobrança\n\nO que vale guardar:\n– Atraso de pagamento é o imposto silencioso das pequenas empresas\n– Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n– Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica\n\n#Pagamento #Faturas #Lembrete",
+      "thread": [
+       "Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5)",
+       "2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "4/5 Automatizar esses passos não exige um sistema grande",
+       "Texto completo: https://example.com/blog/cobranca-automatica (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Por que pequenas empresas devem automatizar a cobrança",
+       "body": "Olá! Esta semana no blog:\n\n• Atraso de pagamento é o imposto silencioso das pequenas empresas\n• Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n• Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica"
+      },
+      "limits": {
+       "linkedin_chars": 425,
+       "max_tweet": 121,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-por-que-pequenas-empresa",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"425\",\"Saiu do forno: Por que pequenas empresas devem automatizar a cobrança O que vale guardar: – Atraso de pagamento é o imposto silencioso das pequenas empresas – Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa – Automatizar esses passos não exige um sistema grande Texto completo: https://example.com/blog/cobranca-automatica #Pagamento #Faturas #Lembrete\"\n\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5) || 2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas || 3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa || 4/5 Automatizar esses passos não exige um sistema grande || Texto completo: https://example.com/blog/cobranca-automatica (5/5)\"\n\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"330\",\"Por que pequenas empresas devem automatizar a cobrança\"\n",
+      "message": "READY FOR APPROVAL: Por que pequenas empresas devem automatizar a cobrança\nLinkedIn 2026-11-12 09:00 (425 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-por-que-pequenas-empresa",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Respond to caller": [
+     {
+      "title": "Por que pequenas empresas devem automatizar a cobrança",
+      "url": "https://example.com/blog/cobranca-automatica",
+      "tone": "friendly",
+      "publish_date": "2026-11-11",
+      "lang": "pt",
+      "points": [
+       "Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "Automatizar esses passos não exige um sistema grande"
+      ],
+      "keywords": [
+       "pagamento",
+       "faturas",
+       "lembrete"
+      ],
+      "words": 145,
+      "linkedin": "Saiu do forno: Por que pequenas empresas devem automatizar a cobrança\n\nO que vale guardar:\n– Atraso de pagamento é o imposto silencioso das pequenas empresas\n– Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n– Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica\n\n#Pagamento #Faturas #Lembrete",
+      "thread": [
+       "Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5)",
+       "2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "4/5 Automatizar esses passos não exige um sistema grande",
+       "Texto completo: https://example.com/blog/cobranca-automatica (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Por que pequenas empresas devem automatizar a cobrança",
+       "body": "Olá! Esta semana no blog:\n\n• Atraso de pagamento é o imposto silencioso das pequenas empresas\n• Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n• Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica"
+      },
+      "limits": {
+       "linkedin_chars": 425,
+       "max_tweet": 121,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-por-que-pequenas-empresa",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"425\",\"Saiu do forno: Por que pequenas empresas devem automatizar a cobrança O que vale guardar: – Atraso de pagamento é o imposto silencioso das pequenas empresas – Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa – Automatizar esses passos não exige um sistema grande Texto completo: https://example.com/blog/cobranca-automatica #Pagamento #Faturas #Lembrete\"\n\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5) || 2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas || 3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa || 4/5 Automatizar esses passos não exige um sistema grande || Texto completo: https://example.com/blog/cobranca-automatica (5/5)\"\n\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"330\",\"Por que pequenas empresas devem automatizar a cobrança\"\n",
+      "message": "READY FOR APPROVAL: Por que pequenas empresas devem automatizar a cobrança\nLinkedIn 2026-11-12 09:00 (425 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-por-que-pequenas-empresa",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Append to queue": [
+     {
+      "title": "Por que pequenas empresas devem automatizar a cobrança",
+      "url": "https://example.com/blog/cobranca-automatica",
+      "tone": "friendly",
+      "publish_date": "2026-11-11",
+      "lang": "pt",
+      "points": [
+       "Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "Automatizar esses passos não exige um sistema grande"
+      ],
+      "keywords": [
+       "pagamento",
+       "faturas",
+       "lembrete"
+      ],
+      "words": 145,
+      "linkedin": "Saiu do forno: Por que pequenas empresas devem automatizar a cobrança\n\nO que vale guardar:\n– Atraso de pagamento é o imposto silencioso das pequenas empresas\n– Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n– Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica\n\n#Pagamento #Faturas #Lembrete",
+      "thread": [
+       "Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5)",
+       "2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas",
+       "3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa",
+       "4/5 Automatizar esses passos não exige um sistema grande",
+       "Texto completo: https://example.com/blog/cobranca-automatica (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Por que pequenas empresas devem automatizar a cobrança",
+       "body": "Olá! Esta semana no blog:\n\n• Atraso de pagamento é o imposto silencioso das pequenas empresas\n• Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa\n• Automatizar esses passos não exige um sistema grande\n\nTexto completo: https://example.com/blog/cobranca-automatica"
+      },
+      "limits": {
+       "linkedin_chars": 425,
+       "max_tweet": 121,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-por-que-pequenas-empresa",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"425\",\"Saiu do forno: Por que pequenas empresas devem automatizar a cobrança O que vale guardar: – Atraso de pagamento é o imposto silencioso das pequenas empresas – Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa – Automatizar esses passos não exige um sistema grande Texto completo: https://example.com/blog/cobranca-automatica #Pagamento #Faturas #Lembrete\"\n\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Por que pequenas empresas devem automatizar a cobrança Um fio: (1/5) || 2/5 Atraso de pagamento é o imposto silencioso das pequenas empresas || 3/5 Uma pesquisa com 1.200 autônomos mostrou que cobrar faturas em aberto consome cerca de 4 horas por mês de cada pessoa || 4/5 Automatizar esses passos não exige um sistema grande || Texto completo: https://example.com/blog/cobranca-automatica (5/5)\"\n\"2026-11-11T15:55:38.982Z\",\"CT-por-que-pequenas-empresa\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"330\",\"Por que pequenas empresas devem automatizar a cobrança\"\n",
+      "message": "READY FOR APPROVAL: Por que pequenas empresas devem automatizar a cobrança\nLinkedIn 2026-11-12 09:00 (425 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-por-que-pequenas-empresa",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      },
+      "fileName": "./data/queue_14.csv"
+     }
+    ],
+    "Notify editor (Telegram)": [
+     {
+      "ok": true,
+      "id": 57
+     }
+    ]
+   }
+  }
+ ],
+ "flagged_claims_held": [
+  {
+   "path": "content-repurpose",
+   "input": {
+    "title": "Why small teams should automate invoice follow-ups",
+    "url": "https://example.com/blog/invoice-follow-ups",
+    "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days. This method is guaranteed to work, with 100% of invoices paid on time.",
+    "tone": "professional",
+    "publish_date": "2026-11-11"
+   },
+   "http": 200,
+   "response": {
+    "content_id": "CT-why-small-teams-should-a",
+    "status": "needs_edit",
+    "scheduled": {
+     "linkedin": "2026-11-12 09:00",
+     "x_thread": "2026-11-13 12:00",
+     "newsletter": "2026-11-13 08:00"
+    }
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Article published",
+    "Config",
+    "Analyze article",
+    "Draft posts",
+    "Brand check",
+    "Flagged?",
+    "Hold for edit",
+    "Respond to caller",
+    "Append to queue",
+    "Notify editor (Telegram)"
+   ],
+   "nodes": {
+    "Article published": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "1052",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days. This method is guaranteed to work, with 100% of invoices paid on time.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "1052",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days. This method is guaranteed to work, with 100% of invoices paid on time.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production",
+      "queue_file": "./data/queue_14.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "EDITOR_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Analyze article": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153
+     }
+    ],
+    "Draft posts": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Invoices #Payment #Reminder",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 This method is guaranteed to work, with 100% of invoices paid on time",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 475,
+       "max_tweet": 112,
+       "trimmed": 0
+      }
+     }
+    ],
+    "Brand check": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Invoices #Payment #Reminder",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 This method is guaranteed to work, with 100% of invoices paid on time",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 475,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [
+       "guaranteed",
+       "100%"
+      ],
+      "flagged": true
+     }
+    ],
+    "Flagged?": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Invoices #Payment #Reminder",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 This method is guaranteed to work, with 100% of invoices paid on time",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 475,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [
+       "guaranteed",
+       "100%"
+      ],
+      "flagged": true
+     }
+    ],
+    "Hold for edit": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Invoices #Payment #Reminder",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 This method is guaranteed to work, with 100% of invoices paid on time",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 475,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [
+       "guaranteed",
+       "100%"
+      ],
+      "flagged": true,
+      "content_id": "CT-why-small-teams-should-a",
+      "status": "needs_edit",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"linkedin\",\"2026-11-12 09:00\",\"needs_edit\",\"475\",\"New article: Why small teams should automate invoice follow-ups What is worth keeping: – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days – This method is guaranteed to work, with 100% of invoices paid on time Read the full piece: https://example.com/blog/invoice-follow-ups #Invoices #Payment #Reminder\"\n\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"x_thread\",\"2026-11-13 12:00\",\"needs_edit\",\"5 posts\",\"Why small teams should automate invoice follow-ups A thread: (1/5) || 2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || 4/5 This method is guaranteed to work, with 100% of invoices paid on time || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"newsletter\",\"2026-11-13 08:00\",\"needs_edit\",\"385\",\"Why small teams should automate invoice follow-ups\"\n",
+      "message": "HELD FOR EDIT: Why small teams should automate invoice follow-ups\nLinkedIn 2026-11-12 09:00 (475 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00\nFlagged: guaranteed, 100%",
+      "http_status": 200,
+      "response": {
+       "content_id": "CT-why-small-teams-should-a",
+       "status": "needs_edit",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Respond to caller": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Invoices #Payment #Reminder",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 This method is guaranteed to work, with 100% of invoices paid on time",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 475,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [
+       "guaranteed",
+       "100%"
+      ],
+      "flagged": true,
+      "content_id": "CT-why-small-teams-should-a",
+      "status": "needs_edit",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"linkedin\",\"2026-11-12 09:00\",\"needs_edit\",\"475\",\"New article: Why small teams should automate invoice follow-ups What is worth keeping: – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days – This method is guaranteed to work, with 100% of invoices paid on time Read the full piece: https://example.com/blog/invoice-follow-ups #Invoices #Payment #Reminder\"\n\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"x_thread\",\"2026-11-13 12:00\",\"needs_edit\",\"5 posts\",\"Why small teams should automate invoice follow-ups A thread: (1/5) || 2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || 4/5 This method is guaranteed to work, with 100% of invoices paid on time || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"newsletter\",\"2026-11-13 08:00\",\"needs_edit\",\"385\",\"Why small teams should automate invoice follow-ups\"\n",
+      "message": "HELD FOR EDIT: Why small teams should automate invoice follow-ups\nLinkedIn 2026-11-12 09:00 (475 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00\nFlagged: guaranteed, 100%",
+      "http_status": 200,
+      "response": {
+       "content_id": "CT-why-small-teams-should-a",
+       "status": "needs_edit",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Append to queue": [
+     {
+      "title": "Why small teams should automate invoice follow-ups",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "This method is guaranteed to work, with 100% of invoices paid on time"
+      ],
+      "keywords": [
+       "invoices",
+       "payment",
+       "reminder"
+      ],
+      "words": 153,
+      "linkedin": "New article: Why small teams should automate invoice follow-ups\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Invoices #Payment #Reminder",
+      "thread": [
+       "Why small teams should automate invoice follow-ups A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 This method is guaranteed to work, with 100% of invoices paid on time",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Why small teams should automate invoice follow-ups",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• This method is guaranteed to work, with 100% of invoices paid on time\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 475,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [
+       "guaranteed",
+       "100%"
+      ],
+      "flagged": true,
+      "content_id": "CT-why-small-teams-should-a",
+      "status": "needs_edit",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"linkedin\",\"2026-11-12 09:00\",\"needs_edit\",\"475\",\"New article: Why small teams should automate invoice follow-ups What is worth keeping: – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days – This method is guaranteed to work, with 100% of invoices paid on time Read the full piece: https://example.com/blog/invoice-follow-ups #Invoices #Payment #Reminder\"\n\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"x_thread\",\"2026-11-13 12:00\",\"needs_edit\",\"5 posts\",\"Why small teams should automate invoice follow-ups A thread: (1/5) || 2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || 4/5 This method is guaranteed to work, with 100% of invoices paid on time || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:40.985Z\",\"CT-why-small-teams-should-a\",\"newsletter\",\"2026-11-13 08:00\",\"needs_edit\",\"385\",\"Why small teams should automate invoice follow-ups\"\n",
+      "message": "HELD FOR EDIT: Why small teams should automate invoice follow-ups\nLinkedIn 2026-11-12 09:00 (475 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00\nFlagged: guaranteed, 100%",
+      "http_status": 200,
+      "response": {
+       "content_id": "CT-why-small-teams-should-a",
+       "status": "needs_edit",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      },
+      "fileName": "./data/queue_14.csv"
+     }
+    ],
+    "Notify editor (Telegram)": [
+     {
+      "ok": true,
+      "id": 58
+     }
+    ]
+   }
+  }
+ ],
+ "telegram_down": [
+  {
+   "path": "content-repurpose",
+   "input": {
+    "title": "Invoice follow-ups: the seven-day rule",
+    "url": "https://example.com/blog/invoice-follow-ups",
+    "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+    "tone": "professional",
+    "publish_date": "2026-11-11"
+   },
+   "http": 202,
+   "response": {
+    "content_id": "CT-invoice-follow-ups-the-s",
+    "status": "pending_approval",
+    "scheduled": {
+     "linkedin": "2026-11-12 09:00",
+     "x_thread": "2026-11-13 12:00",
+     "newsletter": "2026-11-13 08:00"
+    }
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Article published",
+    "Config",
+    "Analyze article",
+    "Draft posts",
+    "Brand check",
+    "Flagged?",
+    "Queue for approval",
+    "Respond to caller",
+    "Append to queue",
+    "Notify editor (Telegram)"
+   ],
+   "nodes": {
+    "Article published": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "969",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Invoice follow-ups: the seven-day rule",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "969",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Invoice follow-ups: the seven-day rule",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production",
+      "queue_file": "./data/queue_14.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "EDITOR_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Analyze article": [
+     {
+      "title": "Invoice follow-ups: the seven-day rule",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140
+     }
+    ],
+    "Draft posts": [
+     {
+      "title": "Invoice follow-ups: the seven-day rule",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Invoice follow-ups: the seven-day rule\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Invoice follow-ups: the seven-day rule A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Invoice follow-ups: the seven-day rule",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 499,
+       "max_tweet": 112,
+       "trimmed": 0
+      }
+     }
+    ],
+    "Brand check": [
+     {
+      "title": "Invoice follow-ups: the seven-day rule",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Invoice follow-ups: the seven-day rule\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Invoice follow-ups: the seven-day rule A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Invoice follow-ups: the seven-day rule",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 499,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false
+     }
+    ],
+    "Flagged?": [],
+    "Queue for approval": [
+     {
+      "title": "Invoice follow-ups: the seven-day rule",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Invoice follow-ups: the seven-day rule\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Invoice follow-ups: the seven-day rule A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Invoice follow-ups: the seven-day rule",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 499,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-invoice-follow-ups-the-s",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"499\",\"New article: Invoice follow-ups: the seven-day rule What is worth keeping: – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days – Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days Read the full piece: https://example.com/blog/invoice-follow-ups #Payment #Reminder #Invoices\"\n\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Invoice follow-ups: the seven-day rule A thread: (1/5) || 2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || 4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"421\",\"Invoice follow-ups: the seven-day rule\"\n",
+      "message": "READY FOR APPROVAL: Invoice follow-ups: the seven-day rule\nLinkedIn 2026-11-12 09:00 (499 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-invoice-follow-ups-the-s",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Respond to caller": [
+     {
+      "title": "Invoice follow-ups: the seven-day rule",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Invoice follow-ups: the seven-day rule\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Invoice follow-ups: the seven-day rule A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Invoice follow-ups: the seven-day rule",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 499,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-invoice-follow-ups-the-s",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"499\",\"New article: Invoice follow-ups: the seven-day rule What is worth keeping: – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days – Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days Read the full piece: https://example.com/blog/invoice-follow-ups #Payment #Reminder #Invoices\"\n\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Invoice follow-ups: the seven-day rule A thread: (1/5) || 2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || 4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"421\",\"Invoice follow-ups: the seven-day rule\"\n",
+      "message": "READY FOR APPROVAL: Invoice follow-ups: the seven-day rule\nLinkedIn 2026-11-12 09:00 (499 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-invoice-follow-ups-the-s",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      }
+     }
+    ],
+    "Append to queue": [
+     {
+      "title": "Invoice follow-ups: the seven-day rule",
+      "url": "https://example.com/blog/invoice-follow-ups",
+      "tone": "professional",
+      "publish_date": "2026-11-11",
+      "lang": "en",
+      "points": [
+       "A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days"
+      ],
+      "keywords": [
+       "payment",
+       "reminder",
+       "invoices"
+      ],
+      "words": 140,
+      "linkedin": "New article: Invoice follow-ups: the seven-day rule\n\nWhat is worth keeping:\n– A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n– We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n– Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups\n\n#Payment #Reminder #Invoices",
+      "thread": [
+       "Invoice follow-ups: the seven-day rule A thread: (1/5)",
+       "2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person",
+       "3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days",
+       "4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days",
+       "Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)"
+      ],
+      "newsletter": {
+       "subject": "Invoice follow-ups: the seven-day rule",
+       "body": "Hi! This week on the blog:\n\n• A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person\n• We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days\n• Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days\n\nRead the full piece: https://example.com/blog/invoice-follow-ups"
+      },
+      "limits": {
+       "linkedin_chars": 499,
+       "max_tweet": 112,
+       "trimmed": 0
+      },
+      "flags": [],
+      "flagged": false,
+      "content_id": "CT-invoice-follow-ups-the-s",
+      "status": "pending_approval",
+      "sched": {
+       "linkedin": "2026-11-12 09:00",
+       "x_thread": "2026-11-13 12:00",
+       "newsletter": "2026-11-13 08:00"
+      },
+      "csv_line": "\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"linkedin\",\"2026-11-12 09:00\",\"pending_approval\",\"499\",\"New article: Invoice follow-ups: the seven-day rule What is worth keeping: – A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person – We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days – Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days Read the full piece: https://example.com/blog/invoice-follow-ups #Payment #Reminder #Invoices\"\n\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"x_thread\",\"2026-11-13 12:00\",\"pending_approval\",\"5 posts\",\"Invoice follow-ups: the seven-day rule A thread: (1/5) || 2/5 A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person || 3/5 We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days || 4/5 Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days || Read the full piece: https://example.com/blog/invoice-follow-ups (5/5)\"\n\"2026-11-11T15:55:43.017Z\",\"CT-invoice-follow-ups-the-s\",\"newsletter\",\"2026-11-13 08:00\",\"pending_approval\",\"421\",\"Invoice follow-ups: the seven-day rule\"\n",
+      "message": "READY FOR APPROVAL: Invoice follow-ups: the seven-day rule\nLinkedIn 2026-11-12 09:00 (499 chars) | X thread 5 posts 2026-11-13 12:00 | Newsletter 2026-11-13 08:00",
+      "http_status": 202,
+      "response": {
+       "content_id": "CT-invoice-follow-ups-the-s",
+       "status": "pending_approval",
+       "scheduled": {
+        "linkedin": "2026-11-12 09:00",
+        "x_thread": "2026-11-13 12:00",
+        "newsletter": "2026-11-13 08:00"
+       }
+      },
+      "fileName": "./data/queue_14.csv"
+     }
+    ],
+    "Notify editor (Telegram)": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "article_too_short": [
+  {
+   "path": "content-repurpose",
+   "input": {
+    "title": "Why small teams should automate invoice follow-ups",
+    "url": "https://example.com/blog/invoice-follow-ups",
+    "article": "Short note about invoices. Nothing more to say here.",
+    "tone": "professional",
+    "publish_date": "2026-11-11"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Article too short: 52 characters, need at least 400 [line 20]",
+   "order": [
+    "Article published",
+    "Config",
+    "Analyze article"
+   ],
+   "nodes": {
+    "Article published": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "238",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Short note about invoices. Nothing more to say here.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "238",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "https://example.com/blog/invoice-follow-ups",
+       "article": "Short note about invoices. Nothing more to say here.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production",
+      "queue_file": "./data/queue_14.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "EDITOR_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Analyze article": {
+     "__error": "Article too short: 52 characters, need at least 400 [line 20]"
+    }
+   }
+  }
+ ],
+ "bad_url": [
+  {
+   "path": "content-repurpose",
+   "input": {
+    "title": "Why small teams should automate invoice follow-ups",
+    "url": "example.com/post",
+    "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+    "tone": "professional",
+    "publish_date": "2026-11-11"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "url must start with http:// or https:// [line 20]",
+   "order": [
+    "Article published",
+    "Config",
+    "Analyze article"
+   ],
+   "nodes": {
+    "Article published": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "954",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "example.com/post",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "954",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Why small teams should automate invoice follow-ups",
+       "url": "example.com/post",
+       "article": "Late payments are the quiet tax on small businesses. A 2025 survey of 1,200 freelancers found that chasing unpaid invoices takes about 4 hours a month per person. Most of that time goes to the same three tasks: finding who owes what, writing a polite reminder, and checking whether the payment arrived. Automating those steps does not need a big system. A scheduled workflow can read the invoice sheet every morning, flag anything seven days overdue and send a short reminder with the payment link. We tested this on 40 invoices over two months and the average payment time dropped from 21 days to 14 days. The reminders stay human on purpose: short, specific and signed by a real person. Start with one reminder at seven days, measure the result, and only then add a second one at fifteen days.",
+       "tone": "professional",
+       "publish_date": "2026-11-11"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/content-repurpose",
+      "executionMode": "production",
+      "queue_file": "./data/queue_14.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "EDITOR_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Analyze article": {
+     "__error": "url must start with http:// or https:// [line 20]"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,395 @@
+{
+ "title": {
+  "pt": "Triagem de currículos com pontuação e ranking",
+  "en": "Resume screening with scoring and ranking"
+ },
+ "tag": {
+  "pt": "Webhook · pontuação · ranking · rascunhos",
+  "en": "Webhook · scoring · ranking · drafts"
+ },
+ "summary": {
+  "pt": "Cole o texto de um currículo e os requisitos da vaga. O fluxo confere o que é obrigatório e desejável, estima a experiência, calcula uma nota de 0 a 100, posiciona o candidato no ranking, barra duplicados e prepara o rascunho do e-mail. Ninguém é recusado nem convidado sem uma pessoa.",
+  "en": "Paste a resume's text and the job requirements. The flow checks must-haves and nice-to-haves, reads the years of experience, computes a 0 to 100 score, places the candidate in the ranking, blocks duplicates and prepares the e-mail draft. Nobody is rejected or invited without a person."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/cv-screen  (application/json)",
+   "en": "POST /webhook/cv-screen  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: troque as habilidades obrigatórias e veja a nota mudar. Use o currículo fraco (recusa retida), o duplicado (409) e o texto curto demais (erro).",
+   "en": "Tip: change the must-have skills and watch the score move. Try the weak resume (held decline), the duplicate (409) and the too-short text (error)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Forte (EN)",
+     "en": "Strong (EN)"
+    },
+    "values": {
+     "job_title": "Backend Developer",
+     "must_have": "python, sql, rest",
+     "nice_have": "docker, aws, redis",
+     "min_years": 3,
+     "candidate_name": "Lucas Moreira",
+     "email": "lucas.moreira@example.com",
+     "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+    }
+   },
+   {
+    "label": {
+     "pt": "Forte (PT)",
+     "en": "Strong (PT)"
+    },
+    "values": {
+     "job_title": "Backend Developer",
+     "must_have": "python, sql, rest",
+     "nice_have": "docker, aws, redis",
+     "min_years": 3,
+     "candidate_name": "Fernanda Alves",
+     "email": "fernanda.alves@example.com",
+     "cv_text": "Fernanda Alves. Desenvolvedora backend com 6 anos de experiência em Python e SQL, criando APIs REST para operações de logística. Reduzi o tempo de resposta das consultas em 45 por cento e implantei serviços com Docker na AWS. Graduação em Ciência da Computação. Mentora de duas pessoas júnior e responsável pela revisão de código do time."
+    }
+   },
+   {
+    "label": {
+     "pt": "No limite",
+     "en": "Borderline"
+    },
+    "values": {
+     "job_title": "Backend Developer",
+     "must_have": "python, sql, rest",
+     "nice_have": "docker, aws, redis",
+     "min_years": 3,
+     "candidate_name": "Priscila Santos",
+     "email": "priscila.santos@example.com",
+     "cv_text": "Priscila Santos. Software developer with 2 years of experience maintaining Python scripts and SQL reports for an internal finance team. Comfortable with Docker for local development. Built small Flask endpoints for internal tools and wrote documentation for the team. Bachelor degree in Information Systems. Looking to grow into backend engineering and learn proper API design in depth."
+    }
+   },
+   {
+    "label": {
+     "pt": "Fraco",
+     "en": "Weak"
+    },
+    "values": {
+     "job_title": "Backend Developer",
+     "must_have": "python, sql, rest",
+     "nice_have": "docker, aws, redis",
+     "min_years": 3,
+     "candidate_name": "Marcos Teixeira",
+     "email": "marcos.teixeira@example.com",
+     "cv_text": "Marcos Teixeira. Marketing manager with 8 years of experience in brand campaigns, social media and events. Managed budgets of 200 thousand dollars, coordinated agencies and launched three product lines. Strong in Excel and presentations. Bachelor degree in Business Administration. Interested in a career change into technology after completing an online course."
+    }
+   },
+   {
+    "label": {
+     "pt": "Já avaliado",
+     "en": "Already screened"
+    },
+    "values": {
+     "job_title": "Backend Developer",
+     "must_have": "python, sql, rest",
+     "nice_have": "docker, aws, redis",
+     "min_years": 3,
+     "candidate_name": "Rafael Torres",
+     "email": "rafael.torres@example.com",
+     "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+    }
+   },
+   {
+    "label": {
+     "pt": "Texto curto demais",
+     "en": "Too-short text"
+    },
+    "values": {
+     "job_title": "Backend Developer",
+     "must_have": "python, sql, rest",
+     "nice_have": "docker, aws, redis",
+     "min_years": 3,
+     "candidate_name": "Ivo Prado",
+     "email": "ivo.prado@example.com",
+     "cv_text": "Resume attached as image."
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "job_title",
+    "type": "text",
+    "value": "Backend Developer",
+    "label": {
+     "pt": "Vaga",
+     "en": "Job title"
+    }
+   },
+   {
+    "key": "must_have",
+    "type": "text",
+    "value": "python, sql, rest",
+    "label": {
+     "pt": "Obrigatórias (separadas por vírgula)",
+     "en": "Must-have skills (comma-separated)"
+    }
+   },
+   {
+    "key": "nice_have",
+    "type": "text",
+    "value": "docker, aws, redis",
+    "label": {
+     "pt": "Desejáveis",
+     "en": "Nice-to-have skills"
+    }
+   },
+   {
+    "key": "min_years",
+    "type": "text",
+    "value": "3",
+    "label": {
+     "pt": "Anos mínimos de experiência",
+     "en": "Minimum years of experience"
+    }
+   },
+   {
+    "key": "candidate_name",
+    "type": "text",
+    "value": "Lucas Moreira",
+    "label": {
+     "pt": "Candidato",
+     "en": "Candidate"
+    }
+   },
+   {
+    "key": "email",
+    "type": "text",
+    "value": "lucas.moreira@example.com",
+    "label": "E-mail"
+   },
+   {
+    "key": "cv_text",
+    "type": "textarea",
+    "value": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups.",
+    "label": {
+     "pt": "Texto do currículo",
+     "en": "Resume text"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "CV received",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · ranking e Telegram",
+    "en": "Set · ranking and Telegram"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Read ranking",
+   "icon": "file",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · read",
+    "en": "Read/Write Files · read"
+   }
+  },
+  {
+   "id": "score",
+   "name": "Score CV",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · nota e duplicado",
+    "en": "Code · score and duplicate"
+   }
+  },
+  {
+   "id": "dup",
+   "name": "Duplicate?",
+   "icon": "if",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "IF · já avaliado",
+    "en": "IF · already screened"
+   }
+  },
+  {
+   "id": "build",
+   "name": "Build outputs",
+   "icon": "code",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "Code · rascunho e alerta",
+    "en": "Code · draft and alert"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to ranking",
+   "icon": "sheet",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "short",
+   "name": "Shortlist?",
+   "icon": "if",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "IF · decisão",
+    "en": "IF · decision"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Notify recruiter (Telegram)",
+   "icon": "bell",
+   "col": 8,
+   "row": 2,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  },
+  {
+   "id": "resp",
+   "name": "Build response",
+   "icon": "code",
+   "col": 9,
+   "row": 1,
+   "sub": {
+    "pt": "Code · sent ou queued",
+    "en": "Code · sent or queued"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond",
+   "icon": "respond",
+   "col": 10,
+   "row": 0,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "read"
+  },
+  {
+   "from": "read",
+   "to": "score"
+  },
+  {
+   "from": "score",
+   "to": "dup"
+  },
+  {
+   "from": "dup",
+   "to": "respond",
+   "when": "true"
+  },
+  {
+   "from": "dup",
+   "to": "build",
+   "when": "false"
+  },
+  {
+   "from": "build",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "short"
+  },
+  {
+   "from": "short",
+   "to": "notify",
+   "when": "true"
+  },
+  {
+   "from": "short",
+   "to": "resp",
+   "when": "false"
+  },
+  {
+   "from": "notify",
+   "to": "resp"
+  },
+  {
+   "from": "resp",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "notify",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ECONNREFUSED: api.telegram.org fora do ar (simulado)",
+   "en": "ECONNREFUSED: api.telegram.org unreachable (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Uma vaga aberta pode receber 100 currículos e a primeira leitura é sempre a mesma: procurar as habilidades obrigatórias, ver quantos anos de experiência, descartar o que não serve. Cansa, é inconsistente entre pessoas e os bons candidatos esperam dias.",
+   "en": "One open job can get 100 resumes and the first read is always the same: look for the must-have skills, check the years of experience, discard what does not fit. It is tiring, inconsistent between people, and good candidates wait days."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe o texto do currículo e os requisitos da vaga, procura cada habilidade obrigatória e desejável, lê os anos de experiência, calcula a nota (60 obrigatórias, 15 desejáveis, 20 experiência, 5 formação), coloca o candidato no ranking da vaga e barra o mesmo e-mail duas vezes. Quem passa de 75 sem faltar nenhuma obrigatória é pré-selecionado e o recrutador recebe um alerta; a recusa fica retida para uma pessoa enviar.",
+   "en": "An n8n workflow receives the resume text and the job requirements, looks for each must-have and nice-to-have skill, reads the years of experience, computes the score (60 must-haves, 15 nice-to-haves, 20 experience, 5 education), places the candidate in the job's ranking and blocks the same e-mail twice. Anyone above 75 with no must-have missing is shortlisted and the recruiter gets an alert; the decline stays held for a person to send."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~100 currículos por vaga x ~2 min para a primeira leitura = cerca de 3 h por vaga devolvidas ao recrutador, com o mesmo critério para todos. Dados fictícios. A nota organiza a fila; não substitui a leitura de quem decide.",
+   "en": "An estimate, not a measurement: ~100 resumes per job x ~2 min for the first read = about 3 h per job handed back to the recruiter, with the same criteria for everyone. Fictional data. The score orders the queue; it does not replace the reading by whoever decides."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "IF",
+   "Read/Write Files",
+   "HTTP Request",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "A nota é por regras e palavras-chave: só acha a habilidade se ela estiver escrita (sinônimos como 'Postgres' para SQL não contam), e o regex de anos pode errar em currículos muito livres, por isso a nota é só um filtro de primeira leitura e a recusa nunca sai sozinha. Um nó de LLM entraria no mesmo lugar para ler contexto. Decisões de contratação exigem cuidado legal e viés; esta demo não usa nome, idade nem foto. O código roda igual no navegador e foi comparado com 9 execuções reais no n8n local. A queda do Telegram é ilustrativa (a execução 'telegram_down' gravada derrubou o serviço de verdade, 3 tentativas).",
+   "en": "The score is rule and keyword based: it only finds a skill if it is written (synonyms such as 'Postgres' for SQL do not count) and the years regex can misread very free-form resumes, so the score is only a first-read filter and a decline never goes out on its own. An LLM node would sit in the same place to read context. Hiring decisions need legal care and bias awareness; this demo uses no name, age or photo in the scoring. The code runs the same in the browser and was compared with 9 real executions on a local n8n. The Telegram outage is illustrative (the recorded 'telegram_down' run did take the service down for real, 3 attempts)."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "17-resume-screening-ranking"
+}

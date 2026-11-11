@@ -1,0 +1,1149 @@
+{
+ "complete_en": [
+  {
+   "path": "meeting-notes",
+   "input": {
+    "title": "Q4 launch sync",
+    "date": "2026-11-11",
+    "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+    "crm_account": "BrightPath Dental",
+    "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+   },
+   "http": 200,
+   "response": {
+    "meeting": "Q4 launch sync",
+    "decisions": 1,
+    "actions": 3,
+    "needs_review": 0,
+    "crm": "saved"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Meeting transcript",
+    "Config",
+    "Extract notes",
+    "Build tasks",
+    "Append to tasks.csv",
+    "Save note to CRM",
+    "Build recap",
+    "Items need review?",
+    "Send recap e-mail",
+    "Respond"
+   ],
+   "nodes": {
+    "Meeting transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "595",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Q4 launch sync",
+       "date": "2026-11-11",
+       "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+       "crm_account": "BrightPath Dental",
+       "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "595",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Q4 launch sync",
+       "date": "2026-11-11",
+       "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+       "crm_account": "BrightPath Dental",
+       "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production",
+      "tasks_file": "./data/tasks_12.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/notes",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "ORGANIZER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Extract notes": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:31.152Z"
+     }
+    ],
+    "Build tasks": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:31.152Z",
+      "csv_line": "\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Update it by Friday\",\"Priya Nair\",\"2026-11-13\",\"open\"\n\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Send the new screenshots to the design team tomorrow\",\"Priya Nair\",\"2026-11-12\",\"open\"\n\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Draft the announcement email by next week\",\"Marco Reyes\",\"2026-11-20\",\"open\"\n",
+      "task_rows": 3
+     }
+    ],
+    "Append to tasks.csv": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:31.152Z",
+      "csv_line": "\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Update it by Friday\",\"Priya Nair\",\"2026-11-13\",\"open\"\n\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Send the new screenshots to the design team tomorrow\",\"Priya Nair\",\"2026-11-12\",\"open\"\n\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Draft the announcement email by next week\",\"Marco Reyes\",\"2026-11-20\",\"open\"\n",
+      "task_rows": 3,
+      "fileName": "./data/tasks_12.csv"
+     }
+    ],
+    "Save note to CRM": [
+     {
+      "ok": true,
+      "id": 15
+     }
+    ],
+    "Build recap": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:31.152Z",
+      "csv_line": "\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Update it by Friday\",\"Priya Nair\",\"2026-11-13\",\"open\"\n\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Send the new screenshots to the design team tomorrow\",\"Priya Nair\",\"2026-11-12\",\"open\"\n\"2026-11-11T15:48:31.152Z\",\"Q4 launch sync\",\"Draft the announcement email by next week\",\"Marco Reyes\",\"2026-11-20\",\"open\"\n",
+      "task_rows": 3,
+      "crm_ok": true,
+      "crm_id": 15,
+      "email": {
+       "to": "Dana Whitfield, Marco Reyes, Priya Nair",
+       "subject": "Recap: Q4 launch sync (2026-11-11)",
+       "text": "Hi all, here is the recap.\n\nSummary\n- We have budget approved at 12000 dollars and the release is set for 2026-12-03\n- Quick sync on the Q4 launch\n- The pricing page still shows the old price\n\nDecisions\n- We decided to go with the annual plan as the default offer\n\nAction items\n- Priya Nair: Update it by Friday (2026-11-13)\n- Priya Nair: Send the new screenshots to the design team tomorrow (2026-11-12)\n- Marco Reyes: Draft the announcement email by next week (2026-11-20)\n\nNote saved to the CRM (#15)."
+      },
+      "review_text": "",
+      "response": {
+       "meeting": "Q4 launch sync",
+       "decisions": 1,
+       "actions": 3,
+       "needs_review": 0,
+       "crm": "saved"
+      }
+     }
+    ],
+    "Items need review?": [],
+    "Send recap e-mail": [
+     {
+      "ok": true,
+      "id": 16
+     }
+    ],
+    "Respond": [
+     {
+      "ok": true,
+      "id": 16
+     }
+    ]
+   }
+  }
+ ],
+ "needs_review_pt": [
+  {
+   "path": "meeting-notes",
+   "input": {
+    "title": "Reunião com cliente: proposta",
+    "date": "2026-11-11",
+    "attendees": "Ana Souza, Bruno Lima, Carla Dias",
+    "crm_account": "Oficina Verde",
+    "transcript": "Ana: Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias.\nBruno: Carla, pode enviar a proposta nova para o cliente?\nCarla: Vou revisar os números do orçamento.\nAna: Decidimos manter o preço de 4800 reais para este cliente.\nBruno: Alguém precisa confirmar a agenda com o cliente."
+   },
+   "http": 200,
+   "response": {
+    "meeting": "Reunião com cliente: proposta",
+    "decisions": 1,
+    "actions": 2,
+    "needs_review": 2,
+    "crm": "saved"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Meeting transcript",
+    "Config",
+    "Extract notes",
+    "Build tasks",
+    "Append to tasks.csv",
+    "Save note to CRM",
+    "Build recap",
+    "Items need review?",
+    "Ask organizer (Telegram)",
+    "Send recap e-mail",
+    "Respond"
+   ],
+   "nodes": {
+    "Meeting transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "506",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Reunião com cliente: proposta",
+       "date": "2026-11-11",
+       "attendees": "Ana Souza, Bruno Lima, Carla Dias",
+       "crm_account": "Oficina Verde",
+       "transcript": "Ana: Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias.\nBruno: Carla, pode enviar a proposta nova para o cliente?\nCarla: Vou revisar os números do orçamento.\nAna: Decidimos manter o preço de 4800 reais para este cliente.\nBruno: Alguém precisa confirmar a agenda com o cliente."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "506",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Reunião com cliente: proposta",
+       "date": "2026-11-11",
+       "attendees": "Ana Souza, Bruno Lima, Carla Dias",
+       "crm_account": "Oficina Verde",
+       "transcript": "Ana: Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias.\nBruno: Carla, pode enviar a proposta nova para o cliente?\nCarla: Vou revisar os números do orçamento.\nAna: Decidimos manter o preço de 4800 reais para este cliente.\nBruno: Alguém precisa confirmar a agenda com o cliente."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production",
+      "tasks_file": "./data/tasks_12.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/notes",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "ORGANIZER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Extract notes": [
+     {
+      "title": "Reunião com cliente: proposta",
+      "date": "2026-11-11",
+      "lang": "pt",
+      "attendees": [
+       "Ana Souza",
+       "Bruno Lima",
+       "Carla Dias"
+      ],
+      "turns": 5,
+      "summary": [
+       "Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias",
+       "Alguém precisa confirmar a agenda com o cliente"
+      ],
+      "decisions": [
+       "Decidimos manter o preço de 4800 reais para este cliente"
+      ],
+      "actions": [
+       {
+        "task": "Enviar a proposta nova para o cliente",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Bruno"
+       },
+       {
+        "task": "Revisar os números do orçamento",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Carla"
+       }
+      ],
+      "needs_review": 2,
+      "review_items": [
+       "Enviar a proposta nova para o cliente (no due date)",
+       "Revisar os números do orçamento (no due date)"
+      ],
+      "crm_account": "Oficina Verde",
+      "ts": "2026-11-11T15:48:33.253Z"
+     }
+    ],
+    "Build tasks": [
+     {
+      "title": "Reunião com cliente: proposta",
+      "date": "2026-11-11",
+      "lang": "pt",
+      "attendees": [
+       "Ana Souza",
+       "Bruno Lima",
+       "Carla Dias"
+      ],
+      "turns": 5,
+      "summary": [
+       "Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias",
+       "Alguém precisa confirmar a agenda com o cliente"
+      ],
+      "decisions": [
+       "Decidimos manter o preço de 4800 reais para este cliente"
+      ],
+      "actions": [
+       {
+        "task": "Enviar a proposta nova para o cliente",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Bruno"
+       },
+       {
+        "task": "Revisar os números do orçamento",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Carla"
+       }
+      ],
+      "needs_review": 2,
+      "review_items": [
+       "Enviar a proposta nova para o cliente (no due date)",
+       "Revisar os números do orçamento (no due date)"
+      ],
+      "crm_account": "Oficina Verde",
+      "ts": "2026-11-11T15:48:33.253Z",
+      "csv_line": "\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Enviar a proposta nova para o cliente\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Revisar os números do orçamento\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n",
+      "task_rows": 2
+     }
+    ],
+    "Append to tasks.csv": [
+     {
+      "title": "Reunião com cliente: proposta",
+      "date": "2026-11-11",
+      "lang": "pt",
+      "attendees": [
+       "Ana Souza",
+       "Bruno Lima",
+       "Carla Dias"
+      ],
+      "turns": 5,
+      "summary": [
+       "Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias",
+       "Alguém precisa confirmar a agenda com o cliente"
+      ],
+      "decisions": [
+       "Decidimos manter o preço de 4800 reais para este cliente"
+      ],
+      "actions": [
+       {
+        "task": "Enviar a proposta nova para o cliente",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Bruno"
+       },
+       {
+        "task": "Revisar os números do orçamento",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Carla"
+       }
+      ],
+      "needs_review": 2,
+      "review_items": [
+       "Enviar a proposta nova para o cliente (no due date)",
+       "Revisar os números do orçamento (no due date)"
+      ],
+      "crm_account": "Oficina Verde",
+      "ts": "2026-11-11T15:48:33.253Z",
+      "csv_line": "\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Enviar a proposta nova para o cliente\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Revisar os números do orçamento\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n",
+      "task_rows": 2,
+      "fileName": "./data/tasks_12.csv"
+     }
+    ],
+    "Save note to CRM": [
+     {
+      "ok": true,
+      "id": 17
+     }
+    ],
+    "Build recap": [
+     {
+      "title": "Reunião com cliente: proposta",
+      "date": "2026-11-11",
+      "lang": "pt",
+      "attendees": [
+       "Ana Souza",
+       "Bruno Lima",
+       "Carla Dias"
+      ],
+      "turns": 5,
+      "summary": [
+       "Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias",
+       "Alguém precisa confirmar a agenda com o cliente"
+      ],
+      "decisions": [
+       "Decidimos manter o preço de 4800 reais para este cliente"
+      ],
+      "actions": [
+       {
+        "task": "Enviar a proposta nova para o cliente",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Bruno"
+       },
+       {
+        "task": "Revisar os números do orçamento",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Carla"
+       }
+      ],
+      "needs_review": 2,
+      "review_items": [
+       "Enviar a proposta nova para o cliente (no due date)",
+       "Revisar os números do orçamento (no due date)"
+      ],
+      "crm_account": "Oficina Verde",
+      "ts": "2026-11-11T15:48:33.253Z",
+      "csv_line": "\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Enviar a proposta nova para o cliente\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Revisar os números do orçamento\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n",
+      "task_rows": 2,
+      "crm_ok": true,
+      "crm_id": 17,
+      "email": {
+       "to": "Ana Souza, Bruno Lima, Carla Dias",
+       "subject": "Resumo: Reunião com cliente: proposta (2026-11-11)",
+       "text": "Olá, segue o resumo da reunião.\n\nResumo\n- Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias\n- Alguém precisa confirmar a agenda com o cliente\n\nDecisões\n- Decidimos manter o preço de 4800 reais para este cliente\n\nAções\n- Carla Dias: Enviar a proposta nova para o cliente (sem prazo)\n- Carla Dias: Revisar os números do orçamento (sem prazo)\n\nNota salva no CRM (#17)."
+      },
+      "review_text": "REVIEW NEEDED: Reunião com cliente: proposta\n- Enviar a proposta nova para o cliente (no due date)\n- Revisar os números do orçamento (no due date)",
+      "response": {
+       "meeting": "Reunião com cliente: proposta",
+       "decisions": 1,
+       "actions": 2,
+       "needs_review": 2,
+       "crm": "saved"
+      }
+     }
+    ],
+    "Items need review?": [
+     {
+      "title": "Reunião com cliente: proposta",
+      "date": "2026-11-11",
+      "lang": "pt",
+      "attendees": [
+       "Ana Souza",
+       "Bruno Lima",
+       "Carla Dias"
+      ],
+      "turns": 5,
+      "summary": [
+       "Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias",
+       "Alguém precisa confirmar a agenda com o cliente"
+      ],
+      "decisions": [
+       "Decidimos manter o preço de 4800 reais para este cliente"
+      ],
+      "actions": [
+       {
+        "task": "Enviar a proposta nova para o cliente",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Bruno"
+       },
+       {
+        "task": "Revisar os números do orçamento",
+        "owner": "Carla Dias",
+        "due": "",
+        "by": "Carla"
+       }
+      ],
+      "needs_review": 2,
+      "review_items": [
+       "Enviar a proposta nova para o cliente (no due date)",
+       "Revisar os números do orçamento (no due date)"
+      ],
+      "crm_account": "Oficina Verde",
+      "ts": "2026-11-11T15:48:33.253Z",
+      "csv_line": "\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Enviar a proposta nova para o cliente\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n\"2026-11-11T15:48:33.253Z\",\"Reunião com cliente: proposta\",\"Revisar os números do orçamento\",\"Carla Dias\",\"NO DATE\",\"needs review\"\n",
+      "task_rows": 2,
+      "crm_ok": true,
+      "crm_id": 17,
+      "email": {
+       "to": "Ana Souza, Bruno Lima, Carla Dias",
+       "subject": "Resumo: Reunião com cliente: proposta (2026-11-11)",
+       "text": "Olá, segue o resumo da reunião.\n\nResumo\n- Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias\n- Alguém precisa confirmar a agenda com o cliente\n\nDecisões\n- Decidimos manter o preço de 4800 reais para este cliente\n\nAções\n- Carla Dias: Enviar a proposta nova para o cliente (sem prazo)\n- Carla Dias: Revisar os números do orçamento (sem prazo)\n\nNota salva no CRM (#17)."
+      },
+      "review_text": "REVIEW NEEDED: Reunião com cliente: proposta\n- Enviar a proposta nova para o cliente (no due date)\n- Revisar os números do orçamento (no due date)",
+      "response": {
+       "meeting": "Reunião com cliente: proposta",
+       "decisions": 1,
+       "actions": 2,
+       "needs_review": 2,
+       "crm": "saved"
+      }
+     }
+    ],
+    "Ask organizer (Telegram)": [
+     {
+      "ok": true,
+      "id": 18
+     }
+    ],
+    "Send recap e-mail": [
+     {
+      "ok": true,
+      "id": 19
+     }
+    ],
+    "Respond": [
+     {
+      "ok": true,
+      "id": 19
+     }
+    ]
+   }
+  }
+ ],
+ "crm_down": [
+  {
+   "path": "meeting-notes",
+   "input": {
+    "title": "Q4 launch sync",
+    "date": "2026-11-11",
+    "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+    "crm_account": "BrightPath Dental",
+    "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+   },
+   "http": 200,
+   "response": {
+    "meeting": "Q4 launch sync",
+    "decisions": 1,
+    "actions": 3,
+    "needs_review": 0,
+    "crm": "queued"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Meeting transcript",
+    "Config",
+    "Extract notes",
+    "Build tasks",
+    "Append to tasks.csv",
+    "Save note to CRM",
+    "Build recap",
+    "Items need review?",
+    "Send recap e-mail",
+    "Respond"
+   ],
+   "nodes": {
+    "Meeting transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "595",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Q4 launch sync",
+       "date": "2026-11-11",
+       "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+       "crm_account": "BrightPath Dental",
+       "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "595",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Q4 launch sync",
+       "date": "2026-11-11",
+       "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+       "crm_account": "BrightPath Dental",
+       "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production",
+      "tasks_file": "./data/tasks_12.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/notes",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "ORGANIZER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Extract notes": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:35.305Z"
+     }
+    ],
+    "Build tasks": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:35.305Z",
+      "csv_line": "\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Update it by Friday\",\"Priya Nair\",\"2026-11-13\",\"open\"\n\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Send the new screenshots to the design team tomorrow\",\"Priya Nair\",\"2026-11-12\",\"open\"\n\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Draft the announcement email by next week\",\"Marco Reyes\",\"2026-11-20\",\"open\"\n",
+      "task_rows": 3
+     }
+    ],
+    "Append to tasks.csv": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:35.305Z",
+      "csv_line": "\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Update it by Friday\",\"Priya Nair\",\"2026-11-13\",\"open\"\n\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Send the new screenshots to the design team tomorrow\",\"Priya Nair\",\"2026-11-12\",\"open\"\n\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Draft the announcement email by next week\",\"Marco Reyes\",\"2026-11-20\",\"open\"\n",
+      "task_rows": 3,
+      "fileName": "./data/tasks_12.csv"
+     }
+    ],
+    "Save note to CRM": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Build recap": [
+     {
+      "title": "Q4 launch sync",
+      "date": "2026-11-11",
+      "lang": "en",
+      "attendees": [
+       "Dana Whitfield",
+       "Marco Reyes",
+       "Priya Nair"
+      ],
+      "turns": 6,
+      "summary": [
+       "We have budget approved at 12000 dollars and the release is set for 2026-12-03",
+       "Quick sync on the Q4 launch",
+       "The pricing page still shows the old price"
+      ],
+      "decisions": [
+       "We decided to go with the annual plan as the default offer"
+      ],
+      "actions": [
+       {
+        "task": "Update it by Friday",
+        "owner": "Priya Nair",
+        "due": "2026-11-13",
+        "by": "Marco"
+       },
+       {
+        "task": "Send the new screenshots to the design team tomorrow",
+        "owner": "Priya Nair",
+        "due": "2026-11-12",
+        "by": "Priya"
+       },
+       {
+        "task": "Draft the announcement email by next week",
+        "owner": "Marco Reyes",
+        "due": "2026-11-20",
+        "by": "Marco"
+       }
+      ],
+      "needs_review": 0,
+      "review_items": [],
+      "crm_account": "BrightPath Dental",
+      "ts": "2026-11-11T15:48:35.305Z",
+      "csv_line": "\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Update it by Friday\",\"Priya Nair\",\"2026-11-13\",\"open\"\n\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Send the new screenshots to the design team tomorrow\",\"Priya Nair\",\"2026-11-12\",\"open\"\n\"2026-11-11T15:48:35.305Z\",\"Q4 launch sync\",\"Draft the announcement email by next week\",\"Marco Reyes\",\"2026-11-20\",\"open\"\n",
+      "task_rows": 3,
+      "crm_ok": false,
+      "crm_id": null,
+      "email": {
+       "to": "Dana Whitfield, Marco Reyes, Priya Nair",
+       "subject": "Recap: Q4 launch sync (2026-11-11)",
+       "text": "Hi all, here is the recap.\n\nSummary\n- We have budget approved at 12000 dollars and the release is set for 2026-12-03\n- Quick sync on the Q4 launch\n- The pricing page still shows the old price\n\nDecisions\n- We decided to go with the annual plan as the default offer\n\nAction items\n- Priya Nair: Update it by Friday (2026-11-13)\n- Priya Nair: Send the new screenshots to the design team tomorrow (2026-11-12)\n- Marco Reyes: Draft the announcement email by next week (2026-11-20)\n\nCRM unavailable: the note was queued for retry."
+      },
+      "review_text": "",
+      "response": {
+       "meeting": "Q4 launch sync",
+       "decisions": 1,
+       "actions": 3,
+       "needs_review": 0,
+       "crm": "queued"
+      }
+     }
+    ],
+    "Items need review?": [],
+    "Send recap e-mail": [
+     {
+      "ok": true,
+      "id": 20
+     }
+    ],
+    "Respond": [
+     {
+      "ok": true,
+      "id": 20
+     }
+    ]
+   }
+  }
+ ],
+ "transcript_too_short": [
+  {
+   "path": "meeting-notes",
+   "input": {
+    "title": "Hallway chat",
+    "date": "2026-11-11",
+    "attendees": "Dana Whitfield, Marco Reyes",
+    "transcript": "Dana: Do we ship Friday?\nMarco: Probably."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Transcript too short: need at least 3 \"Name: text\" lines (got 2) [line 44]",
+   "order": [
+    "Meeting transcript",
+    "Config",
+    "Extract notes"
+   ],
+   "nodes": {
+    "Meeting transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "151",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Hallway chat",
+       "date": "2026-11-11",
+       "attendees": "Dana Whitfield, Marco Reyes",
+       "transcript": "Dana: Do we ship Friday?\nMarco: Probably."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "151",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Hallway chat",
+       "date": "2026-11-11",
+       "attendees": "Dana Whitfield, Marco Reyes",
+       "transcript": "Dana: Do we ship Friday?\nMarco: Probably."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production",
+      "tasks_file": "./data/tasks_12.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/notes",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "ORGANIZER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Extract notes": {
+     "__error": "Transcript too short: need at least 3 \"Name: text\" lines (got 2) [line 44]"
+    }
+   }
+  }
+ ],
+ "no_attendees": [
+  {
+   "path": "meeting-notes",
+   "input": {
+    "title": "Q4 launch sync",
+    "date": "2026-11-11",
+    "attendees": "",
+    "crm_account": "BrightPath Dental",
+    "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "No attendees listed [line 44]",
+   "order": [
+    "Meeting transcript",
+    "Config",
+    "Extract notes"
+   ],
+   "nodes": {
+    "Meeting transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "556",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Q4 launch sync",
+       "date": "2026-11-11",
+       "attendees": "",
+       "crm_account": "BrightPath Dental",
+       "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "556",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "title": "Q4 launch sync",
+       "date": "2026-11-11",
+       "attendees": "",
+       "crm_account": "BrightPath Dental",
+       "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/meeting-notes",
+      "executionMode": "production",
+      "tasks_file": "./data/tasks_12.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/notes",
+      "mail_url": "http://127.0.0.1:8097/mail",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "ORGANIZER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Extract notes": {
+     "__error": "No attendees listed [line 44]"
+    }
+   }
+  }
+ ]
+}

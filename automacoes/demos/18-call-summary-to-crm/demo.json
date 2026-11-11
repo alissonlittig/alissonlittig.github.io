@@ -1,0 +1,358 @@
+{
+ "title": {
+  "pt": "Ligação vira lead no CRM, com fila de cartas mortas se o CRM cair",
+  "en": "Call transcript becomes a CRM lead, with a dead-letter queue if the CRM is down"
+ },
+ "tag": {
+  "pt": "Webhook · extração · CRM · dead letter",
+  "en": "Webhook · extraction · CRM · dead letter"
+ },
+ "summary": {
+  "pt": "Entra a transcrição de uma ligação (de um serviço de voz para texto). O fluxo acha nome, empresa, orçamento, prazo, objeções e o próximo passo prometido, dá uma prioridade e cria o lead no CRM. Se o CRM estiver fora do ar, o lead vai para uma fila de cartas mortas em vez de se perder, e a operação é avisada.",
+  "en": "A call transcript comes in (from a speech-to-text service). The flow finds name, company, budget, timeline, objections and the next step promised, assigns a priority and creates the lead in the CRM. If the CRM is down, the lead goes to a dead-letter queue instead of being lost, and ops is alerted."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/call-summary  (application/json)",
+   "en": "POST /webhook/call-summary  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: rode a ligação em português, o suporte (não vira lead), a curta demais (erro) e escolha 'Simular erro' para derrubar o CRM e ver a carta morta.",
+   "en": "Tip: run the Portuguese call, the support call (not a lead), the too-short one (error) and pick 'Simulate failure' to take the CRM down and see the dead letter."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Lead quente (EN)",
+     "en": "Hot lead (EN)"
+    },
+    "values": {
+     "phone": "+15550142001",
+     "duration_sec": 214,
+     "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+    }
+   },
+   {
+    "label": {
+     "pt": "Lead morno (PT)",
+     "en": "Warm lead (PT)"
+    },
+    "values": {
+     "phone": "+5541999990101",
+     "duration_sec": 187,
+     "transcript": "Agent: Obrigada por ligar para a Solaris Energia, aqui é a Bia.\nCaller: Oi Bia, meu nome é Carlos Mendes, sou da Padaria Estrela. Queria saber o preço de um sistema solar, mas acho que está caro e já temos um orçamento com outra empresa.\nAgent: Posso mandar uma proposta comparativa. Qual o prazo?\nCaller: Em 3 meses, talvez. Nosso orçamento é de uns R$ 40 mil.\nAgent: Vou enviar a proposta por e-mail."
+    }
+   },
+   {
+    "label": {
+     "pt": "Chamado de suporte",
+     "en": "Support call"
+    },
+    "values": {
+     "phone": "+15550142077",
+     "duration_sec": 96,
+     "transcript": "Agent: Brightside Solar support, this is Sam.\nCaller: Hi, my name is Joyce Kim. My inverter stopped working yesterday and the app shows an error.\nAgent: Sorry to hear that. I will open a ticket and a technician will call you back.\nCaller: Thanks."
+    }
+   },
+   {
+    "label": {
+     "pt": "Só curiosidade",
+     "en": "Just curious"
+    },
+    "values": {
+     "phone": "+15550142088",
+     "duration_sec": 41,
+     "transcript": "Agent: Brightside Solar, this is Sam.\nCaller: Hi, I was just wondering how long solar panels usually last.\nAgent: Usually 25 years or more, depending on the model.\nCaller: Interesting, thank you. Bye."
+    }
+   },
+   {
+    "label": {
+     "pt": "Ligação curta demais",
+     "en": "Call too short"
+    },
+    "values": {
+     "phone": "+15550142001",
+     "duration_sec": 12,
+     "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "phone",
+    "type": "text",
+    "value": "+15550142001",
+    "label": {
+     "pt": "Telefone de quem ligou",
+     "en": "Caller phone"
+    }
+   },
+   {
+    "key": "duration_sec",
+    "type": "text",
+    "value": "214",
+    "label": {
+     "pt": "Duração (segundos)",
+     "en": "Duration (seconds)"
+    }
+   },
+   {
+    "key": "transcript",
+    "type": "textarea",
+    "value": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks.",
+    "label": {
+     "pt": "Transcrição (linhas Agent: e Caller:)",
+     "en": "Transcript (Agent: and Caller: lines)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Call transcript",
+   "icon": "webhook",
+   "col": 0,
+   "row": 1,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "Set · arquivos, CRM, Telegram",
+    "en": "Set · files, CRM, Telegram"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "Extract lead",
+   "icon": "code",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "Code · campos e prioridade",
+    "en": "Code · fields and priority"
+   }
+  },
+  {
+   "id": "sales",
+   "name": "Sales lead?",
+   "icon": "if",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "IF · não é suporte",
+    "en": "IF · not support"
+   }
+  },
+  {
+   "id": "crm",
+   "name": "Create lead in CRM",
+   "icon": "http",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · POST /leads",
+    "en": "HTTP · POST /leads"
+   }
+  },
+  {
+   "id": "finish",
+   "name": "Finish",
+   "icon": "code",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "Code · status e linhas",
+    "en": "Code · status and rows"
+   }
+  },
+  {
+   "id": "calls",
+   "name": "Append call log",
+   "icon": "sheet",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "deadq",
+   "name": "Dead letter?",
+   "icon": "if",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "IF · CRM falhou",
+    "en": "IF · CRM failed"
+   }
+  },
+  {
+   "id": "prep",
+   "name": "Prepare dead letter",
+   "icon": "code",
+   "col": 8,
+   "row": 0,
+   "sub": {
+    "pt": "Code · arquivo binário",
+    "en": "Code · binary file"
+   }
+  },
+  {
+   "id": "wdead",
+   "name": "Write dead letter",
+   "icon": "sheet",
+   "col": 9,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "ops",
+   "name": "Alert ops (Telegram)",
+   "icon": "bell",
+   "col": 10,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  },
+  {
+   "id": "resp",
+   "name": "Build response",
+   "icon": "code",
+   "col": 11,
+   "row": 1,
+   "sub": {
+    "pt": "Code · saved, dead_letter",
+    "en": "Code · saved, dead_letter"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond",
+   "icon": "respond",
+   "col": 12,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "extract"
+  },
+  {
+   "from": "extract",
+   "to": "sales"
+  },
+  {
+   "from": "sales",
+   "to": "crm",
+   "when": "true"
+  },
+  {
+   "from": "sales",
+   "to": "finish",
+   "when": "false"
+  },
+  {
+   "from": "crm",
+   "to": "finish"
+  },
+  {
+   "from": "finish",
+   "to": "calls"
+  },
+  {
+   "from": "calls",
+   "to": "deadq"
+  },
+  {
+   "from": "deadq",
+   "to": "prep",
+   "when": "true"
+  },
+  {
+   "from": "deadq",
+   "to": "resp",
+   "when": "false"
+  },
+  {
+   "from": "prep",
+   "to": "wdead"
+  },
+  {
+   "from": "wdead",
+   "to": "ops"
+  },
+  {
+   "from": "ops",
+   "to": "resp"
+  },
+  {
+   "from": "resp",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "crm",
+  "continueOnFail": true,
+  "message": {
+   "pt": "503 Service Unavailable: crm.example.com (simulado)",
+   "en": "503 Service Unavailable: crm.example.com (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Quem atende o telefone anota (ou não) o que o cliente disse e passa para o CRM depois, se der. Leads quentes esfriam, orçamento e prazo ficam só na memória, e quando o CRM está fora do ar naquele momento o contato simplesmente se perde.",
+   "en": "Whoever answers the phone notes down (or not) what the customer said and enters it in the CRM later, if there is time. Hot leads cool off, budget and timeline stay in someone's memory, and when the CRM happens to be down that moment, the contact is simply lost."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe a transcrição da ligação, extrai nome, empresa, orçamento, prazo, objeções e o próximo passo prometido pela atendente, calcula uma prioridade (quente, morna, fria) e cria o lead no CRM. Pedidos de suporte não viram lead. Se o CRM falhar nas 3 tentativas, o lead é guardado numa fila de cartas mortas, a operação recebe um alerta e o fluxo responde normalmente em vez de quebrar.",
+   "en": "An n8n workflow receives the call transcript, extracts name, company, budget, timeline, objections and the next step the agent promised, computes a priority (hot, warm, cold) and creates the lead in the CRM. Support requests do not become leads. If the CRM fails all 3 tries, the lead is parked in a dead-letter queue, ops gets an alert and the flow answers normally instead of breaking."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~15 ligações comerciais por semana x ~4 min para registrar = cerca de 4 h por mês, e nenhum lead se perde quando o CRM cai. Dados fictícios. O reenvio das cartas mortas ainda é manual neste exemplo.",
+   "en": "An estimate, not a measurement: ~15 sales calls a week x ~4 min to log = about 4 h a month, and no lead is lost when the CRM goes down. Fictional data. Replaying the dead letters is still manual in this example."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "IF",
+   "HTTP Request",
+   "Read/Write Files",
+   "Telegram Bot API",
+   "Speech-to-text (fora do n8n / external)"
+  ],
+  "honesty": {
+   "pt": "A demo começa na transcrição: a conversão de voz em texto (Whisper, Deepgram ou o recurso da telefonia) fica antes do webhook e não está aqui. A extração é por padrões de frase em PT e EN, não por LLM, então acerta frases diretas e falha em conversa solta (um nó de LLM entraria no mesmo lugar). O reenvio das cartas mortas não foi construído: o arquivo guarda o payload pronto, e um segundo workflow poderia lê-lo quando o CRM voltar. O código roda igual no navegador e foi comparado com 9 execuções reais no n8n local. As quedas do CRM e do Telegram nas execuções gravadas foram reais (3 tentativas); na página elas são simuladas.",
+   "en": "The demo starts at the transcript: speech-to-text (Whisper, Deepgram or the phone system's feature) sits before the webhook and is not here. Extraction uses sentence patterns in PT and EN, not an LLM, so it handles direct sentences and misses loose chatter (an LLM node would go in the same place). Replaying dead letters was not built: the file holds the ready payload, and a second workflow could read it when the CRM is back. The code runs the same in the browser and was compared with 9 real executions on a local n8n. The CRM and Telegram outages in the recorded runs were real (3 attempts); on the page they are simulated."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "18-call-summary-to-crm"
+}

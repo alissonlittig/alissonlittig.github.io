@@ -1,0 +1,352 @@
+{
+  "name": "One article to LinkedIn, X and newsletter drafts with an approval queue",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "content-repurpose",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ada988fa-c044-5a75-9160-53b35cccb88b",
+      "name": "Article published",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        200
+      ],
+      "webhookId": "content-repurpose-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c494ca21-d072-57c5-993d-9197647033fe",
+              "name": "queue_file",
+              "value": "./data/queue_14.csv",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "EDITOR_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "e50149ee-c4f7-50e6-afc8-b6d355601e96",
+              "name": "today",
+              "value": "2026-11-11",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        200
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst out = (() => {\nconst b = input.body || {};\nconst title = String(b.title || '').trim(), url = String(b.url || '').trim(), article = String(b.article || '').replace(/\\s+/g, ' ').trim();\nconst date = String(b.publish_date || input.today).trim(), tone = b.tone === 'friendly' ? 'friendly' : 'professional';\nif (!title) throw new Error('title is missing');\nif (!/^https?:\\/\\/\\S+$/.test(url)) throw new Error('url must start with http:// or https://');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(date)) throw new Error('publish_date must be YYYY-MM-DD');\nif (article.length < 400) throw new Error('Article too short: ' + article.length + ' characters, need at least 400');\nconst lang = /\\b(para|você|são|uma|não|com|mais|isso|nossa|nosso|pequenas)\\b/i.test(article) ? 'pt' : 'en';\nconst STOP = /^(that|this|with|from|have|about|which|their|there|would|these|those|where|while|para|como|mais|isso|esta|esse|são|uma|nosso|nossa|pelos|pelas|quando|porque)$/;\nconst tw = (title.toLowerCase().match(/[a-zà-ÿ]{5,}/g) || []).filter(w => !STOP.test(w));\nconst sents = article.split(/(?<=[.!?])\\s+/).map(s => s.trim()).filter(s => s.length >= 30);\nconst scored = sents.map((s, i) => ({ s, i, score: (s.length >= 40 && s.length <= 200 ? 1 : 0) + (/\\d/.test(s) ? 2 : 0) + (tw.some(w => s.toLowerCase().includes(w)) ? 2 : 0) + (i === 0 || i === sents.length - 1 ? 1 : 0) }));\nconst cut = (s, n) => s.length <= n ? s : s.slice(0, n - 1).replace(/\\s+\\S*$/, '') + '…';\nconst points = scored.slice().sort((a, b) => b.score - a.score || a.i - b.i).slice(0, 3).sort((a, b) => a.i - b.i).map(x => cut(x.s.replace(/[.!?]+$/, ''), 200));\nconst freq = {}; (article.toLowerCase().match(/[a-zà-ÿ]{6,}/g) || []).filter(w => !STOP.test(w)).forEach(w => { freq[w] = (freq[w] || 0) + 1; });\nconst keywords = Object.keys(freq).sort((a, b) => freq[b] - freq[a] || a.localeCompare(b)).slice(0, 3);\nreturn { title, url, tone, publish_date: date, lang, points, keywords, words: article.split(/\\s+/).length };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "5de0a994-0b44-59cd-9976-04de7478e196",
+      "name": "Analyze article",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst pt = input.lang === 'pt', fr = input.tone === 'friendly';\nconst open = pt ? (fr ? 'Saiu do forno: ' : 'Novo artigo: ') : (fr ? 'Fresh off the blog: ' : 'New article: ');\nconst cta = pt ? 'Texto completo:' : 'Read the full piece:';\nconst tags = input.keywords.map(k => '#' + k.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/^./, c => c.toUpperCase())).join(' ');\nconst linkedin = open + input.title + '\\n\\n' + (pt ? 'O que vale guardar:' : 'What is worth keeping:') + '\\n' + input.points.map(p => '– ' + p).join('\\n') + '\\n\\n' + cta + ' ' + input.url + '\\n\\n' + tags;\nconst n = input.points.length + 2;\nconst cut = (s, m) => s.length <= m ? s : s.slice(0, m - 1).replace(/\\s+\\S*$/, '') + '…';\nlet trimmed = 0;\nconst raw = [input.title + (pt ? ' Um fio:' : ' A thread:') + ' (1/' + n + ')'].concat(input.points.map((p, i) => (i + 2) + '/' + n + ' ' + p)).concat([cta + ' ' + input.url + ' (' + n + '/' + n + ')']);\nconst thread = raw.map(t => { if (t.length > 280) { trimmed++; return cut(t, 280); } return t; });\nconst newsletter = { subject: cut(input.title, 60), body: (pt ? 'Olá! Esta semana no blog:\\n\\n' : 'Hi! This week on the blog:\\n\\n') + input.points.map(p => '• ' + p).join('\\n') + '\\n\\n' + cta + ' ' + input.url };\nreturn { ...input, linkedin, thread, newsletter, limits: { linkedin_chars: linkedin.length, max_tweet: Math.max(...thread.map(t => t.length)), trimmed } };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "89f1130a-2bfd-5dc2-a304-2373ddca88ec",
+      "name": "Draft posts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst all = input.linkedin + ' ' + input.thread.join(' ') + ' ' + input.newsletter.body;\nconst found = all.match(/(guarantee[d]?|100%|best in the world|risk[- ]free|garantid[oa]|melhor do mundo|sem riscos?|milagr\\w+)/gi) || [];\nconst flags = [...new Set(found.map(x => x.toLowerCase()))];\nif (input.limits.linkedin_chars > 3000) flags.push('LinkedIn post over 3000 characters');\nreturn { ...input, flags, flagged: flags.length > 0 };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "4d63776d-7c0d-55ee-b2e6-ee0e4eda0746",
+      "name": "Brand check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        820,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fd692e37-f1fe-51d4-9203-a93c4798a21a",
+              "leftValue": "={{ $json.flagged }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "520650e6-0797-57dd-a13e-9d1affdde8f3",
+      "name": "Flagged?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1020,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst addDays = (d, k) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + k); return x.toISOString().slice(0, 10); };\nconst dowOf = d => new Date(d + 'T00:00:00Z').getUTCDay();\nlet li = addDays(input.publish_date, 1); while (![2, 3, 4].includes(dowOf(li))) li = addDays(li, 1);\nconst x = addDays(li, 1);\nlet nl = li; while (dowOf(nl) !== 5) nl = addDays(nl, 1);\nconst sched = { linkedin: li + ' 09:00', x_thread: x + ' 12:00', newsletter: nl + ' 08:00' };\nconst slug = input.title.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);\nconst content_id = 'CT-' + slug;\nconst ts = new Date().toISOString();\n\nconst status = 'needs_edit';\nconst prev = { linkedin: input.linkedin, x_thread: input.thread.join(' || '), newsletter: input.newsletter.subject };\nconst chars = { linkedin: input.linkedin.length, x_thread: input.thread.length + ' posts', newsletter: input.newsletter.body.length };\nconst csv_line = ['linkedin', 'x_thread', 'newsletter'].map(ch => [ts, content_id, ch, sched[ch], status, chars[ch], prev[ch]].map(Q).join(',') + '\\n').join('');\nconst message = 'HELD FOR EDIT: ' + input.title + '\\nLinkedIn ' + sched.linkedin + ' (' + chars.linkedin + ' chars) | X thread ' + chars.x_thread + ' ' + sched.x_thread + ' | Newsletter ' + sched.newsletter + (input.flags.length ? '\\nFlagged: ' + input.flags.join(', ') : '');\nreturn { ...input, content_id, status, sched, csv_line, message, http_status: 200, response: { content_id, status, scheduled: sched } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "fcc6c772-11ce-59e2-9b54-606342f9fe29",
+      "name": "Hold for edit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst addDays = (d, k) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + k); return x.toISOString().slice(0, 10); };\nconst dowOf = d => new Date(d + 'T00:00:00Z').getUTCDay();\nlet li = addDays(input.publish_date, 1); while (![2, 3, 4].includes(dowOf(li))) li = addDays(li, 1);\nconst x = addDays(li, 1);\nlet nl = li; while (dowOf(nl) !== 5) nl = addDays(nl, 1);\nconst sched = { linkedin: li + ' 09:00', x_thread: x + ' 12:00', newsletter: nl + ' 08:00' };\nconst slug = input.title.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);\nconst content_id = 'CT-' + slug;\nconst ts = new Date().toISOString();\n\nconst status = 'pending_approval';\nconst prev = { linkedin: input.linkedin, x_thread: input.thread.join(' || '), newsletter: input.newsletter.subject };\nconst chars = { linkedin: input.linkedin.length, x_thread: input.thread.length + ' posts', newsletter: input.newsletter.body.length };\nconst csv_line = ['linkedin', 'x_thread', 'newsletter'].map(ch => [ts, content_id, ch, sched[ch], status, chars[ch], prev[ch]].map(Q).join(',') + '\\n').join('');\nconst message = 'READY FOR APPROVAL: ' + input.title + '\\nLinkedIn ' + sched.linkedin + ' (' + chars.linkedin + ' chars) | X thread ' + chars.x_thread + ' ' + sched.x_thread + ' | Newsletter ' + sched.newsletter + (input.flags.length ? '\\nFlagged: ' + input.flags.join(', ') : '');\nreturn { ...input, content_id, status, sched, csv_line, message, http_status: 202, response: { content_id, status, scheduled: sched } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "b651bedc-40ed-5bc3-a9e2-f5ba2c6093ae",
+      "name": "Queue for approval",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {
+          "responseCode": "={{ $json.http_status }}"
+        }
+      },
+      "id": "141424c7-4df2-58c7-ae1b-497182651a4d",
+      "name": "Respond to caller",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1450,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.queue_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "db3d4b04-da7b-57fb-9dc3-c0891d69a44b",
+      "name": "Append to queue",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1650,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Respond to caller').first().json.message}) }}",
+        "options": {}
+      },
+      "id": "989768e7-25b8-5c6c-8c20-bf286c634d4d",
+      "name": "Notify editor (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1850,
+        200
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the drafts are already in the queue file.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Article published": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Analyze article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze article": {
+      "main": [
+        [
+          {
+            "node": "Draft posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft posts": {
+      "main": [
+        [
+          {
+            "node": "Brand check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brand check": {
+      "main": [
+        [
+          {
+            "node": "Flagged?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Flagged?": {
+      "main": [
+        [
+          {
+            "node": "Hold for edit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Queue for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hold for edit": {
+      "main": [
+        [
+          {
+            "node": "Respond to caller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Queue for approval": {
+      "main": [
+        [
+          {
+            "node": "Respond to caller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to caller": {
+      "main": [
+        [
+          {
+            "node": "Append to queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to queue": {
+      "main": [
+        [
+          {
+            "node": "Notify editor (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

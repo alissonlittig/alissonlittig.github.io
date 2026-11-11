@@ -1,0 +1,446 @@
+{
+  "name": "Call transcript to CRM lead with dead-letter safety net",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "call-summary",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d7aa26a2-3325-5daa-87be-646bc5c63bed",
+      "name": "Call transcript",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        200
+      ],
+      "webhookId": "call-summary-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d9e42867-b7d6-504c-83c5-59c08405286a",
+              "name": "calls_file",
+              "value": "./data/calls_18.csv",
+              "type": "string"
+            },
+            {
+              "id": "9f54a046-f605-5fa9-bb49-137296a57218",
+              "name": "dead_file",
+              "value": "./data/dead_letters_18.csv",
+              "type": "string"
+            },
+            {
+              "id": "d8ba0a6d-5d23-5a02-8d25-14755e4c78a0",
+              "name": "crm_url",
+              "value": "http://127.0.0.1:8097/crm/leads",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "OPS_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        200
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst out = (() => {\nconst b = input.body || {};\nconst transcript = String(b.transcript || ''), phone = String(b.phone || '').replace(/[^\\d+]/g, ''), duration = Number(b.duration_sec);\nif (!/^\\+?\\d{8,15}$/.test(phone)) throw new Error('phone must have 8 to 15 digits');\nif (!Number.isFinite(duration) || duration < 20) throw new Error('Call too short (' + (Number.isFinite(duration) ? duration : 'n/a') + ' s): nothing worth logging');\nconst turns = transcript.split(/\\r?\\n/).map(l => l.trim()).filter(Boolean).map(l => { const m = l.match(/^(Agent|Caller):\\s*(.+)$/i); return m ? { who: m[1].toLowerCase(), text: m[2].trim() } : null; }).filter(Boolean);\nconst caller = turns.filter(t => t.who === 'caller').map(t => t.text).join(' '), agent = turns.filter(t => t.who === 'agent').map(t => t.text);\nif (!caller) throw new Error('Transcript has no \"Caller:\" lines');\nconst lang = /\\b(meu|minha|queria|preço|preco|orçamento|proposta|empresa|obrigad[oa]|vocês|voces|temos|nosso)\\b/i.test(caller) ? 'pt' : 'en';\nconst grab = (re, s) => { const m = s.match(re); return m ? m[1].trim() : ''; };\nconst CAP = '((?:[A-ZÀ-Ý][\\\\w&\\'-]*\\\\s?){1,3})';\nconst name = grab(new RegExp('(?:my name is|this is|meu nome é|aqui é|me chamo)\\\\s+' + CAP), caller) || String(b.caller_name || '').trim() || 'Unknown';\nconst company = grab(new RegExp('(?:I\\'m with|I am with|I work (?:at|for)|calling from|from|trabalho na|trabalho no|sou da|sou do|da empresa)\\\\s+' + CAP), caller);\nconst bm = caller.match(/(\\$|usd\\s?|r\\$\\s?)\\s?(\\d[\\d.,]*)\\s?(k|mil)?/i);\nlet budget = null, currency = null;\nif (bm) { currency = bm[1].toLowerCase().startsWith('r') ? 'BRL' : 'USD'; let n = parseFloat(currency === 'BRL' ? bm[2].replace(/\\./g, '').replace(',', '.') : bm[2].replace(/,/g, '')); if (bm[3]) n *= 1000; budget = Math.round(n); }\nconst MONTHS = 'january|february|march|april|may|june|july|august|september|october|november|december|janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro';\nconst timeline = grab(new RegExp('(asap|this week|next week|this month|next month|next quarter|in \\\\d+ (?:weeks?|months?)|by (?:' + MONTHS + ')|semana que vem|esta semana|este mês|mês que vem|em \\\\d+ (?:semanas?|meses|mês)|até (?:' + MONTHS + '))', 'i'), caller).toLowerCase();\nconst urgent = /(asap|this week|next week|this month|esta semana|semana que vem|este mês)/.test(timeline);\nconst buy = /(quote|price|pricing|proposal|buy|purchase|install|orçamento|preço|proposta|comprar|contratar|instalar|valor)/i.test(caller);\nconst supportWords = /(not working|broken|error|bug|stopped|cancel|refund|não funciona|parou|erro|defeito|cancelar|reembolso)/i.test(caller);\nconst intent = buy ? 'buy' : supportWords ? 'support' : 'info';\nconst authority = /(I decide|I'm the owner|I am the owner|owner|founder|ceo|director|decision maker|dono|dona|sócio|sócia|diretor|diretora|eu decido)/i.test(caller);\nconst objections = []; if (/(too expensive|expensive|too much|caro|salgado)/i.test(caller)) objections.push('price'); if (/(already (?:have|use|got)|another (?:company|vendor)|competitor|já temos|outra empresa|concorrente)/i.test(caller)) objections.push('competitor'); if (/(not now|maybe later|talvez|mais pra frente|depois)/i.test(caller)) objections.push('timing');\nconst next = agent.map(t => t.split(/(?<=[.!?])\\s+/).find(s => /(I'll send|I will send|follow up|schedule|book a|vou enviar|vou mandar|te mando|agendar)/i.test(s))).find(Boolean) || '';\nconst parts = { budget: budget ? 25 : 0, timeline: !timeline ? 0 : urgent ? 25 : 10, authority: authority ? 20 : 0, intent: intent === 'buy' ? 20 : 0, company: company ? 10 : 0, objections: -10 * objections.filter(o => o !== 'timing').length };\nconst score = intent === 'support' ? 0 : Math.max(0, Math.min(100, Object.values(parts).reduce((a, c) => a + c, 0)));\nconst priority = intent === 'support' ? 'support' : score >= 70 ? 'hot' : score >= 40 ? 'warm' : 'cold';\nlet h = 0; for (const ch of phone + duration + transcript.length) h = (h * 31 + ch.charCodeAt(0)) % 9000;\nconst money = budget === null ? 'no budget stated' : (currency === 'BRL' ? 'R$ ' : '$') + String(budget).replace(/\\B(?=(\\d{3})+(?!\\d))/g, currency === 'BRL' ? '.' : ',');\nconst summary = name + (company ? ' (' + company + ')' : '') + ' · ' + (intent === 'buy' ? 'wants a quote' : intent === 'support' ? 'support request' : 'general question') + ' · ' + money + ' · ' + (timeline || 'no timeline') + (objections.length ? ' · objections: ' + objections.join(', ') : '') + (next ? ' · next: ' + next.replace(/[.!?]+$/, '') : '');\nreturn { call_id: 'CALL-' + (1000 + h), phone, duration_sec: duration, name, company, lang, intent, budget, currency, timeline, authority, objections, next_step: next, parts, score, priority, summary, is_sales: intent !== 'support', ts: new Date().toISOString() };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "6df932cf-d60f-5970-88fe-041e6c193e43",
+      "name": "Extract lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3216edca-78c1-52b5-a90b-eb92af5e710e",
+              "leftValue": "={{ $json.is_sales }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d7421bf0-0585-530a-a2ce-9e583ed4c94d",
+      "name": "Sales lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        620,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.crm_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({name: $('Extract lead').first().json.name, company: $('Extract lead').first().json.company, phone: $('Extract lead').first().json.phone, source: 'phone', priority: $('Extract lead').first().json.priority, score: $('Extract lead').first().json.score, budget: $('Extract lead').first().json.budget, timeline: $('Extract lead').first().json.timeline, next_step: $('Extract lead').first().json.next_step, summary: $('Extract lead').first().json.summary, call_id: $('Extract lead').first().json.call_id}) }}",
+        "options": {}
+      },
+      "id": "bf772a19-e64a-5aea-b3b9-2878de493dd3",
+      "name": "Create lead in CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        830,
+        100
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the lead is parked in the dead-letter file instead of being lost.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Extract lead').first().json;\nconst crm = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst crm_ok = !input.is_sales ? null : !!(crm && crm.ok === true && !crm.error);\nconst status = !input.is_sales ? 'routed_to_support' : crm_ok ? 'saved' : 'dead_letter';\nconst lead = { name: input.name, company: input.company, phone: input.phone, source: 'phone', priority: input.priority, score: input.score, budget: input.budget, timeline: input.timeline, next_step: input.next_step, summary: input.summary, call_id: input.call_id };\nconst csv_line = [input.ts, input.call_id, input.phone, input.name, input.company, input.intent, input.priority, input.score, status].map(Q).join(',') + '\\n';\nconst dead_line = status === 'dead_letter' ? [input.ts, input.call_id, 'CRM unavailable after 3 tries', JSON.stringify(lead)].map(Q).join(',') + '\\n' : '';\nconst ops_text = status === 'dead_letter' ? 'CRM DOWN: lead ' + input.call_id + ' (' + input.name + ', ' + input.priority + ') parked in dead letters. Replay when the CRM is back.' : '';\nreturn { ...input, lead, status, crm_ok, csv_line, dead_line, ops_text };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "03dc1de6-aa3b-582e-94e9-058a7a39aa08",
+      "name": "Finish",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.calls_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "df515243-f3e3-50c0-bfdf-f8190e517089",
+      "name": "Append call log",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "59c0e9b9-e74b-5870-b6b0-febb49878943",
+              "leftValue": "={{ $('Finish').first().json.status === 'dead_letter' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ab4775f1-a9bd-54a1-9d93-86b6c1203a93",
+      "name": "Dead letter?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst input2 = $('Finish').first().json;\n\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(input2.dead_line, 'utf8'), 'dead.csv', 'text/plain');\nreturn [{ json: input2, binary: { data: bin } }];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "bb92e036-996a-5ee8-ba02-5115c19a98c5",
+      "name": "Prepare dead letter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1650,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.dead_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "165331dc-033c-5883-8dc1-9db71ef512c0",
+      "name": "Write dead letter",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1850,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Finish').first().json.ops_text}) }}",
+        "options": {}
+      },
+      "id": "33b1f65b-2655-5c77-b4c0-7c951c10ebb1",
+      "name": "Alert ops (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2050,
+        100
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the dead letter is already on disk.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rep = $('Finish').first().json;\nconst inp = $input.first().json;\nconst out = (() => {\nconst ops = rep.status !== 'dead_letter' ? 'not_needed' : (inp && inp.ok === true && !inp.error) ? 'sent' : 'queued';\nreturn { ...rep, ops_alert: ops, response: { call_id: rep.call_id, intent: rep.intent, priority: rep.priority, score: rep.score, crm: rep.status === 'saved' ? 'saved' : rep.status === 'dead_letter' ? 'dead_letter' : 'skipped', ops_alert: ops } };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "332eadf3-88a8-5477-9e51-9c09b7e191d7",
+      "name": "Build response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {}
+      },
+      "id": "6036e3fc-33e8-5ad1-9192-aae7c1b32234",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2450,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Call transcript": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Extract lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract lead": {
+      "main": [
+        [
+          {
+            "node": "Sales lead?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales lead?": {
+      "main": [
+        [
+          {
+            "node": "Create lead in CRM",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Finish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create lead in CRM": {
+      "main": [
+        [
+          {
+            "node": "Finish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finish": {
+      "main": [
+        [
+          {
+            "node": "Append call log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append call log": {
+      "main": [
+        [
+          {
+            "node": "Dead letter?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dead letter?": {
+      "main": [
+        [
+          {
+            "node": "Prepare dead letter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare dead letter": {
+      "main": [
+        [
+          {
+            "node": "Write dead letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write dead letter": {
+      "main": [
+        [
+          {
+            "node": "Alert ops (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert ops (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

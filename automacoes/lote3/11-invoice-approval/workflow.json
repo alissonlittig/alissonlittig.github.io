@@ -1,0 +1,697 @@
+{
+  "name": "Invoice approval with a human in the loop",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "invoice-submit",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "158718da-6da0-5dc2-9329-d4d5b1966072",
+      "name": "Invoice submitted",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        160
+      ],
+      "webhookId": "invoice-submit-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "459ab224-8fe9-506d-baea-7896e1f87669",
+              "name": "ledger_file",
+              "value": "./data/ledger_11.csv",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "FINANCE_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "aad3ec74-aaff-55b5-89d7-ba22af524e00",
+              "name": "approved_vendors",
+              "value": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+              "type": "string"
+            },
+            {
+              "id": "c01d569c-82d2-56f8-bcce-a4814ebc5f15",
+              "name": "auto_limit",
+              "value": "500",
+              "type": "string"
+            },
+            {
+              "id": "1ff13d3c-e6fb-5b7f-81ba-717e331544a1",
+              "name": "manager_limit",
+              "value": "5000",
+              "type": "string"
+            },
+            {
+              "id": "069d7e1e-6606-58dc-93b6-dd87ff9059e2",
+              "name": "manager",
+              "value": "Mariana Costa",
+              "type": "string"
+            },
+            {
+              "id": "cab442ce-aa4b-518e-99f7-ba0fb9ed7772",
+              "name": "director",
+              "value": "Henrique Lopes",
+              "type": "string"
+            },
+            {
+              "id": "843981a2-fabe-56b1-b9ad-513a8815d982",
+              "name": "approve_url",
+              "value": "http://localhost:5691/webhook/invoice-decision",
+              "type": "string"
+            },
+            {
+              "id": "e50149ee-c4f7-50e6-afc8-b6d355601e96",
+              "name": "today",
+              "value": "2026-11-11",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        230,
+        160
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.ledger_file }}",
+        "options": {}
+      },
+      "id": "0df5e620-1b18-5c26-b9ca-e5004e91241a",
+      "name": "Read ledger",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        440,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst ledgerText = (await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8');\nconst out = (() => {\nconst parse = line => { const c = []; let cur = '', q = false; for (const ch of line) { if (ch === '\"') q = !q; else if (ch === ',' && !q) { c.push(cur); cur = ''; } else cur += ch; } c.push(cur); return c; };\nconst rows = ledgerText.split(/\\r?\\n/).slice(1).filter(Boolean).map(parse);\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst b = input.body || {};\nconst vendor = String(b.vendor || '').trim(), invNo = String(b.invoice_no || '').trim();\nconst amount = Number(String(b.amount ?? '').replace(/[^0-9.]/g, ''));\nconst currency = String(b.currency || 'USD').trim().toUpperCase();\nconst po = String(b.po_number || '').trim(), due = String(b.due_date || '').trim();\nconst problems = [];\nif (!vendor) problems.push('vendor is missing');\nif (!invNo) problems.push('invoice number is missing');\nif (!(amount > 0)) problems.push('amount must be a positive number');\nif (due && !/^\\d{4}-\\d{2}-\\d{2}$/.test(due)) problems.push('due_date must be YYYY-MM-DD');\nif (problems.length) throw new Error('Invalid invoice: ' + problems.join('; '));\nconst lastId = rows.reduce((m, r) => Math.max(m, Number(String(r[1]).replace(/\\D/g, '')) || 0), 0);\nconst invoice_id = 'INV-' + String(lastId + 1).padStart(4, '0');\nconst dup = rows.find(r => r[2].toLowerCase() === vendor.toLowerCase() && r[3].toLowerCase() === invNo.toLowerCase() && r[6] !== 'rejected');\nconst known = String(input.approved_vendors).split(',').map(x => x.trim().toLowerCase()).includes(vendor.toLowerCase());\nconst autoLimit = Number(input.auto_limit), mgrLimit = Number(input.manager_limit);\nconst flags = [];\nif (!known) flags.push('vendor not on the approved list');\nif (!po) flags.push('no purchase order');\nif (currency !== 'USD') flags.push('foreign currency (' + currency + ')');\nconst days = due ? Math.round((Date.parse(due) - Date.parse(input.today)) / 86400000) : null;\nconst rush = days !== null && days < 3;\nlet route, level = '', approver = '', reason;\nif (dup) { route = 'blocked'; reason = 'duplicate of ' + dup[1] + ' (' + dup[6] + ')'; }\nelse if (amount <= autoLimit && flags.length === 0) { route = 'auto'; reason = 'within the auto-approval limit, approved vendor, PO present'; }\nelse {\n  route = 'approval'; level = amount > mgrLimit ? 'director' : 'manager'; approver = level === 'director' ? input.director : input.manager;\n  reason = (amount > mgrLimit ? 'above the manager limit (' + mgrLimit + ')' : amount > autoLimit ? 'above the auto-approval limit (' + autoLimit + ')' : 'needs a human look') + (flags.length ? '; ' + flags.join('; ') : '');\n}\nreturn { invoice_id, vendor, invoice_no: invNo, amount, currency, due_date: due, po_number: po, description: String(b.description || ''), route, level, approver, flags, reason, rush, approve_url: input.approve_url, ts: new Date().toISOString() };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "51ff323b-a565-5989-9841-64638c7eb435",
+      "name": "Check invoice",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "225851ec-cbc2-5e70-b1fd-d2e6fc7cdbe6",
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "auto",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "auto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "35ad6d04-8ca8-565d-9c5b-55fd9de06c46",
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "approval",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "approval"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1a1853bc-b328-5a0a-a046-91cc0f3051c9",
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "blocked",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "blocked"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "78f8fa54-ca33-525a-86aa-3043f84348d4",
+      "name": "Route",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        860,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst note = 'Auto-approved: ' + input.reason;\nconst csv_line = [input.ts, input.invoice_id, input.vendor, input.invoice_no, input.amount.toFixed(2), input.currency, 'approved', 'auto', '', note].map(Q).join(',') + '\\n';\nconst message = 'PAYMENT SCHEDULED: ' + input.invoice_id + ' | ' + input.vendor + ' | ' + input.currency + ' ' + input.amount.toFixed(2) + ' (invoice ' + input.invoice_no + ')\\n' + note;\nreturn { ...input, status: 'approved', csv_line, message, buttons: null, http_status: 200, response: { invoice_id: input.invoice_id, status: 'approved', route: 'auto' } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "3e5074e4-b050-5d50-9ac4-fe36e5647e95",
+      "name": "Auto-approve",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1070,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst note = 'Waiting for ' + input.approver + ' (' + input.level + '): ' + input.reason;\nconst csv_line = [input.ts, input.invoice_id, input.vendor, input.invoice_no, input.amount.toFixed(2), input.currency, 'pending', 'approval', input.approver, note].map(Q).join(',') + '\\n';\nconst link = d => input.approve_url + '?invoice_id=' + input.invoice_id + '&decision=' + d + '&by=' + encodeURIComponent(input.approver);\nconst message = 'APPROVAL NEEDED (' + input.level + '): ' + input.invoice_id + (input.rush ? '  [RUSH]' : '') + '\\n' + input.vendor + ' | invoice ' + input.invoice_no + ' | ' + input.currency + ' ' + input.amount.toFixed(2) + '\\n' + (input.description || 'no description') + '\\nWhy it came to you: ' + input.reason + '\\nApprover: ' + input.approver;\nconst buttons = [{ text: 'Approve', url: link('approve') }, { text: 'Reject', url: link('reject') }];\nreturn { ...input, status: 'pending', csv_line, message, buttons, http_status: 202, response: { invoice_id: input.invoice_id, status: 'pending', route: 'approval', approver: input.approver } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "cf19c912-4f33-527b-8a06-e2423b6b5807",
+      "name": "Request approval",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1070,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst note = 'Blocked: ' + input.reason;\nconst csv_line = [input.ts, input.invoice_id, input.vendor, input.invoice_no, input.amount.toFixed(2), input.currency, 'blocked', 'blocked', '', note].map(Q).join(',') + '\\n';\nconst message = 'INVOICE BLOCKED: ' + input.vendor + ' | invoice ' + input.invoice_no + ' | ' + input.currency + ' ' + input.amount.toFixed(2) + '\\nReason: ' + input.reason + '. Nothing was scheduled for payment.';\nreturn { ...input, status: 'blocked', csv_line, message, buttons: null, http_status: 409, response: { status: 'blocked', reason: input.reason } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "6c91af0c-5586-5a1a-8077-a64b2a3627f5",
+      "name": "Block and explain",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1070,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {
+          "responseCode": "={{ $json.http_status }}"
+        }
+      },
+      "id": "f4ef4284-8524-566d-ab1d-ecd0c6f125bb",
+      "name": "Respond to submitter",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1290,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.ledger_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "27a89ecf-bd22-5a3e-a0fb-7af6f5c2df4d",
+      "name": "Append to ledger",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Respond to submitter').first().json.message, reply_markup: $('Respond to submitter').first().json.buttons ? {inline_keyboard: [$('Respond to submitter').first().json.buttons]} : undefined}) }}",
+        "options": {}
+      },
+      "id": "40b42b0c-73bf-5333-8c4f-23448bafa4d6",
+      "name": "Notify finance (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1710,
+        160
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Telegram sendMessage body (inline buttons for approvals). Retry 3x, then continue: the ledger entry is already saved.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "invoice-decision",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "e9903632-2e52-5db9-afd9-bc176085cf60",
+      "name": "Approver decision",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        520
+      ],
+      "webhookId": "invoice-decision-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0475798-7c4c-5077-96d6-7a4c0cd38ed4",
+              "name": "ledger_file",
+              "value": "./data/ledger_11.csv",
+              "type": "string"
+            },
+            {
+              "id": "e6c4cdc7-6631-5579-9872-8d2982279241",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "fa727a4d-e90f-5266-bda7-8db211d33df8",
+              "name": "notify_chat_id",
+              "value": "FINANCE_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "b5080aa4-4720-5098-8400-4b114a26713d",
+              "name": "approved_vendors",
+              "value": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+              "type": "string"
+            },
+            {
+              "id": "18e81d81-8127-57bd-a5b3-0d37963c76fe",
+              "name": "auto_limit",
+              "value": "500",
+              "type": "string"
+            },
+            {
+              "id": "a02f430b-6278-552c-8bd0-0f90ce89fca4",
+              "name": "manager_limit",
+              "value": "5000",
+              "type": "string"
+            },
+            {
+              "id": "22cd0b33-0ddf-5bbf-98ac-ff2fadcae3da",
+              "name": "manager",
+              "value": "Mariana Costa",
+              "type": "string"
+            },
+            {
+              "id": "91f7b658-c73f-5dd4-bf0f-a9d8fb4d6e2f",
+              "name": "director",
+              "value": "Henrique Lopes",
+              "type": "string"
+            },
+            {
+              "id": "a36136ec-a047-5761-9ece-2a104bba2ced",
+              "name": "approve_url",
+              "value": "http://localhost:5691/webhook/invoice-decision",
+              "type": "string"
+            },
+            {
+              "id": "b181ca97-c60d-54cd-ac6d-26f200247463",
+              "name": "today",
+              "value": "2026-11-11",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "c28626e2-b448-561c-941e-5d6538acbda0",
+      "name": "Config (decision)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        230,
+        520
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config (decision)').first().json.ledger_file }}",
+        "options": {}
+      },
+      "id": "b1aca467-d1a8-5eae-8079-74fe1f9f9eaa",
+      "name": "Read ledger (decision)",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        440,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config (decision)').first().json;\nconst ledgerText = (await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8');\nconst out = (() => {\nconst parse = line => { const c = []; let cur = '', q = false; for (const ch of line) { if (ch === '\"') q = !q; else if (ch === ',' && !q) { c.push(cur); cur = ''; } else cur += ch; } c.push(cur); return c; };\nconst rows = ledgerText.split(/\\r?\\n/).slice(1).filter(Boolean).map(parse);\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst b = input.body || {};\nconst id = String(b.invoice_id || '').trim(), decision = String(b.decision || '').trim().toLowerCase(), by = String(b.by || '').trim();\nif (!['approve', 'reject'].includes(decision)) throw new Error('decision must be \"approve\" or \"reject\"');\nconst mine = rows.filter(r => r[1] === id);\nif (!mine.length) throw new Error('Unknown invoice ' + id);\nconst last = mine[mine.length - 1];\nif (last[6] !== 'pending') throw new Error(id + ' is already ' + last[6] + ': decision ignored');\nif (last[8].toLowerCase() !== by.toLowerCase()) throw new Error(by + ' is not the approver of ' + id + ' (assigned: ' + last[8] + ')');\nconst status = decision === 'approve' ? 'approved' : 'rejected';\nconst note = (status === 'approved' ? 'Approved' : 'Rejected') + ' by ' + by;\nconst ts = new Date().toISOString();\nconst csv_line = [ts, id, last[2], last[3], last[4], last[5], status, 'approval', by, note].map(Q).join(',') + '\\n';\nconst message = (status === 'approved' ? 'APPROVED: ' : 'REJECTED: ') + id + ' | ' + last[2] + ' | ' + last[5] + ' ' + last[4] + ' (invoice ' + last[3] + ')\\n' + note + (status === 'approved' ? '. Payment scheduled.' : '. Vendor to be notified.');\nreturn { invoice_id: id, vendor: last[2], invoice_no: last[3], amount: Number(last[4]), currency: last[5], status, decided_by: by, ts, csv_line, message, http_status: 200, response: { invoice_id: id, status } };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "9b6c194f-fff2-5cd0-a466-4be60c820818",
+      "name": "Apply decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {
+          "responseCode": "={{ $json.http_status }}"
+        }
+      },
+      "id": "ebe8110b-688a-544f-8b18-d7cedf33717f",
+      "name": "Respond to approver",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        860,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config (decision)').first().json.ledger_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "c2112f52-095c-5d75-9950-8b78b93cb195",
+      "name": "Append decision",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1070,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config (decision)').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config (decision)').first().json.notify_chat_id, text: $('Respond to approver').first().json.message}) }}",
+        "options": {}
+      },
+      "id": "607353dd-206c-5d80-b188-1588db06c843",
+      "name": "Notify finance (decision)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1290,
+        520
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Telegram sendMessage body (inline buttons for approvals). Retry 3x, then continue: the ledger entry is already saved.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Invoice submitted": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Read ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read ledger": {
+      "main": [
+        [
+          {
+            "node": "Check invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check invoice": {
+      "main": [
+        [
+          {
+            "node": "Route",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route": {
+      "main": [
+        [
+          {
+            "node": "Auto-approve",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Request approval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Block and explain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auto-approve": {
+      "main": [
+        [
+          {
+            "node": "Respond to submitter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request approval": {
+      "main": [
+        [
+          {
+            "node": "Respond to submitter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Block and explain": {
+      "main": [
+        [
+          {
+            "node": "Respond to submitter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to submitter": {
+      "main": [
+        [
+          {
+            "node": "Append to ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to ledger": {
+      "main": [
+        [
+          {
+            "node": "Notify finance (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approver decision": {
+      "main": [
+        [
+          {
+            "node": "Config (decision)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config (decision)": {
+      "main": [
+        [
+          {
+            "node": "Read ledger (decision)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read ledger (decision)": {
+      "main": [
+        [
+          {
+            "node": "Apply decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply decision": {
+      "main": [
+        [
+          {
+            "node": "Respond to approver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to approver": {
+      "main": [
+        [
+          {
+            "node": "Append decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append decision": {
+      "main": [
+        [
+          {
+            "node": "Notify finance (decision)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

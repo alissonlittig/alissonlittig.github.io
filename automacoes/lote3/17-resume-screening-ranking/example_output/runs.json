@@ -1,0 +1,2591 @@
+{
+ "strong_shortlist": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Lucas Moreira",
+    "email": "lucas.moreira@example.com",
+    "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+   },
+   "http": 200,
+   "response": {
+    "candidate_id": "CV-7376",
+    "decision": "shortlist",
+    "score": 95,
+    "rank": "1 of 4",
+    "matched": "3/3 must-haves",
+    "missing": [],
+    "recruiter_alert": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV",
+    "Duplicate?",
+    "Build outputs",
+    "Append to ranking",
+    "Shortlist?",
+    "Notify recruiter (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "593",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "593",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:27.057Z"
+     }
+    ],
+    "Duplicate?": [],
+    "Build outputs": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:27.057Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:27.057Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      }
+     }
+    ],
+    "Append to ranking": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:27.057Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:27.057Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Shortlist?": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:27.057Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:27.057Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Notify recruiter (Telegram)": [
+     {
+      "ok": true,
+      "id": 17
+     }
+    ],
+    "Build response": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:27.057Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:27.057Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": [],
+       "recruiter_alert": "sent"
+      },
+      "notified": "sent"
+     }
+    ],
+    "Respond": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:27.057Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:27.057Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": [],
+       "recruiter_alert": "sent"
+      },
+      "notified": "sent"
+     }
+    ]
+   }
+  }
+ ],
+ "strong_pt_shortlist": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Fernanda Alves",
+    "email": "fernanda.alves@example.com",
+    "cv_text": "Fernanda Alves. Desenvolvedora backend com 6 anos de experiência em Python e SQL, criando APIs REST para operações de logística. Reduzi o tempo de resposta das consultas em 45 por cento e implantei serviços com Docker na AWS. Graduação em Ciência da Computação. Mentora de duas pessoas júnior e responsável pela revisão de código do time."
+   },
+   "http": 200,
+   "response": {
+    "candidate_id": "CV-8299",
+    "decision": "shortlist",
+    "score": 95,
+    "rank": "1 of 4",
+    "matched": "3/3 must-haves",
+    "missing": [],
+    "recruiter_alert": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV",
+    "Duplicate?",
+    "Build outputs",
+    "Append to ranking",
+    "Shortlist?",
+    "Notify recruiter (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "617",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Fernanda Alves",
+       "email": "fernanda.alves@example.com",
+       "cv_text": "Fernanda Alves. Desenvolvedora backend com 6 anos de experiência em Python e SQL, criando APIs REST para operações de logística. Reduzi o tempo de resposta das consultas em 45 por cento e implantei serviços com Docker na AWS. Graduação em Ciência da Computação. Mentora de duas pessoas júnior e responsável pela revisão de código do time."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "617",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Fernanda Alves",
+       "email": "fernanda.alves@example.com",
+       "cv_text": "Fernanda Alves. Desenvolvedora backend com 6 anos de experiência em Python e SQL, criando APIs REST para operações de logística. Reduzi o tempo de resposta das consultas em 45 por cento e implantei serviços com Docker na AWS. Graduação em Ciência da Computação. Mentora de duas pessoas júnior e responsável pela revisão de código do time."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-8299",
+      "job_title": "Backend Developer",
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 6,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:28.990Z"
+     }
+    ],
+    "Duplicate?": [],
+    "Build outputs": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-8299",
+      "job_title": "Backend Developer",
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 6,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:28.990Z",
+      "recruiter_alert": "SHORTLIST Fernanda Alves for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 6 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "fernanda.alves@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Fernanda,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:28.990Z\",\"CV-8299\",\"Backend Developer\",\"Fernanda Alves\",\"fernanda.alves@example.com\",\"95\",\"shortlist\",\"6\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-8299",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      }
+     }
+    ],
+    "Append to ranking": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-8299",
+      "job_title": "Backend Developer",
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 6,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:28.990Z",
+      "recruiter_alert": "SHORTLIST Fernanda Alves for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 6 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "fernanda.alves@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Fernanda,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:28.990Z\",\"CV-8299\",\"Backend Developer\",\"Fernanda Alves\",\"fernanda.alves@example.com\",\"95\",\"shortlist\",\"6\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-8299",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Shortlist?": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-8299",
+      "job_title": "Backend Developer",
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 6,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:28.990Z",
+      "recruiter_alert": "SHORTLIST Fernanda Alves for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 6 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "fernanda.alves@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Fernanda,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:28.990Z\",\"CV-8299\",\"Backend Developer\",\"Fernanda Alves\",\"fernanda.alves@example.com\",\"95\",\"shortlist\",\"6\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-8299",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Notify recruiter (Telegram)": [
+     {
+      "ok": true,
+      "id": 18
+     }
+    ],
+    "Build response": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-8299",
+      "job_title": "Backend Developer",
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 6,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:28.990Z",
+      "recruiter_alert": "SHORTLIST Fernanda Alves for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 6 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "fernanda.alves@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Fernanda,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:28.990Z\",\"CV-8299\",\"Backend Developer\",\"Fernanda Alves\",\"fernanda.alves@example.com\",\"95\",\"shortlist\",\"6\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-8299",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": [],
+       "recruiter_alert": "sent"
+      },
+      "notified": "sent"
+     }
+    ],
+    "Respond": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-8299",
+      "job_title": "Backend Developer",
+      "name": "Fernanda Alves",
+      "email": "fernanda.alves@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 6,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:28.990Z",
+      "recruiter_alert": "SHORTLIST Fernanda Alves for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 6 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "fernanda.alves@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Fernanda,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:28.990Z\",\"CV-8299\",\"Backend Developer\",\"Fernanda Alves\",\"fernanda.alves@example.com\",\"95\",\"shortlist\",\"6\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-8299",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": [],
+       "recruiter_alert": "sent"
+      },
+      "notified": "sent"
+     }
+    ]
+   }
+  }
+ ],
+ "borderline_maybe": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Priscila Santos",
+    "email": "priscila.santos@example.com",
+    "cv_text": "Priscila Santos. Software developer with 2 years of experience maintaining Python scripts and SQL reports for an internal finance team. Comfortable with Docker for local development. Built small Flask endpoints for internal tools and wrote documentation for the team. Bachelor degree in Information Systems. Looking to grow into backend engineering and learn proper API design in depth."
+   },
+   "http": 200,
+   "response": {
+    "candidate_id": "CV-2238",
+    "decision": "maybe",
+    "score": 63,
+    "rank": "3 of 4",
+    "matched": "2/3 must-haves",
+    "missing": [
+     "rest"
+    ],
+    "recruiter_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV",
+    "Duplicate?",
+    "Build outputs",
+    "Append to ranking",
+    "Shortlist?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "597",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Priscila Santos",
+       "email": "priscila.santos@example.com",
+       "cv_text": "Priscila Santos. Software developer with 2 years of experience maintaining Python scripts and SQL reports for an internal finance team. Comfortable with Docker for local development. Built small Flask endpoints for internal tools and wrote documentation for the team. Bachelor degree in Information Systems. Looking to grow into backend engineering and learn proper API design in depth."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "597",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Priscila Santos",
+       "email": "priscila.santos@example.com",
+       "cv_text": "Priscila Santos. Software developer with 2 years of experience maintaining Python scripts and SQL reports for an internal finance team. Comfortable with Docker for local development. Built small Flask endpoints for internal tools and wrote documentation for the team. Bachelor degree in Information Systems. Looking to grow into backend engineering and learn proper API design in depth."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-2238",
+      "job_title": "Backend Developer",
+      "name": "Priscila Santos",
+      "email": "priscila.santos@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql"
+      ],
+      "missing_must": [
+       "rest"
+      ],
+      "matched_nice": [
+       "docker"
+      ],
+      "years": 2,
+      "parts": {
+       "must": 40,
+       "nice": 5,
+       "years": 13,
+       "education": 5
+      },
+      "score": 63,
+      "decision": "maybe",
+      "rank": 3,
+      "of": 4,
+      "ts": "2026-11-11T16:17:30.948Z"
+     }
+    ],
+    "Duplicate?": [],
+    "Build outputs": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-2238",
+      "job_title": "Backend Developer",
+      "name": "Priscila Santos",
+      "email": "priscila.santos@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql"
+      ],
+      "missing_must": [
+       "rest"
+      ],
+      "matched_nice": [
+       "docker"
+      ],
+      "years": 2,
+      "parts": {
+       "must": 40,
+       "nice": 5,
+       "years": 13,
+       "education": 5
+      },
+      "score": 63,
+      "decision": "maybe",
+      "rank": 3,
+      "of": 4,
+      "ts": "2026-11-11T16:17:30.948Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "review",
+       "note": "Borderline: a person should read this CV. Missing: rest."
+      },
+      "csv_line": "\"2026-11-11T16:17:30.948Z\",\"CV-2238\",\"Backend Developer\",\"Priscila Santos\",\"priscila.santos@example.com\",\"63\",\"maybe\",\"2\",\"rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-2238",
+       "decision": "maybe",
+       "score": 63,
+       "rank": "3 of 4",
+       "matched": "2/3 must-haves",
+       "missing": [
+        "rest"
+       ]
+      }
+     }
+    ],
+    "Append to ranking": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-2238",
+      "job_title": "Backend Developer",
+      "name": "Priscila Santos",
+      "email": "priscila.santos@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql"
+      ],
+      "missing_must": [
+       "rest"
+      ],
+      "matched_nice": [
+       "docker"
+      ],
+      "years": 2,
+      "parts": {
+       "must": 40,
+       "nice": 5,
+       "years": 13,
+       "education": 5
+      },
+      "score": 63,
+      "decision": "maybe",
+      "rank": 3,
+      "of": 4,
+      "ts": "2026-11-11T16:17:30.948Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "review",
+       "note": "Borderline: a person should read this CV. Missing: rest."
+      },
+      "csv_line": "\"2026-11-11T16:17:30.948Z\",\"CV-2238\",\"Backend Developer\",\"Priscila Santos\",\"priscila.santos@example.com\",\"63\",\"maybe\",\"2\",\"rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-2238",
+       "decision": "maybe",
+       "score": 63,
+       "rank": "3 of 4",
+       "matched": "2/3 must-haves",
+       "missing": [
+        "rest"
+       ]
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Shortlist?": [],
+    "Build response": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-2238",
+      "job_title": "Backend Developer",
+      "name": "Priscila Santos",
+      "email": "priscila.santos@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql"
+      ],
+      "missing_must": [
+       "rest"
+      ],
+      "matched_nice": [
+       "docker"
+      ],
+      "years": 2,
+      "parts": {
+       "must": 40,
+       "nice": 5,
+       "years": 13,
+       "education": 5
+      },
+      "score": 63,
+      "decision": "maybe",
+      "rank": 3,
+      "of": 4,
+      "ts": "2026-11-11T16:17:30.948Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "review",
+       "note": "Borderline: a person should read this CV. Missing: rest."
+      },
+      "csv_line": "\"2026-11-11T16:17:30.948Z\",\"CV-2238\",\"Backend Developer\",\"Priscila Santos\",\"priscila.santos@example.com\",\"63\",\"maybe\",\"2\",\"rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-2238",
+       "decision": "maybe",
+       "score": 63,
+       "rank": "3 of 4",
+       "matched": "2/3 must-haves",
+       "missing": [
+        "rest"
+       ],
+       "recruiter_alert": "not_needed"
+      },
+      "notified": "not_needed"
+     }
+    ],
+    "Respond": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-2238",
+      "job_title": "Backend Developer",
+      "name": "Priscila Santos",
+      "email": "priscila.santos@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql"
+      ],
+      "missing_must": [
+       "rest"
+      ],
+      "matched_nice": [
+       "docker"
+      ],
+      "years": 2,
+      "parts": {
+       "must": 40,
+       "nice": 5,
+       "years": 13,
+       "education": 5
+      },
+      "score": 63,
+      "decision": "maybe",
+      "rank": 3,
+      "of": 4,
+      "ts": "2026-11-11T16:17:30.948Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "review",
+       "note": "Borderline: a person should read this CV. Missing: rest."
+      },
+      "csv_line": "\"2026-11-11T16:17:30.948Z\",\"CV-2238\",\"Backend Developer\",\"Priscila Santos\",\"priscila.santos@example.com\",\"63\",\"maybe\",\"2\",\"rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-2238",
+       "decision": "maybe",
+       "score": 63,
+       "rank": "3 of 4",
+       "matched": "2/3 must-haves",
+       "missing": [
+        "rest"
+       ],
+       "recruiter_alert": "not_needed"
+      },
+      "notified": "not_needed"
+     }
+    ]
+   }
+  }
+ ],
+ "weak_decline_held": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Marcos Teixeira",
+    "email": "marcos.teixeira@example.com",
+    "cv_text": "Marcos Teixeira. Marketing manager with 8 years of experience in brand campaigns, social media and events. Managed budgets of 200 thousand dollars, coordinated agencies and launched three product lines. Strong in Excel and presentations. Bachelor degree in Business Administration. Interested in a career change into technology after completing an online course."
+   },
+   "http": 200,
+   "response": {
+    "candidate_id": "CV-7383",
+    "decision": "decline",
+    "score": 25,
+    "rank": "4 of 4",
+    "matched": "0/3 must-haves",
+    "missing": [
+     "python",
+     "sql",
+     "rest"
+    ],
+    "recruiter_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV",
+    "Duplicate?",
+    "Build outputs",
+    "Append to ranking",
+    "Shortlist?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "573",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Marcos Teixeira",
+       "email": "marcos.teixeira@example.com",
+       "cv_text": "Marcos Teixeira. Marketing manager with 8 years of experience in brand campaigns, social media and events. Managed budgets of 200 thousand dollars, coordinated agencies and launched three product lines. Strong in Excel and presentations. Bachelor degree in Business Administration. Interested in a career change into technology after completing an online course."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "573",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Marcos Teixeira",
+       "email": "marcos.teixeira@example.com",
+       "cv_text": "Marcos Teixeira. Marketing manager with 8 years of experience in brand campaigns, social media and events. Managed budgets of 200 thousand dollars, coordinated agencies and launched three product lines. Strong in Excel and presentations. Bachelor degree in Business Administration. Interested in a career change into technology after completing an online course."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7383",
+      "job_title": "Backend Developer",
+      "name": "Marcos Teixeira",
+      "email": "marcos.teixeira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [],
+      "missing_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "matched_nice": [],
+      "years": 8,
+      "parts": {
+       "must": 0,
+       "nice": 0,
+       "years": 20,
+       "education": 5
+      },
+      "score": 25,
+      "decision": "decline",
+      "rank": 4,
+      "of": 4,
+      "ts": "2026-11-11T16:17:32.814Z"
+     }
+    ],
+    "Duplicate?": [],
+    "Build outputs": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7383",
+      "job_title": "Backend Developer",
+      "name": "Marcos Teixeira",
+      "email": "marcos.teixeira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [],
+      "missing_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "matched_nice": [],
+      "years": 8,
+      "parts": {
+       "must": 0,
+       "nice": 0,
+       "years": 20,
+       "education": 5
+      },
+      "score": 25,
+      "decision": "decline",
+      "rank": 4,
+      "of": 4,
+      "ts": "2026-11-11T16:17:32.814Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "decline_held",
+       "to": "marcos.teixeira@example.com",
+       "subject": "Your application: Backend Developer",
+       "text": "Hi Marcos,\n\nThank you for your interest in Backend Developer and for the time you put into applying. After reviewing the role requirements, we are not moving forward with your application at this stage. We will keep your details on file and reach out if a closer match opens up.\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:32.814Z\",\"CV-7383\",\"Backend Developer\",\"Marcos Teixeira\",\"marcos.teixeira@example.com\",\"25\",\"decline\",\"8\",\"python/sql/rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7383",
+       "decision": "decline",
+       "score": 25,
+       "rank": "4 of 4",
+       "matched": "0/3 must-haves",
+       "missing": [
+        "python",
+        "sql",
+        "rest"
+       ]
+      }
+     }
+    ],
+    "Append to ranking": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7383",
+      "job_title": "Backend Developer",
+      "name": "Marcos Teixeira",
+      "email": "marcos.teixeira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [],
+      "missing_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "matched_nice": [],
+      "years": 8,
+      "parts": {
+       "must": 0,
+       "nice": 0,
+       "years": 20,
+       "education": 5
+      },
+      "score": 25,
+      "decision": "decline",
+      "rank": 4,
+      "of": 4,
+      "ts": "2026-11-11T16:17:32.814Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "decline_held",
+       "to": "marcos.teixeira@example.com",
+       "subject": "Your application: Backend Developer",
+       "text": "Hi Marcos,\n\nThank you for your interest in Backend Developer and for the time you put into applying. After reviewing the role requirements, we are not moving forward with your application at this stage. We will keep your details on file and reach out if a closer match opens up.\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:32.814Z\",\"CV-7383\",\"Backend Developer\",\"Marcos Teixeira\",\"marcos.teixeira@example.com\",\"25\",\"decline\",\"8\",\"python/sql/rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7383",
+       "decision": "decline",
+       "score": 25,
+       "rank": "4 of 4",
+       "matched": "0/3 must-haves",
+       "missing": [
+        "python",
+        "sql",
+        "rest"
+       ]
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Shortlist?": [],
+    "Build response": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7383",
+      "job_title": "Backend Developer",
+      "name": "Marcos Teixeira",
+      "email": "marcos.teixeira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [],
+      "missing_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "matched_nice": [],
+      "years": 8,
+      "parts": {
+       "must": 0,
+       "nice": 0,
+       "years": 20,
+       "education": 5
+      },
+      "score": 25,
+      "decision": "decline",
+      "rank": 4,
+      "of": 4,
+      "ts": "2026-11-11T16:17:32.814Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "decline_held",
+       "to": "marcos.teixeira@example.com",
+       "subject": "Your application: Backend Developer",
+       "text": "Hi Marcos,\n\nThank you for your interest in Backend Developer and for the time you put into applying. After reviewing the role requirements, we are not moving forward with your application at this stage. We will keep your details on file and reach out if a closer match opens up.\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:32.814Z\",\"CV-7383\",\"Backend Developer\",\"Marcos Teixeira\",\"marcos.teixeira@example.com\",\"25\",\"decline\",\"8\",\"python/sql/rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7383",
+       "decision": "decline",
+       "score": 25,
+       "rank": "4 of 4",
+       "matched": "0/3 must-haves",
+       "missing": [
+        "python",
+        "sql",
+        "rest"
+       ],
+       "recruiter_alert": "not_needed"
+      },
+      "notified": "not_needed"
+     }
+    ],
+    "Respond": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7383",
+      "job_title": "Backend Developer",
+      "name": "Marcos Teixeira",
+      "email": "marcos.teixeira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [],
+      "missing_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "matched_nice": [],
+      "years": 8,
+      "parts": {
+       "must": 0,
+       "nice": 0,
+       "years": 20,
+       "education": 5
+      },
+      "score": 25,
+      "decision": "decline",
+      "rank": 4,
+      "of": 4,
+      "ts": "2026-11-11T16:17:32.814Z",
+      "recruiter_alert": "",
+      "draft": {
+       "kind": "decline_held",
+       "to": "marcos.teixeira@example.com",
+       "subject": "Your application: Backend Developer",
+       "text": "Hi Marcos,\n\nThank you for your interest in Backend Developer and for the time you put into applying. After reviewing the role requirements, we are not moving forward with your application at this stage. We will keep your details on file and reach out if a closer match opens up.\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:32.814Z\",\"CV-7383\",\"Backend Developer\",\"Marcos Teixeira\",\"marcos.teixeira@example.com\",\"25\",\"decline\",\"8\",\"python/sql/rest\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7383",
+       "decision": "decline",
+       "score": 25,
+       "rank": "4 of 4",
+       "matched": "0/3 must-haves",
+       "missing": [
+        "python",
+        "sql",
+        "rest"
+       ],
+       "recruiter_alert": "not_needed"
+      },
+      "notified": "not_needed"
+     }
+    ]
+   }
+  }
+ ],
+ "duplicate_blocked": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Rafael Torres",
+    "email": "rafael.torres@example.com",
+    "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+   },
+   "http": 409,
+   "response": {
+    "status": "duplicate",
+    "candidate_id": "CV-4388",
+    "reason": "already screened for this job",
+    "earlier_score": 71,
+    "earlier_decision": "maybe"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV",
+    "Duplicate?",
+    "Respond"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "593",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Rafael Torres",
+       "email": "rafael.torres@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "593",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Rafael Torres",
+       "email": "rafael.torres@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": [
+     {
+      "duplicate": true,
+      "candidate_id": "CV-4388",
+      "job_title": "Backend Developer",
+      "name": "Rafael Torres",
+      "email": "rafael.torres@example.com",
+      "http_status": 409,
+      "response": {
+       "status": "duplicate",
+       "candidate_id": "CV-4388",
+       "reason": "already screened for this job",
+       "earlier_score": 71,
+       "earlier_decision": "maybe"
+      }
+     }
+    ],
+    "Duplicate?": [
+     {
+      "duplicate": true,
+      "candidate_id": "CV-4388",
+      "job_title": "Backend Developer",
+      "name": "Rafael Torres",
+      "email": "rafael.torres@example.com",
+      "http_status": 409,
+      "response": {
+       "status": "duplicate",
+       "candidate_id": "CV-4388",
+       "reason": "already screened for this job",
+       "earlier_score": 71,
+       "earlier_decision": "maybe"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "duplicate": true,
+      "candidate_id": "CV-4388",
+      "job_title": "Backend Developer",
+      "name": "Rafael Torres",
+      "email": "rafael.torres@example.com",
+      "http_status": 409,
+      "response": {
+       "status": "duplicate",
+       "candidate_id": "CV-4388",
+       "reason": "already screened for this job",
+       "earlier_score": 71,
+       "earlier_decision": "maybe"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "telegram_down": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Lucas Moreira",
+    "email": "lucas.moreira@example.com",
+    "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+   },
+   "http": 200,
+   "response": {
+    "candidate_id": "CV-7376",
+    "decision": "shortlist",
+    "score": 95,
+    "rank": "1 of 4",
+    "matched": "3/3 must-haves",
+    "missing": [],
+    "recruiter_alert": "queued"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV",
+    "Duplicate?",
+    "Build outputs",
+    "Append to ranking",
+    "Shortlist?",
+    "Notify recruiter (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "593",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "593",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:36.512Z"
+     }
+    ],
+    "Duplicate?": [],
+    "Build outputs": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:36.512Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:36.512Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      }
+     }
+    ],
+    "Append to ranking": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:36.512Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:36.512Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Shortlist?": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:36.512Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:36.512Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": []
+      },
+      "fileName": "./data/candidates_17.csv"
+     }
+    ],
+    "Notify recruiter (Telegram)": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Build response": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:36.512Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:36.512Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": [],
+       "recruiter_alert": "queued"
+      },
+      "notified": "queued"
+     }
+    ],
+    "Respond": [
+     {
+      "duplicate": false,
+      "candidate_id": "CV-7376",
+      "job_title": "Backend Developer",
+      "name": "Lucas Moreira",
+      "email": "lucas.moreira@example.com",
+      "must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "nice": [
+       "docker",
+       "aws",
+       "redis"
+      ],
+      "min_years": 3,
+      "matched_must": [
+       "python",
+       "sql",
+       "rest"
+      ],
+      "missing_must": [],
+      "matched_nice": [
+       "docker",
+       "aws"
+      ],
+      "years": 5,
+      "parts": {
+       "must": 60,
+       "nice": 10,
+       "years": 20,
+       "education": 5
+      },
+      "score": 95,
+      "decision": "shortlist",
+      "rank": 1,
+      "of": 4,
+      "ts": "2026-11-11T16:17:36.512Z",
+      "recruiter_alert": "SHORTLIST Lucas Moreira for Backend Developer: 95/100, rank 1 of 4\nMatched: python, sql, rest, docker, aws · 5 years\nInvite DRAFTED, not sent.",
+      "draft": {
+       "kind": "invite",
+       "to": "lucas.moreira@example.com",
+       "subject": "Next step: Backend Developer",
+       "text": "Hi Lucas,\n\nThank you for applying for Backend Developer. Your background looks like a good match and we would like to talk. Could you share two or three time slots next week for a 30-minute call?\n\nBest regards,\nThe hiring team"
+      },
+      "csv_line": "\"2026-11-11T16:17:36.512Z\",\"CV-7376\",\"Backend Developer\",\"Lucas Moreira\",\"lucas.moreira@example.com\",\"95\",\"shortlist\",\"5\",\"\"\n",
+      "http_status": 200,
+      "response": {
+       "candidate_id": "CV-7376",
+       "decision": "shortlist",
+       "score": 95,
+       "rank": "1 of 4",
+       "matched": "3/3 must-haves",
+       "missing": [],
+       "recruiter_alert": "queued"
+      },
+      "notified": "queued"
+     }
+    ]
+   }
+  }
+ ],
+ "cv_too_short": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Ivo Prado",
+    "email": "ivo.prado@example.com",
+    "cv_text": "Resume attached as image."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "CV text too short (25 characters, need 200). Scanned PDF? Send extracted text. [line 31]",
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "224",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Ivo Prado",
+       "email": "ivo.prado@example.com",
+       "cv_text": "Resume attached as image."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "224",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Ivo Prado",
+       "email": "ivo.prado@example.com",
+       "cv_text": "Resume attached as image."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": {
+     "__error": "CV text too short (25 characters, need 200). Scanned PDF? Send extracted text. [line 31]"
+    }
+   }
+  }
+ ],
+ "bad_email": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "python, sql, rest",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Lucas Moreira",
+    "email": "lucas.moreira@example",
+    "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "email is not valid: lucas.moreira@example [line 31]",
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "589",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "589",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "python, sql, rest",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": {
+     "__error": "email is not valid: lucas.moreira@example [line 31]"
+    }
+   }
+  }
+ ],
+ "no_must_have": [
+  {
+   "path": "cv-screen",
+   "input": {
+    "job_title": "Backend Developer",
+    "must_have": "",
+    "nice_have": "docker, aws, redis",
+    "min_years": 3,
+    "candidate_name": "Lucas Moreira",
+    "email": "lucas.moreira@example.com",
+    "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "must_have needs at least one skill [line 31]",
+   "order": [
+    "CV received",
+    "Config",
+    "Read ranking",
+    "Score CV"
+   ],
+   "nodes": {
+    "CV received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "576",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "576",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "job_title": "Backend Developer",
+       "must_have": "",
+       "nice_have": "docker, aws, redis",
+       "min_years": 3,
+       "candidate_name": "Lucas Moreira",
+       "email": "lucas.moreira@example.com",
+       "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/cv-screen",
+      "executionMode": "production",
+      "ranking_file": "./data/candidates_17.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "RECRUITER_CHAT_ID"
+     }
+    ],
+    "Read ranking": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "candidates_17.csv",
+      "fileExtension": "csv",
+      "fileSize": "450 B"
+     }
+    ],
+    "Score CV": {
+     "__error": "must_have needs at least one skill [line 31]"
+    }
+   }
+  }
+ ]
+}

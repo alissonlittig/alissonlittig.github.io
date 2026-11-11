@@ -239,6 +239,19 @@
       var list = []; try { list = LG.outputs(r) || []; } catch (e) { list = [{ kind: 'error', text: e.message }]; }
       list.forEach(function (o) { box.appendChild(card(o)); });
     }
+    function chartSvg(o) {
+      var v = o.values, p = o.prev || [], W = 560, H = 210, pl = 8, pb = 28, pt = 22, n = v.length, max = Math.max.apply(null, v.concat(p, [1])), bw = (W - pl * 2) / n, g = o.prev ? 0.1 : 0.2, out = '';
+      for (var i = 0; i < n; i++) {
+        var x = pl + i * bw, h1 = (H - pb - pt) * v[i] / max, bx = bw * (o.prev ? 0.42 : 0.6);
+        if (o.prev) { var h0 = (H - pb - pt) * p[i] / max; out += '<rect class="cp" x="' + (x + bw * g).toFixed(1) + '" y="' + (H - pb - h0).toFixed(1) + '" width="' + bx.toFixed(1) + '" height="' + h0.toFixed(1) + '" rx="3"/>'; }
+        var cx = o.prev ? x + bw * (g + 0.46) : x + bw * 0.2;
+        out += '<rect class="cc" x="' + cx.toFixed(1) + '" y="' + (H - pb - h1).toFixed(1) + '" width="' + bx.toFixed(1) + '" height="' + h1.toFixed(1) + '" rx="3"/>';
+        out += '<text class="cv" x="' + (cx + bx / 2).toFixed(1) + '" y="' + (H - pb - h1 - 6).toFixed(1) + '" text-anchor="middle">' + esc(o.fmt ? o.fmt[i] : v[i]) + '</text>';
+        out += '<text class="cl" x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle">' + esc(o.labels[i]) + '</text>';
+      }
+      return '<div class="chart"><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(o.alt || '') + '">' + out + '</svg><p class="lg2">' + (o.prev ? '<i class="cp"></i>' + esc(L(o.prevLabel)) + ' &nbsp; ' : '') + '<i class="cc"></i>' + esc(L(o.curLabel)) + '</p></div>';
+    }
+
     function card(o) {
       var c = el('div', 'card rc' + (o.skipped ? ' skipped' : '') + (o.kind === 'sheet' ? ' wide' : '')); c.appendChild(el('h3', '', esc(L(o.title))));
       var b = '';
@@ -248,6 +261,7 @@
       else if (o.kind === 'sheet') b = '<div class="sh"><table><thead><tr>' + o.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>' + o.rows.map(function (r, i) { return '<tr' + (i === o.rows.length - 1 && o.highlightLast ? ' class="new"' : '') + '>' + r.map(function (v) { return '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>';
       else if (o.kind === 'card') b = '<dl class="kv">' + o.rows.map(function (r) { return '<dt>' + esc(L(r[0])) + '</dt><dd>' + (r[2] ? '<span class="badge ' + esc(r[2]) + '">' + esc(r[1]) + '</span>' : esc(L(r[1]))) + '</dd>'; }).join('') + '</dl>';
       else if (o.kind === 'chat') b = '<div class="chat">' + o.turns.map(function (t) { return '<div class="u">' + esc(t.q) + '</div><div class="a">' + esc(t.a) + '</div>' + (t.tools ? '<p class="tl">' + esc(t.tools) + '</p>' : ''); }).join('') + '</div>';
+      else if (o.kind === 'chart') b = chartSvg(o);
       else if (o.kind === 'error') b = '<div class="errc">' + esc(L(o.text)) + '</div>';
       else b = '<pre>' + hl(o.json) + '</pre>';
       c.insertAdjacentHTML('beforeend', b); return c;

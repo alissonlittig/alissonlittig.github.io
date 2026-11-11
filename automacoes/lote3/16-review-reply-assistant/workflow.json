@@ -1,0 +1,331 @@
+{
+  "name": "Review replies with brand tone, owner alert and approval queue",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "review-reply",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d19986dc-12a3-5ba3-92d2-a9e6c509ea1c",
+      "name": "Review received",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        200
+      ],
+      "webhookId": "review-reply-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c494ca21-d072-57c5-993d-9197647033fe",
+              "name": "queue_file",
+              "value": "./data/replies_16.csv",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "OWNER_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "ab4cd9ed-8b7c-547d-985e-c48b415413b3",
+              "name": "contact_en",
+              "value": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+              "type": "string"
+            },
+            {
+              "id": "0c1cbd04-64fd-57c5-bf56-f64580e1082c",
+              "name": "contact_pt",
+              "value": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        200
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst out = (() => {\nconst b = input.body || {};\nconst business = String(b.business || '').trim(), reviewer = String(b.reviewer || '').trim(), owner = String(b.owner_name || '').trim() || business;\nconst text = String(b.text || '').replace(/\\s+/g, ' ').trim(), tone = b.tone === 'formal' ? 'formal' : 'warm', rating = Number(b.rating);\nif (!business) throw new Error('business is missing');\nif (!reviewer) throw new Error('reviewer is missing');\nif (!Number.isInteger(rating) || rating < 1 || rating > 5) throw new Error('rating must be an integer from 1 to 5');\nif (text.length > 4000) throw new Error('Review text is over 4000 characters');\nconst lang = text ? (/\\b(muito|não|nao|foi|atendimento|ótimo|otimo|ótima|demorou|comida|preço|preco|obrigad[oa]|péssimo|pessimo|recomendo|vocês|voces|lugar|pedido)\\b/i.test(text) ? 'pt' : 'en') : (b.lang === 'pt' ? 'pt' : 'en');\nconst TOPICS = { service: /(staff|service|waiter|waitress|rude|friendly|atendimento|atendente|garçom|educad|grosseir|simpátic)/i, wait: /(wait|slow|late|hour|demor|espera|atras)/i, price: /(price|expensive|overpriced|cheap|preço|preco|caro|barato|cobr)/i, quality: /(quality|taste|cold|fresh|broken|qualidade|sabor|frio|fresco|quebrad|gostos|delicios)/i, clean: /(dirty|clean|hygiene|sujo|limp|higiene)/i, delivery: /(delivery|package|courier|entrega|motoboy)/i };\nconst topics = Object.keys(TOPICS).filter(k => TOPICS[k].test(text));\nconst escalate = /(lawyer|sue you|lawsuit|food poisoning|got sick|health department|procon|advogado|processo|intoxica|passei mal|vigilância sanitária)/i.test(text);\nlet h = 0; for (const ch of business + reviewer + text) h = (h * 31 + ch.charCodeAt(0)) % 9000;\nreturn { review_id: 'RV-' + (1000 + h), business, reviewer, first: reviewer.split(' ')[0], owner, rating, text, tone, lang, contact_en: input.contact_en, contact_pt: input.contact_pt, sentiment: rating >= 4 ? 'positive' : rating === 3 ? 'mixed' : 'negative', topics, escalate, ts: new Date().toISOString() };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "645b18da-e1e8-59c2-9f4a-b25bbab01a86",
+      "name": "Analyze review",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst pt = input.lang === 'pt', formal = input.tone === 'formal', t = input.topics[0];\nconst hello = (pt ? (formal ? 'Prezado(a) ' : 'Olá, ') : (formal ? 'Dear ' : 'Hi ')) + input.first + ',';\nconst bye = pt ? (formal ? 'Atenciosamente,' : 'Um abraço,') : (formal ? 'Kind regards,' : 'Warm regards,');\nconst POS = pt ? { service: 'Vamos repassar o elogio à equipe, ele faz diferença.', wait: 'Ficamos felizes que o tempo tenha sido bom.', price: 'Fico contente que o valor tenha feito sentido para você.', quality: 'Que bom que você gostou da qualidade, é o que mais cuidamos.', clean: 'Obrigado por notar o cuidado com a limpeza.', delivery: 'Que bom que a entrega correu bem.', none: 'Foi um prazer receber você.' }\n  : { service: 'We will pass your kind words on to the team, they mean a lot.', wait: 'We are glad the timing worked out.', price: 'We are glad it felt like good value.', quality: 'We are glad you enjoyed the quality, it is what we care about most.', clean: 'Thank you for noticing how much we care about cleanliness.', delivery: 'We are glad the delivery went smoothly.', none: 'It was a pleasure having you.' };\nconst NEG = pt ? { service: 'O atendimento que você descreveu não é o que esperamos da equipe.', wait: 'A demora que você descreveu não é o que queremos para ninguém.', price: 'Entendemos a sua percepção sobre o preço.', quality: 'A qualidade que você descreveu não é o padrão que queremos entregar.', clean: 'Limpeza é prioridade para nós e vamos verificar o que aconteceu.', delivery: 'Vamos entender o que houve com a entrega.', none: 'Queremos entender o que aconteceu.' }\n  : { service: 'The service you describe is not what we expect from our team.', wait: 'The wait you describe is not what we want for anyone.', price: 'We understand how the pricing felt.', quality: 'The quality you describe is not the standard we want to deliver.', clean: 'Cleanliness is a priority for us and we will look into what happened.', delivery: 'We will find out what went wrong with the delivery.', none: 'We want to understand what happened.' };\nconst contact = pt ? input.contact_pt : input.contact_en;\nlet body;\nif (input.escalate) body = pt ? 'Lamentamos muito o que você relatou e levamos isso a sério. ' + contact : 'We are very sorry about what you describe and we take it seriously. ' + contact;\nelse if (!input.text) body = input.rating >= 4 ? (pt ? 'Obrigado pela avaliação! ' : 'Thank you for the rating! ') + POS.none : (pt ? 'Obrigado por avaliar. Sentimos que a experiência não tenha sido boa e gostaríamos de saber o que aconteceu. ' : 'Thank you for rating us. We are sorry the experience was not a good one and would like to hear what happened. ') + contact;\nelse if (input.rating >= 4) body = (pt ? 'Muito obrigado pela avaliação! ' : 'Thank you so much for the review! ') + POS[t || 'none'] + (pt ? ' Esperamos ver você de novo em breve.' : ' We hope to see you again soon.');\nelse if (input.rating === 3) body = (pt ? 'Obrigado pelo retorno honesto. ' : 'Thank you for the honest feedback. ') + (t ? NEG[t] + ' ' : '') + (pt ? 'Vamos usar isso para melhorar. ' : 'We will use it to improve. ') + contact;\nelse body = (pt ? 'Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. ' : 'Thank you for telling us, and we are sorry the visit fell short. ') + NEG[t || 'none'] + ' ' + contact;\nconst reply = hello + '\\n\\n' + body + '\\n\\n' + bye + '\\n' + input.owner;\nreturn { ...input, reply, reply_chars: reply.length };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "96f86538-d5ee-565c-a34e-3c5e2dd02378",
+      "name": "Draft reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        620,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\n\nconst status = input.escalate ? 'escalated' : input.rating <= 2 ? 'needs_owner' : input.rating === 3 ? 'needs_review' : 'ready_to_post';\nconst needs_owner = status === 'escalated' || status === 'needs_owner';\nconst snip = input.text ? (input.text.length > 140 ? input.text.slice(0, 139).replace(/\\s+\\S*$/, '') + '…' : input.text) : '(no text)';\nconst alert_text = needs_owner ? (input.escalate ? 'ESCALATE ' : 'LOW RATING ') + input.rating + '/5 · ' + input.business + ' · ' + input.reviewer + '\\n\"' + snip + '\"\\nTopics: ' + (input.topics.join(', ') || 'none') + '\\nReply drafted, NOT posted. Status: ' + status : '';\nconst csv_line = [input.ts, input.review_id, input.reviewer, input.rating, input.topics.join('/') || '-', status, input.reply.split('\\n')[2].slice(0, 80)].map(Q).join(',') + '\\n';\nreturn { ...input, status, needs_owner, alert_text, csv_line };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "71f3faa7-b223-59fd-b34d-5773d9e5f270",
+      "name": "Route",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        820,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.queue_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "db3d4b04-da7b-57fb-9dc3-c0891d69a44b",
+      "name": "Append to queue",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "95ad5772-397c-5384-8f83-eca99d1acd2f",
+              "leftValue": "={{ $('Route').first().json.needs_owner }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e64a123d-c8b7-522d-af31-5f63118c0810",
+      "name": "Needs owner?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1220,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $('Route').first().json.alert_text}) }}",
+        "options": {}
+      },
+      "id": "6d193821-415c-575d-b6ca-1b78f7dec8c0",
+      "name": "Alert owner (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1430,
+        100
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Retry 3x, then continue: the draft is already in the queue file.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rep = $('Route').first().json;\nconst inp = $input.first().json;\nconst out = (() => {\nconst alert_ok = !rep.needs_owner || !!(inp && inp.ok === true && !inp.error);\nreturn { ...rep, alert_ok, response: { review_id: rep.review_id, status: rep.status, rating: rep.rating, topics: rep.topics, owner_alert: !rep.needs_owner ? 'not_needed' : alert_ok ? 'sent' : 'queued' } };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "332eadf3-88a8-5477-9e51-9c09b7e191d7",
+      "name": "Build response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1640,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json.response) }}",
+        "options": {}
+      },
+      "id": "6036e3fc-33e8-5ad1-9192-aae7c1b32234",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1850,
+        200
+      ]
+    }
+  ],
+  "connections": {
+    "Review received": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Analyze review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze review": {
+      "main": [
+        [
+          {
+            "node": "Draft reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft reply": {
+      "main": [
+        [
+          {
+            "node": "Route",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route": {
+      "main": [
+        [
+          {
+            "node": "Append to queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to queue": {
+      "main": [
+        [
+          {
+            "node": "Needs owner?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs owner?": {
+      "main": [
+        [
+          {
+            "node": "Alert owner (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert owner (Telegram)": {
+      "main": [
+        [
+          {
+            "node": "Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build response": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

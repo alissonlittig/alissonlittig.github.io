@@ -1,0 +1,1879 @@
+{
+ "five_stars_ready": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Casa Lume Bistro",
+    "owner_name": "Marta",
+    "tone": "warm",
+    "reviewer": "Daniel Ferreira",
+    "rating": 5,
+    "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+   },
+   "http": 200,
+   "response": {
+    "review_id": "RV-2846",
+    "status": "ready_to_post",
+    "rating": 5,
+    "topics": [
+     "service",
+     "quality"
+    ],
+    "owner_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review",
+    "Draft reply",
+    "Route",
+    "Append to queue",
+    "Needs owner?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "218",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Daniel Ferreira",
+       "rating": 5,
+       "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "218",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Daniel Ferreira",
+       "rating": 5,
+       "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": [
+     {
+      "review_id": "RV-2846",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Daniel Ferreira",
+      "first": "Daniel",
+      "owner": "Marta",
+      "rating": 5,
+      "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:25.080Z"
+     }
+    ],
+    "Draft reply": [
+     {
+      "review_id": "RV-2846",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Daniel Ferreira",
+      "first": "Daniel",
+      "owner": "Marta",
+      "rating": 5,
+      "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:25.080Z",
+      "reply": "Hi Daniel,\n\nThank you so much for the review! We will pass your kind words on to the team, they mean a lot. We hope to see you again soon.\n\nWarm regards,\nMarta",
+      "reply_chars": 159
+     }
+    ],
+    "Route": [
+     {
+      "review_id": "RV-2846",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Daniel Ferreira",
+      "first": "Daniel",
+      "owner": "Marta",
+      "rating": 5,
+      "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:25.080Z",
+      "reply": "Hi Daniel,\n\nThank you so much for the review! We will pass your kind words on to the team, they mean a lot. We hope to see you again soon.\n\nWarm regards,\nMarta",
+      "reply_chars": 159,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:25.080Z\",\"RV-2846\",\"Daniel Ferreira\",\"5\",\"service/quality\",\"ready_to_post\",\"Thank you so much for the review! We will pass your kind words on to the team, t\"\n"
+     }
+    ],
+    "Append to queue": [
+     {
+      "review_id": "RV-2846",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Daniel Ferreira",
+      "first": "Daniel",
+      "owner": "Marta",
+      "rating": 5,
+      "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:25.080Z",
+      "reply": "Hi Daniel,\n\nThank you so much for the review! We will pass your kind words on to the team, they mean a lot. We hope to see you again soon.\n\nWarm regards,\nMarta",
+      "reply_chars": 159,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:25.080Z\",\"RV-2846\",\"Daniel Ferreira\",\"5\",\"service/quality\",\"ready_to_post\",\"Thank you so much for the review! We will pass your kind words on to the team, t\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Needs owner?": [],
+    "Build response": [
+     {
+      "review_id": "RV-2846",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Daniel Ferreira",
+      "first": "Daniel",
+      "owner": "Marta",
+      "rating": 5,
+      "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:25.080Z",
+      "reply": "Hi Daniel,\n\nThank you so much for the review! We will pass your kind words on to the team, they mean a lot. We hope to see you again soon.\n\nWarm regards,\nMarta",
+      "reply_chars": 159,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:25.080Z\",\"RV-2846\",\"Daniel Ferreira\",\"5\",\"service/quality\",\"ready_to_post\",\"Thank you so much for the review! We will pass your kind words on to the team, t\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-2846",
+       "status": "ready_to_post",
+       "rating": 5,
+       "topics": [
+        "service",
+        "quality"
+       ],
+       "owner_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "review_id": "RV-2846",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Daniel Ferreira",
+      "first": "Daniel",
+      "owner": "Marta",
+      "rating": 5,
+      "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:25.080Z",
+      "reply": "Hi Daniel,\n\nThank you so much for the review! We will pass your kind words on to the team, they mean a lot. We hope to see you again soon.\n\nWarm regards,\nMarta",
+      "reply_chars": 159,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:25.080Z\",\"RV-2846\",\"Daniel Ferreira\",\"5\",\"service/quality\",\"ready_to_post\",\"Thank you so much for the review! We will pass your kind words on to the team, t\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-2846",
+       "status": "ready_to_post",
+       "rating": 5,
+       "topics": [
+        "service",
+        "quality"
+       ],
+       "owner_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "low_rating_pt_alert": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Padaria Boa Massa",
+    "owner_name": "Seu Carlos",
+    "tone": "warm",
+    "reviewer": "Camila Nogueira",
+    "rating": 2,
+    "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+   },
+   "http": 200,
+   "response": {
+    "review_id": "RV-3338",
+    "status": "needs_owner",
+    "rating": 2,
+    "topics": [
+     "service",
+     "quality"
+    ],
+    "owner_alert": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review",
+    "Draft reply",
+    "Route",
+    "Append to queue",
+    "Needs owner?",
+    "Alert owner (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "213",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Padaria Boa Massa",
+       "owner_name": "Seu Carlos",
+       "tone": "warm",
+       "reviewer": "Camila Nogueira",
+       "rating": 2,
+       "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "213",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Padaria Boa Massa",
+       "owner_name": "Seu Carlos",
+       "tone": "warm",
+       "reviewer": "Camila Nogueira",
+       "rating": 2,
+       "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z"
+     }
+    ],
+    "Draft reply": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255
+     }
+    ],
+    "Route": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:26.933Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n"
+     }
+    ],
+    "Append to queue": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:26.933Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Needs owner?": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:26.933Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Alert owner (Telegram)": [
+     {
+      "ok": true,
+      "id": 12
+     }
+    ],
+    "Build response": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:26.933Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-3338",
+       "status": "needs_owner",
+       "rating": 2,
+       "topics": [
+        "service",
+        "quality"
+       ],
+       "owner_alert": "sent"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:26.933Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:26.933Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-3338",
+       "status": "needs_owner",
+       "rating": 2,
+       "topics": [
+        "service",
+        "quality"
+       ],
+       "owner_alert": "sent"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "three_stars_formal": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Casa Lume Bistro",
+    "owner_name": "Marta",
+    "tone": "formal",
+    "reviewer": "Priya Nair",
+    "rating": 3,
+    "text": "Good quality but the price felt a bit high for the portion size."
+   },
+   "http": 200,
+   "response": {
+    "review_id": "RV-2815",
+    "status": "needs_review",
+    "rating": 3,
+    "topics": [
+     "price",
+     "quality"
+    ],
+    "owner_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review",
+    "Draft reply",
+    "Route",
+    "Append to queue",
+    "Needs owner?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "188",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "formal",
+       "reviewer": "Priya Nair",
+       "rating": 3,
+       "text": "Good quality but the price felt a bit high for the portion size."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "188",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "formal",
+       "reviewer": "Priya Nair",
+       "rating": 3,
+       "text": "Good quality but the price felt a bit high for the portion size."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": [
+     {
+      "review_id": "RV-2815",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Priya Nair",
+      "first": "Priya",
+      "owner": "Marta",
+      "rating": 3,
+      "text": "Good quality but the price felt a bit high for the portion size.",
+      "tone": "formal",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "mixed",
+      "topics": [
+       "price",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:28.839Z"
+     }
+    ],
+    "Draft reply": [
+     {
+      "review_id": "RV-2815",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Priya Nair",
+      "first": "Priya",
+      "owner": "Marta",
+      "rating": 3,
+      "text": "Good quality but the price felt a bit high for the portion size.",
+      "tone": "formal",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "mixed",
+      "topics": [
+       "price",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:28.839Z",
+      "reply": "Dear Priya,\n\nThank you for the honest feedback. We understand how the pricing felt. We will use it to improve. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nKind regards,\nMarta",
+      "reply_chars": 230
+     }
+    ],
+    "Route": [
+     {
+      "review_id": "RV-2815",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Priya Nair",
+      "first": "Priya",
+      "owner": "Marta",
+      "rating": 3,
+      "text": "Good quality but the price felt a bit high for the portion size.",
+      "tone": "formal",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "mixed",
+      "topics": [
+       "price",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:28.839Z",
+      "reply": "Dear Priya,\n\nThank you for the honest feedback. We understand how the pricing felt. We will use it to improve. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nKind regards,\nMarta",
+      "reply_chars": 230,
+      "status": "needs_review",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:28.839Z\",\"RV-2815\",\"Priya Nair\",\"3\",\"price/quality\",\"needs_review\",\"Thank you for the honest feedback. We understand how the pricing felt. We will u\"\n"
+     }
+    ],
+    "Append to queue": [
+     {
+      "review_id": "RV-2815",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Priya Nair",
+      "first": "Priya",
+      "owner": "Marta",
+      "rating": 3,
+      "text": "Good quality but the price felt a bit high for the portion size.",
+      "tone": "formal",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "mixed",
+      "topics": [
+       "price",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:28.839Z",
+      "reply": "Dear Priya,\n\nThank you for the honest feedback. We understand how the pricing felt. We will use it to improve. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nKind regards,\nMarta",
+      "reply_chars": 230,
+      "status": "needs_review",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:28.839Z\",\"RV-2815\",\"Priya Nair\",\"3\",\"price/quality\",\"needs_review\",\"Thank you for the honest feedback. We understand how the pricing felt. We will u\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Needs owner?": [],
+    "Build response": [
+     {
+      "review_id": "RV-2815",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Priya Nair",
+      "first": "Priya",
+      "owner": "Marta",
+      "rating": 3,
+      "text": "Good quality but the price felt a bit high for the portion size.",
+      "tone": "formal",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "mixed",
+      "topics": [
+       "price",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:28.839Z",
+      "reply": "Dear Priya,\n\nThank you for the honest feedback. We understand how the pricing felt. We will use it to improve. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nKind regards,\nMarta",
+      "reply_chars": 230,
+      "status": "needs_review",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:28.839Z\",\"RV-2815\",\"Priya Nair\",\"3\",\"price/quality\",\"needs_review\",\"Thank you for the honest feedback. We understand how the pricing felt. We will u\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-2815",
+       "status": "needs_review",
+       "rating": 3,
+       "topics": [
+        "price",
+        "quality"
+       ],
+       "owner_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "review_id": "RV-2815",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Priya Nair",
+      "first": "Priya",
+      "owner": "Marta",
+      "rating": 3,
+      "text": "Good quality but the price felt a bit high for the portion size.",
+      "tone": "formal",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "mixed",
+      "topics": [
+       "price",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:28.839Z",
+      "reply": "Dear Priya,\n\nThank you for the honest feedback. We understand how the pricing felt. We will use it to improve. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nKind regards,\nMarta",
+      "reply_chars": 230,
+      "status": "needs_review",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:28.839Z\",\"RV-2815\",\"Priya Nair\",\"3\",\"price/quality\",\"needs_review\",\"Thank you for the honest feedback. We understand how the pricing felt. We will u\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-2815",
+       "status": "needs_review",
+       "rating": 3,
+       "topics": [
+        "price",
+        "quality"
+       ],
+       "owner_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "escalated_health_threat": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Casa Lume Bistro",
+    "owner_name": "Marta",
+    "tone": "warm",
+    "reviewer": "Tom Becker",
+    "rating": 1,
+    "text": "I got sick after eating here and I am talking to a lawyer. Awful."
+   },
+   "http": 200,
+   "response": {
+    "review_id": "RV-1130",
+    "status": "escalated",
+    "rating": 1,
+    "topics": [],
+    "owner_alert": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review",
+    "Draft reply",
+    "Route",
+    "Append to queue",
+    "Needs owner?",
+    "Alert owner (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "187",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Tom Becker",
+       "rating": 1,
+       "text": "I got sick after eating here and I am talking to a lawyer. Awful."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "187",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Tom Becker",
+       "rating": 1,
+       "text": "I got sick after eating here and I am talking to a lawyer. Awful."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z"
+     }
+    ],
+    "Draft reply": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z",
+      "reply": "Hi Tom,\n\nWe are very sorry about what you describe and we take it seriously. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nWarm regards,\nMarta",
+      "reply_chars": 196
+     }
+    ],
+    "Route": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z",
+      "reply": "Hi Tom,\n\nWe are very sorry about what you describe and we take it seriously. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nWarm regards,\nMarta",
+      "reply_chars": 196,
+      "status": "escalated",
+      "needs_owner": true,
+      "alert_text": "ESCALATE 1/5 · Casa Lume Bistro · Tom Becker\n\"I got sick after eating here and I am talking to a lawyer. Awful.\"\nTopics: none\nReply drafted, NOT posted. Status: escalated",
+      "csv_line": "\"2026-11-11T16:14:30.718Z\",\"RV-1130\",\"Tom Becker\",\"1\",\"-\",\"escalated\",\"We are very sorry about what you describe and we take it seriously. If you are o\"\n"
+     }
+    ],
+    "Append to queue": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z",
+      "reply": "Hi Tom,\n\nWe are very sorry about what you describe and we take it seriously. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nWarm regards,\nMarta",
+      "reply_chars": 196,
+      "status": "escalated",
+      "needs_owner": true,
+      "alert_text": "ESCALATE 1/5 · Casa Lume Bistro · Tom Becker\n\"I got sick after eating here and I am talking to a lawyer. Awful.\"\nTopics: none\nReply drafted, NOT posted. Status: escalated",
+      "csv_line": "\"2026-11-11T16:14:30.718Z\",\"RV-1130\",\"Tom Becker\",\"1\",\"-\",\"escalated\",\"We are very sorry about what you describe and we take it seriously. If you are o\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Needs owner?": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z",
+      "reply": "Hi Tom,\n\nWe are very sorry about what you describe and we take it seriously. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nWarm regards,\nMarta",
+      "reply_chars": 196,
+      "status": "escalated",
+      "needs_owner": true,
+      "alert_text": "ESCALATE 1/5 · Casa Lume Bistro · Tom Becker\n\"I got sick after eating here and I am talking to a lawyer. Awful.\"\nTopics: none\nReply drafted, NOT posted. Status: escalated",
+      "csv_line": "\"2026-11-11T16:14:30.718Z\",\"RV-1130\",\"Tom Becker\",\"1\",\"-\",\"escalated\",\"We are very sorry about what you describe and we take it seriously. If you are o\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Alert owner (Telegram)": [
+     {
+      "ok": true,
+      "id": 13
+     }
+    ],
+    "Build response": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z",
+      "reply": "Hi Tom,\n\nWe are very sorry about what you describe and we take it seriously. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nWarm regards,\nMarta",
+      "reply_chars": 196,
+      "status": "escalated",
+      "needs_owner": true,
+      "alert_text": "ESCALATE 1/5 · Casa Lume Bistro · Tom Becker\n\"I got sick after eating here and I am talking to a lawyer. Awful.\"\nTopics: none\nReply drafted, NOT posted. Status: escalated",
+      "csv_line": "\"2026-11-11T16:14:30.718Z\",\"RV-1130\",\"Tom Becker\",\"1\",\"-\",\"escalated\",\"We are very sorry about what you describe and we take it seriously. If you are o\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-1130",
+       "status": "escalated",
+       "rating": 1,
+       "topics": [],
+       "owner_alert": "sent"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "review_id": "RV-1130",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Tom Becker",
+      "first": "Tom",
+      "owner": "Marta",
+      "rating": 1,
+      "text": "I got sick after eating here and I am talking to a lawyer. Awful.",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [],
+      "escalate": true,
+      "ts": "2026-11-11T16:14:30.718Z",
+      "reply": "Hi Tom,\n\nWe are very sorry about what you describe and we take it seriously. If you are open to it, please write to us through the contact on our page so we can make it right.\n\nWarm regards,\nMarta",
+      "reply_chars": 196,
+      "status": "escalated",
+      "needs_owner": true,
+      "alert_text": "ESCALATE 1/5 · Casa Lume Bistro · Tom Becker\n\"I got sick after eating here and I am talking to a lawyer. Awful.\"\nTopics: none\nReply drafted, NOT posted. Status: escalated",
+      "csv_line": "\"2026-11-11T16:14:30.718Z\",\"RV-1130\",\"Tom Becker\",\"1\",\"-\",\"escalated\",\"We are very sorry about what you describe and we take it seriously. If you are o\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-1130",
+       "status": "escalated",
+       "rating": 1,
+       "topics": [],
+       "owner_alert": "sent"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "stars_only_no_text": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Casa Lume Bistro",
+    "owner_name": "Marta",
+    "tone": "warm",
+    "reviewer": "Joana Reis",
+    "rating": 4,
+    "text": ""
+   },
+   "http": 200,
+   "response": {
+    "review_id": "RV-3334",
+    "status": "ready_to_post",
+    "rating": 4,
+    "topics": [],
+    "owner_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review",
+    "Draft reply",
+    "Route",
+    "Append to queue",
+    "Needs owner?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "122",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Joana Reis",
+       "rating": 4,
+       "text": ""
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "122",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Joana Reis",
+       "rating": 4,
+       "text": ""
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": [
+     {
+      "review_id": "RV-3334",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Joana Reis",
+      "first": "Joana",
+      "owner": "Marta",
+      "rating": 4,
+      "text": "",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:32.608Z"
+     }
+    ],
+    "Draft reply": [
+     {
+      "review_id": "RV-3334",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Joana Reis",
+      "first": "Joana",
+      "owner": "Marta",
+      "rating": 4,
+      "text": "",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:32.608Z",
+      "reply": "Hi Joana,\n\nThank you for the rating! It was a pleasure having you.\n\nWarm regards,\nMarta",
+      "reply_chars": 87
+     }
+    ],
+    "Route": [
+     {
+      "review_id": "RV-3334",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Joana Reis",
+      "first": "Joana",
+      "owner": "Marta",
+      "rating": 4,
+      "text": "",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:32.608Z",
+      "reply": "Hi Joana,\n\nThank you for the rating! It was a pleasure having you.\n\nWarm regards,\nMarta",
+      "reply_chars": 87,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:32.608Z\",\"RV-3334\",\"Joana Reis\",\"4\",\"-\",\"ready_to_post\",\"Thank you for the rating! It was a pleasure having you.\"\n"
+     }
+    ],
+    "Append to queue": [
+     {
+      "review_id": "RV-3334",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Joana Reis",
+      "first": "Joana",
+      "owner": "Marta",
+      "rating": 4,
+      "text": "",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:32.608Z",
+      "reply": "Hi Joana,\n\nThank you for the rating! It was a pleasure having you.\n\nWarm regards,\nMarta",
+      "reply_chars": 87,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:32.608Z\",\"RV-3334\",\"Joana Reis\",\"4\",\"-\",\"ready_to_post\",\"Thank you for the rating! It was a pleasure having you.\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Needs owner?": [],
+    "Build response": [
+     {
+      "review_id": "RV-3334",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Joana Reis",
+      "first": "Joana",
+      "owner": "Marta",
+      "rating": 4,
+      "text": "",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:32.608Z",
+      "reply": "Hi Joana,\n\nThank you for the rating! It was a pleasure having you.\n\nWarm regards,\nMarta",
+      "reply_chars": 87,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:32.608Z\",\"RV-3334\",\"Joana Reis\",\"4\",\"-\",\"ready_to_post\",\"Thank you for the rating! It was a pleasure having you.\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-3334",
+       "status": "ready_to_post",
+       "rating": 4,
+       "topics": [],
+       "owner_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "review_id": "RV-3334",
+      "business": "Casa Lume Bistro",
+      "reviewer": "Joana Reis",
+      "first": "Joana",
+      "owner": "Marta",
+      "rating": 4,
+      "text": "",
+      "tone": "warm",
+      "lang": "en",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "positive",
+      "topics": [],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:32.608Z",
+      "reply": "Hi Joana,\n\nThank you for the rating! It was a pleasure having you.\n\nWarm regards,\nMarta",
+      "reply_chars": 87,
+      "status": "ready_to_post",
+      "needs_owner": false,
+      "alert_text": "",
+      "csv_line": "\"2026-11-11T16:14:32.608Z\",\"RV-3334\",\"Joana Reis\",\"4\",\"-\",\"ready_to_post\",\"Thank you for the rating! It was a pleasure having you.\"\n",
+      "alert_ok": true,
+      "response": {
+       "review_id": "RV-3334",
+       "status": "ready_to_post",
+       "rating": 4,
+       "topics": [],
+       "owner_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "telegram_down": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Padaria Boa Massa",
+    "owner_name": "Seu Carlos",
+    "tone": "warm",
+    "reviewer": "Camila Nogueira",
+    "rating": 2,
+    "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+   },
+   "http": 200,
+   "response": {
+    "review_id": "RV-3338",
+    "status": "needs_owner",
+    "rating": 2,
+    "topics": [
+     "service",
+     "quality"
+    ],
+    "owner_alert": "queued"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review",
+    "Draft reply",
+    "Route",
+    "Append to queue",
+    "Needs owner?",
+    "Alert owner (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "213",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Padaria Boa Massa",
+       "owner_name": "Seu Carlos",
+       "tone": "warm",
+       "reviewer": "Camila Nogueira",
+       "rating": 2,
+       "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "213",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Padaria Boa Massa",
+       "owner_name": "Seu Carlos",
+       "tone": "warm",
+       "reviewer": "Camila Nogueira",
+       "rating": 2,
+       "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z"
+     }
+    ],
+    "Draft reply": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255
+     }
+    ],
+    "Route": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:34.474Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n"
+     }
+    ],
+    "Append to queue": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:34.474Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Needs owner?": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:34.474Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "fileName": "./data/replies_16.csv"
+     }
+    ],
+    "Alert owner (Telegram)": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Build response": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:34.474Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "alert_ok": false,
+      "response": {
+       "review_id": "RV-3338",
+       "status": "needs_owner",
+       "rating": 2,
+       "topics": [
+        "service",
+        "quality"
+       ],
+       "owner_alert": "queued"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "review_id": "RV-3338",
+      "business": "Padaria Boa Massa",
+      "reviewer": "Camila Nogueira",
+      "first": "Camila",
+      "owner": "Seu Carlos",
+      "rating": 2,
+      "text": "Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.",
+      "tone": "warm",
+      "lang": "pt",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.",
+      "sentiment": "negative",
+      "topics": [
+       "service",
+       "quality"
+      ],
+      "escalate": false,
+      "ts": "2026-11-11T16:14:34.474Z",
+      "reply": "Olá, Camila,\n\nObrigado por nos contar e sentimos muito que a visita não tenha sido boa. O atendimento que você descreveu não é o que esperamos da equipe. Se puder, escreva para nós pelo contato da nossa página para resolvermos isso.\n\nUm abraço,\nSeu Carlos",
+      "reply_chars": 255,
+      "status": "needs_owner",
+      "needs_owner": true,
+      "alert_text": "LOW RATING 2/5 · Padaria Boa Massa · Camila Nogueira\n\"Esperei muito tempo na fila e o atendimento foi grosseiro. Pão estava frio.\"\nTopics: service, quality\nReply drafted, NOT posted. Status: needs_owner",
+      "csv_line": "\"2026-11-11T16:14:34.474Z\",\"RV-3338\",\"Camila Nogueira\",\"2\",\"service/quality\",\"needs_owner\",\"Obrigado por nos contar e sentimos muito que a visita não tenha sido boa. O aten\"\n",
+      "alert_ok": false,
+      "response": {
+       "review_id": "RV-3338",
+       "status": "needs_owner",
+       "rating": 2,
+       "topics": [
+        "service",
+        "quality"
+       ],
+       "owner_alert": "queued"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "rating_out_of_range": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Casa Lume Bistro",
+    "owner_name": "Marta",
+    "tone": "warm",
+    "reviewer": "Daniel Ferreira",
+    "rating": 7,
+    "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "rating must be an integer from 1 to 5 [line 16]",
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "218",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Daniel Ferreira",
+       "rating": 7,
+       "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "218",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "Daniel Ferreira",
+       "rating": 7,
+       "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": {
+     "__error": "rating must be an integer from 1 to 5 [line 16]"
+    }
+   }
+  }
+ ],
+ "missing_reviewer": [
+  {
+   "path": "review-reply",
+   "input": {
+    "business": "Casa Lume Bistro",
+    "owner_name": "Marta",
+    "tone": "warm",
+    "reviewer": "",
+    "rating": 5,
+    "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "reviewer is missing [line 16]",
+   "order": [
+    "Review received",
+    "Config",
+    "Analyze review"
+   ],
+   "nodes": {
+    "Review received": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "203",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "",
+       "rating": 5,
+       "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "203",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "business": "Casa Lume Bistro",
+       "owner_name": "Marta",
+       "tone": "warm",
+       "reviewer": "",
+       "rating": 5,
+       "text": "Wonderful evening. The staff was friendly and the food arrived fresh and hot. Will be back!"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/review-reply",
+      "executionMode": "production",
+      "queue_file": "./data/replies_16.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "contact_en": "If you are open to it, please write to us through the contact on our page so we can make it right.",
+      "contact_pt": "Se puder, escreva para nós pelo contato da nossa página para resolvermos isso."
+     }
+    ],
+    "Analyze review": {
+     "__error": "reviewer is missing [line 16]"
+    }
+   }
+  }
+ ]
+}

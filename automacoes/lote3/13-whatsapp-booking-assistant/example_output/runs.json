@@ -1,0 +1,2026 @@
+{
+ "book_exact": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Oi! Quero cortar o cabelo amanhã às 11h"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "book"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Confirm booking",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "110",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Oi! Quero cortar o cabelo amanhã às 11h"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "110",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Oi! Quero cortar o cabelo amanhã às 11h"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi! Quero cortar o cabelo amanhã às 11h",
+      "intent": "book",
+      "service": "Corte",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi! Quero cortar o cabelo amanhã às 11h",
+      "intent": "book",
+      "service": "Corte",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 45,
+      "price": 60,
+      "slot": "11:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi! Quero cortar o cabelo amanhã às 11h",
+      "intent": "book",
+      "service": "Corte",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 45,
+      "price": 60,
+      "slot": "11:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Confirm booking": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi! Quero cortar o cabelo amanhã às 11h",
+      "intent": "book",
+      "service": "Corte",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 45,
+      "price": 60,
+      "slot": "11:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "\"2026-11-11T16:00:47.484Z\",\"BK-005\",\"2026-11-12\",\"11:00\",\"45\",\"Corte\",\"Camila Rocha\",\"5541999990000\",\"confirmed\"\n",
+      "reply": "Pronto, Camila! Corte confirmado para quinta 12/11 às 11:00 (45 min, R$ 60). Se precisar remarcar, é só responder aqui.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi! Quero cortar o cabelo amanhã às 11h",
+      "intent": "book",
+      "service": "Corte",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 45,
+      "price": 60,
+      "slot": "11:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "\"2026-11-11T16:00:47.484Z\",\"BK-005\",\"2026-11-12\",\"11:00\",\"45\",\"Corte\",\"Camila Rocha\",\"5541999990000\",\"confirmed\"\n",
+      "reply": "Pronto, Camila! Corte confirmado para quinta 12/11 às 11:00 (45 min, R$ 60). Se precisar remarcar, é só responder aqui.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi! Quero cortar o cabelo amanhã às 11h",
+      "intent": "book",
+      "service": "Corte",
+      "date": "2026-11-12",
+      "time": "11:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 45,
+      "price": 60,
+      "slot": "11:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "\"2026-11-11T16:00:47.484Z\",\"BK-005\",\"2026-11-12\",\"11:00\",\"45\",\"Corte\",\"Camila Rocha\",\"5541999990000\",\"confirmed\"\n",
+      "reply": "Pronto, Camila! Corte confirmado para quinta 12/11 às 11:00 (45 min, R$ 60). Se precisar remarcar, é só responder aqui.",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 77
+     }
+    ],
+    "Alert the owner?": []
+   }
+  }
+ ],
+ "slot_taken_offers_three": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Queria uma coloração amanhã às 14h"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "offer"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Offer slots",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "115",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Queria uma coloração amanhã às 14h"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "115",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Queria uma coloração amanhã às 14h"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Queria uma coloração amanhã às 14h",
+      "intent": "book",
+      "service": "Coloração",
+      "date": "2026-11-12",
+      "time": "14:00",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Queria uma coloração amanhã às 14h",
+      "intent": "book",
+      "service": "Coloração",
+      "date": "2026-11-12",
+      "time": "14:00",
+      "period": "",
+      "outcome": "offer",
+      "duration": 120,
+      "price": 180,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-12",
+        "time": "11:30"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "12:00"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "16:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [],
+    "Offer slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Queria uma coloração amanhã às 14h",
+      "intent": "book",
+      "service": "Coloração",
+      "date": "2026-11-12",
+      "time": "14:00",
+      "period": "",
+      "outcome": "offer",
+      "duration": 120,
+      "price": 180,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-12",
+        "time": "11:30"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "12:00"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "16:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Esse horário já está ocupado. Tenho estas opções para Coloração:\n1) quinta 12/11 às 11:30\n2) quinta 12/11 às 12:00\n3) quinta 12/11 às 16:00\nResponda com o número ou o horário que preferir.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Queria uma coloração amanhã às 14h",
+      "intent": "book",
+      "service": "Coloração",
+      "date": "2026-11-12",
+      "time": "14:00",
+      "period": "",
+      "outcome": "offer",
+      "duration": 120,
+      "price": 180,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-12",
+        "time": "11:30"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "12:00"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "16:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Esse horário já está ocupado. Tenho estas opções para Coloração:\n1) quinta 12/11 às 11:30\n2) quinta 12/11 às 12:00\n3) quinta 12/11 às 16:00\nResponda com o número ou o horário que preferir.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Queria uma coloração amanhã às 14h",
+      "intent": "book",
+      "service": "Coloração",
+      "date": "2026-11-12",
+      "time": "14:00",
+      "period": "",
+      "outcome": "offer",
+      "duration": 120,
+      "price": 180,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-12",
+        "time": "11:30"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "12:00"
+       },
+       {
+        "date": "2026-11-12",
+        "time": "16:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Esse horário já está ocupado. Tenho estas opções para Coloração:\n1) quinta 12/11 às 11:30\n2) quinta 12/11 às 12:00\n3) quinta 12/11 às 16:00\nResponda com o número ou o horário que preferir.",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 78
+     }
+    ],
+    "Alert the owner?": []
+   }
+  }
+ ],
+ "period_offers": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Tem vaga pra barba na sexta de manhã?"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "offer"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Offer slots",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "103",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Tem vaga pra barba na sexta de manhã?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "103",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Tem vaga pra barba na sexta de manhã?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Tem vaga pra barba na sexta de manhã?",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-13",
+      "time": "",
+      "period": "morning"
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Tem vaga pra barba na sexta de manhã?",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-13",
+      "time": "",
+      "period": "morning",
+      "outcome": "offer",
+      "duration": 30,
+      "price": 40,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-13",
+        "time": "09:00"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "09:30"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "10:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [],
+    "Offer slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Tem vaga pra barba na sexta de manhã?",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-13",
+      "time": "",
+      "period": "morning",
+      "outcome": "offer",
+      "duration": 30,
+      "price": 40,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-13",
+        "time": "09:00"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "09:30"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "10:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Tenho estas opções para Barba:\n1) sexta 13/11 às 09:00\n2) sexta 13/11 às 09:30\n3) sexta 13/11 às 10:00\nResponda com o número ou o horário que preferir.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Tem vaga pra barba na sexta de manhã?",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-13",
+      "time": "",
+      "period": "morning",
+      "outcome": "offer",
+      "duration": 30,
+      "price": 40,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-13",
+        "time": "09:00"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "09:30"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "10:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Tenho estas opções para Barba:\n1) sexta 13/11 às 09:00\n2) sexta 13/11 às 09:30\n3) sexta 13/11 às 10:00\nResponda com o número ou o horário que preferir.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Tem vaga pra barba na sexta de manhã?",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-13",
+      "time": "",
+      "period": "morning",
+      "outcome": "offer",
+      "duration": 30,
+      "price": 40,
+      "slot": "",
+      "options": [
+       {
+        "date": "2026-11-13",
+        "time": "09:00"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "09:30"
+       },
+       {
+        "date": "2026-11-13",
+        "time": "10:00"
+       }
+      ],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Tenho estas opções para Barba:\n1) sexta 13/11 às 09:00\n2) sexta 13/11 às 09:30\n3) sexta 13/11 às 10:00\nResponda com o número ou o horário que preferir.",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 79
+     }
+    ],
+    "Alert the owner?": []
+   }
+  }
+ ],
+ "asks_service": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Oi, quero marcar um horário"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "offer"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Offer slots",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "93",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Oi, quero marcar um horário"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "93",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Oi, quero marcar um horário"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi, quero marcar um horário",
+      "intent": "book",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi, quero marcar um horário",
+      "intent": "book",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "offer",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "service",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [],
+    "Offer slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi, quero marcar um horário",
+      "intent": "book",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "offer",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "service",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Oi, Camila! Qual serviço você quer? Corte (R$ 60), Barba (R$ 40), Coloração (R$ 180) ou Escova (R$ 50)?",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi, quero marcar um horário",
+      "intent": "book",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "offer",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "service",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Oi, Camila! Qual serviço você quer? Corte (R$ 60), Barba (R$ 40), Coloração (R$ 180) ou Escova (R$ 50)?",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Oi, quero marcar um horário",
+      "intent": "book",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "offer",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "service",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Oi, Camila! Qual serviço você quer? Corte (R$ 60), Barba (R$ 40), Coloração (R$ 180) ou Escova (R$ 50)?",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 80
+     }
+    ],
+    "Alert the owner?": []
+   }
+  }
+ ],
+ "cancel": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Preciso desmarcar meu horário, não vou poder ir"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "cancel"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Cancel booking",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "118",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Preciso desmarcar meu horário, não vou poder ir"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "118",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Preciso desmarcar meu horário, não vou poder ir"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Preciso desmarcar meu horário, não vou poder ir",
+      "intent": "cancel",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Preciso desmarcar meu horário, não vou poder ir",
+      "intent": "cancel",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "cancel",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": {
+       "booking_id": "BK-004",
+       "date": "2026-11-14",
+       "time": "11:00",
+       "duration": "40",
+       "service": "Escova",
+       "customer": "Camila Rocha",
+       "phone": "5541999990000"
+      }
+     }
+    ],
+    "Outcome": [],
+    "Cancel booking": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Preciso desmarcar meu horário, não vou poder ir",
+      "intent": "cancel",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "cancel",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": {
+       "booking_id": "BK-004",
+       "date": "2026-11-14",
+       "time": "11:00",
+       "duration": "40",
+       "service": "Escova",
+       "customer": "Camila Rocha",
+       "phone": "5541999990000"
+      },
+      "csv_line": "\"2026-11-11T16:00:55.070Z\",\"BK-004\",\"2026-11-14\",\"11:00\",\"40\",\"Escova\",\"Camila Rocha\",\"5541999990000\",\"cancelled\"\n",
+      "reply": "Cancelei seu Escova de sábado 14/11 às 11:00. Quer remarcar para outro dia?",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Preciso desmarcar meu horário, não vou poder ir",
+      "intent": "cancel",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "cancel",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": {
+       "booking_id": "BK-004",
+       "date": "2026-11-14",
+       "time": "11:00",
+       "duration": "40",
+       "service": "Escova",
+       "customer": "Camila Rocha",
+       "phone": "5541999990000"
+      },
+      "csv_line": "\"2026-11-11T16:00:55.070Z\",\"BK-004\",\"2026-11-14\",\"11:00\",\"40\",\"Escova\",\"Camila Rocha\",\"5541999990000\",\"cancelled\"\n",
+      "reply": "Cancelei seu Escova de sábado 14/11 às 11:00. Quer remarcar para outro dia?",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Preciso desmarcar meu horário, não vou poder ir",
+      "intent": "cancel",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "cancel",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": {
+       "booking_id": "BK-004",
+       "date": "2026-11-14",
+       "time": "11:00",
+       "duration": "40",
+       "service": "Escova",
+       "customer": "Camila Rocha",
+       "phone": "5541999990000"
+      },
+      "csv_line": "\"2026-11-11T16:00:55.070Z\",\"BK-004\",\"2026-11-14\",\"11:00\",\"40\",\"Escova\",\"Camila Rocha\",\"5541999990000\",\"cancelled\"\n",
+      "reply": "Cancelei seu Escova de sábado 14/11 às 11:00. Quer remarcar para outro dia?",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 81
+     }
+    ],
+    "Alert the owner?": []
+   }
+  }
+ ],
+ "price_question": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Quanto custa a escova?"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "info"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Answer price question",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "83",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Quanto custa a escova?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "83",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Quanto custa a escova?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quanto custa a escova?",
+      "intent": "price",
+      "service": "Escova",
+      "date": "",
+      "time": "",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quanto custa a escova?",
+      "intent": "price",
+      "service": "Escova",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "info",
+      "duration": 40,
+      "price": 50,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [],
+    "Answer price question": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quanto custa a escova?",
+      "intent": "price",
+      "service": "Escova",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "info",
+      "duration": 40,
+      "price": 50,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Nossa tabela: Corte R$ 60 (45 min), Barba R$ 40 (30 min), Coloração R$ 180 (2 h), Escova R$ 50 (40 min). Quer agendar algum?",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quanto custa a escova?",
+      "intent": "price",
+      "service": "Escova",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "info",
+      "duration": 40,
+      "price": 50,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Nossa tabela: Corte R$ 60 (45 min), Barba R$ 40 (30 min), Coloração R$ 180 (2 h), Escova R$ 50 (40 min). Quer agendar algum?",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quanto custa a escova?",
+      "intent": "price",
+      "service": "Escova",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "info",
+      "duration": 40,
+      "price": 50,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Nossa tabela: Corte R$ 60 (45 min), Barba R$ 40 (30 min), Coloração R$ 180 (2 h), Escova R$ 50 (40 min). Quer agendar algum?",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 82
+     }
+    ],
+    "Alert the owner?": []
+   }
+  }
+ ],
+ "human_handoff": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Meu secador chegou com defeito, vocês trocam?"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "handoff"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Hand off to a human",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?",
+    "Alert owner (Telegram)"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "111",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Meu secador chegou com defeito, vocês trocam?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "111",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Meu secador chegou com defeito, vocês trocam?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Meu secador chegou com defeito, vocês trocam?",
+      "intent": "other",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Meu secador chegou com defeito, vocês trocam?",
+      "intent": "other",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "handoff",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [],
+    "Hand off to a human": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Meu secador chegou com defeito, vocês trocam?",
+      "intent": "other",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "handoff",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Obrigada pela mensagem, Camila! Já avisei a equipe e alguém responde em instantes.",
+      "alert_owner": true,
+      "owner_alert": "HUMAN NEEDED: Camila Rocha (+5541999990000) wrote: \"Meu secador chegou com defeito, vocês trocam?\""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Meu secador chegou com defeito, vocês trocam?",
+      "intent": "other",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "handoff",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Obrigada pela mensagem, Camila! Já avisei a equipe e alguém responde em instantes.",
+      "alert_owner": true,
+      "owner_alert": "HUMAN NEEDED: Camila Rocha (+5541999990000) wrote: \"Meu secador chegou com defeito, vocês trocam?\""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Meu secador chegou com defeito, vocês trocam?",
+      "intent": "other",
+      "service": "",
+      "date": "",
+      "time": "",
+      "period": "",
+      "outcome": "handoff",
+      "duration": 0,
+      "price": 0,
+      "slot": "",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "",
+      "reply": "Obrigada pela mensagem, Camila! Já avisei a equipe e alguém responde em instantes.",
+      "alert_owner": true,
+      "owner_alert": "HUMAN NEEDED: Camila Rocha (+5541999990000) wrote: \"Meu secador chegou com defeito, vocês trocam?\"",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "ok": true,
+      "id": 83
+     }
+    ],
+    "Alert the owner?": [
+     {
+      "ok": true,
+      "id": 83
+     }
+    ],
+    "Alert owner (Telegram)": [
+     {
+      "ok": true,
+      "id": 84
+     }
+    ]
+   }
+  }
+ ],
+ "whatsapp_down": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": "Quero fazer a barba amanhã às 16h"
+   },
+   "http": 200,
+   "response": {
+    "received": true,
+    "outcome": "book"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message",
+    "Read agenda",
+    "Find slots",
+    "Outcome",
+    "Confirm booking",
+    "Acknowledge webhook",
+    "Append to agenda",
+    "Send WhatsApp reply",
+    "Alert the owner?",
+    "Alert owner (Telegram)"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "104",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Quero fazer a barba amanhã às 16h"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "104",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": "Quero fazer a barba amanhã às 16h"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quero fazer a barba amanhã às 16h",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "period": ""
+     }
+    ],
+    "Read agenda": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "agenda_13.csv",
+      "fileExtension": "csv",
+      "fileSize": "521 B"
+     }
+    ],
+    "Find slots": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quero fazer a barba amanhã às 16h",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 30,
+      "price": 40,
+      "slot": "16:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Outcome": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quero fazer a barba amanhã às 16h",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 30,
+      "price": 40,
+      "slot": "16:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null
+     }
+    ],
+    "Confirm booking": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quero fazer a barba amanhã às 16h",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 30,
+      "price": 40,
+      "slot": "16:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "\"2026-11-11T16:01:00.815Z\",\"BK-005\",\"2026-11-12\",\"16:00\",\"30\",\"Barba\",\"Camila Rocha\",\"5541999990000\",\"confirmed\"\n",
+      "reply": "Pronto, Camila! Barba confirmado para quinta 12/11 às 16:00 (30 min, R$ 40). Se precisar remarcar, é só responder aqui.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Acknowledge webhook": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quero fazer a barba amanhã às 16h",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 30,
+      "price": 40,
+      "slot": "16:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "\"2026-11-11T16:01:00.815Z\",\"BK-005\",\"2026-11-12\",\"16:00\",\"30\",\"Barba\",\"Camila Rocha\",\"5541999990000\",\"confirmed\"\n",
+      "reply": "Pronto, Camila! Barba confirmado para quinta 12/11 às 16:00 (30 min, R$ 40). Se precisar remarcar, é só responder aqui.",
+      "alert_owner": false,
+      "owner_alert": ""
+     }
+    ],
+    "Append to agenda": [
+     {
+      "today": "2026-11-11",
+      "phone": "5541999990000",
+      "name": "Camila Rocha",
+      "text": "Quero fazer a barba amanhã às 16h",
+      "intent": "book",
+      "service": "Barba",
+      "date": "2026-11-12",
+      "time": "16:00",
+      "period": "",
+      "outcome": "book",
+      "duration": 30,
+      "price": 40,
+      "slot": "16:00",
+      "options": [],
+      "missing": "",
+      "booking_id": "BK-005",
+      "target": null,
+      "csv_line": "\"2026-11-11T16:01:00.815Z\",\"BK-005\",\"2026-11-12\",\"16:00\",\"30\",\"Barba\",\"Camila Rocha\",\"5541999990000\",\"confirmed\"\n",
+      "reply": "Pronto, Camila! Barba confirmado para quinta 12/11 às 16:00 (30 min, R$ 40). Se precisar remarcar, é só responder aqui.",
+      "alert_owner": false,
+      "owner_alert": "",
+      "fileName": "./data/agenda_13.csv"
+     }
+    ],
+    "Send WhatsApp reply": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Alert the owner?": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Alert owner (Telegram)": [
+     {
+      "ok": true,
+      "id": 85
+     }
+    ]
+   }
+  }
+ ],
+ "empty_message": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "5541999990000",
+    "name": "Camila Rocha",
+    "text": ""
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Empty message (media without text is not handled) [line 27]",
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "61",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": ""
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "61",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "5541999990000",
+       "name": "Camila Rocha",
+       "text": ""
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": {
+     "__error": "Empty message (media without text is not handled) [line 27]"
+    }
+   }
+  }
+ ],
+ "invalid_phone": [
+  {
+   "path": "wa-booking",
+   "input": {
+    "from": "123",
+    "name": "Camila Rocha",
+    "text": "Oi"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Invalid sender phone [line 27]",
+   "order": [
+    "WhatsApp message",
+    "Config",
+    "Understand message"
+   ],
+   "nodes": {
+    "WhatsApp message": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "53",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "123",
+       "name": "Camila Rocha",
+       "text": "Oi"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "53",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "from": "123",
+       "name": "Camila Rocha",
+       "text": "Oi"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/wa-booking",
+      "executionMode": "production",
+      "agenda_file": "./data/agenda_13.csv",
+      "wa_url": "http://127.0.0.1:8097/wa/send",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OWNER_CHAT_ID",
+      "today": "2026-11-11"
+     }
+    ],
+    "Understand message": {
+     "__error": "Invalid sender phone [line 27]"
+    }
+   }
+  }
+ ]
+}

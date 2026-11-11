@@ -1,0 +1,630 @@
+{
+  "name": "WhatsApp booking assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wa-booking",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0041cc09-7ae3-52ab-acd1-f34e97b09e1a",
+      "name": "WhatsApp message",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        20,
+        220
+      ],
+      "webhookId": "wa-booking-demo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2ed7cc24-02d1-541e-b307-3a6fee56e925",
+              "name": "agenda_file",
+              "value": "./data/agenda_13.csv",
+              "type": "string"
+            },
+            {
+              "id": "d07a9e9b-76ad-53eb-a5c7-97516a121967",
+              "name": "wa_url",
+              "value": "http://127.0.0.1:8097/wa/send",
+              "type": "string"
+            },
+            {
+              "id": "2aad632f-a7d5-58ba-9229-f08eea9cf99e",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8097/notify",
+              "type": "string"
+            },
+            {
+              "id": "e7e900de-0469-5c9c-b4e2-2b0b24d54197",
+              "name": "notify_chat_id",
+              "value": "OWNER_CHAT_ID",
+              "type": "string"
+            },
+            {
+              "id": "e50149ee-c4f7-50e6-afc8-b6d355601e96",
+              "name": "today",
+              "value": "2026-11-11",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        220
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Config').first().json;\nconst out = (() => {\nconst b = input.body || {};\nconst text = String(b.text || '').trim(), phone = String(b.from || '').replace(/\\D/g, ''), name = String(b.name || '').trim();\nif (phone.length < 10) throw new Error('Invalid sender phone');\nif (!text) throw new Error('Empty message (media without text is not handled)');\nconst low = text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');\nlet intent = 'other';\nif (/(cancel|desmarc|nao vou poder|nao posso ir)/.test(low)) intent = 'cancel';\nelse if (/(agend|marc(ar|a)|horario|quero|queria|gostaria|book|appointment|disponiv|vaga|amanha|hoje|tomorrow)/.test(low)) intent = 'book';\nelse if (/(quanto|preco|valor|price|how much|tabela)/.test(low)) intent = 'price';\nconst service = /(corte|cabelo|haircut)/.test(low) ? 'Corte' : /(barba|beard)/.test(low) ? 'Barba' : /(coloracao|pintar|tintura|color)/.test(low) ? 'Coloração' : /(escova|brushing)/.test(low) ? 'Escova' : '';\nconst addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };\nconst today = input.today, dow = new Date(today + 'T00:00:00Z').getUTCDay();\nconst wd = { domingo: 0, segunda: 1, terca: 2, quarta: 3, quinta: 4, sexta: 5, sabado: 6, sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 };\nlet date = '', m;\nif ((m = low.match(/\\b(20\\d{2}-\\d{2}-\\d{2})\\b/))) date = m[1];\nelse if ((m = low.match(/\\b(\\d{1,2})\\/(\\d{1,2})\\b/))) date = today.slice(0, 4) + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');\nelse if (/depois de amanha/.test(low)) date = addDays(today, 2);\nelse if (/(amanha|tomorrow)/.test(low)) date = addDays(today, 1);\nelse if (/(hoje|today)/.test(low)) date = today;\nelse for (const k in wd) if (new RegExp('\\\\b' + k + '\\\\b').test(low)) { date = addDays(today, ((wd[k] - dow + 7) % 7) || 7); break; }\nlet time = '';\nif ((m = low.match(/\\b(\\d{1,2})\\s*(?:h|hs|:)\\s*(\\d{2})?\\b/)) || (m = low.match(/\\b(?:as|at)\\s*(\\d{1,2})\\b()/))) { const h = Number(m[1]); if (h >= 0 && h <= 23) time = String(h).padStart(2, '0') + ':' + (m[2] || '00'); }\nconst period = /\\b(manha|morning)\\b/.test(low) ? 'morning' : /\\b(tarde|afternoon)\\b/.test(low) ? 'afternoon' : /\\b(noite|evening)\\b/.test(low) ? 'evening' : '';\nreturn { today: input.today, phone, name, text, intent, service, date, time, period };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "4774294d-a00b-59f0-90d8-496d3a412d0a",
+      "name": "Understand message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.agenda_file }}",
+        "options": {}
+      },
+      "id": "91f711cf-35c9-5d85-8a88-dd81f1da77c5",
+      "name": "Read agenda",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        620,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Understand message').first().json;\nconst agendaText = (await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8');\nconst out = (() => {\nconst parse = line => { const c = []; let cur = '', q = false; for (const ch of line) { if (ch === '\"') q = !q; else if (ch === ',' && !q) { c.push(cur); cur = ''; } else cur += ch; } c.push(cur); return c; };\nconst rows = agendaText.split(/\\r?\\n/).slice(1).filter(Boolean).map(parse);\nconst latest = {}; rows.forEach(r => { latest[r[1]] = r; });\nconst live = Object.values(latest).filter(r => r[8] === 'confirmed');\nconst SERVICES = { 'Corte': [45, 60], 'Barba': [30, 40], 'Coloração': [120, 180], 'Escova': [40, 50] };\nconst toMin = t => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5)), fmt = n => String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0');\nconst addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };\nconst lastId = rows.reduce((mx, r) => Math.max(mx, Number(String(r[1]).replace(/\\D/g, '')) || 0), 0);\nconst booking_id = 'BK-' + String(lastId + 1).padStart(3, '0');\nconst [dur, price] = SERVICES[input.service] || [0, 0];\nconst OPEN = 540, CLOSE = 1080;\nconst freeSlots = d => { if (new Date(d + 'T00:00:00Z').getUTCDay() === 0) return []; const busy = live.filter(r => r[2] === d).map(r => [toMin(r[3]), toMin(r[3]) + Number(r[4])]); const out = [];\n  for (let s = OPEN; s + dur <= CLOSE; s += 30) if (!busy.some(([a, z]) => s < z && s + dur > a)) out.push(s); return out; };\nlet outcome = 'handoff', slot = '', options = [], target = null, missing = '', day = input.date;\nif (input.intent === 'price') outcome = 'info';\nelse if (input.intent === 'cancel') { outcome = 'cancel'; target = live.filter(r => r[7] === input.phone && r[2] >= input.today).sort((a, b) => (a[2] + a[3]).localeCompare(b[2] + b[3]))[0] || null; }\nelse if (input.intent === 'book') {\n  if (!input.service) { outcome = 'offer'; missing = 'service'; }\n  else if (!input.date || input.date < input.today) { outcome = 'offer'; missing = 'date'; }\n  else {\n    const want = input.time ? toMin(input.time) : null, per = input.period === 'morning' ? [OPEN, 720] : input.period === 'afternoon' ? [720, CLOSE] : null;\n    let free = freeSlots(day);\n    if (want !== null && free.includes(want)) { outcome = 'book'; slot = fmt(want); }\n    else {\n      outcome = 'offer';\n      let pool = per ? free.filter(s => s >= per[0] && s < per[1]) : free;\n      if (want !== null) pool = free.slice().sort((a, b) => Math.abs(a - want) - Math.abs(b - want));\n      options = pool.slice(0, 3).sort((a, b) => a - b).map(s => ({ date: day, time: fmt(s) }));\n      for (let k = 1; options.length === 0 && k <= 4; k++) { const nd = addDays(day, k), f = freeSlots(nd); if (f.length) options.push({ date: nd, time: fmt(f[0]) }); }\n    }\n  }\n}\nreturn { ...input, outcome, duration: dur, price, slot, options, missing, booking_id, target: target ? { booking_id: target[1], date: target[2], time: target[3], duration: target[4], service: target[5], customer: target[6], phone: target[7] } : null };\n})();\nreturn [{json: out}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "fd241090-5c3e-5de8-a115-2269dbab954f",
+      "name": "Find slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        820,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fa18c8cd-7f04-528f-bb81-dba94260efd4",
+                    "leftValue": "={{ $json.outcome }}",
+                    "rightValue": "book",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "book"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f9676bec-2547-56fd-89b9-5cb3f7ae19c1",
+                    "leftValue": "={{ $json.outcome }}",
+                    "rightValue": "offer",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "offer"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "db779024-d8bf-53cd-b8a6-70c3ee5d060b",
+                    "leftValue": "={{ $json.outcome }}",
+                    "rightValue": "cancel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "cancel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dabd1ef0-0a34-58c4-b607-a53130d163db",
+                    "leftValue": "={{ $json.outcome }}",
+                    "rightValue": "info",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "info"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dbb96d90-aa70-59eb-ab7c-9ff8af3d1099",
+                    "leftValue": "={{ $json.outcome }}",
+                    "rightValue": "handoff",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "handoff"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e59b7748-703f-57ae-a2f4-11c5ce339fe0",
+      "name": "Outcome",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1020,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst WD = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];\nconst when = (d, t) => WD[new Date(d + 'T00:00:00Z').getUTCDay()] + ' ' + d.slice(8, 10) + '/' + d.slice(5, 7) + (t ? ' às ' + t : '');\nconst first = String(input.name || '').split(' ')[0] || 'tudo bem';\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\nconst ts = new Date().toISOString();\n\nconst csv_line = [ts, input.booking_id, input.date, input.slot, input.duration, input.service, input.name || input.phone, input.phone, 'confirmed'].map(Q).join(',') + '\\n';\nconst reply = 'Pronto, ' + first + '! ' + input.service + ' confirmado para ' + when(input.date, input.slot) + ' (' + input.duration + ' min, R$ ' + input.price + '). Se precisar remarcar, é só responder aqui.';\nreturn { ...input, csv_line, reply, alert_owner: false, owner_alert: '' };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "328867e5-9d00-5846-aa7c-dd31d6046828",
+      "name": "Confirm booking",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst WD = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];\nconst when = (d, t) => WD[new Date(d + 'T00:00:00Z').getUTCDay()] + ' ' + d.slice(8, 10) + '/' + d.slice(5, 7) + (t ? ' às ' + t : '');\nconst first = String(input.name || '').split(' ')[0] || 'tudo bem';\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\nconst ts = new Date().toISOString();\n\nlet reply;\nif (input.missing === 'service') reply = 'Oi, ' + first + '! Qual serviço você quer? Corte (R$ 60), Barba (R$ 40), Coloração (R$ 180) ou Escova (R$ 50)?';\nelse if (input.missing === 'date') reply = 'Combinado, ' + input.service + '! Para qual dia você prefere? Atendemos de segunda a sábado, das 9h às 18h.';\nelse if (!input.options.length) reply = 'Não encontrei horário livre para ' + input.service + ' nos próximos dias. Vou pedir para a equipe te ajudar.';\nelse reply = (input.time ? 'Esse horário já está ocupado. ' : '') + 'Tenho estas opções para ' + input.service + ':\\n' + input.options.map((o, i) => (i + 1) + ') ' + when(o.date, o.time)).join('\\n') + '\\nResponda com o número ou o horário que preferir.';\nreturn { ...input, csv_line: '', reply, alert_owner: !input.options.length && !input.missing, owner_alert: !input.options.length && !input.missing ? 'No free slot found for ' + input.service + ' (' + input.name + ', +' + input.phone + ')' : '' };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "b50cc9fd-8e31-5a91-9a99-ab17a581a03b",
+      "name": "Offer slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst WD = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];\nconst when = (d, t) => WD[new Date(d + 'T00:00:00Z').getUTCDay()] + ' ' + d.slice(8, 10) + '/' + d.slice(5, 7) + (t ? ' às ' + t : '');\nconst first = String(input.name || '').split(' ')[0] || 'tudo bem';\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\nconst ts = new Date().toISOString();\n\nif (!input.target) return { ...input, csv_line: '', reply: 'Não encontrei nenhum agendamento futuro neste número. Se quiser marcar um horário novo, é só dizer o serviço e o dia.', alert_owner: false, owner_alert: '' };\nconst t = input.target;\nconst csv_line = [ts, t.booking_id, t.date, t.time, t.duration, t.service, t.customer, t.phone, 'cancelled'].map(Q).join(',') + '\\n';\nreturn { ...input, csv_line, reply: 'Cancelei seu ' + t.service + ' de ' + when(t.date, t.time) + '. Quer remarcar para outro dia?', alert_owner: false, owner_alert: '' };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "050b0670-de30-5ad3-98ce-85cde4780c55",
+      "name": "Cancel booking",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst WD = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];\nconst when = (d, t) => WD[new Date(d + 'T00:00:00Z').getUTCDay()] + ' ' + d.slice(8, 10) + '/' + d.slice(5, 7) + (t ? ' às ' + t : '');\nconst first = String(input.name || '').split(' ')[0] || 'tudo bem';\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\nconst ts = new Date().toISOString();\n\nreturn { ...input, csv_line: '', reply: 'Nossa tabela: Corte R$ 60 (45 min), Barba R$ 40 (30 min), Coloração R$ 180 (2 h), Escova R$ 50 (40 min). Quer agendar algum?', alert_owner: false, owner_alert: '' };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "cc236a71-b772-577d-9e40-ee2065b9564a",
+      "name": "Answer price question",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst out = (() => {\nconst WD = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];\nconst when = (d, t) => WD[new Date(d + 'T00:00:00Z').getUTCDay()] + ' ' + d.slice(8, 10) + '/' + d.slice(5, 7) + (t ? ' às ' + t : '');\nconst first = String(input.name || '').split(' ')[0] || 'tudo bem';\nconst Q = v => '\"' + String(v ?? '').replace(/\"/g, '\"\"').replace(/[\\r\\n]+/g, ' ') + '\"';\nconst ts = new Date().toISOString();\n\nreturn { ...input, csv_line: '', reply: 'Obrigada pela mensagem, ' + first + '! Já avisei a equipe e alguém responde em instantes.', alert_owner: true, owner_alert: 'HUMAN NEEDED: ' + (input.name || 'customer') + ' (+' + input.phone + ') wrote: \"' + input.text + '\"' };\n})();\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(out.csv_line, 'utf8'), 'line.csv', 'text/plain');\nreturn [{json: out, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "9cd901b8-6ec6-5a75-9299-27a6eef939f3",
+      "name": "Hand off to a human",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1230,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({received: true, outcome: $json.outcome}) }}",
+        "options": {}
+      },
+      "id": "7993424d-89e3-53f4-9fea-34563640fc1f",
+      "name": "Acknowledge webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.agenda_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      },
+      "id": "10971b54-fa35-5863-8d7a-031dc835687d",
+      "name": "Append to agenda",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1650,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.wa_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({messaging_product: 'whatsapp', to: $('Acknowledge webhook').first().json.phone, type: 'text', text: {body: $('Acknowledge webhook').first().json.reply} }) }}",
+        "options": {}
+      },
+      "id": "504c7cb8-c85c-5ff2-9579-b6b84d3a43e3",
+      "name": "Send WhatsApp reply",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1850,
+        240
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "WhatsApp Cloud API message body. Retry 3x, then continue: the booking is already saved and the owner is alerted.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b8360354-49fb-5a67-ac04-27bce3f59146",
+              "leftValue": "={{ $('Acknowledge webhook').first().json.alert_owner || !!$json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d377f03a-c357-5990-8b5e-3c198f87bc73",
+      "name": "Alert the owner?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2050,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: $json.error ? 'WHATSAPP DELIVERY FAILED for +' + $('Acknowledge webhook').first().json.phone + ' (' + $('Acknowledge webhook').first().json.outcome + '). Reply by hand.' : $('Acknowledge webhook').first().json.owner_alert}) }}",
+        "options": {}
+      },
+      "id": "6d193821-415c-575d-b6ca-1b78f7dec8c0",
+      "name": "Alert owner (Telegram)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2250,
+        160
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput",
+      "notes": "Human hand-off or a failed WhatsApp send.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "WhatsApp message": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Understand message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Understand message": {
+      "main": [
+        [
+          {
+            "node": "Read agenda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read agenda": {
+      "main": [
+        [
+          {
+            "node": "Find slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find slots": {
+      "main": [
+        [
+          {
+            "node": "Outcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Outcome": {
+      "main": [
+        [
+          {
+            "node": "Confirm booking",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Offer slots",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cancel booking",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Answer price question",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Hand off to a human",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirm booking": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Offer slots": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancel booking": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer price question": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hand off to a human": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Acknowledge webhook": {
+      "main": [
+        [
+          {
+            "node": "Append to agenda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to agenda": {
+      "main": [
+        [
+          {
+            "node": "Send WhatsApp reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send WhatsApp reply": {
+      "main": [
+        [
+          {
+            "node": "Alert the owner?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert the owner?": {
+      "main": [
+        [
+          {
+            "node": "Alert owner (Telegram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

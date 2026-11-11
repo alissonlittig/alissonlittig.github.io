@@ -104,3 +104,4 @@ footer{padding:30px 0 50px;color:var(--mut);font-size:13px;border-top:1px solid 
 .cv[data-scroll="1"]::after{content:"";position:sticky;right:0;bottom:0;float:right;width:36px;height:100%;margin-top:-100%;background:linear-gradient(90deg,transparent,#0f0f0fcc);pointer-events:none}
 .hint{display:none;font:500 12px var(--mono);color:var(--mut);margin:0 0 8px}
 @media(max-width:600px){.hint{display:block}.top a{padding:10px 0;display:inline-block}}
+.chart svg{width:100%;height:auto;display:block}.chart .cc{fill:var(--ac)}.chart .cp{fill:#4a4a46}.chart .cl{font:500 11px var(--mono);fill:var(--mut)}.chart .cv{font:600 10px var(--mono);fill:var(--tx)}.lg2{margin:8px 0 0;font:500 12px var(--mono);color:var(--mut)}.lg2 i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}.lg2 i.cc{background:var(--ac)}.lg2 i.cp{background:#4a4a46}

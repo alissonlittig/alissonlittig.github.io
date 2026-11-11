@@ -1,0 +1,9 @@
+{
+ "vendor": "Northwind Supplies",
+ "invoice_no": "NW-2301",
+ "amount": "240.00",
+ "currency": "USD",
+ "due_date": "2026-11-20",
+ "po_number": "PO-204",
+ "description": "Printer paper, 20 reams"
+}

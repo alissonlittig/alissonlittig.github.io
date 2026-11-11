@@ -1,0 +1,9 @@
+{
+ "job_title": "Backend Developer",
+ "must_have": "python, sql, rest",
+ "nice_have": "docker, aws, redis",
+ "min_years": 3,
+ "candidate_name": "Fernanda Alves",
+ "email": "fernanda.alves@example.com",
+ "cv_text": "Fernanda Alves. Desenvolvedora backend com 6 anos de experiência em Python e SQL, criando APIs REST para operações de logística. Reduzi o tempo de resposta das consultas em 45 por cento e implantei serviços com Docker na AWS. Graduação em Ciência da Computação. Mentora de duas pessoas júnior e responsável pela revisão de código do time."
+}

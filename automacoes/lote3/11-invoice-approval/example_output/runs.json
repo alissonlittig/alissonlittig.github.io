@@ -1,0 +1,1720 @@
+{
+ "auto_approved": [
+  {
+   "path": "invoice-submit",
+   "input": {
+    "vendor": "Northwind Supplies",
+    "invoice_no": "NW-2301",
+    "amount": "240.00",
+    "currency": "USD",
+    "due_date": "2026-11-20",
+    "po_number": "PO-204",
+    "description": "Printer paper, 20 reams"
+   },
+   "http": 200,
+   "response": {
+    "invoice_id": "INV-0003",
+    "status": "approved",
+    "route": "auto"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Invoice submitted",
+    "Config",
+    "Read ledger",
+    "Check invoice",
+    "Route",
+    "Auto-approve",
+    "Respond to submitter",
+    "Append to ledger",
+    "Notify finance (Telegram)"
+   ],
+   "nodes": {
+    "Invoice submitted": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "187",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Northwind Supplies",
+       "invoice_no": "NW-2301",
+       "amount": "240.00",
+       "currency": "USD",
+       "due_date": "2026-11-20",
+       "po_number": "PO-204",
+       "description": "Printer paper, 20 reams"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "187",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Northwind Supplies",
+       "invoice_no": "NW-2301",
+       "amount": "240.00",
+       "currency": "USD",
+       "due_date": "2026-11-20",
+       "po_number": "PO-204",
+       "description": "Printer paper, 20 reams"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Check invoice": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2301",
+      "amount": 240,
+      "currency": "USD",
+      "due_date": "2026-11-20",
+      "po_number": "PO-204",
+      "description": "Printer paper, 20 reams",
+      "route": "auto",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "within the auto-approval limit, approved vendor, PO present",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:39.369Z"
+     }
+    ],
+    "Route": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2301",
+      "amount": 240,
+      "currency": "USD",
+      "due_date": "2026-11-20",
+      "po_number": "PO-204",
+      "description": "Printer paper, 20 reams",
+      "route": "auto",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "within the auto-approval limit, approved vendor, PO present",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:39.369Z"
+     }
+    ],
+    "Auto-approve": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2301",
+      "amount": 240,
+      "currency": "USD",
+      "due_date": "2026-11-20",
+      "po_number": "PO-204",
+      "description": "Printer paper, 20 reams",
+      "route": "auto",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "within the auto-approval limit, approved vendor, PO present",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:39.369Z",
+      "status": "approved",
+      "csv_line": "\"2026-11-11T15:42:39.369Z\",\"INV-0003\",\"Northwind Supplies\",\"NW-2301\",\"240.00\",\"USD\",\"approved\",\"auto\",\"\",\"Auto-approved: within the auto-approval limit, approved vendor, PO present\"\n",
+      "message": "PAYMENT SCHEDULED: INV-0003 | Northwind Supplies | USD 240.00 (invoice NW-2301)\nAuto-approved: within the auto-approval limit, approved vendor, PO present",
+      "buttons": null,
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "approved",
+       "route": "auto"
+      }
+     }
+    ],
+    "Respond to submitter": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2301",
+      "amount": 240,
+      "currency": "USD",
+      "due_date": "2026-11-20",
+      "po_number": "PO-204",
+      "description": "Printer paper, 20 reams",
+      "route": "auto",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "within the auto-approval limit, approved vendor, PO present",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:39.369Z",
+      "status": "approved",
+      "csv_line": "\"2026-11-11T15:42:39.369Z\",\"INV-0003\",\"Northwind Supplies\",\"NW-2301\",\"240.00\",\"USD\",\"approved\",\"auto\",\"\",\"Auto-approved: within the auto-approval limit, approved vendor, PO present\"\n",
+      "message": "PAYMENT SCHEDULED: INV-0003 | Northwind Supplies | USD 240.00 (invoice NW-2301)\nAuto-approved: within the auto-approval limit, approved vendor, PO present",
+      "buttons": null,
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "approved",
+       "route": "auto"
+      }
+     }
+    ],
+    "Append to ledger": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2301",
+      "amount": 240,
+      "currency": "USD",
+      "due_date": "2026-11-20",
+      "po_number": "PO-204",
+      "description": "Printer paper, 20 reams",
+      "route": "auto",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "within the auto-approval limit, approved vendor, PO present",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:39.369Z",
+      "status": "approved",
+      "csv_line": "\"2026-11-11T15:42:39.369Z\",\"INV-0003\",\"Northwind Supplies\",\"NW-2301\",\"240.00\",\"USD\",\"approved\",\"auto\",\"\",\"Auto-approved: within the auto-approval limit, approved vendor, PO present\"\n",
+      "message": "PAYMENT SCHEDULED: INV-0003 | Northwind Supplies | USD 240.00 (invoice NW-2301)\nAuto-approved: within the auto-approval limit, approved vendor, PO present",
+      "buttons": null,
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "approved",
+       "route": "auto"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (Telegram)": [
+     {
+      "ok": true,
+      "id": 2
+     }
+    ]
+   }
+  }
+ ],
+ "manager_approves": [
+  {
+   "path": "invoice-submit",
+   "input": {
+    "vendor": "Cloudnine Hosting",
+    "invoice_no": "CH-5521",
+    "amount": "2890.00",
+    "currency": "USD",
+    "due_date": "2026-11-30",
+    "po_number": "PO-118",
+    "description": "Annual hosting renewal"
+   },
+   "http": 202,
+   "response": {
+    "invoice_id": "INV-0003",
+    "status": "pending",
+    "route": "approval",
+    "approver": "Mariana Costa"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Invoice submitted",
+    "Config",
+    "Read ledger",
+    "Check invoice",
+    "Route",
+    "Request approval",
+    "Respond to submitter",
+    "Append to ledger",
+    "Notify finance (Telegram)"
+   ],
+   "nodes": {
+    "Invoice submitted": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "186",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Cloudnine Hosting",
+       "invoice_no": "CH-5521",
+       "amount": "2890.00",
+       "currency": "USD",
+       "due_date": "2026-11-30",
+       "po_number": "PO-118",
+       "description": "Annual hosting renewal"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "186",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Cloudnine Hosting",
+       "invoice_no": "CH-5521",
+       "amount": "2890.00",
+       "currency": "USD",
+       "due_date": "2026-11-30",
+       "po_number": "PO-118",
+       "description": "Annual hosting renewal"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Check invoice": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "due_date": "2026-11-30",
+      "po_number": "PO-118",
+      "description": "Annual hosting renewal",
+      "route": "approval",
+      "level": "manager",
+      "approver": "Mariana Costa",
+      "flags": [],
+      "reason": "above the auto-approval limit (500)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:41.748Z"
+     }
+    ],
+    "Route": [],
+    "Request approval": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "due_date": "2026-11-30",
+      "po_number": "PO-118",
+      "description": "Annual hosting renewal",
+      "route": "approval",
+      "level": "manager",
+      "approver": "Mariana Costa",
+      "flags": [],
+      "reason": "above the auto-approval limit (500)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:41.748Z",
+      "status": "pending",
+      "csv_line": "\"2026-11-11T15:42:41.748Z\",\"INV-0003\",\"Cloudnine Hosting\",\"CH-5521\",\"2890.00\",\"USD\",\"pending\",\"approval\",\"Mariana Costa\",\"Waiting for Mariana Costa (manager): above the auto-approval limit (500)\"\n",
+      "message": "APPROVAL NEEDED (manager): INV-0003\nCloudnine Hosting | invoice CH-5521 | USD 2890.00\nAnnual hosting renewal\nWhy it came to you: above the auto-approval limit (500)\nApprover: Mariana Costa",
+      "buttons": [
+       {
+        "text": "Approve",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=approve&by=Mariana%20Costa"
+       },
+       {
+        "text": "Reject",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=reject&by=Mariana%20Costa"
+       }
+      ],
+      "http_status": 202,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "pending",
+       "route": "approval",
+       "approver": "Mariana Costa"
+      }
+     }
+    ],
+    "Respond to submitter": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "due_date": "2026-11-30",
+      "po_number": "PO-118",
+      "description": "Annual hosting renewal",
+      "route": "approval",
+      "level": "manager",
+      "approver": "Mariana Costa",
+      "flags": [],
+      "reason": "above the auto-approval limit (500)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:41.748Z",
+      "status": "pending",
+      "csv_line": "\"2026-11-11T15:42:41.748Z\",\"INV-0003\",\"Cloudnine Hosting\",\"CH-5521\",\"2890.00\",\"USD\",\"pending\",\"approval\",\"Mariana Costa\",\"Waiting for Mariana Costa (manager): above the auto-approval limit (500)\"\n",
+      "message": "APPROVAL NEEDED (manager): INV-0003\nCloudnine Hosting | invoice CH-5521 | USD 2890.00\nAnnual hosting renewal\nWhy it came to you: above the auto-approval limit (500)\nApprover: Mariana Costa",
+      "buttons": [
+       {
+        "text": "Approve",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=approve&by=Mariana%20Costa"
+       },
+       {
+        "text": "Reject",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=reject&by=Mariana%20Costa"
+       }
+      ],
+      "http_status": 202,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "pending",
+       "route": "approval",
+       "approver": "Mariana Costa"
+      }
+     }
+    ],
+    "Append to ledger": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "due_date": "2026-11-30",
+      "po_number": "PO-118",
+      "description": "Annual hosting renewal",
+      "route": "approval",
+      "level": "manager",
+      "approver": "Mariana Costa",
+      "flags": [],
+      "reason": "above the auto-approval limit (500)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:41.748Z",
+      "status": "pending",
+      "csv_line": "\"2026-11-11T15:42:41.748Z\",\"INV-0003\",\"Cloudnine Hosting\",\"CH-5521\",\"2890.00\",\"USD\",\"pending\",\"approval\",\"Mariana Costa\",\"Waiting for Mariana Costa (manager): above the auto-approval limit (500)\"\n",
+      "message": "APPROVAL NEEDED (manager): INV-0003\nCloudnine Hosting | invoice CH-5521 | USD 2890.00\nAnnual hosting renewal\nWhy it came to you: above the auto-approval limit (500)\nApprover: Mariana Costa",
+      "buttons": [
+       {
+        "text": "Approve",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=approve&by=Mariana%20Costa"
+       },
+       {
+        "text": "Reject",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=reject&by=Mariana%20Costa"
+       }
+      ],
+      "http_status": 202,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "pending",
+       "route": "approval",
+       "approver": "Mariana Costa"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (Telegram)": [
+     {
+      "ok": true,
+      "id": 3
+     }
+    ]
+   }
+  },
+  {
+   "path": "invoice-decision",
+   "input": {
+    "invoice_id": "INV-0003",
+    "decision": "approve",
+    "by": "Mariana Costa"
+   },
+   "http": 200,
+   "response": {
+    "invoice_id": "INV-0003",
+    "status": "approved"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Approver decision",
+    "Config (decision)",
+    "Read ledger (decision)",
+    "Apply decision",
+    "Respond to approver",
+    "Append decision",
+    "Notify finance (decision)"
+   ],
+   "nodes": {
+    "Approver decision": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "72",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0003",
+       "decision": "approve",
+       "by": "Mariana Costa"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production"
+     }
+    ],
+    "Config (decision)": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "72",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0003",
+       "decision": "approve",
+       "by": "Mariana Costa"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger (decision)": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "647 B"
+     }
+    ],
+    "Apply decision": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "status": "approved",
+      "decided_by": "Mariana Costa",
+      "ts": "2026-11-11T15:42:43.869Z",
+      "csv_line": "\"2026-11-11T15:42:43.869Z\",\"INV-0003\",\"Cloudnine Hosting\",\"CH-5521\",\"2890.00\",\"USD\",\"approved\",\"approval\",\"Mariana Costa\",\"Approved by Mariana Costa\"\n",
+      "message": "APPROVED: INV-0003 | Cloudnine Hosting | USD 2890.00 (invoice CH-5521)\nApproved by Mariana Costa. Payment scheduled.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "approved"
+      }
+     }
+    ],
+    "Respond to approver": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "status": "approved",
+      "decided_by": "Mariana Costa",
+      "ts": "2026-11-11T15:42:43.869Z",
+      "csv_line": "\"2026-11-11T15:42:43.869Z\",\"INV-0003\",\"Cloudnine Hosting\",\"CH-5521\",\"2890.00\",\"USD\",\"approved\",\"approval\",\"Mariana Costa\",\"Approved by Mariana Costa\"\n",
+      "message": "APPROVED: INV-0003 | Cloudnine Hosting | USD 2890.00 (invoice CH-5521)\nApproved by Mariana Costa. Payment scheduled.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "approved"
+      }
+     }
+    ],
+    "Append decision": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Cloudnine Hosting",
+      "invoice_no": "CH-5521",
+      "amount": 2890,
+      "currency": "USD",
+      "status": "approved",
+      "decided_by": "Mariana Costa",
+      "ts": "2026-11-11T15:42:43.869Z",
+      "csv_line": "\"2026-11-11T15:42:43.869Z\",\"INV-0003\",\"Cloudnine Hosting\",\"CH-5521\",\"2890.00\",\"USD\",\"approved\",\"approval\",\"Mariana Costa\",\"Approved by Mariana Costa\"\n",
+      "message": "APPROVED: INV-0003 | Cloudnine Hosting | USD 2890.00 (invoice CH-5521)\nApproved by Mariana Costa. Payment scheduled.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "approved"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (decision)": [
+     {
+      "ok": true,
+      "id": 4
+     }
+    ]
+   }
+  }
+ ],
+ "director_rejects": [
+  {
+   "path": "invoice-submit",
+   "input": {
+    "vendor": "Bluefin Events",
+    "invoice_no": "BE-90",
+    "amount": "12400.00",
+    "currency": "EUR",
+    "due_date": "2026-11-12",
+    "po_number": "",
+    "description": "Conference sponsorship"
+   },
+   "http": 202,
+   "response": {
+    "invoice_id": "INV-0003",
+    "status": "pending",
+    "route": "approval",
+    "approver": "Henrique Lopes"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Invoice submitted",
+    "Config",
+    "Read ledger",
+    "Check invoice",
+    "Route",
+    "Request approval",
+    "Respond to submitter",
+    "Append to ledger",
+    "Notify finance (Telegram)"
+   ],
+   "nodes": {
+    "Invoice submitted": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "176",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Bluefin Events",
+       "invoice_no": "BE-90",
+       "amount": "12400.00",
+       "currency": "EUR",
+       "due_date": "2026-11-12",
+       "po_number": "",
+       "description": "Conference sponsorship"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "176",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Bluefin Events",
+       "invoice_no": "BE-90",
+       "amount": "12400.00",
+       "currency": "EUR",
+       "due_date": "2026-11-12",
+       "po_number": "",
+       "description": "Conference sponsorship"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Check invoice": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "due_date": "2026-11-12",
+      "po_number": "",
+      "description": "Conference sponsorship",
+      "route": "approval",
+      "level": "director",
+      "approver": "Henrique Lopes",
+      "flags": [
+       "vendor not on the approved list",
+       "no purchase order",
+       "foreign currency (EUR)"
+      ],
+      "reason": "above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)",
+      "rush": true,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:46.015Z"
+     }
+    ],
+    "Route": [],
+    "Request approval": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "due_date": "2026-11-12",
+      "po_number": "",
+      "description": "Conference sponsorship",
+      "route": "approval",
+      "level": "director",
+      "approver": "Henrique Lopes",
+      "flags": [
+       "vendor not on the approved list",
+       "no purchase order",
+       "foreign currency (EUR)"
+      ],
+      "reason": "above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)",
+      "rush": true,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:46.015Z",
+      "status": "pending",
+      "csv_line": "\"2026-11-11T15:42:46.015Z\",\"INV-0003\",\"Bluefin Events\",\"BE-90\",\"12400.00\",\"EUR\",\"pending\",\"approval\",\"Henrique Lopes\",\"Waiting for Henrique Lopes (director): above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)\"\n",
+      "message": "APPROVAL NEEDED (director): INV-0003  [RUSH]\nBluefin Events | invoice BE-90 | EUR 12400.00\nConference sponsorship\nWhy it came to you: above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)\nApprover: Henrique Lopes",
+      "buttons": [
+       {
+        "text": "Approve",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=approve&by=Henrique%20Lopes"
+       },
+       {
+        "text": "Reject",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=reject&by=Henrique%20Lopes"
+       }
+      ],
+      "http_status": 202,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "pending",
+       "route": "approval",
+       "approver": "Henrique Lopes"
+      }
+     }
+    ],
+    "Respond to submitter": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "due_date": "2026-11-12",
+      "po_number": "",
+      "description": "Conference sponsorship",
+      "route": "approval",
+      "level": "director",
+      "approver": "Henrique Lopes",
+      "flags": [
+       "vendor not on the approved list",
+       "no purchase order",
+       "foreign currency (EUR)"
+      ],
+      "reason": "above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)",
+      "rush": true,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:46.015Z",
+      "status": "pending",
+      "csv_line": "\"2026-11-11T15:42:46.015Z\",\"INV-0003\",\"Bluefin Events\",\"BE-90\",\"12400.00\",\"EUR\",\"pending\",\"approval\",\"Henrique Lopes\",\"Waiting for Henrique Lopes (director): above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)\"\n",
+      "message": "APPROVAL NEEDED (director): INV-0003  [RUSH]\nBluefin Events | invoice BE-90 | EUR 12400.00\nConference sponsorship\nWhy it came to you: above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)\nApprover: Henrique Lopes",
+      "buttons": [
+       {
+        "text": "Approve",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=approve&by=Henrique%20Lopes"
+       },
+       {
+        "text": "Reject",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=reject&by=Henrique%20Lopes"
+       }
+      ],
+      "http_status": 202,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "pending",
+       "route": "approval",
+       "approver": "Henrique Lopes"
+      }
+     }
+    ],
+    "Append to ledger": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "due_date": "2026-11-12",
+      "po_number": "",
+      "description": "Conference sponsorship",
+      "route": "approval",
+      "level": "director",
+      "approver": "Henrique Lopes",
+      "flags": [
+       "vendor not on the approved list",
+       "no purchase order",
+       "foreign currency (EUR)"
+      ],
+      "reason": "above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)",
+      "rush": true,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:46.015Z",
+      "status": "pending",
+      "csv_line": "\"2026-11-11T15:42:46.015Z\",\"INV-0003\",\"Bluefin Events\",\"BE-90\",\"12400.00\",\"EUR\",\"pending\",\"approval\",\"Henrique Lopes\",\"Waiting for Henrique Lopes (director): above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)\"\n",
+      "message": "APPROVAL NEEDED (director): INV-0003  [RUSH]\nBluefin Events | invoice BE-90 | EUR 12400.00\nConference sponsorship\nWhy it came to you: above the manager limit (5000); vendor not on the approved list; no purchase order; foreign currency (EUR)\nApprover: Henrique Lopes",
+      "buttons": [
+       {
+        "text": "Approve",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=approve&by=Henrique%20Lopes"
+       },
+       {
+        "text": "Reject",
+        "url": "http://localhost:5691/webhook/invoice-decision?invoice_id=INV-0003&decision=reject&by=Henrique%20Lopes"
+       }
+      ],
+      "http_status": 202,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "pending",
+       "route": "approval",
+       "approver": "Henrique Lopes"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (Telegram)": [
+     {
+      "ok": true,
+      "id": 5
+     }
+    ]
+   }
+  },
+  {
+   "path": "invoice-decision",
+   "input": {
+    "invoice_id": "INV-0003",
+    "decision": "reject",
+    "by": "Henrique Lopes"
+   },
+   "http": 200,
+   "response": {
+    "invoice_id": "INV-0003",
+    "status": "rejected"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Approver decision",
+    "Config (decision)",
+    "Read ledger (decision)",
+    "Apply decision",
+    "Respond to approver",
+    "Append decision",
+    "Notify finance (decision)"
+   ],
+   "nodes": {
+    "Approver decision": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "72",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0003",
+       "decision": "reject",
+       "by": "Henrique Lopes"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production"
+     }
+    ],
+    "Config (decision)": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "72",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0003",
+       "decision": "reject",
+       "by": "Henrique Lopes"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger (decision)": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "717 B"
+     }
+    ],
+    "Apply decision": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "status": "rejected",
+      "decided_by": "Henrique Lopes",
+      "ts": "2026-11-11T15:42:48.287Z",
+      "csv_line": "\"2026-11-11T15:42:48.287Z\",\"INV-0003\",\"Bluefin Events\",\"BE-90\",\"12400.00\",\"EUR\",\"rejected\",\"approval\",\"Henrique Lopes\",\"Rejected by Henrique Lopes\"\n",
+      "message": "REJECTED: INV-0003 | Bluefin Events | EUR 12400.00 (invoice BE-90)\nRejected by Henrique Lopes. Vendor to be notified.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "rejected"
+      }
+     }
+    ],
+    "Respond to approver": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "status": "rejected",
+      "decided_by": "Henrique Lopes",
+      "ts": "2026-11-11T15:42:48.287Z",
+      "csv_line": "\"2026-11-11T15:42:48.287Z\",\"INV-0003\",\"Bluefin Events\",\"BE-90\",\"12400.00\",\"EUR\",\"rejected\",\"approval\",\"Henrique Lopes\",\"Rejected by Henrique Lopes\"\n",
+      "message": "REJECTED: INV-0003 | Bluefin Events | EUR 12400.00 (invoice BE-90)\nRejected by Henrique Lopes. Vendor to be notified.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "rejected"
+      }
+     }
+    ],
+    "Append decision": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Bluefin Events",
+      "invoice_no": "BE-90",
+      "amount": 12400,
+      "currency": "EUR",
+      "status": "rejected",
+      "decided_by": "Henrique Lopes",
+      "ts": "2026-11-11T15:42:48.287Z",
+      "csv_line": "\"2026-11-11T15:42:48.287Z\",\"INV-0003\",\"Bluefin Events\",\"BE-90\",\"12400.00\",\"EUR\",\"rejected\",\"approval\",\"Henrique Lopes\",\"Rejected by Henrique Lopes\"\n",
+      "message": "REJECTED: INV-0003 | Bluefin Events | EUR 12400.00 (invoice BE-90)\nRejected by Henrique Lopes. Vendor to be notified.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0003",
+       "status": "rejected"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (decision)": [
+     {
+      "ok": true,
+      "id": 6
+     }
+    ]
+   }
+  }
+ ],
+ "duplicate_blocked": [
+  {
+   "path": "invoice-submit",
+   "input": {
+    "vendor": "Northwind Supplies",
+    "invoice_no": "NW-2208",
+    "amount": "318.40",
+    "currency": "USD",
+    "po_number": "PO-190",
+    "description": "Resubmitted by mistake"
+   },
+   "http": 409,
+   "response": {
+    "status": "blocked",
+    "reason": "duplicate of INV-0001 (approved)"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Invoice submitted",
+    "Config",
+    "Read ledger",
+    "Check invoice",
+    "Route",
+    "Block and explain",
+    "Respond to submitter",
+    "Append to ledger",
+    "Notify finance (Telegram)"
+   ],
+   "nodes": {
+    "Invoice submitted": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "160",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Northwind Supplies",
+       "invoice_no": "NW-2208",
+       "amount": "318.40",
+       "currency": "USD",
+       "po_number": "PO-190",
+       "description": "Resubmitted by mistake"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "160",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Northwind Supplies",
+       "invoice_no": "NW-2208",
+       "amount": "318.40",
+       "currency": "USD",
+       "po_number": "PO-190",
+       "description": "Resubmitted by mistake"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Check invoice": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2208",
+      "amount": 318.4,
+      "currency": "USD",
+      "due_date": "",
+      "po_number": "PO-190",
+      "description": "Resubmitted by mistake",
+      "route": "blocked",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "duplicate of INV-0001 (approved)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:50.298Z"
+     }
+    ],
+    "Route": [],
+    "Block and explain": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2208",
+      "amount": 318.4,
+      "currency": "USD",
+      "due_date": "",
+      "po_number": "PO-190",
+      "description": "Resubmitted by mistake",
+      "route": "blocked",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "duplicate of INV-0001 (approved)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:50.298Z",
+      "status": "blocked",
+      "csv_line": "\"2026-11-11T15:42:50.298Z\",\"INV-0003\",\"Northwind Supplies\",\"NW-2208\",\"318.40\",\"USD\",\"blocked\",\"blocked\",\"\",\"Blocked: duplicate of INV-0001 (approved)\"\n",
+      "message": "INVOICE BLOCKED: Northwind Supplies | invoice NW-2208 | USD 318.40\nReason: duplicate of INV-0001 (approved). Nothing was scheduled for payment.",
+      "buttons": null,
+      "http_status": 409,
+      "response": {
+       "status": "blocked",
+       "reason": "duplicate of INV-0001 (approved)"
+      }
+     }
+    ],
+    "Respond to submitter": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2208",
+      "amount": 318.4,
+      "currency": "USD",
+      "due_date": "",
+      "po_number": "PO-190",
+      "description": "Resubmitted by mistake",
+      "route": "blocked",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "duplicate of INV-0001 (approved)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:50.298Z",
+      "status": "blocked",
+      "csv_line": "\"2026-11-11T15:42:50.298Z\",\"INV-0003\",\"Northwind Supplies\",\"NW-2208\",\"318.40\",\"USD\",\"blocked\",\"blocked\",\"\",\"Blocked: duplicate of INV-0001 (approved)\"\n",
+      "message": "INVOICE BLOCKED: Northwind Supplies | invoice NW-2208 | USD 318.40\nReason: duplicate of INV-0001 (approved). Nothing was scheduled for payment.",
+      "buttons": null,
+      "http_status": 409,
+      "response": {
+       "status": "blocked",
+       "reason": "duplicate of INV-0001 (approved)"
+      }
+     }
+    ],
+    "Append to ledger": [
+     {
+      "invoice_id": "INV-0003",
+      "vendor": "Northwind Supplies",
+      "invoice_no": "NW-2208",
+      "amount": 318.4,
+      "currency": "USD",
+      "due_date": "",
+      "po_number": "PO-190",
+      "description": "Resubmitted by mistake",
+      "route": "blocked",
+      "level": "",
+      "approver": "",
+      "flags": [],
+      "reason": "duplicate of INV-0001 (approved)",
+      "rush": false,
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "ts": "2026-11-11T15:42:50.298Z",
+      "status": "blocked",
+      "csv_line": "\"2026-11-11T15:42:50.298Z\",\"INV-0003\",\"Northwind Supplies\",\"NW-2208\",\"318.40\",\"USD\",\"blocked\",\"blocked\",\"\",\"Blocked: duplicate of INV-0001 (approved)\"\n",
+      "message": "INVOICE BLOCKED: Northwind Supplies | invoice NW-2208 | USD 318.40\nReason: duplicate of INV-0001 (approved). Nothing was scheduled for payment.",
+      "buttons": null,
+      "http_status": 409,
+      "response": {
+       "status": "blocked",
+       "reason": "duplicate of INV-0001 (approved)"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (Telegram)": [
+     {
+      "ok": true,
+      "id": 7
+     }
+    ]
+   }
+  }
+ ],
+ "invalid_invoice": [
+  {
+   "path": "invoice-submit",
+   "input": {
+    "vendor": "Northwind Supplies",
+    "invoice_no": "NW-2302",
+    "amount": "free",
+    "currency": "USD"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Invalid invoice: amount must be a positive number [line 38]",
+   "order": [
+    "Invoice submitted",
+    "Config",
+    "Read ledger",
+    "Check invoice"
+   ],
+   "nodes": {
+    "Invoice submitted": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "94",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Northwind Supplies",
+       "invoice_no": "NW-2302",
+       "amount": "free",
+       "currency": "USD"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "94",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "vendor": "Northwind Supplies",
+       "invoice_no": "NW-2302",
+       "amount": "free",
+       "currency": "USD"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-submit",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Check invoice": {
+     "__error": "Invalid invoice: amount must be a positive number [line 38]"
+    }
+   }
+  }
+ ],
+ "wrong_approver": [
+  {
+   "path": "invoice-decision",
+   "input": {
+    "invoice_id": "INV-0002",
+    "decision": "approve",
+    "by": "Pedro Alves"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Pedro Alves is not the approver of INV-0002 (assigned: Mariana Costa) [line 22]",
+   "order": [
+    "Approver decision",
+    "Config (decision)",
+    "Read ledger (decision)",
+    "Apply decision"
+   ],
+   "nodes": {
+    "Approver decision": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "70",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0002",
+       "decision": "approve",
+       "by": "Pedro Alves"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production"
+     }
+    ],
+    "Config (decision)": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "70",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0002",
+       "decision": "approve",
+       "by": "Pedro Alves"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger (decision)": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Apply decision": {
+     "__error": "Pedro Alves is not the approver of INV-0002 (assigned: Mariana Costa) [line 22]"
+    }
+   }
+  }
+ ],
+ "already_decided": [
+  {
+   "path": "invoice-decision",
+   "input": {
+    "invoice_id": "INV-0002",
+    "decision": "approve",
+    "by": "Mariana Costa"
+   },
+   "http": 200,
+   "response": {
+    "invoice_id": "INV-0002",
+    "status": "approved"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Approver decision",
+    "Config (decision)",
+    "Read ledger (decision)",
+    "Apply decision",
+    "Respond to approver",
+    "Append decision",
+    "Notify finance (decision)"
+   ],
+   "nodes": {
+    "Approver decision": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "72",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0002",
+       "decision": "approve",
+       "by": "Mariana Costa"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production"
+     }
+    ],
+    "Config (decision)": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "72",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0002",
+       "decision": "approve",
+       "by": "Mariana Costa"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger (decision)": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "451 B"
+     }
+    ],
+    "Apply decision": [
+     {
+      "invoice_id": "INV-0002",
+      "vendor": "Brightline Print",
+      "invoice_no": "BP-771",
+      "amount": 1240,
+      "currency": "USD",
+      "status": "approved",
+      "decided_by": "Mariana Costa",
+      "ts": "2026-11-11T15:42:56.716Z",
+      "csv_line": "\"2026-11-11T15:42:56.716Z\",\"INV-0002\",\"Brightline Print\",\"BP-771\",\"1240.00\",\"USD\",\"approved\",\"approval\",\"Mariana Costa\",\"Approved by Mariana Costa\"\n",
+      "message": "APPROVED: INV-0002 | Brightline Print | USD 1240.00 (invoice BP-771)\nApproved by Mariana Costa. Payment scheduled.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0002",
+       "status": "approved"
+      }
+     }
+    ],
+    "Respond to approver": [
+     {
+      "invoice_id": "INV-0002",
+      "vendor": "Brightline Print",
+      "invoice_no": "BP-771",
+      "amount": 1240,
+      "currency": "USD",
+      "status": "approved",
+      "decided_by": "Mariana Costa",
+      "ts": "2026-11-11T15:42:56.716Z",
+      "csv_line": "\"2026-11-11T15:42:56.716Z\",\"INV-0002\",\"Brightline Print\",\"BP-771\",\"1240.00\",\"USD\",\"approved\",\"approval\",\"Mariana Costa\",\"Approved by Mariana Costa\"\n",
+      "message": "APPROVED: INV-0002 | Brightline Print | USD 1240.00 (invoice BP-771)\nApproved by Mariana Costa. Payment scheduled.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0002",
+       "status": "approved"
+      }
+     }
+    ],
+    "Append decision": [
+     {
+      "invoice_id": "INV-0002",
+      "vendor": "Brightline Print",
+      "invoice_no": "BP-771",
+      "amount": 1240,
+      "currency": "USD",
+      "status": "approved",
+      "decided_by": "Mariana Costa",
+      "ts": "2026-11-11T15:42:56.716Z",
+      "csv_line": "\"2026-11-11T15:42:56.716Z\",\"INV-0002\",\"Brightline Print\",\"BP-771\",\"1240.00\",\"USD\",\"approved\",\"approval\",\"Mariana Costa\",\"Approved by Mariana Costa\"\n",
+      "message": "APPROVED: INV-0002 | Brightline Print | USD 1240.00 (invoice BP-771)\nApproved by Mariana Costa. Payment scheduled.",
+      "http_status": 200,
+      "response": {
+       "invoice_id": "INV-0002",
+       "status": "approved"
+      },
+      "fileName": "./data/ledger_11.csv"
+     }
+    ],
+    "Notify finance (decision)": [
+     {
+      "ok": true,
+      "id": 8
+     }
+    ]
+   }
+  },
+  {
+   "path": "invoice-decision",
+   "input": {
+    "invoice_id": "INV-0002",
+    "decision": "reject",
+    "by": "Mariana Costa"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "INV-0002 is already approved: decision ignored [line 22]",
+   "order": [
+    "Approver decision",
+    "Config (decision)",
+    "Read ledger (decision)",
+    "Apply decision"
+   ],
+   "nodes": {
+    "Approver decision": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "71",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0002",
+       "decision": "reject",
+       "by": "Mariana Costa"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production"
+     }
+    ],
+    "Config (decision)": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "71",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "invoice_id": "INV-0002",
+       "decision": "reject",
+       "by": "Mariana Costa"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/invoice-decision",
+      "executionMode": "production",
+      "ledger_file": "./data/ledger_11.csv",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "FINANCE_CHAT_ID",
+      "approved_vendors": "Northwind Supplies,Brightline Print,Cloudnine Hosting,Orbit Logistics",
+      "auto_limit": "500",
+      "manager_limit": "5000",
+      "manager": "Mariana Costa",
+      "director": "Henrique Lopes",
+      "approve_url": "http://localhost:5691/webhook/invoice-decision",
+      "today": "2026-11-11"
+     }
+    ],
+    "Read ledger (decision)": [
+     {
+      "mimeType": "text/csv",
+      "fileType": "text",
+      "fileName": "ledger_11.csv",
+      "fileExtension": "csv",
+      "fileSize": "599 B"
+     }
+    ],
+    "Apply decision": {
+     "__error": "INV-0002 is already approved: decision ignored [line 22]"
+    }
+   }
+  }
+ ]
+}

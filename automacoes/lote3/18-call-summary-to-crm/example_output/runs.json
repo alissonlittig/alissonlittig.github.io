@@ -1,0 +1,2710 @@
+{
+ "hot_lead_saved": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142001",
+    "duration_sec": 214,
+    "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+   },
+   "http": 200,
+   "response": {
+    "call_id": "CALL-6678",
+    "intent": "buy",
+    "priority": "hot",
+    "score": 100,
+    "crm": "saved",
+    "ops_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead",
+    "Sales lead?",
+    "Create lead in CRM",
+    "Finish",
+    "Append call log",
+    "Dead letter?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "528",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "528",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:24.293Z"
+     }
+    ],
+    "Sales lead?": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:24.293Z"
+     }
+    ],
+    "Create lead in CRM": [
+     {
+      "ok": true,
+      "id": 35
+     }
+    ],
+    "Finish": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:24.293Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:24.293Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": ""
+     }
+    ],
+    "Append call log": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:24.293Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:24.293Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Dead letter?": [],
+    "Build response": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:24.293Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:24.293Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-6678",
+       "intent": "buy",
+       "priority": "hot",
+       "score": 100,
+       "crm": "saved",
+       "ops_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:24.293Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:24.293Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-6678",
+       "intent": "buy",
+       "priority": "hot",
+       "score": 100,
+       "crm": "saved",
+       "ops_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "warm_lead_pt": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+5541999990101",
+    "duration_sec": 187,
+    "transcript": "Agent: Obrigada por ligar para a Solaris Energia, aqui é a Bia.\nCaller: Oi Bia, meu nome é Carlos Mendes, sou da Padaria Estrela. Queria saber o preço de um sistema solar, mas acho que está caro e já temos um orçamento com outra empresa.\nAgent: Posso mandar uma proposta comparativa. Qual o prazo?\nCaller: Em 3 meses, talvez. Nosso orçamento é de uns R$ 40 mil.\nAgent: Vou enviar a proposta por e-mail."
+   },
+   "http": 200,
+   "response": {
+    "call_id": "CALL-7409",
+    "intent": "buy",
+    "priority": "warm",
+    "score": 45,
+    "crm": "saved",
+    "ops_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead",
+    "Sales lead?",
+    "Create lead in CRM",
+    "Finish",
+    "Append call log",
+    "Dead letter?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "512",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+5541999990101",
+       "duration_sec": 187,
+       "transcript": "Agent: Obrigada por ligar para a Solaris Energia, aqui é a Bia.\nCaller: Oi Bia, meu nome é Carlos Mendes, sou da Padaria Estrela. Queria saber o preço de um sistema solar, mas acho que está caro e já temos um orçamento com outra empresa.\nAgent: Posso mandar uma proposta comparativa. Qual o prazo?\nCaller: Em 3 meses, talvez. Nosso orçamento é de uns R$ 40 mil.\nAgent: Vou enviar a proposta por e-mail."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "512",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+5541999990101",
+       "duration_sec": 187,
+       "transcript": "Agent: Obrigada por ligar para a Solaris Energia, aqui é a Bia.\nCaller: Oi Bia, meu nome é Carlos Mendes, sou da Padaria Estrela. Queria saber o preço de um sistema solar, mas acho que está caro e já temos um orçamento com outra empresa.\nAgent: Posso mandar uma proposta comparativa. Qual o prazo?\nCaller: Em 3 meses, talvez. Nosso orçamento é de uns R$ 40 mil.\nAgent: Vou enviar a proposta por e-mail."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": [
+     {
+      "call_id": "CALL-7409",
+      "phone": "+5541999990101",
+      "duration_sec": 187,
+      "name": "Carlos Mendes",
+      "company": "Padaria Estrela",
+      "lang": "pt",
+      "intent": "buy",
+      "budget": 40000,
+      "currency": "BRL",
+      "timeline": "em 3 meses",
+      "authority": false,
+      "objections": [
+       "price",
+       "competitor",
+       "timing"
+      ],
+      "next_step": "Vou enviar a proposta por e-mail.",
+      "parts": {
+       "budget": 25,
+       "timeline": 10,
+       "authority": 0,
+       "intent": 20,
+       "company": 10,
+       "objections": -20
+      },
+      "score": 45,
+      "priority": "warm",
+      "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:26.135Z"
+     }
+    ],
+    "Sales lead?": [
+     {
+      "call_id": "CALL-7409",
+      "phone": "+5541999990101",
+      "duration_sec": 187,
+      "name": "Carlos Mendes",
+      "company": "Padaria Estrela",
+      "lang": "pt",
+      "intent": "buy",
+      "budget": 40000,
+      "currency": "BRL",
+      "timeline": "em 3 meses",
+      "authority": false,
+      "objections": [
+       "price",
+       "competitor",
+       "timing"
+      ],
+      "next_step": "Vou enviar a proposta por e-mail.",
+      "parts": {
+       "budget": 25,
+       "timeline": 10,
+       "authority": 0,
+       "intent": 20,
+       "company": 10,
+       "objections": -20
+      },
+      "score": 45,
+      "priority": "warm",
+      "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:26.135Z"
+     }
+    ],
+    "Create lead in CRM": [
+     {
+      "ok": true,
+      "id": 36
+     }
+    ],
+    "Finish": [
+     {
+      "call_id": "CALL-7409",
+      "phone": "+5541999990101",
+      "duration_sec": 187,
+      "name": "Carlos Mendes",
+      "company": "Padaria Estrela",
+      "lang": "pt",
+      "intent": "buy",
+      "budget": 40000,
+      "currency": "BRL",
+      "timeline": "em 3 meses",
+      "authority": false,
+      "objections": [
+       "price",
+       "competitor",
+       "timing"
+      ],
+      "next_step": "Vou enviar a proposta por e-mail.",
+      "parts": {
+       "budget": 25,
+       "timeline": 10,
+       "authority": 0,
+       "intent": 20,
+       "company": 10,
+       "objections": -20
+      },
+      "score": 45,
+      "priority": "warm",
+      "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:26.135Z",
+      "lead": {
+       "name": "Carlos Mendes",
+       "company": "Padaria Estrela",
+       "phone": "+5541999990101",
+       "source": "phone",
+       "priority": "warm",
+       "score": 45,
+       "budget": 40000,
+       "timeline": "em 3 meses",
+       "next_step": "Vou enviar a proposta por e-mail.",
+       "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+       "call_id": "CALL-7409"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:26.135Z\",\"CALL-7409\",\"+5541999990101\",\"Carlos Mendes\",\"Padaria Estrela\",\"buy\",\"warm\",\"45\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": ""
+     }
+    ],
+    "Append call log": [
+     {
+      "call_id": "CALL-7409",
+      "phone": "+5541999990101",
+      "duration_sec": 187,
+      "name": "Carlos Mendes",
+      "company": "Padaria Estrela",
+      "lang": "pt",
+      "intent": "buy",
+      "budget": 40000,
+      "currency": "BRL",
+      "timeline": "em 3 meses",
+      "authority": false,
+      "objections": [
+       "price",
+       "competitor",
+       "timing"
+      ],
+      "next_step": "Vou enviar a proposta por e-mail.",
+      "parts": {
+       "budget": 25,
+       "timeline": 10,
+       "authority": 0,
+       "intent": 20,
+       "company": 10,
+       "objections": -20
+      },
+      "score": 45,
+      "priority": "warm",
+      "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:26.135Z",
+      "lead": {
+       "name": "Carlos Mendes",
+       "company": "Padaria Estrela",
+       "phone": "+5541999990101",
+       "source": "phone",
+       "priority": "warm",
+       "score": 45,
+       "budget": 40000,
+       "timeline": "em 3 meses",
+       "next_step": "Vou enviar a proposta por e-mail.",
+       "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+       "call_id": "CALL-7409"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:26.135Z\",\"CALL-7409\",\"+5541999990101\",\"Carlos Mendes\",\"Padaria Estrela\",\"buy\",\"warm\",\"45\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Dead letter?": [],
+    "Build response": [
+     {
+      "call_id": "CALL-7409",
+      "phone": "+5541999990101",
+      "duration_sec": 187,
+      "name": "Carlos Mendes",
+      "company": "Padaria Estrela",
+      "lang": "pt",
+      "intent": "buy",
+      "budget": 40000,
+      "currency": "BRL",
+      "timeline": "em 3 meses",
+      "authority": false,
+      "objections": [
+       "price",
+       "competitor",
+       "timing"
+      ],
+      "next_step": "Vou enviar a proposta por e-mail.",
+      "parts": {
+       "budget": 25,
+       "timeline": 10,
+       "authority": 0,
+       "intent": 20,
+       "company": 10,
+       "objections": -20
+      },
+      "score": 45,
+      "priority": "warm",
+      "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:26.135Z",
+      "lead": {
+       "name": "Carlos Mendes",
+       "company": "Padaria Estrela",
+       "phone": "+5541999990101",
+       "source": "phone",
+       "priority": "warm",
+       "score": 45,
+       "budget": 40000,
+       "timeline": "em 3 meses",
+       "next_step": "Vou enviar a proposta por e-mail.",
+       "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+       "call_id": "CALL-7409"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:26.135Z\",\"CALL-7409\",\"+5541999990101\",\"Carlos Mendes\",\"Padaria Estrela\",\"buy\",\"warm\",\"45\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-7409",
+       "intent": "buy",
+       "priority": "warm",
+       "score": 45,
+       "crm": "saved",
+       "ops_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "call_id": "CALL-7409",
+      "phone": "+5541999990101",
+      "duration_sec": 187,
+      "name": "Carlos Mendes",
+      "company": "Padaria Estrela",
+      "lang": "pt",
+      "intent": "buy",
+      "budget": 40000,
+      "currency": "BRL",
+      "timeline": "em 3 meses",
+      "authority": false,
+      "objections": [
+       "price",
+       "competitor",
+       "timing"
+      ],
+      "next_step": "Vou enviar a proposta por e-mail.",
+      "parts": {
+       "budget": 25,
+       "timeline": 10,
+       "authority": 0,
+       "intent": 20,
+       "company": 10,
+       "objections": -20
+      },
+      "score": 45,
+      "priority": "warm",
+      "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:26.135Z",
+      "lead": {
+       "name": "Carlos Mendes",
+       "company": "Padaria Estrela",
+       "phone": "+5541999990101",
+       "source": "phone",
+       "priority": "warm",
+       "score": 45,
+       "budget": 40000,
+       "timeline": "em 3 meses",
+       "next_step": "Vou enviar a proposta por e-mail.",
+       "summary": "Carlos Mendes (Padaria Estrela) · wants a quote · R$ 40.000 · em 3 meses · objections: price, competitor, timing · next: Vou enviar a proposta por e-mail",
+       "call_id": "CALL-7409"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:26.135Z\",\"CALL-7409\",\"+5541999990101\",\"Carlos Mendes\",\"Padaria Estrela\",\"buy\",\"warm\",\"45\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-7409",
+       "intent": "buy",
+       "priority": "warm",
+       "score": 45,
+       "crm": "saved",
+       "ops_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "support_not_a_lead": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142077",
+    "duration_sec": 96,
+    "transcript": "Agent: Brightside Solar support, this is Sam.\nCaller: Hi, my name is Joyce Kim. My inverter stopped working yesterday and the app shows an error.\nAgent: Sorry to hear that. I will open a ticket and a technician will call you back.\nCaller: Thanks."
+   },
+   "http": 200,
+   "response": {
+    "call_id": "CALL-4245",
+    "intent": "support",
+    "priority": "support",
+    "score": 0,
+    "crm": "skipped",
+    "ops_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead",
+    "Sales lead?",
+    "Finish",
+    "Append call log",
+    "Dead letter?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "312",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142077",
+       "duration_sec": 96,
+       "transcript": "Agent: Brightside Solar support, this is Sam.\nCaller: Hi, my name is Joyce Kim. My inverter stopped working yesterday and the app shows an error.\nAgent: Sorry to hear that. I will open a ticket and a technician will call you back.\nCaller: Thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "312",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142077",
+       "duration_sec": 96,
+       "transcript": "Agent: Brightside Solar support, this is Sam.\nCaller: Hi, my name is Joyce Kim. My inverter stopped working yesterday and the app shows an error.\nAgent: Sorry to hear that. I will open a ticket and a technician will call you back.\nCaller: Thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": [
+     {
+      "call_id": "CALL-4245",
+      "phone": "+15550142077",
+      "duration_sec": 96,
+      "name": "Joyce Kim",
+      "company": "",
+      "lang": "en",
+      "intent": "support",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "support",
+      "summary": "Joyce Kim · support request · no budget stated · no timeline",
+      "is_sales": false,
+      "ts": "2026-11-11T16:22:28.037Z"
+     }
+    ],
+    "Sales lead?": [],
+    "Finish": [
+     {
+      "call_id": "CALL-4245",
+      "phone": "+15550142077",
+      "duration_sec": 96,
+      "name": "Joyce Kim",
+      "company": "",
+      "lang": "en",
+      "intent": "support",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "support",
+      "summary": "Joyce Kim · support request · no budget stated · no timeline",
+      "is_sales": false,
+      "ts": "2026-11-11T16:22:28.037Z",
+      "lead": {
+       "name": "Joyce Kim",
+       "company": "",
+       "phone": "+15550142077",
+       "source": "phone",
+       "priority": "support",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Joyce Kim · support request · no budget stated · no timeline",
+       "call_id": "CALL-4245"
+      },
+      "status": "routed_to_support",
+      "crm_ok": null,
+      "csv_line": "\"2026-11-11T16:22:28.037Z\",\"CALL-4245\",\"+15550142077\",\"Joyce Kim\",\"\",\"support\",\"support\",\"0\",\"routed_to_support\"\n",
+      "dead_line": "",
+      "ops_text": ""
+     }
+    ],
+    "Append call log": [
+     {
+      "call_id": "CALL-4245",
+      "phone": "+15550142077",
+      "duration_sec": 96,
+      "name": "Joyce Kim",
+      "company": "",
+      "lang": "en",
+      "intent": "support",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "support",
+      "summary": "Joyce Kim · support request · no budget stated · no timeline",
+      "is_sales": false,
+      "ts": "2026-11-11T16:22:28.037Z",
+      "lead": {
+       "name": "Joyce Kim",
+       "company": "",
+       "phone": "+15550142077",
+       "source": "phone",
+       "priority": "support",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Joyce Kim · support request · no budget stated · no timeline",
+       "call_id": "CALL-4245"
+      },
+      "status": "routed_to_support",
+      "crm_ok": null,
+      "csv_line": "\"2026-11-11T16:22:28.037Z\",\"CALL-4245\",\"+15550142077\",\"Joyce Kim\",\"\",\"support\",\"support\",\"0\",\"routed_to_support\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Dead letter?": [],
+    "Build response": [
+     {
+      "call_id": "CALL-4245",
+      "phone": "+15550142077",
+      "duration_sec": 96,
+      "name": "Joyce Kim",
+      "company": "",
+      "lang": "en",
+      "intent": "support",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "support",
+      "summary": "Joyce Kim · support request · no budget stated · no timeline",
+      "is_sales": false,
+      "ts": "2026-11-11T16:22:28.037Z",
+      "lead": {
+       "name": "Joyce Kim",
+       "company": "",
+       "phone": "+15550142077",
+       "source": "phone",
+       "priority": "support",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Joyce Kim · support request · no budget stated · no timeline",
+       "call_id": "CALL-4245"
+      },
+      "status": "routed_to_support",
+      "crm_ok": null,
+      "csv_line": "\"2026-11-11T16:22:28.037Z\",\"CALL-4245\",\"+15550142077\",\"Joyce Kim\",\"\",\"support\",\"support\",\"0\",\"routed_to_support\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-4245",
+       "intent": "support",
+       "priority": "support",
+       "score": 0,
+       "crm": "skipped",
+       "ops_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "call_id": "CALL-4245",
+      "phone": "+15550142077",
+      "duration_sec": 96,
+      "name": "Joyce Kim",
+      "company": "",
+      "lang": "en",
+      "intent": "support",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "support",
+      "summary": "Joyce Kim · support request · no budget stated · no timeline",
+      "is_sales": false,
+      "ts": "2026-11-11T16:22:28.037Z",
+      "lead": {
+       "name": "Joyce Kim",
+       "company": "",
+       "phone": "+15550142077",
+       "source": "phone",
+       "priority": "support",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Joyce Kim · support request · no budget stated · no timeline",
+       "call_id": "CALL-4245"
+      },
+      "status": "routed_to_support",
+      "crm_ok": null,
+      "csv_line": "\"2026-11-11T16:22:28.037Z\",\"CALL-4245\",\"+15550142077\",\"Joyce Kim\",\"\",\"support\",\"support\",\"0\",\"routed_to_support\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-4245",
+       "intent": "support",
+       "priority": "support",
+       "score": 0,
+       "crm": "skipped",
+       "ops_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "cold_info_call": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142088",
+    "duration_sec": 41,
+    "transcript": "Agent: Brightside Solar, this is Sam.\nCaller: Hi, I was just wondering how long solar panels usually last.\nAgent: Usually 25 years or more, depending on the model.\nCaller: Interesting, thank you. Bye."
+   },
+   "http": 200,
+   "response": {
+    "call_id": "CALL-3387",
+    "intent": "info",
+    "priority": "cold",
+    "score": 0,
+    "crm": "saved",
+    "ops_alert": "not_needed"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead",
+    "Sales lead?",
+    "Create lead in CRM",
+    "Finish",
+    "Append call log",
+    "Dead letter?",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "266",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142088",
+       "duration_sec": 41,
+       "transcript": "Agent: Brightside Solar, this is Sam.\nCaller: Hi, I was just wondering how long solar panels usually last.\nAgent: Usually 25 years or more, depending on the model.\nCaller: Interesting, thank you. Bye."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "266",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142088",
+       "duration_sec": 41,
+       "transcript": "Agent: Brightside Solar, this is Sam.\nCaller: Hi, I was just wondering how long solar panels usually last.\nAgent: Usually 25 years or more, depending on the model.\nCaller: Interesting, thank you. Bye."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": [
+     {
+      "call_id": "CALL-3387",
+      "phone": "+15550142088",
+      "duration_sec": 41,
+      "name": "Unknown",
+      "company": "",
+      "lang": "en",
+      "intent": "info",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "cold",
+      "summary": "Unknown · general question · no budget stated · no timeline",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:29.923Z"
+     }
+    ],
+    "Sales lead?": [
+     {
+      "call_id": "CALL-3387",
+      "phone": "+15550142088",
+      "duration_sec": 41,
+      "name": "Unknown",
+      "company": "",
+      "lang": "en",
+      "intent": "info",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "cold",
+      "summary": "Unknown · general question · no budget stated · no timeline",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:29.923Z"
+     }
+    ],
+    "Create lead in CRM": [
+     {
+      "ok": true,
+      "id": 37
+     }
+    ],
+    "Finish": [
+     {
+      "call_id": "CALL-3387",
+      "phone": "+15550142088",
+      "duration_sec": 41,
+      "name": "Unknown",
+      "company": "",
+      "lang": "en",
+      "intent": "info",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "cold",
+      "summary": "Unknown · general question · no budget stated · no timeline",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:29.923Z",
+      "lead": {
+       "name": "Unknown",
+       "company": "",
+       "phone": "+15550142088",
+       "source": "phone",
+       "priority": "cold",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Unknown · general question · no budget stated · no timeline",
+       "call_id": "CALL-3387"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:29.923Z\",\"CALL-3387\",\"+15550142088\",\"Unknown\",\"\",\"info\",\"cold\",\"0\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": ""
+     }
+    ],
+    "Append call log": [
+     {
+      "call_id": "CALL-3387",
+      "phone": "+15550142088",
+      "duration_sec": 41,
+      "name": "Unknown",
+      "company": "",
+      "lang": "en",
+      "intent": "info",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "cold",
+      "summary": "Unknown · general question · no budget stated · no timeline",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:29.923Z",
+      "lead": {
+       "name": "Unknown",
+       "company": "",
+       "phone": "+15550142088",
+       "source": "phone",
+       "priority": "cold",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Unknown · general question · no budget stated · no timeline",
+       "call_id": "CALL-3387"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:29.923Z\",\"CALL-3387\",\"+15550142088\",\"Unknown\",\"\",\"info\",\"cold\",\"0\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Dead letter?": [],
+    "Build response": [
+     {
+      "call_id": "CALL-3387",
+      "phone": "+15550142088",
+      "duration_sec": 41,
+      "name": "Unknown",
+      "company": "",
+      "lang": "en",
+      "intent": "info",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "cold",
+      "summary": "Unknown · general question · no budget stated · no timeline",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:29.923Z",
+      "lead": {
+       "name": "Unknown",
+       "company": "",
+       "phone": "+15550142088",
+       "source": "phone",
+       "priority": "cold",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Unknown · general question · no budget stated · no timeline",
+       "call_id": "CALL-3387"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:29.923Z\",\"CALL-3387\",\"+15550142088\",\"Unknown\",\"\",\"info\",\"cold\",\"0\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-3387",
+       "intent": "info",
+       "priority": "cold",
+       "score": 0,
+       "crm": "saved",
+       "ops_alert": "not_needed"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "call_id": "CALL-3387",
+      "phone": "+15550142088",
+      "duration_sec": 41,
+      "name": "Unknown",
+      "company": "",
+      "lang": "en",
+      "intent": "info",
+      "budget": null,
+      "currency": null,
+      "timeline": "",
+      "authority": false,
+      "objections": [],
+      "next_step": "",
+      "parts": {
+       "budget": 0,
+       "timeline": 0,
+       "authority": 0,
+       "intent": 0,
+       "company": 0,
+       "objections": 0
+      },
+      "score": 0,
+      "priority": "cold",
+      "summary": "Unknown · general question · no budget stated · no timeline",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:29.923Z",
+      "lead": {
+       "name": "Unknown",
+       "company": "",
+       "phone": "+15550142088",
+       "source": "phone",
+       "priority": "cold",
+       "score": 0,
+       "budget": null,
+       "timeline": "",
+       "next_step": "",
+       "summary": "Unknown · general question · no budget stated · no timeline",
+       "call_id": "CALL-3387"
+      },
+      "status": "saved",
+      "crm_ok": true,
+      "csv_line": "\"2026-11-11T16:22:29.923Z\",\"CALL-3387\",\"+15550142088\",\"Unknown\",\"\",\"info\",\"cold\",\"0\",\"saved\"\n",
+      "dead_line": "",
+      "ops_text": "",
+      "ops_alert": "not_needed",
+      "response": {
+       "call_id": "CALL-3387",
+       "intent": "info",
+       "priority": "cold",
+       "score": 0,
+       "crm": "saved",
+       "ops_alert": "not_needed"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "crm_down_dead_letter": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142001",
+    "duration_sec": 214,
+    "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+   },
+   "http": 200,
+   "response": {
+    "call_id": "CALL-6678",
+    "intent": "buy",
+    "priority": "hot",
+    "score": 100,
+    "crm": "dead_letter",
+    "ops_alert": "sent"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead",
+    "Sales lead?",
+    "Create lead in CRM",
+    "Finish",
+    "Append call log",
+    "Dead letter?",
+    "Prepare dead letter",
+    "Write dead letter",
+    "Alert ops (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "528",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "528",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z"
+     }
+    ],
+    "Sales lead?": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z"
+     }
+    ],
+    "Create lead in CRM": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Finish": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back."
+     }
+    ],
+    "Append call log": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Dead letter?": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Prepare dead letter": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back."
+     }
+    ],
+    "Write dead letter": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "fileName": "./data/dead_letters_18.csv"
+     }
+    ],
+    "Alert ops (Telegram)": [
+     {
+      "ok": true,
+      "id": 38
+     }
+    ],
+    "Build response": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "ops_alert": "sent",
+      "response": {
+       "call_id": "CALL-6678",
+       "intent": "buy",
+       "priority": "hot",
+       "score": 100,
+       "crm": "dead_letter",
+       "ops_alert": "sent"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:31.779Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:31.779Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "ops_alert": "sent",
+      "response": {
+       "call_id": "CALL-6678",
+       "intent": "buy",
+       "priority": "hot",
+       "score": 100,
+       "crm": "dead_letter",
+       "ops_alert": "sent"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "crm_and_telegram_down": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142001",
+    "duration_sec": 214,
+    "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+   },
+   "http": 200,
+   "response": {
+    "call_id": "CALL-6678",
+    "intent": "buy",
+    "priority": "hot",
+    "score": 100,
+    "crm": "dead_letter",
+    "ops_alert": "queued"
+   },
+   "status": "success",
+   "error": null,
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead",
+    "Sales lead?",
+    "Create lead in CRM",
+    "Finish",
+    "Append call log",
+    "Dead letter?",
+    "Prepare dead letter",
+    "Write dead letter",
+    "Alert ops (Telegram)",
+    "Build response",
+    "Respond"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "528",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "528",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z"
+     }
+    ],
+    "Sales lead?": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z"
+     }
+    ],
+    "Create lead in CRM": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Finish": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back."
+     }
+    ],
+    "Append call log": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Dead letter?": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "fileName": "./data/calls_18.csv"
+     }
+    ],
+    "Prepare dead letter": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back."
+     }
+    ],
+    "Write dead letter": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "fileName": "./data/dead_letters_18.csv"
+     }
+    ],
+    "Alert ops (Telegram)": [
+     {
+      "error": {
+       "message": "503 - \"{\\\"ok\\\": false, \\\"error\\\": \\\"Service Unavailable\\\"}\"",
+       "name": "AxiosError",
+       "stack": "AxiosError: Request failed with status code 503\n    at settle (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:2530:12)\n    at RedirectableRequest.handleResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:4731:9)\n    at RedirectableRequest.emit (node:events:526:24)\n    at RedirectableRequest._processResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:433:10)\n    at ClientRequest.RedirectableRequest._onNativeResponse (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\follow-redirects\\index.js:109:12)\n    at ClientRequest.wrapper (node:events:639:12)\n    at ClientRequest.emit (node:events:514:20)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (node:_http_client:1002:27)\n    at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)\n    at Socket.socketOnData (node:_http_client:837:22)\n    at Axios.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\node_modules\\axios\\dist\\node\\axios.cjs:6308:43)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at requestWithResponseLimit (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:52:10)\n    at invokeWithChallengeAuth (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:30:10)\n    at invokeAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\axios\\invoke.ts:10:10)\n    at sendLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:101:6)\n    at executeLegacyRequest (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\legacy-request.ts:56:10)\n    at Object.requestLegacy (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\@n8n\\backend-network\\src\\http\\outbound-http.ts:228:13)\n    at proxyRequestToAxios (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\legacy-request-adapter.ts:28:9)\n    at Object.request (C:\\gerente\\02_PROJETOS_PESSOAIS\\automacoes_n8n\\_runtime\\node_modules\\n8n-core\\src\\execution-engine\\node-execution-context\\utils\\request-helpers\\factory.ts:169:11)",
+       "code": "ERR_BAD_RESPONSE",
+       "status": 503
+      }
+     }
+    ],
+    "Build response": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "ops_alert": "queued",
+      "response": {
+       "call_id": "CALL-6678",
+       "intent": "buy",
+       "priority": "hot",
+       "score": 100,
+       "crm": "dead_letter",
+       "ops_alert": "queued"
+      }
+     }
+    ],
+    "Respond": [
+     {
+      "call_id": "CALL-6678",
+      "phone": "+15550142001",
+      "duration_sec": 214,
+      "name": "Dana Whitfield",
+      "company": "Greenleaf Dental",
+      "lang": "en",
+      "intent": "buy",
+      "budget": 18000,
+      "currency": "USD",
+      "timeline": "this month",
+      "authority": true,
+      "objections": [],
+      "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+      "parts": {
+       "budget": 25,
+       "timeline": 25,
+       "authority": 20,
+       "intent": 20,
+       "company": 10,
+       "objections": 0
+      },
+      "score": 100,
+      "priority": "hot",
+      "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+      "is_sales": true,
+      "ts": "2026-11-11T16:22:35.793Z",
+      "lead": {
+       "name": "Dana Whitfield",
+       "company": "Greenleaf Dental",
+       "phone": "+15550142001",
+       "source": "phone",
+       "priority": "hot",
+       "score": 100,
+       "budget": 18000,
+       "timeline": "this month",
+       "next_step": "I'll send a proposal tomorrow and we can schedule a site visit.",
+       "summary": "Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit",
+       "call_id": "CALL-6678"
+      },
+      "status": "dead_letter",
+      "crm_ok": false,
+      "csv_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"+15550142001\",\"Dana Whitfield\",\"Greenleaf Dental\",\"buy\",\"hot\",\"100\",\"dead_letter\"\n",
+      "dead_line": "\"2026-11-11T16:22:35.793Z\",\"CALL-6678\",\"CRM unavailable after 3 tries\",\"{\"\"name\"\":\"\"Dana Whitfield\"\",\"\"company\"\":\"\"Greenleaf Dental\"\",\"\"phone\"\":\"\"+15550142001\"\",\"\"source\"\":\"\"phone\"\",\"\"priority\"\":\"\"hot\"\",\"\"score\"\":100,\"\"budget\"\":18000,\"\"timeline\"\":\"\"this month\"\",\"\"next_step\"\":\"\"I'll send a proposal tomorrow and we can schedule a site visit.\"\",\"\"summary\"\":\"\"Dana Whitfield (Greenleaf Dental) · wants a quote · $18,000 · this month · next: I'll send a proposal tomorrow and we can schedule a site visit\"\",\"\"call_id\"\":\"\"CALL-6678\"\"}\"\n",
+      "ops_text": "CRM DOWN: lead CALL-6678 (Dana Whitfield, hot) parked in dead letters. Replay when the CRM is back.",
+      "ops_alert": "queued",
+      "response": {
+       "call_id": "CALL-6678",
+       "intent": "buy",
+       "priority": "hot",
+       "score": 100,
+       "crm": "dead_letter",
+       "ops_alert": "queued"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "call_too_short": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142001",
+    "duration_sec": 12,
+    "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Call too short (12 s): nothing worth logging [line 34]",
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "527",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 12,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "527",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 12,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": {
+     "__error": "Call too short (12 s): nothing worth logging [line 34]"
+    }
+   }
+  }
+ ],
+ "bad_phone": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "123",
+    "duration_sec": 214,
+    "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "phone must have 8 to 15 digits [line 34]",
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "519",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "123",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "519",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "123",
+       "duration_sec": 214,
+       "transcript": "Agent: Thanks for calling Brightside Solar, this is Sam. How can I help?\nCaller: Hi Sam, my name is Dana Whitfield, I'm with Greenleaf Dental. We want a quote for solar panels on our clinic roof.\nAgent: Happy to help. Do you have a budget in mind?\nCaller: We have around $18k approved and we would like to install it this month. I'm the owner, so I decide.\nAgent: Great. I'll send a proposal tomorrow and we can schedule a site visit.\nCaller: Perfect, thanks."
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": {
+     "__error": "phone must have 8 to 15 digits [line 34]"
+    }
+   }
+  }
+ ],
+ "no_caller_lines": [
+  {
+   "path": "call-summary",
+   "input": {
+    "phone": "+15550142001",
+    "duration_sec": 214,
+    "transcript": "Agent: Hello?\nAgent: Anyone there?"
+   },
+   "http": 500,
+   "response": {
+    "message": "Error in workflow"
+   },
+   "status": "error",
+   "error": "Transcript has no \"Caller:\" lines [line 34]",
+   "order": [
+    "Call transcript",
+    "Config",
+    "Extract lead"
+   ],
+   "nodes": {
+    "Call transcript": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "99",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Hello?\nAgent: Anyone there?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production"
+     }
+    ],
+    "Config": [
+     {
+      "headers": {
+       "host": "127.0.0.1:5691",
+       "user-agent": "python-requests/2.34.2",
+       "accept-encoding": "gzip, deflate, br",
+       "accept": "*/*",
+       "connection": "keep-alive",
+       "content-length": "99",
+       "content-type": "application/json"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+       "phone": "+15550142001",
+       "duration_sec": 214,
+       "transcript": "Agent: Hello?\nAgent: Anyone there?"
+      },
+      "webhookUrl": "http://localhost:5691/webhook/call-summary",
+      "executionMode": "production",
+      "calls_file": "./data/calls_18.csv",
+      "dead_file": "./data/dead_letters_18.csv",
+      "crm_url": "http://127.0.0.1:8097/crm/leads",
+      "notify_url": "http://127.0.0.1:8097/notify",
+      "notify_chat_id": "OPS_CHAT_ID"
+     }
+    ],
+    "Extract lead": {
+     "__error": "Transcript has no \"Caller:\" lines [line 34]"
+    }
+   }
+  }
+ ]
+}

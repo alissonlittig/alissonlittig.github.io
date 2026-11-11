@@ -1,0 +1,337 @@
+{
+ "title": {
+  "pt": "Ata de reunião vira tarefas, nota no CRM e resumo",
+  "en": "Meeting notes become tasks, a CRM note and a recap"
+ },
+ "tag": {
+  "pt": "Webhook · extração · CRM · e-mail",
+  "en": "Webhook · extraction · CRM · e-mail"
+ },
+ "summary": {
+  "pt": "Cole a transcrição de uma reunião: o fluxo extrai decisões e ações com responsável e prazo, grava as tarefas, salva uma nota no CRM e manda o resumo. Se uma ação ficar sem dono ou data, o organizador é avisado no Telegram.",
+  "en": "Paste a meeting transcript: the flow extracts decisions and action items with owner and due date, saves the tasks, writes a CRM note and sends the recap. If an action has no owner or date, the organizer gets a Telegram nudge."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/meeting-notes  (application/json)",
+   "en": "POST /webhook/meeting-notes  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: tente a ata em português, a ata curta demais (erro) e o erro simulado do CRM.",
+   "en": "Tip: try the Portuguese transcript, the too-short one (error) and the simulated CRM failure."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Reunião em inglês",
+     "en": "English meeting"
+    },
+    "values": {
+     "title": "Q4 launch sync",
+     "date": "2026-11-11",
+     "attendees": "Dana Whitfield, Marco Reyes, Priya Nair",
+     "crm_account": "BrightPath Dental",
+     "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+    }
+   },
+   {
+    "label": {
+     "pt": "Reunião em português (sem prazos)",
+     "en": "Portuguese meeting (no dates)"
+    },
+    "values": {
+     "title": "Reunião com cliente: proposta",
+     "date": "2026-11-11",
+     "attendees": "Ana Souza, Bruno Lima, Carla Dias",
+     "crm_account": "Oficina Verde",
+     "transcript": "Ana: Pessoal, o cliente pediu o orçamento revisado e o prazo de entrega é 20 dias.\nBruno: Carla, pode enviar a proposta nova para o cliente?\nCarla: Vou revisar os números do orçamento.\nAna: Decidimos manter o preço de 4800 reais para este cliente.\nBruno: Alguém precisa confirmar a agenda com o cliente."
+    }
+   },
+   {
+    "label": {
+     "pt": "Ata curta demais",
+     "en": "Too-short transcript"
+    },
+    "values": {
+     "title": "Hallway chat",
+     "date": "2026-11-11",
+     "attendees": "Dana Whitfield, Marco Reyes",
+     "crm_account": "BrightPath Dental",
+     "transcript": "Dana: Do we ship Friday?\nMarco: Probably."
+    }
+   },
+   {
+    "label": {
+     "pt": "Sem participantes",
+     "en": "No attendees"
+    },
+    "values": {
+     "title": "Q4 launch sync",
+     "date": "2026-11-11",
+     "attendees": "",
+     "crm_account": "BrightPath Dental",
+     "transcript": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone."
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "title",
+    "type": "text",
+    "value": "Q4 launch sync",
+    "label": {
+     "pt": "Título",
+     "en": "Title"
+    }
+   },
+   {
+    "key": "date",
+    "type": "text",
+    "value": "2026-11-11",
+    "label": {
+     "pt": "Data (AAAA-MM-DD)",
+     "en": "Date (YYYY-MM-DD)"
+    }
+   },
+   {
+    "key": "attendees",
+    "type": "text",
+    "value": "Dana Whitfield, Marco Reyes, Priya Nair",
+    "label": {
+     "pt": "Participantes (vírgula)",
+     "en": "Attendees (comma)"
+    }
+   },
+   {
+    "key": "crm_account",
+    "type": "text",
+    "value": "BrightPath Dental",
+    "label": {
+     "pt": "Conta no CRM",
+     "en": "CRM account"
+    }
+   },
+   {
+    "key": "transcript",
+    "type": "textarea",
+    "value": "Dana: Quick sync on the Q4 launch. We have budget approved at 12000 dollars and the release is set for 2026-12-03.\nMarco: The pricing page still shows the old price. Priya, can you update it by Friday?\nPriya: Sure. I'll also send the new screenshots to the design team tomorrow.\nDana: We decided to go with the annual plan as the default offer.\nMarco: I will draft the announcement email by next week.\nDana: Great, thanks everyone.",
+    "label": {
+     "pt": "Transcrição (Nome: fala)",
+     "en": "Transcript (Name: text)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Meeting transcript",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook · POST",
+    "en": "Webhook · POST"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · URLs e arquivo",
+    "en": "Set · URLs and file"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "Extract notes",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Code · decisões, ações, prazos",
+    "en": "Code · decisions, actions, dates"
+   }
+  },
+  {
+   "id": "tasks",
+   "name": "Build tasks",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · linhas da planilha",
+    "en": "Code · sheet rows"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to tasks.csv",
+   "icon": "sheet",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "crm",
+   "name": "Save note to CRM",
+   "icon": "http",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · retry 3x",
+    "en": "HTTP · retry 3x"
+   }
+  },
+  {
+   "id": "recap",
+   "name": "Build recap",
+   "icon": "code",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "Code · e-mail PT/EN",
+    "en": "Code · PT/EN e-mail"
+   }
+  },
+  {
+   "id": "review",
+   "name": "Items need review?",
+   "icon": "if",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "IF · needs_review > 0",
+    "en": "IF · needs_review > 0"
+   }
+  },
+  {
+   "id": "ask",
+   "name": "Ask organizer (Telegram)",
+   "icon": "bell",
+   "col": 8,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  },
+  {
+   "id": "mail",
+   "name": "Send recap e-mail",
+   "icon": "mail",
+   "col": 9,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · e-mail",
+    "en": "HTTP · e-mail"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond",
+   "icon": "respond",
+   "col": 10,
+   "row": 0,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "extract"
+  },
+  {
+   "from": "extract",
+   "to": "tasks"
+  },
+  {
+   "from": "tasks",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "crm"
+  },
+  {
+   "from": "crm",
+   "to": "recap"
+  },
+  {
+   "from": "recap",
+   "to": "review"
+  },
+  {
+   "from": "review",
+   "to": "ask",
+   "when": "true"
+  },
+  {
+   "from": "review",
+   "to": "mail",
+   "when": "false"
+  },
+  {
+   "from": "ask",
+   "to": "mail"
+  },
+  {
+   "from": "mail",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "crm",
+  "continueOnFail": true,
+  "message": {
+   "pt": "503 Service Unavailable: crm.example.com (simulado)",
+   "en": "503 Service Unavailable: crm.example.com (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Depois de cada reunião alguém reescreve o resumo, lembra quem ficou com o quê e cola uma nota no CRM. Quase sempre atrasa, e as ações sem dono ou data somem.",
+   "en": "After every meeting someone rewrites the summary, remembers who owns what and pastes a note into the CRM. It is nearly always late, and actions without an owner or date disappear."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe a transcrição (de qualquer gravador), separa decisões e ações, descobre o responsável (quem pediu a alguém ou quem se ofereceu) e o prazo (\"até sexta\", \"amanhã\", data), grava as tarefas, salva a nota no CRM com 3 tentativas e manda o resumo no idioma da reunião. O que ficou sem dono ou data vai para o organizador no Telegram.",
+   "en": "An n8n workflow takes the transcript (from any recorder), splits decisions from actions, finds the owner (who was asked or who volunteered) and the due date (\"by Friday\", \"tomorrow\", a date), writes the tasks, saves the note to the CRM with 3 retries and sends the recap in the meeting's language. Anything without an owner or date goes to the organizer on Telegram."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~8 reuniões por semana e ~10 min de resumo e CRM cada = cerca de 1h20 por semana devolvidas; o ganho maior é nenhuma ação esquecida. Dados fictícios; o real depende do seu volume.",
+   "en": "An estimate, not a measurement: ~8 meetings a week and ~10 min of recap and CRM work each = about 1 h 20 a week handed back; the bigger win is no forgotten action. Fictional data; the real figure depends on your volume."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook",
+   "Code (JS)",
+   "Read/Write Files",
+   "HTTP Request",
+   "IF",
+   "Telegram Bot API",
+   "CRM REST API"
+  ],
+  "honesty": {
+   "pt": "A extração aqui é por regras (padrões de frase em EN e PT), não por LLM, e funciona bem em frases diretas e pior em conversa solta: é por isso que existe o ramo de revisão. O Code é o ponto onde um nó de LLM entraria. O código roda igual no navegador e foi comparado com 5 execuções reais no n8n local. Tempo por nó e o erro do CRM são ilustrativos (a execução 'crm_down' gravada derrubou o CRM de verdade, 3 tentativas).",
+   "en": "Extraction here is rule-based (sentence patterns in EN and PT), not an LLM: it does well on direct sentences and worse on loose chatter, which is why the review branch exists. The Code node is where an LLM node would go. The code runs the same in the browser and was compared with 5 real executions on a local n8n. Per-node timings and the CRM failure are illustrative (the recorded 'crm_down' run did take the CRM down for real, 3 attempts)."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "12-meeting-notes-to-actions"
+}

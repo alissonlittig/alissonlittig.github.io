@@ -1,0 +1,9 @@
+{
+ "job_title": "Backend Developer",
+ "must_have": "python, sql, rest",
+ "nice_have": "docker, aws, redis",
+ "min_years": 3,
+ "candidate_name": "Lucas Moreira",
+ "email": "lucas.moreira@example",
+ "cv_text": "Lucas Moreira. Backend developer with 5 years of experience building services in Python and PostgreSQL. Designed REST APIs used by 40k daily users, wrote complex SQL reports and cut query time by 60 percent. Containerised services with Docker and deployed to AWS. Led a small team of three. Bachelor degree in Computer Science. Open source contributor, regular speaker at local meetups."
+}

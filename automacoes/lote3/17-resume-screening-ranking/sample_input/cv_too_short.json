@@ -1,0 +1,9 @@
+{
+ "job_title": "Backend Developer",
+ "must_have": "python, sql, rest",
+ "nice_have": "docker, aws, redis",
+ "min_years": 3,
+ "candidate_name": "Ivo Prado",
+ "email": "ivo.prado@example.com",
+ "cv_text": "Resume attached as image."
+}

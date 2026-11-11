@@ -1,0 +1,332 @@
+{
+ "title": {
+  "pt": "Relatório semanal de KPIs com gráfico, alerta e e-mail",
+  "en": "Weekly KPI report with chart, alert and e-mail"
+ },
+ "tag": {
+  "pt": "Webhook · KPIs · gráfico · alerta",
+  "en": "Webhook · KPIs · chart · alert"
+ },
+ "summary": {
+  "pt": "Entram duas semanas de vendas por dia. O fluxo calcula receita, pedidos, ticket médio, novos clientes e reembolsos contra a semana anterior, desenha o gráfico, escreve o e-mail no idioma do cliente e, se algo passar do limite, avisa o dono no Telegram.",
+  "en": "Two weeks of daily sales go in. The flow computes revenue, orders, average order value, new customers and refunds against the previous week, draws the chart, writes the e-mail in the client's language and, if anything crosses a threshold, pings the owner on Telegram."
+ },
+ "input": {
+  "trigger": {
+   "pt": "POST /webhook/kpi-report  (application/json)",
+   "en": "POST /webhook/kpi-report  (application/json)"
+  },
+  "note": {
+   "pt": "Dica: rode a semana ruim (alerta + reembolso alto), depois a de dados faltando e o e-mail inválido (erros), e use o erro simulado do servidor de e-mail.",
+   "en": "Tip: run the bad week (alert + high refunds), then the missing-data and invalid-e-mail runs (errors), and use the simulated mail-server failure."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "Semana boa (EN)",
+     "en": "Healthy week (EN)"
+    },
+    "values": {
+     "company": "Northwind Pottery",
+     "lang": "en",
+     "week_end": "2026-11-08",
+     "recipients": "owner@northwind.example, ops@northwind.example",
+     "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+    }
+   },
+   {
+    "label": {
+     "pt": "Semana ruim (PT)",
+     "en": "Bad week (PT)"
+    },
+    "values": {
+     "company": "Cerâmica Aurora",
+     "lang": "pt",
+     "week_end": "2026-11-08",
+     "recipients": "dona@aurora.example",
+     "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,7,640.0,2,1\n2026-11-03,6,598.5,2,1\n2026-11-04,5,512.0,1,1\n2026-11-05,6,604.25,2,0\n2026-11-06,7,700.0,2,1\n2026-11-07,8,801.9,3,1\n2026-11-08,7,735.0,2,1"
+    }
+   },
+   {
+    "label": {
+     "pt": "Faltam dias no CSV",
+     "en": "Days missing in CSV"
+    },
+    "values": {
+     "company": "Northwind Pottery",
+     "lang": "en",
+     "week_end": "2026-11-08",
+     "recipients": "owner@northwind.example, ops@northwind.example",
+     "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+    }
+   },
+   {
+    "label": {
+     "pt": "E-mail inválido",
+     "en": "Invalid e-mail"
+    },
+    "values": {
+     "company": "Northwind Pottery",
+     "lang": "en",
+     "week_end": "2026-11-08",
+     "recipients": "owner@northwind",
+     "csv": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "company",
+    "type": "text",
+    "value": "Northwind Pottery",
+    "label": {
+     "pt": "Empresa",
+     "en": "Company"
+    }
+   },
+   {
+    "key": "lang",
+    "type": "select",
+    "value": "en",
+    "label": {
+     "pt": "Idioma do relatório",
+     "en": "Report language"
+    },
+    "options": [
+     {
+      "value": "en",
+      "label": "English"
+     },
+     {
+      "value": "pt",
+      "label": "Português"
+     }
+    ]
+   },
+   {
+    "key": "week_end",
+    "type": "text",
+    "value": "2026-11-08",
+    "label": {
+     "pt": "Último dia da semana (AAAA-MM-DD)",
+     "en": "Last day of the week (YYYY-MM-DD)"
+    }
+   },
+   {
+    "key": "recipients",
+    "type": "text",
+    "value": "owner@northwind.example, ops@northwind.example",
+    "label": {
+     "pt": "Destinatários (separados por vírgula)",
+     "en": "Recipients (comma-separated)"
+    }
+   },
+   {
+    "key": "csv",
+    "type": "textarea",
+    "value": "date,orders,revenue,new_customers,refunds\n2026-10-26,9,820.5,3,0\n2026-10-27,10,905.0,4,1\n2026-10-28,8,760.25,2,0\n2026-10-29,10,880.0,3,0\n2026-10-30,11,1010.75,5,1\n2026-10-31,14,1325.4,6,0\n2026-11-01,13,1190.0,4,1\n2026-11-02,9,868.0,4,0\n2026-11-03,11,950.5,4,0\n2026-11-04,9,842.0,3,1\n2026-11-05,10,931.25,4,0\n2026-11-06,12,1118.0,5,1\n2026-11-07,16,1480.9,7,0\n2026-11-08,14,1302.4,5,0",
+    "label": {
+     "pt": "Vendas por dia (CSV, 14 dias)",
+     "en": "Daily sales (CSV, 14 days)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "webhook",
+   "name": "Weekly trigger",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Webhook (Schedule em produção)",
+    "en": "Webhook (Schedule in production)"
+   }
+  },
+  {
+   "id": "config",
+   "name": "Config",
+   "icon": "set",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Set · log, e-mail, Telegram",
+    "en": "Set · log, mail, Telegram"
+   }
+  },
+  {
+   "id": "compute",
+   "name": "Compute KPIs",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Code · semana vs anterior",
+    "en": "Code · week vs previous"
+   }
+  },
+  {
+   "id": "report",
+   "name": "Build report",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Code · texto, gráfico, assunto",
+    "en": "Code · text, chart, subject"
+   }
+  },
+  {
+   "id": "append",
+   "name": "Append to log",
+   "icon": "sheet",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Read/Write Files · append",
+    "en": "Read/Write Files · append"
+   }
+  },
+  {
+   "id": "attn",
+   "name": "Needs attention?",
+   "icon": "if",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "IF · passou do limite",
+    "en": "IF · threshold crossed"
+   }
+  },
+  {
+   "id": "alert",
+   "name": "Alert owner (Telegram)",
+   "icon": "bell",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "HTTP · sendMessage",
+    "en": "HTTP · sendMessage"
+   }
+  },
+  {
+   "id": "mail",
+   "name": "Send report e-mail",
+   "icon": "mail",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "HTTP · API de e-mail",
+    "en": "HTTP · mail API"
+   }
+  },
+  {
+   "id": "resp",
+   "name": "Build response",
+   "icon": "code",
+   "col": 8,
+   "row": 1,
+   "sub": {
+    "pt": "Code · sent ou queued",
+    "en": "Code · sent or queued"
+   }
+  },
+  {
+   "id": "respond",
+   "name": "Respond",
+   "icon": "respond",
+   "col": 9,
+   "row": 1,
+   "sub": {
+    "pt": "Respond to Webhook",
+    "en": "Respond to Webhook"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "webhook",
+   "to": "config"
+  },
+  {
+   "from": "config",
+   "to": "compute"
+  },
+  {
+   "from": "compute",
+   "to": "report"
+  },
+  {
+   "from": "report",
+   "to": "append"
+  },
+  {
+   "from": "append",
+   "to": "attn"
+  },
+  {
+   "from": "attn",
+   "to": "alert",
+   "when": "true"
+  },
+  {
+   "from": "attn",
+   "to": "mail",
+   "when": "false"
+  },
+  {
+   "from": "alert",
+   "to": "mail"
+  },
+  {
+   "from": "mail",
+   "to": "resp"
+  },
+  {
+   "from": "resp",
+   "to": "respond"
+  }
+ ],
+ "failure": {
+  "node": "mail",
+  "continueOnFail": true,
+  "message": {
+   "pt": "503 Service Unavailable: mail.example.com (simulado)",
+   "en": "503 Service Unavailable: mail.example.com (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Toda segunda alguém exporta as vendas, cola numa planilha, monta um gráfico, escreve o resumo e manda por e-mail. Dá uns 45 minutos, é fácil pular em semana corrida e uma queda de receita ou um pico de reembolso só aparece quando já doeu.",
+   "en": "Every Monday someone exports sales, pastes them into a spreadsheet, builds a chart, writes the summary and e-mails it. That is about 45 minutes, it is easy to skip in a busy week, and a revenue drop or a refund spike only shows up once it already hurts."
+  },
+  "solution": {
+   "pt": "Um workflow no n8n recebe duas semanas de vendas por dia, valida o CSV (cabeçalho, números, os 14 dias), compara a semana com a anterior, calcula ticket médio e taxa de reembolso, gera um gráfico SVG anexo e um e-mail em PT ou EN. Se a receita cai 20% ou mais, os reembolsos passam de 5% ou os novos clientes caem 30%, o dono recebe um alerta no Telegram além do e-mail. Cada relatório vai para um registro.",
+   "en": "An n8n workflow receives two weeks of daily sales, validates the CSV (header, numbers, all 14 days), compares the week with the previous one, computes average order value and refund rate, generates an attached SVG chart and an e-mail in PT or EN. If revenue falls 20% or more, refunds go past 5% or new customers drop 30%, the owner gets a Telegram alert on top of the e-mail. Every report goes into a log."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~45 min por semana de montagem = cerca de 3 h por mês devolvidas, e o relatório sai mesmo em semana corrida. Dados fictícios; o ganho real depende de quantas fontes você hoje junta à mão.",
+   "en": "An estimate, not a measurement: ~45 min a week of assembly = about 3 h a month handed back, and the report goes out even in a busy week. Fictional data; the real gain depends on how many sources you stitch by hand today."
+  },
+  "stack": [
+   "n8n 2.47",
+   "Webhook / Schedule",
+   "Code (JS)",
+   "IF",
+   "Read/Write Files",
+   "HTTP Request",
+   "SMTP / Gmail",
+   "Telegram Bot API"
+  ],
+  "honesty": {
+   "pt": "Aqui o CSV chega no corpo do webhook para a demo funcionar sozinha; em produção, o gatilho vira um Schedule Trigger e uma leitura de Google Sheets, banco ou loja. O gráfico é um SVG simples gerado pelo Code (sem biblioteca) e o texto vai em colunas e barras unicode no corpo do e-mail. O código roda igual no navegador e foi comparado com 5 execuções reais no n8n local. Tempo por nó e a queda do servidor de e-mail são ilustrativos (a execução 'email_down' gravada derrubou o serviço de verdade, 3 tentativas).",
+   "en": "Here the CSV arrives in the webhook body so the demo works on its own; in production the trigger becomes a Schedule Trigger plus a Google Sheets, database or shop read. The chart is a plain SVG built by the Code node (no library) and the e-mail body carries unicode sparkline bars. The code runs the same in the browser and was compared with 5 real executions on a local n8n. Per-node timings and the mail-server outage are illustrative (the recorded 'email_down' run did take the service down for real, 3 attempts)."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "slug": "15-weekly-kpi-report"
+}

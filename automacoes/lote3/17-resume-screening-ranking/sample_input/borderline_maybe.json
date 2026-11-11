@@ -1,0 +1,9 @@
+{
+ "job_title": "Backend Developer",
+ "must_have": "python, sql, rest",
+ "nice_have": "docker, aws, redis",
+ "min_years": 3,
+ "candidate_name": "Priscila Santos",
+ "email": "priscila.santos@example.com",
+ "cv_text": "Priscila Santos. Software developer with 2 years of experience maintaining Python scripts and SQL reports for an internal finance team. Comfortable with Docker for local development. Built small Flask endpoints for internal tools and wrote documentation for the team. Bachelor degree in Information Systems. Looking to grow into backend engineering and learn proper API design in depth."
+}
