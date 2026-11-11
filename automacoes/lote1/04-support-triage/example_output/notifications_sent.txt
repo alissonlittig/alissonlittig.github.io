@@ -1,0 +1,6 @@
+[22:37:33] URGENT billing ticket from ana@shop.example: Cobrança duplicada
+[22:37:33] URGENT bug ticket from sam@cafe.example: Checkout error
+[22:40:00] URGENT billing ticket from kim@z.example: Refund
+[22:40:23] URGENT billing ticket from kim@z.example: Refund
+[22:40:28] URGENT billing ticket from kim@z.example: Refund
+[22:51:39] URGENT bug ticket from sam@cafe.example: Checkout error

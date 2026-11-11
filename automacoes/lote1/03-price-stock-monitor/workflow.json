@@ -1,0 +1,346 @@
+{
+  "name": "Price & stock monitor -> alert on change",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "27884039-452d-5593-b84f-75b9681c75bb",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "id": "53e35a3d-a07e-57cf-9c33-6f59fdaf47e9",
+      "name": "Every 30 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        20,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3256df3-dfd2-54fb-9003-a6c51b798d13",
+              "name": "data_dir",
+              "value": "./data",
+              "type": "string"
+            },
+            {
+              "id": "821c6a8a-21d9-53a8-9973-00634cf31d6d",
+              "name": "watch_url",
+              "value": "http://127.0.0.1:8099/shop",
+              "type": "string"
+            },
+            {
+              "id": "9fdfe5c7-b6a1-5e53-8d65-3ebfecd400d4",
+              "name": "snapshot_file",
+              "value": "price_snapshot.json",
+              "type": "string"
+            },
+            {
+              "id": "a74d6c3a-a6a5-5cf4-afc6-9ed3479fbb1d",
+              "name": "notify_url",
+              "value": "http://127.0.0.1:8099/notify",
+              "type": "string"
+            },
+            {
+              "id": "71ec343f-1a75-5877-8678-e303bcf59db3",
+              "name": "notify_chat_id",
+              "value": "TELEGRAM_CHAT_ID",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true
+      },
+      "id": "6943116e-ee4a-53eb-85a1-bb040ffd4d02",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        300
+      ],
+      "notes": "Edit these values. Nothing else needs changing.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Config').first().json.watch_url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "e853e5b5-ae4d-56f5-98b6-8b89de651764",
+      "name": "Fetch product page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "data",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "name",
+              "cssSelector": ".name"
+            },
+            {
+              "key": "price",
+              "cssSelector": ".price"
+            },
+            {
+              "key": "stock",
+              "cssSelector": ".stock"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e7fd6401-0098-5177-b224-b0224163f4c3",
+      "name": "Extract name/price/stock",
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.snapshot_file }}",
+        "options": {}
+      },
+      "id": "608d6924-42ce-5084-b83d-25b21fe2601a",
+      "name": "Read last snapshot",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true,
+      "notes": "First run: file does not exist yet, so this node continues and the next one treats it as a baseline.",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const cur = $('Extract name/price/stock').first().json;\nconst num = s => Number(String(s).replace(/[^0-9,.]/g, '').replace(/\\.(?=\\d{3}\\b)/g, '').replace(',', '.')) || 0;\nconst now = {name: cur.name, price: num(cur.price), stock: parseInt(cur.stock) || 0, checked_at: new Date().toISOString()};\nconst it = $input.first();\nlet changes = [], first = true;\nif (it.binary && it.binary.data) {\n  first = false;\n  const old = JSON.parse((await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8'));\n  if (old.price !== now.price) changes.push(`price ${old.price} -> ${now.price}` + (now.price < old.price ? ' (DROP)' : ' (rise)'));\n  if (old.stock !== now.stock) changes.push(`stock ${old.stock} -> ${now.stock}` + (now.stock === 0 ? ' (SOLD OUT)' : old.stock === 0 ? ' (BACK IN STOCK)' : ''));\n}\nconst bin = await this.helpers.prepareBinaryData(Buffer.from(JSON.stringify(now, null, 2), 'utf8'), 'price_snapshot.json', 'application/json');\nreturn [{json: {now, first, changed: changes.length > 0, changes: changes.join('; '), text: `${now.name}: ${changes.join('; ')}`}, binary: {data: bin}}];\n",
+        "mode": "runOnceForAllItems"
+      },
+      "id": "3b58a2d3-be09-509f-9000-d49e4b7ee673",
+      "name": "Compare with last",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ $('Config').first().json.data_dir + '/' + $('Config').first().json.snapshot_file }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "67f258a7-a4b8-5610-a3fd-a9baa34b6a0b",
+      "name": "Save new snapshot",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3f310f32-6d6d-5b3e-b1cc-23f3d991c626",
+              "leftValue": "={{ $('Compare with last').first().json.changed }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "666af6a9-07fe-56a3-8177-5ac117d7a673",
+      "name": "Changed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').first().json.notify_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chat_id: $('Config').first().json.notify_chat_id, text: 'PRICE/STOCK ALERT - ' + $('Compare with last').first().json.text}) }}",
+        "options": {}
+      },
+      "id": "952a51f1-4acc-510e-94cd-9ca64be3f114",
+      "name": "Notify (Telegram-compatible)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1780,
+        220
+      ],
+      "notes": "Same body as Telegram sendMessage. Point notify_url at the real Bot API to go live.",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Run now (manual)": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every 30 min": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Fetch product page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch product page": {
+      "main": [
+        [
+          {
+            "node": "Extract name/price/stock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract name/price/stock": {
+      "main": [
+        [
+          {
+            "node": "Read last snapshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read last snapshot": {
+      "main": [
+        [
+          {
+            "node": "Compare with last",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compare with last": {
+      "main": [
+        [
+          {
+            "node": "Save new snapshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save new snapshot": {
+      "main": [
+        [
+          {
+            "node": "Changed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Changed?": {
+      "main": [
+        [
+          {
+            "node": "Notify (Telegram-compatible)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

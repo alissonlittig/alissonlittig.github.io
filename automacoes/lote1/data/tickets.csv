@@ -1,0 +1,8 @@
+"2026-11-11T01:37:33.276Z","ana@shop.example","Cobrança duplicada","billing","high","neutral","rules","Estamos revisando a cobrança na sua conta e confirmamos em até um dia útil."
+"2026-11-11T01:37:33.720Z","sam@cafe.example","Checkout error","bug","high","negative","rules","Sorry about the trouble. Our team is looking into it; could you share a screenshot or the steps to reproduce?"
+"2026-11-11T01:37:34.204Z","lee@x.example","Pricing","sales","normal","neutral","rules","Obrigado pelo interesse! Segue um resumo e o link para agendar uma conversa."
+"2026-11-11T01:39:59.970Z","kim@z.example","Refund","billing","high","neutral","rules","We are reviewing the charge on your account and will confirm within one business day."
+"2026-11-11T01:40:18.299Z","lee@x.example","Pricing","sales","normal","neutral","rules","Thanks for your interest! Here is a short overview and a link to book a call."
+"2026-11-11T01:40:22.970Z","kim@z.example","Refund","billing","high","neutral","ai","Thanks for reaching out. We are on it and will get back to you shortly."
+"2026-11-11T01:40:27.906Z","kim@z.example","Refund","billing","high","neutral","rules-fallback","We are reviewing the charge on your account and will confirm within one business day."
+"2026-11-11T01:51:39.029Z","sam@cafe.example","Checkout error","bug","high","negative","rules","Sorry about the trouble. Our team is looking into it; could you share a screenshot or the steps to reproduce?"

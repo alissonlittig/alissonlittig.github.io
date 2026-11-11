@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Dana Whitfield",
+    "email": "dana@brightpath.example",
+    "company": "BrightPath Dental",
+    "budget": "4500",
+    "service": "CRM automation",
+    "message": "We need a quote ASAP for automating patient intake this week."
+  },
+  {
+    "name": "Carlos Mendes",
+    "email": "carlos@example.com",
+    "message": "Olá, gostaria de saber mais sobre os serviços."
+  },
+  {
+    "name": "Seo Bot",
+    "email": "bot@spam.example",
+    "message": "Guaranteed traffic and backlinks for you"
+  }
+]

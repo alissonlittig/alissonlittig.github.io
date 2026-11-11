@@ -1,0 +1,6 @@
+received_at,name,email,company,budget,service,priority,score,why,message
+"2026-11-11T01:37:23.758Z","Dana Whitfield","dana@brightpath.example","BrightPath Dental","4500","CRM automation","hot","5","budget>=2000; urgent; buying intent; company given","We need a quote ASAP for automating patient intake this week."
+"2026-11-11T01:37:24.945Z","Carlos Mendes","carlos@example.com","","0","","cold","0","","Ol�, gostaria de saber mais sobre os servi�os."
+"2026-11-11T01:37:25.381Z","Seo Bot","bot@spam.example","","0","","spam","0","","Guaranteed traffic and backlinks for you"
+"2026-11-11T01:40:07.792Z","Seo Bot","b@s.example","","0","","spam","0","","crypto casino"
+"2026-11-11T01:51:07.383Z","Dana Whitfield","dana@brightpath.example","BrightPath Dental","4500","CRM automation","hot","5","budget>=2000; urgent; buying intent; company given","We need a quote ASAP for automating patient intake this week."

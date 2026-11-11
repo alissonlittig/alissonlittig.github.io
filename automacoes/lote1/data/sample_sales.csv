@@ -1,0 +1,48 @@
+sale_id,date,time,product,qty,unit_price,total,payment,store
+V1110000,2026-11-10,19:03,Calça Jeans,2,129.9,259.8,pix,Loja Centro
+V1110001,2026-11-10,09:58,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro
+V1110002,2026-11-10,15:04,Camiseta Básica,2,49.9,99.8,cartao_credito,Loja Centro
+V1110003,2026-11-10,09:52,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Centro
+V1110004,2026-11-10,18:03,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Centro
+V1110005,2026-11-10,17:54,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Shopping
+V1110006,2026-11-10,17:07,Boné Aba Reta,1,59.9,59.9,cartao_debito,Loja Centro
+V1110007,2026-11-10,18:40,Camiseta Básica,3,49.9,149.7,cartao_credito,Loja Shopping
+V1110008,2026-11-10,10:36,Camiseta Básica,3,49.9,149.7,pix,Loja Centro
+V1110009,2026-11-10,17:27,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Shopping
+V1110010,2026-11-10,14:19,Jaqueta Corta-Vento,2,189.9,379.8,cartao_credito,Loja Centro
+V1110011,2026-11-10,10:36,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Shopping
+V1110012,2026-11-10,16:18,Tênis Corrida Aero 2,3,299.9,899.7,pix,Loja Centro
+V1110013,2026-11-10,11:48,Jaqueta Corta-Vento,2,189.9,379.8,cartao_debito,Loja Centro
+V1110014,2026-11-10,09:42,Boné Aba Reta,2,59.9,119.8,pix,Loja Shopping
+V1110015,2026-11-10,14:38,Tênis Corrida Aero 2,3,299.9,899.7,dinheiro,Loja Shopping
+V1110016,2026-11-10,13:30,Camiseta Básica,1,49.9,49.9,pix,Loja Centro
+V1110017,2026-11-10,13:41,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping
+V1110018,2026-11-10,19:22,Meia Esportiva (par),2,19.9,39.8,pix,Loja Shopping
+V1110019,2026-11-10,18:07,Tênis Corrida Aero 2,1,299.9,299.9,dinheiro,Loja Centro
+V1110020,2026-11-10,11:47,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping
+V1110021,2026-11-10,10:10,Boné Aba Reta,2,59.9,119.8,dinheiro,Loja Shopping
+V1110022,2026-11-10,11:52,Jaqueta Corta-Vento,2,189.9,379.8,dinheiro,Loja Shopping
+V1109000,2026-11-09,15:14,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Centro
+V1109001,2026-11-09,12:42,Calça Jeans,1,129.9,129.9,cartao_credito,Loja Centro
+V1109002,2026-11-09,11:16,Boné Aba Reta,3,59.9,179.7,cartao_debito,Loja Centro
+V1109003,2026-11-09,17:23,Calça Jeans,2,129.9,259.8,cartao_debito,Loja Centro
+V1109004,2026-11-09,18:41,Meia Esportiva (par),3,19.9,59.7,pix,Loja Shopping
+V1109005,2026-11-09,15:25,Meia Esportiva (par),3,19.9,59.7,dinheiro,Loja Shopping
+V1109006,2026-11-09,19:25,Camiseta Básica,2,49.9,99.8,pix,Loja Centro
+V1109007,2026-11-09,16:10,Camiseta Básica,1,49.9,49.9,pix,Loja Shopping
+V1109008,2026-11-09,10:00,Jaqueta Corta-Vento,1,189.9,189.9,cartao_credito,Loja Centro
+V1109009,2026-11-09,09:04,Tênis Corrida Aero 2,3,299.9,899.7,cartao_credito,Loja Shopping
+V1109010,2026-11-09,13:22,Calça Jeans,3,129.9,389.7,cartao_debito,Loja Shopping
+V1109011,2026-11-09,16:29,Camiseta Básica,1,49.9,49.9,dinheiro,Loja Shopping
+V1109012,2026-11-09,11:06,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Shopping
+V1109013,2026-11-09,11:33,Boné Aba Reta,3,59.9,179.7,pix,Loja Centro
+V1109014,2026-11-09,11:44,Jaqueta Corta-Vento,2,189.9,379.8,pix,Loja Shopping
+V1109015,2026-11-09,13:33,Meia Esportiva (par),1,19.9,19.9,cartao_debito,Loja Centro
+V1109016,2026-11-09,17:34,Tênis Corrida Aero 2,1,299.9,299.9,cartao_debito,Loja Centro
+V1109017,2026-11-09,12:52,Jaqueta Corta-Vento,1,189.9,189.9,dinheiro,Loja Centro
+V1109018,2026-11-09,16:22,Calça Jeans,3,129.9,389.7,pix,Loja Centro
+V1109019,2026-11-09,13:12,Tênis Corrida Aero 2,2,299.9,599.8,cartao_debito,Loja Shopping
+V1109020,2026-11-09,14:05,Meia Esportiva (par),2,19.9,39.8,cartao_credito,Loja Centro
+V1109021,2026-11-09,12:21,Calça Jeans,2,129.9,259.8,cartao_credito,Loja Shopping
+V1109022,2026-11-09,09:30,Jaqueta Corta-Vento,3,189.9,569.7,cartao_debito,Loja Centro
+V1109023,2026-11-09,15:50,Meia Esportiva (par),1,19.9,19.9,cartao_credito,Loja Shopping

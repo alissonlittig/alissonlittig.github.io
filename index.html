@@ -791,6 +791,46 @@
     <p class="fict"><span lang="pt">Workflows n8n com dados fictícios, sem credenciais</span><span lang="en">n8n workflows with fictional data, no credentials</span></p>
     <div class="grid">
       <article class="tile">
+        <a class="pic" href="automacoes/lote1/01-lead-capture/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-captura-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote1/01-lead-capture/demo.gif">Captura de lead com resposta automática</a></h3>
+        <p class="tag"><span lang="pt">Webhook · n8n</span><span lang="en">Webhook · n8n</span></p>
+        <p class="d"><span lang="pt">O formulário chega por webhook, a pontuação por regras separa lead quente, morno, frio e spam, a resposta sai em PT ou EN, a linha vai para o CSV e só o lead quente dispara alerta no Telegram.</span><span lang="en">A form hits a webhook, rule-based scoring sorts hot, warm, cold and spam, the reply goes out in PT or EN, a row is logged to CSV and only hot leads fire a Telegram alert.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote1/01-lead-capture/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote1/01-lead-capture"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote1/02-daily-sales-report/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-vendas-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote1/02-daily-sales-report/demo.gif">Relatório diário de vendas</a></h3>
+        <p class="tag"><span lang="pt">Relatório · n8n</span><span lang="en">Reporting · n8n</span></p>
+        <p class="d"><span lang="pt">Lê o CSV de vendas do dia, calcula total, ticket médio e ranking de produtos e envia o resumo pronto no Telegram.</span><span lang="en">Reads the day's sales CSV, computes total, average ticket and top products, then sends the ready summary on Telegram.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote1/02-daily-sales-report/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote1/02-daily-sales-report"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote1/03-price-stock-monitor/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-preco-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote1/03-price-stock-monitor/demo.gif">Monitor de preço e estoque</a></h3>
+        <p class="tag"><span lang="pt">Monitoramento · n8n</span><span lang="en">Monitoring · n8n</span></p>
+        <p class="d"><span lang="pt">Consulta a página da loja, compara com o último retrato salvo e avisa só quando preço ou estoque mudam.</span><span lang="en">Fetches the shop page, compares it with the last saved snapshot and alerts only when price or stock changes.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote1/03-price-stock-monitor/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote1/03-price-stock-monitor"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote1/04-support-triage/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-triagem-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote1/04-support-triage/demo.gif">Triagem de mensagens de suporte</a></h3>
+        <p class="tag"><span lang="pt">Suporte · n8n</span><span lang="en">Support · n8n</span></p>
+        <p class="d"><span lang="pt">Classifica cada mensagem por assunto e urgência, usa um modelo de IA quando disponível e cai para regras quando não, e registra tudo em CSV.</span><span lang="en">Classifies each message by topic and urgency, uses an LLM when available and falls back to rules otherwise, logging everything to CSV.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote1/04-support-triage/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote1/04-support-triage"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/lote1/05-appointment-reminders/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-lembretes-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/lote1/05-appointment-reminders/demo.gif">Lembretes de agendamento</a></h3>
+        <p class="tag"><span lang="pt">Agenda · n8n</span><span lang="en">Scheduling · n8n</span></p>
+        <p class="d"><span lang="pt">Lê a agenda do salão ou clínica e monta o lembrete de cada cliente para o dia seguinte, em texto pronto para WhatsApp.</span><span lang="en">Reads a salon or clinic schedule and builds each client's next-day reminder as WhatsApp-ready text.</span></p>
+        <p class="pend"><span lang="pt">Rodado de ponta a ponta no n8n local, com dados fictícios.</span><span lang="en">Run end to end on a local n8n, with fictional data.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/lote1/05-appointment-reminders/demo.gif"><span lang="pt">Ver execução</span><span lang="en">See the run</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote1/05-appointment-reminders"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
         <a class="pic" href="automacoes/lote2/06-ai-agent-tools-memory/demo.gif" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/n8n-agente-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
         <h3><a href="automacoes/lote2/06-ai-agent-tools-memory/demo.gif">Agente de IA com ferramentas e memória</a></h3>
         <p class="tag"><span lang="pt">Agente de IA · n8n</span><span lang="en">AI agent · n8n</span></p>

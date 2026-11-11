@@ -1,0 +1,17 @@
+[
+  {
+    "from": "ana@shop.example",
+    "subject": "Cobrança duplicada",
+    "body": "Fui cobrada duas vezes na fatura, preciso de ajuda urgente"
+  },
+  {
+    "from": "sam@cafe.example",
+    "subject": "Checkout error",
+    "body": "The checkout page crashes when I pay. This is terrible, I want to cancel."
+  },
+  {
+    "from": "lee@x.example",
+    "subject": "Pricing",
+    "body": "Do you have a plan for 5 users?"
+  }
+]
