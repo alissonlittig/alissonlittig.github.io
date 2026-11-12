@@ -1,0 +1,4 @@
+order_id,customer_id,sku,qty,unit_price,order_date,status
+A3000,C100,TEA-01,1,18.50,2026-11-11,paid
+A3001,C101,MUG-02,2,32.00,2026-11-11,shipped
+A3002,C102,KET-03,3,129.90,2026-11-11,paid

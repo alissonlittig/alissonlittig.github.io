@@ -1,0 +1,21 @@
+To: finance@example.invalid
+Subject: [ACTION] Expenses 2026-10: 4 to review, 4 rejected
+Message-ID: <12f8322f-8610-ea1c-06cb-808e7c5b7377@localhost>
+Content-Transfer-Encoding: 7bit
+Date: Thu, 12 Nov 2026 11:33:55 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Expense sheet 2026-10: 12 rows, 8 valid, total 1970.00.
+
+Needs review:
+- line 4, Carla Dias, software 899.00: over 500: manager approval
+- line 5, Ana Souza, meals 64.20: receipt required above 50
+- line 7, Bruno Lima, meals 38.90: possible duplicate of line 3
+- line 12, Carla Dias, travel 655.00: over 500: manager approval
+
+Rejected rows (not counted):
+- line 8: date outside 2026-10
+- line 9: unknown category spa
+- line 10: amount must be > 0
+- line 11: missing employee

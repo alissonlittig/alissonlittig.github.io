@@ -1,0 +1,66 @@
+{
+ "clean": {
+  "status": 200,
+  "body": {
+   "status": "emailed",
+   "subject": "[OK] Expenses 2026-10: 12 rows, total 1270.80",
+   "rows": 12,
+   "valid": 12,
+   "flagged": 0,
+   "rejected": 0,
+   "total": 1270.8
+  }
+ },
+ "issues": {
+  "status": 200,
+  "body": {
+   "status": "emailed",
+   "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+   "rows": 12,
+   "valid": 8,
+   "flagged": 4,
+   "rejected": 4,
+   "total": 1970
+  }
+ },
+ "bad_header": {
+  "status": 422,
+  "body": {
+   "error": "bad header",
+   "expected": "employee,date,category,amount,receipt",
+   "got": "name,day,type,value"
+  }
+ },
+ "smtp_down": {
+  "status": 202,
+  "body": {
+   "status": "queued",
+   "note": "e-mail not sent; saved in outbox_retry.jsonl for retry",
+   "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+   "reason": "Error: connect ECONNREFUSED 127.0.0.1:2525",
+   "rows": 12,
+   "flagged": 4,
+   "rejected": 4
+  }
+ },
+ "emails": [
+  {
+   "to": "finance@example.invalid",
+   "subject": "[OK] Expenses 2026-10: 12 rows, total 1270.80",
+   "body": "Expense sheet 2026-10: 12 rows, all valid, no policy flags. Total 1270.80."
+  },
+  {
+   "to": "finance@example.invalid",
+   "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+   "body": "Expense sheet 2026-10: 12 rows, 8 valid, total 1970.00.\r\n\r\nNeeds review:\r\n- line 4, Carla Dias, software 899.00: over 500: manager approval\r\n- line 5, Ana Souza, meals 64.20: receipt required above 50\r\n- line 7, Bruno Lima, meals 38.90: possible duplicate of line 3\r\n- line 12, Carla Dias, travel 655.00: over 500: manager approval\r\n\r\nRejected rows (not counted):\r\n- line 8: date outside 2026-10\r\n- line 9: unknown category spa\r\n- line 10: amount must be > 0\r\n- line 11: missing employee"
+  }
+ ],
+ "retry_queue": [
+  {
+   "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+   "to": "finance@example.invalid",
+   "body": "Expense sheet 2026-10: 12 rows, 8 valid, total 1970.00.\n\nNeeds review:\n- line 4, Carla Dias, software 899.00: over 500: manager approval\n- line 5, Ana Souza, meals 64.20: receipt required above 50\n- line 7, Bruno Lima, meals 38.90: possible duplicate of line 3\n- line 12, Carla Dias, travel 655.00: over 500: manager approval\n\nRejected rows (not counted):\n- line 8: date outside 2026-10\n- line 9: unknown category spa\n- line 10: amount must be > 0\n- line 11: missing employee",
+   "reason": "Error: connect ECONNREFUSED 127.0.0.1:2525"
+  }
+ ]
+}

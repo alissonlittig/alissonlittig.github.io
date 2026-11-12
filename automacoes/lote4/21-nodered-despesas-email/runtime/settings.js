@@ -1,0 +1,1 @@
+module.exports={uiPort:1881,flowFile:'flows.json',credentialSecret:false,logging:{console:{level:'warn',metrics:false,audit:false}},editorTheme:{projects:{enabled:false}},functionExternalModules:false};

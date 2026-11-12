@@ -1,0 +1,94 @@
+{
+ "month": "2026-10",
+ "total_revenue": 10846.2,
+ "by_branch": [
+  {
+   "branch": "curitiba",
+   "rows_ok": 38,
+   "rows_rejected": 0,
+   "revenue": 4436.5
+  },
+  {
+   "branch": "recife",
+   "rows_ok": 31,
+   "rows_rejected": 3,
+   "revenue": 3238.5
+  },
+  {
+   "branch": "salvador",
+   "rows_ok": 36,
+   "rows_rejected": 0,
+   "revenue": 3171.2
+  }
+ ],
+ "top_products": [
+  {
+   "product": "Protein bar x12",
+   "revenue": 2851.2
+  },
+  {
+   "product": "Cold brew 1 L",
+   "revenue": 2022.3
+  },
+  {
+   "product": "Green tea box",
+   "revenue": 1815.0
+  }
+ ],
+ "by_channel": [
+  {
+   "channel": "online",
+   "revenue": 2406.3
+  },
+  {
+   "channel": "phone",
+   "revenue": 2563.5
+  },
+  {
+   "channel": "store",
+   "revenue": 5876.4
+  }
+ ],
+ "missing_branches": [],
+ "log": [
+  {
+   "step": "login",
+   "ok": true
+  },
+  {
+   "step": "download",
+   "branch": "curitiba",
+   "attempt": 1,
+   "ok": true
+  },
+  {
+   "step": "download",
+   "branch": "recife",
+   "attempt": 1,
+   "ok": true
+  },
+  {
+   "step": "download",
+   "branch": "salvador",
+   "attempt": 1,
+   "ok": true
+  }
+ ],
+ "rejected": [
+  {
+   "branch": "recife",
+   "line": 7,
+   "reason": "qty must be > 0"
+  },
+  {
+   "branch": "recife",
+   "line": 14,
+   "reason": "empty sku"
+  },
+  {
+   "branch": "recife",
+   "line": 22,
+   "reason": "date outside 2026-10"
+  }
+ ]
+}

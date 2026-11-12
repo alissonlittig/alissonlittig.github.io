@@ -1,0 +1,695 @@
+{
+ "slug": "20-rpa-playwright-portal",
+ "title": {
+  "pt": "RPA em Python/Playwright: portal, download e consolidação",
+  "en": "Python/Playwright RPA: portal, download and consolidation"
+ },
+ "tag": {
+  "pt": "Python · Playwright · Excel",
+  "en": "Python · Playwright · Excel"
+ },
+ "summary": {
+  "pt": "Um robô entra num portal de distribuidora, baixa o relatório de vendas de cada filial, valida linha a linha e entrega uma planilha consolidada. Sessão que cai, erro 500 e filial fora do ar são tratados, e o que faltou aparece escrito no resultado.",
+  "en": "A robot signs into a distributor portal, downloads each branch report, validates it row by row and delivers a consolidated workbook. Expired sessions, HTTP 500 and a branch being down are handled, and whatever is missing is written in the result."
+ },
+ "input": {
+  "trigger": {
+   "pt": "python rpa.py --base http://portal --user analista",
+   "en": "python rpa.py --base http://portal --user analista"
+  },
+  "note": {
+   "pt": "Portal fictício. Senha correta: demo123 (credencial de teste). Cenários: normal; instável (Curitiba falha 2 vezes e a sessão cai); filial fora do ar (Salvador). Recife tem 3 linhas ruins de propósito. Tente trocar a senha.",
+   "en": "Fictional portal. Correct password: demo123 (test credential). Scenarios: normal; flaky (Curitiba fails twice and the session expires); branch down (Salvador). Recife has 3 deliberately bad rows. Try changing the password."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Normal",
+     "en": "1. Normal"
+    },
+    "values": {
+     "user": "analista",
+     "password": "demo123",
+     "scenario": "none"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Instável + sessão cai",
+     "en": "2. Flaky + session expiry"
+    },
+    "values": {
+     "user": "analista",
+     "password": "demo123",
+     "scenario": "flaky"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Filial fora do ar",
+     "en": "3. Branch down"
+    },
+    "values": {
+     "user": "analista",
+     "password": "demo123",
+     "scenario": "down"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Senha errada",
+     "en": "4. Wrong password"
+    },
+    "values": {
+     "user": "analista",
+     "password": "wrong",
+     "scenario": "none"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "user",
+    "type": "text",
+    "value": "analista",
+    "label": {
+     "pt": "Usuário do portal",
+     "en": "Portal user"
+    }
+   },
+   {
+    "key": "password",
+    "type": "text",
+    "value": "demo123",
+    "label": {
+     "pt": "Senha (teste)",
+     "en": "Password (test)"
+    }
+   },
+   {
+    "key": "scenario",
+    "type": "select",
+    "value": "none",
+    "label": {
+     "pt": "Cenário do portal",
+     "en": "Portal scenario"
+    },
+    "options": [
+     {
+      "value": "none",
+      "label": {
+       "pt": "Normal",
+       "en": "Normal"
+      }
+     },
+     {
+      "value": "flaky",
+      "label": {
+       "pt": "Instável + sessão cai",
+       "en": "Flaky + session expiry"
+      }
+     },
+     {
+      "value": "down",
+      "label": {
+       "pt": "Salvador fora do ar",
+       "en": "Salvador down"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Open browser",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Chromium headless",
+    "en": "Headless Chromium"
+   }
+  },
+  {
+   "id": "login",
+   "name": "Sign in",
+   "icon": "user",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Formulário do portal",
+    "en": "Portal form"
+   }
+  },
+  {
+   "id": "stop",
+   "name": "Stop: bad login",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "Sem retry, exit 1",
+    "en": "No retry, exit 1"
+   }
+  },
+  {
+   "id": "download",
+   "name": "Download CSV",
+   "icon": "http",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Clique + retry + re-login",
+    "en": "Click + retry + re-login"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Validate rows",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "Linha a linha",
+    "en": "Row by row"
+   }
+  },
+  {
+   "id": "more",
+   "name": "More branches?",
+   "icon": "if",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Laço por filial",
+    "en": "Loop per branch"
+   }
+  },
+  {
+   "id": "consolidate",
+   "name": "Consolidate",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "Totais em centavos",
+    "en": "Totals in cents"
+   }
+  },
+  {
+   "id": "report",
+   "name": "Write .xlsx",
+   "icon": "file",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "4 abas + exit code",
+    "en": "4 sheets + exit code"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "login"
+  },
+  {
+   "from": "login",
+   "to": "download",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "login",
+   "to": "stop",
+   "when": "err",
+   "label": "401"
+  },
+  {
+   "from": "download",
+   "to": "validate"
+  },
+  {
+   "from": "validate",
+   "to": "more"
+  },
+  {
+   "from": "more",
+   "to": "download",
+   "when": "next",
+   "label": "next branch",
+   "route": [
+    [
+     4,
+     0,
+     "b"
+    ],
+    [
+     2,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "b"
+  },
+  {
+   "from": "more",
+   "to": "consolidate",
+   "when": "done",
+   "label": "done"
+  },
+  {
+   "from": "consolidate",
+   "to": "report"
+  }
+ ],
+ "failure": {
+  "node": "download",
+  "continueOnFail": true,
+  "message": {
+   "pt": "ETIMEDOUT: o portal não respondeu ao download (simulado)",
+   "en": "ETIMEDOUT: the portal did not answer the download (simulated)"
+  }
+ },
+ "case": {
+  "problem": {
+   "pt": "Toda virada de mês alguém entra no portal da distribuidora, baixa um relatório por filial, abre cada CSV, tira linhas estranhas e cola tudo numa planilha. É repetitivo, e um erro de colagem muda o total sem ninguém notar.",
+   "en": "Every month-end someone signs into the distributor portal, downloads one report per branch, opens each CSV, removes odd rows and pastes everything into a sheet. It is repetitive, and one paste mistake changes the total unnoticed."
+  },
+  "solution": {
+   "pt": "Um robô Playwright faz o login, clica no download de cada filial com até 3 tentativas e espera crescente, entra de novo se a sessão cair, rejeita linhas inválidas com o motivo e gera um .xlsx de 4 abas. Filial que não baixa sai como aviso e código de saída 2; senha errada para na hora com código 1.",
+   "en": "A Playwright robot logs in, clicks each branch download with up to 3 attempts and growing waits, signs in again if the session drops, rejects invalid rows with the reason and produces a 4-sheet .xlsx. A branch that will not download becomes a warning and exit code 2; a wrong password stops at once with code 1."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~25 min por fechamento mensal de 3 filiais (baixar, abrir, limpar, colar, conferir) viram ~1 min de robô mais ~5 min conferindo o resumo. Com 12 filiais o ganho cresce quase linear. Portais reais mudam o HTML, então espere manutenção dos seletores.",
+   "en": "An estimate, not a measurement: ~25 min per month-end close of 3 branches (download, open, clean, paste, check) becomes ~1 min of robot plus ~5 min reviewing the summary. With 12 branches the gain grows almost linearly. Real portals change their HTML, so expect selector maintenance."
+  },
+  "stack": [
+   "Python 3.13",
+   "Playwright (Chromium)",
+   "openpyxl",
+   "http.server (mock portal)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install playwright openpyxl && python -m playwright install chromium",
+     "python portal/server.py (portal fictício em :8765)",
+     "python rpa.py --out output/run",
+     "python tests/test_rpa.py (5 testes)"
+    ],
+    "en": [
+     "pip install playwright openpyxl && python -m playwright install chromium",
+     "python portal/server.py (mock portal on :8765)",
+     "python rpa.py --out output/run",
+     "python tests/test_rpa.py (5 tests)"
+    ]
+   },
+   "files": [
+    {
+     "href": "rpa.py",
+     "label": {
+      "pt": "Baixar rpa.py",
+      "en": "Download rpa.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O navegador e o portal são simulados aqui por uma máquina de estados com as mesmas regras do portal real (sessão, erro 500, filial fora); validação e consolidação são o código do robô, conferido contra as execuções gravadas, que usaram Chromium de verdade contra o portal fictício. Nenhum site real foi acessado. Tempos e a falha simulada do motor são ilustrativos.",
+   "en": "The browser and portal are simulated here by a state machine with the real portal rules (session, HTTP 500, branch down); validation and consolidation are the robot's own code, checked against recorded runs that used a real Chromium against the mock portal. No real site was accessed. Timings and the engine's simulated failure are illustrative."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "user": "analista",
+    "password": "demo123",
+    "scenario": "none"
+   },
+   "expect": {
+    "summary": {
+     "month": "2026-10",
+     "total_revenue": 10846.2,
+     "by_branch": [
+      {
+       "branch": "curitiba",
+       "rows_ok": 38,
+       "rows_rejected": 0,
+       "revenue": 4436.5
+      },
+      {
+       "branch": "recife",
+       "rows_ok": 31,
+       "rows_rejected": 3,
+       "revenue": 3238.5
+      },
+      {
+       "branch": "salvador",
+       "rows_ok": 36,
+       "rows_rejected": 0,
+       "revenue": 3171.2
+      }
+     ],
+     "top_products": [
+      {
+       "product": "Protein bar x12",
+       "revenue": 2851.2
+      },
+      {
+       "product": "Cold brew 1 L",
+       "revenue": 2022.3
+      },
+      {
+       "product": "Green tea box",
+       "revenue": 1815.0
+      }
+     ],
+     "by_channel": [
+      {
+       "channel": "online",
+       "revenue": 2406.3
+      },
+      {
+       "channel": "phone",
+       "revenue": 2563.5
+      },
+      {
+       "channel": "store",
+       "revenue": 5876.4
+      }
+     ],
+     "missing_branches": [],
+     "log": [
+      {
+       "step": "login",
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "curitiba",
+       "attempt": 1,
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "recife",
+       "attempt": 1,
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "salvador",
+       "attempt": 1,
+       "ok": true
+      }
+     ],
+     "rejected": [
+      {
+       "branch": "recife",
+       "line": 7,
+       "reason": "qty must be > 0"
+      },
+      {
+       "branch": "recife",
+       "line": 14,
+       "reason": "empty sku"
+      },
+      {
+       "branch": "recife",
+       "line": 22,
+       "reason": "date outside 2026-10"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "input": {
+    "user": "analista",
+    "password": "demo123",
+    "scenario": "flaky"
+   },
+   "expect": {
+    "summary": {
+     "month": "2026-10",
+     "total_revenue": 10846.2,
+     "by_branch": [
+      {
+       "branch": "curitiba",
+       "rows_ok": 38,
+       "rows_rejected": 0,
+       "revenue": 4436.5
+      },
+      {
+       "branch": "recife",
+       "rows_ok": 31,
+       "rows_rejected": 3,
+       "revenue": 3238.5
+      },
+      {
+       "branch": "salvador",
+       "rows_ok": 36,
+       "rows_rejected": 0,
+       "revenue": 3171.2
+      }
+     ],
+     "top_products": [
+      {
+       "product": "Protein bar x12",
+       "revenue": 2851.2
+      },
+      {
+       "product": "Cold brew 1 L",
+       "revenue": 2022.3
+      },
+      {
+       "product": "Green tea box",
+       "revenue": 1815.0
+      }
+     ],
+     "by_channel": [
+      {
+       "channel": "online",
+       "revenue": 2406.3
+      },
+      {
+       "channel": "phone",
+       "revenue": 2563.5
+      },
+      {
+       "channel": "store",
+       "revenue": 5876.4
+      }
+     ],
+     "missing_branches": [],
+     "log": [
+      {
+       "step": "login",
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "curitiba",
+       "attempt": 1,
+       "ok": false,
+       "why": "portal error 500"
+      },
+      {
+       "step": "download",
+       "branch": "curitiba",
+       "attempt": 2,
+       "ok": false,
+       "why": "portal error 500"
+      },
+      {
+       "step": "relogin",
+       "branch": "curitiba"
+      },
+      {
+       "step": "download",
+       "branch": "curitiba",
+       "attempt": 3,
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "recife",
+       "attempt": 1,
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "salvador",
+       "attempt": 1,
+       "ok": false,
+       "why": "session expired"
+      },
+      {
+       "step": "relogin",
+       "branch": "salvador"
+      },
+      {
+       "step": "download",
+       "branch": "salvador",
+       "attempt": 2,
+       "ok": true
+      }
+     ],
+     "rejected": [
+      {
+       "branch": "recife",
+       "line": 7,
+       "reason": "qty must be > 0"
+      },
+      {
+       "branch": "recife",
+       "line": 14,
+       "reason": "empty sku"
+      },
+      {
+       "branch": "recife",
+       "line": 22,
+       "reason": "date outside 2026-10"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "input": {
+    "user": "analista",
+    "password": "demo123",
+    "scenario": "down"
+   },
+   "expect": {
+    "summary": {
+     "month": "2026-10",
+     "total_revenue": 7675.0,
+     "by_branch": [
+      {
+       "branch": "curitiba",
+       "rows_ok": 38,
+       "rows_rejected": 0,
+       "revenue": 4436.5
+      },
+      {
+       "branch": "recife",
+       "rows_ok": 31,
+       "rows_rejected": 3,
+       "revenue": 3238.5
+      }
+     ],
+     "top_products": [
+      {
+       "product": "Protein bar x12",
+       "revenue": 2073.6
+      },
+      {
+       "product": "Cold brew 1 L",
+       "revenue": 1549.8
+      },
+      {
+       "product": "Granola 500 g",
+       "revenue": 1462.6
+      }
+     ],
+     "by_channel": [
+      {
+       "channel": "online",
+       "revenue": 1717.8
+      },
+      {
+       "channel": "phone",
+       "revenue": 1020.5
+      },
+      {
+       "channel": "store",
+       "revenue": 4936.7
+      }
+     ],
+     "missing_branches": [
+      "salvador"
+     ],
+     "log": [
+      {
+       "step": "login",
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "curitiba",
+       "attempt": 1,
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "recife",
+       "attempt": 1,
+       "ok": true
+      },
+      {
+       "step": "download",
+       "branch": "salvador",
+       "attempt": 1,
+       "ok": false,
+       "why": "portal error 500"
+      },
+      {
+       "step": "download",
+       "branch": "salvador",
+       "attempt": 2,
+       "ok": false,
+       "why": "portal error 500"
+      },
+      {
+       "step": "download",
+       "branch": "salvador",
+       "attempt": 3,
+       "ok": false,
+       "why": "portal error 500"
+      }
+     ],
+     "rejected": [
+      {
+       "branch": "recife",
+       "line": 7,
+       "reason": "qty must be > 0"
+      },
+      {
+       "branch": "recife",
+       "line": 14,
+       "reason": "empty sku"
+      },
+      {
+       "branch": "recife",
+       "line": 22,
+       "reason": "date outside 2026-10"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "input": {
+    "user": "analista",
+    "password": "wrong",
+    "scenario": "none"
+   },
+   "expect": {
+    "error": "login rejected by the portal (check the credentials)"
+   }
+  }
+ ]
+}

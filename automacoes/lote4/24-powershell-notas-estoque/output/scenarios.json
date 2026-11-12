@@ -1,0 +1,213 @@
+{
+ "runs": [
+  {
+   "file": "01_NF-1001_in.xml",
+   "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n",
+   "exit": 0,
+   "result": {
+    "file": "01_NF-1001_in.xml",
+    "invoice": "NF-1001",
+    "status": "applied",
+    "reason": "",
+    "lines": [
+     {
+      "sku": "TEA-01",
+      "delta": 60,
+      "before": 40,
+      "after": 100
+     },
+     {
+      "sku": "KET-03",
+      "delta": 12,
+      "before": 8,
+      "after": 20
+     }
+    ]
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 25,
+    "TEA-01": 100
+   },
+   "stderr": ""
+  },
+  {
+   "file": "02_NF-1002_out.xml",
+   "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1002</number>\n  <date>2026-11-10</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"35\" unit_cost=\"18.50\"/>\n      <item sku=\"MUG-02\" qty=\"10\" unit_cost=\"32.00\"/>\n  </items>\n</invoice>\n",
+   "exit": 0,
+   "result": {
+    "file": "02_NF-1002_out.xml",
+    "invoice": "NF-1002",
+    "status": "applied",
+    "reason": "",
+    "lines": [
+     {
+      "sku": "TEA-01",
+      "delta": -35,
+      "before": 100,
+      "after": 65
+     },
+     {
+      "sku": "MUG-02",
+      "delta": -10,
+      "before": 25,
+      "after": 15
+     }
+    ]
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 15,
+    "TEA-01": 65
+   },
+   "stderr": ""
+  },
+  {
+   "file": "03_NF-1003_broken.xml",
+   "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1003</number>\n  <date>2026-11-10</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"MUG-02\" qty=\"2\" unit_cost=\"32.00\"/>\n  \n</invoice>\n",
+   "exit": 2,
+   "result": {
+    "file": "03_NF-1003_broken.xml",
+    "invoice": "",
+    "status": "rejected",
+    "reason": "malformed XML",
+    "lines": []
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 15,
+    "TEA-01": 65
+   },
+   "stderr": ""
+  },
+  {
+   "file": "04_NF-1004_unknown.xml",
+   "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1004</number>\n  <date>2026-11-11</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"5\" unit_cost=\"18.50\"/>\n      <item sku=\"PAN-99\" qty=\"1\" unit_cost=\"40.00\"/>\n  </items>\n</invoice>\n",
+   "exit": 2,
+   "result": {
+    "file": "04_NF-1004_unknown.xml",
+    "invoice": "NF-1004",
+    "status": "rejected",
+    "reason": "unknown SKU PAN-99",
+    "lines": []
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 15,
+    "TEA-01": 65
+   },
+   "stderr": ""
+  },
+  {
+   "file": "05_NF-1005_toomuch.xml",
+   "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1005</number>\n  <date>2026-11-11</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"KET-03\" qty=\"25\" unit_cost=\"129.90\"/>\n  </items>\n</invoice>\n",
+   "exit": 2,
+   "result": {
+    "file": "05_NF-1005_toomuch.xml",
+    "invoice": "NF-1005",
+    "status": "rejected",
+    "reason": "insufficient stock for KET-03 (have 20, need 25)",
+    "lines": []
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 15,
+    "TEA-01": 65
+   },
+   "stderr": ""
+  },
+  {
+   "file": "06_NF-1001_again.xml",
+   "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n",
+   "exit": 0,
+   "result": {
+    "file": "06_NF-1001_again.xml",
+    "invoice": "NF-1001",
+    "status": "duplicate",
+    "reason": "invoice NF-1001 already in the ledger; stock untouched",
+    "lines": []
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 15,
+    "TEA-01": 65
+   },
+   "stderr": ""
+  },
+  {
+   "file": "07_noheader.xml",
+   "xml": "<invoice><date>2026-11-12</date><direction>in</direction><items><item sku=\"BOX-04\" qty=\"10\" unit_cost=\"3.10\"/></items></invoice>\n",
+   "exit": 2,
+   "result": {
+    "file": "07_noheader.xml",
+    "invoice": "",
+    "status": "rejected",
+    "reason": "missing or invalid number/date/direction/items",
+    "lines": []
+   },
+   "stock_after": {
+    "BOX-04": 60,
+    "KET-03": 20,
+    "MUG-02": 15,
+    "TEA-01": 65
+   },
+   "stderr": ""
+  }
+ ],
+ "stock_start": {
+  "TEA-01": 40,
+  "MUG-02": 25,
+  "KET-03": 8,
+  "BOX-04": 60
+ },
+ "ledger": [
+  "invoice,date,direction,sku,qty,unit_cost",
+  "NF-1001,2026-11-09,in,TEA-01,60,9.80",
+  "NF-1001,2026-11-09,in,KET-03,12,71.00",
+  "NF-1002,2026-11-10,out,TEA-01,35,18.50",
+  "NF-1002,2026-11-10,out,MUG-02,10,32.00"
+ ],
+ "folders": {
+  "processed": [
+   "01_NF-1001_in.xml",
+   "02_NF-1002_out.xml"
+  ],
+  "duplicates": [
+   "06_NF-1001_again.xml"
+  ],
+  "rejected": [
+   "03_NF-1003_broken.xml",
+   "03_NF-1003_broken.xml.reason.txt",
+   "04_NF-1004_unknown.xml",
+   "04_NF-1004_unknown.xml.reason.txt",
+   "05_NF-1005_toomuch.xml",
+   "05_NF-1005_toomuch.xml.reason.txt",
+   "07_noheader.xml",
+   "07_noheader.xml.reason.txt"
+  ]
+ },
+ "batch": {
+  "exit": 2,
+  "stock": {
+   "BOX-04": 60,
+   "KET-03": 20,
+   "MUG-02": 15,
+   "TEA-01": 65
+  },
+  "statuses": [
+   "applied",
+   "applied",
+   "rejected",
+   "rejected",
+   "rejected",
+   "duplicate",
+   "rejected"
+  ]
+ }
+}

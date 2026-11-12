@@ -1,0 +1,13 @@
+employee,date,category,amount,receipt
+Ana Souza,2026-10-02,travel,182.40,yes
+Bruno Lima,2026-10-03,meals,38.90,no
+Carla Dias,2026-10-05,software,899.00,yes
+Ana Souza,2026-10-08,meals,64.20,no
+Diego Rocha,2026-10-09,office,47.50,no
+Bruno Lima,2026-10-03,meals,38.90,no
+Carla Dias,2026-09-30,meals,22.80,no
+Diego Rocha,2026-10-15,spa,89.90,yes
+Ana Souza,2026-10-19,office,-15.70,no
+,2026-10-21,meals,71.30,yes
+Carla Dias,2026-10-26,travel,655.00,yes
+Diego Rocha,2026-10-28,meals,44.10,no

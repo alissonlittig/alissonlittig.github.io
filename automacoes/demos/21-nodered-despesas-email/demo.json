@@ -1,0 +1,455 @@
+{
+ "slug": "21-nodered-despesas-email",
+ "title": {
+  "pt": "Node-RED: planilha de despesas vira e-mail de alerta",
+  "en": "Node-RED: expense sheet becomes an alert e-mail"
+ },
+ "tag": {
+  "pt": "Node-RED · SMTP · low-code com código",
+  "en": "Node-RED · SMTP · low-code with code"
+ },
+ "summary": {
+  "pt": "Mande a planilha de despesas do mês por HTTP. O fluxo confere o cabeçalho, lê as linhas, aplica a política (teto, recibo, duplicidade), rejeita linhas inválidas e envia ao financeiro um e-mail de alerta ou de tudo certo. Se o SMTP cair, o aviso vai para uma fila e a resposta é 202, não 200.",
+  "en": "Send the month's expense sheet over HTTP. The flow checks the header, reads the rows, applies the policy (cap, receipt, duplicates), rejects invalid rows and sends finance either an alert or an all-clear e-mail. If SMTP is down, the alert goes to a queue and the answer is 202, not 200."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "POST http://localhost:1881/expenses (text/csv)",
+   "en": "POST http://localhost:1881/expenses (text/csv)"
+  },
+  "note": {
+   "pt": "Edite a planilha à vontade (cabeçalho: employee,date,category,amount,receipt). Categorias: travel, meals, software, office. Regras: mais de 500 pede aprovação; mais de 50 sem recibo pede recibo; mesma pessoa, data, categoria e valor repetidos = possível duplicidade.",
+   "en": "Edit the sheet freely (header: employee,date,category,amount,receipt). Categories: travel, meals, software, office. Rules: over 500 needs approval; over 50 without a receipt needs one; same person, date, category and amount twice = possible duplicate."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Tudo certo",
+     "en": "1. All clear"
+    },
+    "values": {
+     "sheet": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,129.00,yes\nAna Souza,2026-10-08,meals,64.20,yes\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-12,travel,310.00,yes\nCarla Dias,2026-10-14,meals,22.80,no\nDiego Rocha,2026-10-15,software,89.90,yes\nAna Souza,2026-10-19,office,15.70,no\nBruno Lima,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,255.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+     "smtp": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Com problemas",
+     "en": "2. With problems"
+    },
+    "values": {
+     "sheet": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,899.00,yes\nAna Souza,2026-10-08,meals,64.20,no\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-09-30,meals,22.80,no\nDiego Rocha,2026-10-15,spa,89.90,yes\nAna Souza,2026-10-19,office,-15.70,no\n,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,655.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+     "smtp": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Cabeçalho errado",
+     "en": "3. Wrong header"
+    },
+    "values": {
+     "sheet": "name,day,type,value\nAna,2026-10-02,travel,10\n",
+     "smtp": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. SMTP fora do ar",
+     "en": "4. SMTP down"
+    },
+    "values": {
+     "sheet": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,899.00,yes\nAna Souza,2026-10-08,meals,64.20,no\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-09-30,meals,22.80,no\nDiego Rocha,2026-10-15,spa,89.90,yes\nAna Souza,2026-10-19,office,-15.70,no\n,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,655.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+     "smtp": "down"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "sheet",
+    "type": "textarea",
+    "rows": 9,
+    "value": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,899.00,yes\nAna Souza,2026-10-08,meals,64.20,no\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-09-30,meals,22.80,no\nDiego Rocha,2026-10-15,spa,89.90,yes\nAna Souza,2026-10-19,office,-15.70,no\n,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,655.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+    "label": {
+     "pt": "Planilha (CSV)",
+     "en": "Sheet (CSV)"
+    }
+   },
+   {
+    "key": "smtp",
+    "type": "select",
+    "value": "up",
+    "label": {
+     "pt": "Servidor SMTP",
+     "en": "SMTP server"
+    },
+    "options": [
+     {
+      "value": "up",
+      "label": {
+       "pt": "No ar",
+       "en": "Up"
+      }
+     },
+     {
+      "value": "down",
+      "label": {
+       "pt": "Fora do ar",
+       "en": "Down"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "POST /expenses",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "http in · text/csv",
+    "en": "http in · text/csv"
+   }
+  },
+  {
+   "id": "hdr",
+   "name": "Check header",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "function · 2 saídas",
+    "en": "function · 2 outputs"
+   }
+  },
+  {
+   "id": "bad",
+   "name": "Respond 422",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "http response",
+    "en": "http response"
+   }
+  },
+  {
+   "id": "csv",
+   "name": "Parse CSV",
+   "icon": "sheet",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "csv · linhas em array",
+    "en": "csv · rows as array"
+   }
+  },
+  {
+   "id": "policy",
+   "name": "Validate + policy",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "function · regras",
+    "en": "function · rules"
+   }
+  },
+  {
+   "id": "sw",
+   "name": "Needs action?",
+   "icon": "switch",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "switch · report.needs_action",
+    "en": "switch · report.needs_action"
+   }
+  },
+  {
+   "id": "alert",
+   "name": "Build alert e-mail",
+   "icon": "code",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "function",
+    "en": "function"
+   }
+  },
+  {
+   "id": "okm",
+   "name": "Build all-clear e-mail",
+   "icon": "code",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "function",
+    "en": "function"
+   }
+  },
+  {
+   "id": "mail",
+   "name": "SMTP send",
+   "icon": "mail",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "e-mail out (SMTP local)",
+    "en": "e-mail out (local SMTP)"
+   }
+  },
+  {
+   "id": "rok",
+   "name": "Respond 200",
+   "icon": "respond",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "complete → function",
+    "en": "complete → function"
+   }
+  },
+  {
+   "id": "queue",
+   "name": "Queue for retry",
+   "icon": "file",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "catch → file append",
+    "en": "catch → file append"
+   }
+  },
+  {
+   "id": "rq",
+   "name": "Respond 202",
+   "icon": "respond",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "http response",
+    "en": "http response"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "hdr"
+  },
+  {
+   "from": "hdr",
+   "to": "csv",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "hdr",
+   "to": "bad",
+   "when": "bad",
+   "label": "bad header"
+  },
+  {
+   "from": "csv",
+   "to": "policy"
+  },
+  {
+   "from": "policy",
+   "to": "sw"
+  },
+  {
+   "from": "sw",
+   "to": "alert",
+   "when": "action",
+   "label": "action"
+  },
+  {
+   "from": "sw",
+   "to": "okm",
+   "when": "ok",
+   "label": "clear"
+  },
+  {
+   "from": "alert",
+   "to": "mail"
+  },
+  {
+   "from": "okm",
+   "to": "mail",
+   "route": [
+    [
+     5,
+     1,
+     "b"
+    ],
+    [
+     6,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "b"
+  },
+  {
+   "from": "mail",
+   "to": "rok",
+   "when": "sent",
+   "label": "complete"
+  },
+  {
+   "from": "mail",
+   "to": "queue",
+   "when": "error",
+   "label": "catch"
+  },
+  {
+   "from": "queue",
+   "to": "rq"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "O financeiro recebe planilhas de despesas por e-mail e confere uma a uma: teto, recibo, duplicidade, categoria errada. Passa erro, e a pessoa só descobre no fechamento.",
+   "en": "Finance receives expense sheets by e-mail and checks them one by one: cap, receipt, duplicates, wrong category. Errors slip through and are only found at close."
+  },
+  "solution": {
+   "pt": "Um fluxo Node-RED com endpoint HTTP, nós function com as regras, switch entre alerta e tudo-certo e e-mail via SMTP. Falha no SMTP não perde o aviso: o catch grava numa fila e a resposta é 202. Cabeçalho errado responde 422 sem ler nada.",
+   "en": "A Node-RED flow with an HTTP endpoint, function nodes holding the rules, a switch between alert and all-clear and e-mail through SMTP. An SMTP failure does not lose the alert: the catch node writes it to a queue and the answer is 202. A wrong header returns 422 without reading anything."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: conferir uma planilha de ~100 linhas à mão leva ~15 min; o fluxo responde em segundos e o humano só olha as linhas sinalizadas (~3 min). Com 20 planilhas por mês, perto de 4 h poupadas. As regras são exemplos e precisam ser ajustadas à política real da empresa.",
+   "en": "An estimate, not a measurement: checking a ~100-row sheet by hand takes ~15 min; the flow answers in seconds and a person only reviews flagged rows (~3 min). With 20 sheets a month, close to 4 h saved. The rules are examples and must be adapted to the real company policy."
+  },
+  "stack": [
+   "Node-RED 5.0",
+   "node-red-node-email",
+   "JavaScript (function nodes)",
+   "SMTP (aiosmtpd local sink)",
+   "Python (test runner)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "cd runtime && npm install",
+     "python smtp_sink.py output/inbox (SMTP local, porta 2525)",
+     "node runtime/node_modules/node-red/red.js -s runtime/settings.js -u runtime flows.json",
+     "curl -X POST --data-binary @data/issues.csv -H \"Content-Type: text/csv\" localhost:1881/expenses",
+     "Ou tudo de uma vez: python run_scenarios.py"
+    ],
+    "en": [
+     "cd runtime && npm install",
+     "python smtp_sink.py output/inbox (local SMTP, port 2525)",
+     "node runtime/node_modules/node-red/red.js -s runtime/settings.js -u runtime flows.json",
+     "curl -X POST --data-binary @data/issues.csv -H \"Content-Type: text/csv\" localhost:1881/expenses",
+     "Or everything at once: python run_scenarios.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "flows.json",
+     "label": {
+      "pt": "Baixar flows.json (importe no Node-RED)",
+      "en": "Download flows.json (import into Node-RED)"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "Os nós function são o código exato do flows.json; o csv, o switch, o http e o SMTP são simulados aqui por funções pequenas, e a lógica foi conferida contra quatro execuções gravadas de um Node-RED 5.0 de verdade, com um servidor SMTP local que só guarda os e-mails. Nenhum e-mail real foi enviado; o endereço do financeiro é fictício. Tempos são ilustrativos.",
+   "en": "The function nodes are the exact code from flows.json; csv, switch, http and SMTP are simulated here by small functions, and the logic was checked against four recorded runs of a real Node-RED 5.0 with a local SMTP server that only stores the e-mails. No real e-mail was sent; the finance address is fictional. Timings are illustrative."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "sheet": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,129.00,yes\nAna Souza,2026-10-08,meals,64.20,yes\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-12,travel,310.00,yes\nCarla Dias,2026-10-14,meals,22.80,no\nDiego Rocha,2026-10-15,software,89.90,yes\nAna Souza,2026-10-19,office,15.70,no\nBruno Lima,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,255.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+    "smtp": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "emailed",
+     "subject": "[OK] Expenses 2026-10: 12 rows, total 1270.80",
+     "rows": 12,
+     "valid": 12,
+     "flagged": 0,
+     "rejected": 0,
+     "total": 1270.8
+    },
+    "email": {
+     "to": "finance@example.invalid",
+     "subject": "[OK] Expenses 2026-10: 12 rows, total 1270.80",
+     "body": "Expense sheet 2026-10: 12 rows, all valid, no policy flags. Total 1270.80."
+    }
+   }
+  },
+  {
+   "input": {
+    "sheet": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,899.00,yes\nAna Souza,2026-10-08,meals,64.20,no\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-09-30,meals,22.80,no\nDiego Rocha,2026-10-15,spa,89.90,yes\nAna Souza,2026-10-19,office,-15.70,no\n,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,655.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+    "smtp": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "emailed",
+     "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+     "rows": 12,
+     "valid": 8,
+     "flagged": 4,
+     "rejected": 4,
+     "total": 1970
+    },
+    "email": {
+     "to": "finance@example.invalid",
+     "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+     "body": "Expense sheet 2026-10: 12 rows, 8 valid, total 1970.00.\r\n\r\nNeeds review:\r\n- line 4, Carla Dias, software 899.00: over 500: manager approval\r\n- line 5, Ana Souza, meals 64.20: receipt required above 50\r\n- line 7, Bruno Lima, meals 38.90: possible duplicate of line 3\r\n- line 12, Carla Dias, travel 655.00: over 500: manager approval\r\n\r\nRejected rows (not counted):\r\n- line 8: date outside 2026-10\r\n- line 9: unknown category spa\r\n- line 10: amount must be > 0\r\n- line 11: missing employee"
+    }
+   }
+  },
+  {
+   "input": {
+    "sheet": "name,day,type,value\nAna,2026-10-02,travel,10\n",
+    "smtp": "up"
+   },
+   "expect": {
+    "status": 422,
+    "body": {
+     "error": "bad header",
+     "expected": "employee,date,category,amount,receipt",
+     "got": "name,day,type,value"
+    }
+   }
+  },
+  {
+   "input": {
+    "sheet": "employee,date,category,amount,receipt\nAna Souza,2026-10-02,travel,182.40,yes\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-10-05,software,899.00,yes\nAna Souza,2026-10-08,meals,64.20,no\nDiego Rocha,2026-10-09,office,47.50,no\nBruno Lima,2026-10-03,meals,38.90,no\nCarla Dias,2026-09-30,meals,22.80,no\nDiego Rocha,2026-10-15,spa,89.90,yes\nAna Souza,2026-10-19,office,-15.70,no\n,2026-10-21,meals,71.30,yes\nCarla Dias,2026-10-26,travel,655.00,yes\nDiego Rocha,2026-10-28,meals,44.10,no\n",
+    "smtp": "down"
+   },
+   "expect": {
+    "status": 202,
+    "body": {
+     "status": "queued",
+     "note": "e-mail not sent; saved in outbox_retry.jsonl for retry",
+     "subject": "[ACTION] Expenses 2026-10: 4 to review, 4 rejected",
+     "reason": "Error: connect ECONNREFUSED 127.0.0.1:2525",
+     "rows": 12,
+     "flagged": 4,
+     "rejected": 4
+    }
+   }
+  }
+ ]
+}

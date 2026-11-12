@@ -1,0 +1,137 @@
+[
+ {
+  "node": "plan",
+  "facets": [
+   "size",
+   "pricing",
+   "competition",
+   "churn"
+  ]
+ },
+ {
+  "node": "retrieve",
+  "doc": "d01",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d02",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "size",
+  "chars": 192
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "size"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d07",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "pricing",
+  "chars": 177
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "pricing"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d04",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "competition",
+  "chars": 167
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "competition"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d05",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "churn",
+  "chars": 70
+ },
+ {
+  "node": "critique",
+  "problems": [
+   "needs 2+ sources"
+  ]
+ },
+ {
+  "node": "revise",
+  "n": 1
+ },
+ {
+  "node": "retrieve",
+  "doc": "d05",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "churn",
+  "chars": 175
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "churn"
+ },
+ {
+  "node": "compile",
+  "sections": 4,
+  "sources": 7
+ }
+]

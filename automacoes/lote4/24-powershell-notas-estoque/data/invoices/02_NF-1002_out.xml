@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+  <number>NF-1002</number>
+  <date>2026-11-10</date>
+  <direction>out</direction>
+  <items>
+      <item sku="TEA-01" qty="35" unit_cost="18.50"/>
+      <item sku="MUG-02" qty="10" unit_cost="32.00"/>
+  </items>
+</invoice>

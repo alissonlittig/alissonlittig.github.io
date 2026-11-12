@@ -1,0 +1,618 @@
+{
+ "slug": "23-pipeline-dados-python",
+ "title": {
+  "pt": "Pipeline de dados em Python: carga diária com checagem de qualidade",
+  "en": "Python data pipeline: daily load with quality checks"
+ },
+ "tag": {
+  "pt": "Python · pandas · SQLite",
+  "en": "Python · pandas · SQLite"
+ },
+ "summary": {
+  "pt": "Todo dia um arquivo de pedidos chega. O pipeline confere as colunas, valida linha a linha (quarentena para as ruins), trava se a qualidade cair, carrega o dia numa única transação (rodar de novo não duplica) e calcula os indicadores. Arquivo que não chegou ou colunas trocadas viram alerta, não número errado.",
+  "en": "A file of orders arrives every day. The pipeline checks the columns, validates row by row (bad ones go to quarantine), stops if quality drops, loads the day in a single transaction (re-running does not duplicate) and computes the KPIs. A missing file or renamed columns become an alert, not a wrong number."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "python pipeline.py --date 2026-11-10 (agendado às 06:30)",
+   "en": "python pipeline.py --date 2026-11-10 (scheduled at 06:30)"
+  },
+  "note": {
+   "pt": "O armazém (tabelas orders e daily_kpi) vive enquanto a página está aberta: rode os dias em ordem, depois rode o mesmo dia de novo para ver que não duplica. Edite o CSV à vontade; o dia do arquivo tem que ser o dia da execução.",
+   "en": "The warehouse (orders and daily_kpi tables) lives while the page is open: run the days in order, then run the same day again to see it does not duplicate. Edit the CSV freely; the file's date must be the run date."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Dia limpo",
+     "en": "1. Clean day"
+    },
+    "values": {
+     "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA1000,C100,TEA-01,1,18.50,2026-11-09,paid\nA1001,C101,MUG-02,2,32.00,2026-11-09,shipped\nA1002,C102,KET-03,3,129.90,2026-11-09,paid\nA1003,C103,BOX-04,1,12.25,2026-11-09,refunded\nA1004,C104,TEA-01,2,18.50,2026-11-09,paid\nA1005,C100,MUG-02,3,32.00,2026-11-09,shipped\nA1006,C101,KET-03,1,129.90,2026-11-09,paid\nA1007,C102,BOX-04,2,12.25,2026-11-09,refunded\nA1008,C103,TEA-01,3,18.50,2026-11-09,paid\nA1009,C104,MUG-02,1,32.00,2026-11-09,shipped\nA1010,C100,KET-03,2,129.90,2026-11-09,paid\nA1011,C101,BOX-04,3,12.25,2026-11-09,refunded\n",
+     "run_date": "2026-11-09",
+     "source": "arrived"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Linhas ruins",
+     "en": "2. Bad rows"
+    },
+    "values": {
+     "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA2000,C100,TEA-01,1,18.50,2026-11-10,paid\nA2001,C101,MUG-02,2,32.00,2026-11-10,shipped\nA2002,C102,KET-03,3,129.90,2026-11-10,paid\nA2003,C103,BOX-04,1,12.25,2026-11-10,refunded\nA2003,C104,TEA-01,2,18.50,2026-11-10,paid\nA2005,C100,MUG-02,3,32.00,2026-11-10,shipped\nA2006,C101,KET-03,1,129.90,2026-11-10,paid\nA2007,C102,BOX-04,0,12.25,2026-11-10,refunded\nA2008,C103,TEA-01,3,18.50,2026-11-10,paid\nA2009,C104,MUG-02,1,32.00,2026-11-10,shipped\nA2010,C100,KET-03,2,129.90,2026-11-10,paid\nA2011,C101,BOX-04,3,12.25,2026-11-10,refunded\n",
+     "run_date": "2026-11-10",
+     "source": "arrived"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Queda de volume",
+     "en": "3. Volume drop"
+    },
+    "values": {
+     "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA3000,C100,TEA-01,1,18.50,2026-11-11,paid\nA3001,C101,MUG-02,2,32.00,2026-11-11,shipped\nA3002,C102,KET-03,3,129.90,2026-11-11,paid\n",
+     "run_date": "2026-11-11",
+     "source": "arrived"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Coluna renomeada",
+     "en": "4. Renamed column"
+    },
+    "values": {
+     "csv": "order_id,customer_id,sku,qtd,unit_price,order_date,status\nA4000,C100,TEA-01,1,18.50,2026-11-12,paid\nA4001,C101,MUG-02,2,32.00,2026-11-12,shipped\nA4002,C102,KET-03,3,129.90,2026-11-12,paid\nA4003,C103,BOX-04,1,12.25,2026-11-12,refunded\nA4004,C104,TEA-01,2,18.50,2026-11-12,paid\nA4005,C100,MUG-02,3,32.00,2026-11-12,shipped\nA4006,C101,KET-03,1,129.90,2026-11-12,paid\nA4007,C102,BOX-04,2,12.25,2026-11-12,refunded\nA4008,C103,TEA-01,3,18.50,2026-11-12,paid\nA4009,C104,MUG-02,1,32.00,2026-11-12,shipped\nA4010,C100,KET-03,2,129.90,2026-11-12,paid\nA4011,C101,BOX-04,3,12.25,2026-11-12,refunded\n",
+     "run_date": "2026-11-12",
+     "source": "arrived"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Arquivo suspeito",
+     "en": "5. Suspect file"
+    },
+    "values": {
+     "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA5000,C100,TEA-01,1,18.50,2026-11-12,paid\nA5001,C101,MUG-02,2,-1,2026-11-12,shipped\nA5002,C102,KET-03,3,129.90,2026-11-12,paid\nA5003,C103,BOX-04,1,-1,2026-11-12,refunded\nA5004,C104,TEA-01,2,18.50,2026-11-12,paid\nA5005,C100,MUG-02,3,-1,2026-11-12,shipped\nA5006,C101,KET-03,1,129.90,2026-11-12,paid\nA5007,C102,BOX-04,2,-1,2026-11-12,refunded\nA5008,C103,TEA-01,3,18.50,2026-11-12,paid\nA5009,C104,MUG-02,1,-1,2026-11-12,shipped\nA5010,C100,KET-03,2,129.90,2026-11-12,paid\nA5011,C101,BOX-04,3,12.25,2026-11-12,refunded\n",
+     "run_date": "2026-11-12",
+     "source": "arrived"
+    }
+   },
+   {
+    "label": {
+     "pt": "6. Arquivo não chegou",
+     "en": "6. File missing"
+    },
+    "values": {
+     "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA1000,C100,TEA-01,1,18.50,2026-11-09,paid\nA1001,C101,MUG-02,2,32.00,2026-11-09,shipped\nA1002,C102,KET-03,3,129.90,2026-11-09,paid\nA1003,C103,BOX-04,1,12.25,2026-11-09,refunded\nA1004,C104,TEA-01,2,18.50,2026-11-09,paid\nA1005,C100,MUG-02,3,32.00,2026-11-09,shipped\nA1006,C101,KET-03,1,129.90,2026-11-09,paid\nA1007,C102,BOX-04,2,12.25,2026-11-09,refunded\nA1008,C103,TEA-01,3,18.50,2026-11-09,paid\nA1009,C104,MUG-02,1,32.00,2026-11-09,shipped\nA1010,C100,KET-03,2,129.90,2026-11-09,paid\nA1011,C101,BOX-04,3,12.25,2026-11-09,refunded\n",
+     "run_date": "2026-11-12",
+     "source": "missing"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "run_date",
+    "type": "text",
+    "value": "2026-11-09",
+    "label": {
+     "pt": "Dia da execução",
+     "en": "Run date"
+    }
+   },
+   {
+    "key": "source",
+    "type": "select",
+    "value": "arrived",
+    "label": {
+     "pt": "Arquivo de origem",
+     "en": "Source file"
+    },
+    "options": [
+     {
+      "value": "arrived",
+      "label": {
+       "pt": "Chegou",
+       "en": "Arrived"
+      }
+     },
+     {
+      "value": "missing",
+      "label": {
+       "pt": "Não chegou",
+       "en": "Did not arrive"
+      }
+     }
+    ]
+   },
+   {
+    "key": "csv",
+    "type": "textarea",
+    "rows": 9,
+    "value": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA1000,C100,TEA-01,1,18.50,2026-11-09,paid\nA1001,C101,MUG-02,2,32.00,2026-11-09,shipped\nA1002,C102,KET-03,3,129.90,2026-11-09,paid\nA1003,C103,BOX-04,1,12.25,2026-11-09,refunded\nA1004,C104,TEA-01,2,18.50,2026-11-09,paid\nA1005,C100,MUG-02,3,32.00,2026-11-09,shipped\nA1006,C101,KET-03,1,129.90,2026-11-09,paid\nA1007,C102,BOX-04,2,12.25,2026-11-09,refunded\nA1008,C103,TEA-01,3,18.50,2026-11-09,paid\nA1009,C104,MUG-02,1,32.00,2026-11-09,shipped\nA1010,C100,KET-03,2,129.90,2026-11-09,paid\nA1011,C101,BOX-04,3,12.25,2026-11-09,refunded\n",
+    "label": {
+     "pt": "Conteúdo do arquivo (CSV)",
+     "en": "File content (CSV)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Schedule 06:30",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "cron / Task Scheduler",
+    "en": "cron / Task Scheduler"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "File arrived?",
+   "icon": "file",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "orders_AAAA-MM-DD.csv",
+    "en": "orders_YYYY-MM-DD.csv"
+   }
+  },
+  {
+   "id": "schema",
+   "name": "Schema check",
+   "icon": "if",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "colunas esperadas",
+    "en": "expected columns"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Validate rows",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "pandas + regras",
+    "en": "pandas + rules"
+   }
+  },
+  {
+   "id": "gate",
+   "name": "Quality gate",
+   "icon": "if",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "máx. 25% rejeitadas",
+    "en": "max 25% rejected"
+   }
+  },
+  {
+   "id": "load",
+   "name": "Load day",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "SQLite · transação única",
+    "en": "SQLite · single transaction"
+   }
+  },
+  {
+   "id": "done",
+   "name": "Done · exit 0",
+   "icon": "respond",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "tudo certo",
+    "en": "all clear"
+   }
+  },
+  {
+   "id": "alert",
+   "name": "Alert",
+   "icon": "bell",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "alerts.jsonl · exit 1/2/3",
+    "en": "alerts.jsonl · exit 1/2/3"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "extract"
+  },
+  {
+   "from": "extract",
+   "to": "schema",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "extract",
+   "to": "alert",
+   "when": "missing",
+   "label": "missing",
+   "route": [
+    [
+     1,
+     0,
+     "b"
+    ],
+    [
+     6,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "schema",
+   "to": "validate",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "schema",
+   "to": "alert",
+   "when": "halt",
+   "label": "changed",
+   "route": [
+    [
+     2,
+     0,
+     "b"
+    ],
+    [
+     6,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "validate",
+   "to": "gate"
+  },
+  {
+   "from": "gate",
+   "to": "load",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "gate",
+   "to": "alert",
+   "when": "halt",
+   "label": "too dirty",
+   "route": [
+    [
+     4,
+     0,
+     "b"
+    ],
+    [
+     6,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "load",
+   "to": "done",
+   "when": "ok",
+   "label": "clean"
+  },
+  {
+   "from": "load",
+   "to": "alert",
+   "when": "warn",
+   "label": "warnings"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "O relatório de vendas do dia sai de um arquivo exportado pela loja. Quando o arquivo vem com linha duplicada, coluna trocada ou nem vem, alguém só percebe na reunião, com o número errado já em circulação.",
+   "en": "The daily sales report comes from a file exported by the shop. When it arrives with duplicate rows, a renamed column or does not arrive at all, someone notices in the meeting, with the wrong number already circulating."
+  },
+  "solution": {
+   "pt": "Um pipeline Python de cinco passos com saída de erro útil: confere o esquema, põe linhas ruins em quarentena com número da linha e motivo, interrompe se mais de 25% falhar, carrega o dia substituindo a partição inteira numa transação e grava um alerta quando algo exige humano. O código de saída (0, 1, 2, 3) deixa qualquer agendador reagir.",
+   "en": "A five-step Python pipeline with useful failure output: it checks the schema, quarantines bad rows with line number and reason, stops if more than 25% fail, loads the day by replacing the whole partition in one transaction and writes an alert when a person is needed. The exit code (0, 1, 2, 3) lets any scheduler react."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: conferir e consolidar o arquivo do dia à mão leva ~20 min; o pipeline leva segundos e o humano só entra quando há alerta (~5 min). Em 22 dias úteis são ~5 h por mês, mais o custo evitado de decisões com número errado. Os limites (25%, 50%) são exemplos e precisam ser calibrados com o histórico real.",
+   "en": "An estimate, not a measurement: checking and consolidating the day's file by hand takes ~20 min; the pipeline takes seconds and a person only steps in on an alert (~5 min). Over 22 working days that is ~5 h a month, plus the avoided cost of decisions on a wrong number. The thresholds (25%, 50%) are examples and must be calibrated with real history."
+  },
+  "stack": [
+   "Python 3.13",
+   "pandas 3",
+   "SQLite",
+   "Windows Task Scheduler / cron",
+   "assert-based tests"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install pandas",
+     "python make_data.py (gera os arquivos fictícios em data/)",
+     "python pipeline.py --inbox data --db warehouse.db --date 2026-11-09",
+     "Agendar todo dia às 06:30: python pipeline.py --loop-at 06:30 (ou Agendador de Tarefas do Windows)",
+     "Todos os cenários: python run_scenarios.py · testes: python tests/test_pipeline.py"
+    ],
+    "en": [
+     "pip install pandas",
+     "python make_data.py (writes the fictional files to data/)",
+     "python pipeline.py --inbox data --db warehouse.db --date 2026-11-09",
+     "Schedule daily at 06:30: python pipeline.py --loop-at 06:30 (or Windows Task Scheduler)",
+     "All scenarios: python run_scenarios.py · tests: python tests/test_pipeline.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "pipeline.py",
+     "label": {
+      "pt": "Baixar pipeline.py",
+      "en": "Download pipeline.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o pipeline.py portado para JavaScript; pandas e SQLite viram arrays na página, e a lógica foi conferida contra os sete resumos reais gravados (incluindo re-execução e dia sem arquivo). O alerta é uma linha em alerts.jsonl, não um e-mail: ligar a um canal real é um passo à parte. Dados fictícios.",
+   "en": "The code is pipeline.py ported to JavaScript; pandas and SQLite become arrays in the page, and the logic was checked against seven recorded real summaries (including a re-run and a missing-file day). The alert is a line in alerts.jsonl, not an e-mail: wiring it to a real channel is a separate step. Fictional data."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA1000,C100,TEA-01,1,18.50,2026-11-09,paid\nA1001,C101,MUG-02,2,32.00,2026-11-09,shipped\nA1002,C102,KET-03,3,129.90,2026-11-09,paid\nA1003,C103,BOX-04,1,12.25,2026-11-09,refunded\nA1004,C104,TEA-01,2,18.50,2026-11-09,paid\nA1005,C100,MUG-02,3,32.00,2026-11-09,shipped\nA1006,C101,KET-03,1,129.90,2026-11-09,paid\nA1007,C102,BOX-04,2,12.25,2026-11-09,refunded\nA1008,C103,TEA-01,3,18.50,2026-11-09,paid\nA1009,C104,MUG-02,1,32.00,2026-11-09,shipped\nA1010,C100,KET-03,2,129.90,2026-11-09,paid\nA1011,C101,BOX-04,3,12.25,2026-11-09,refunded\n",
+    "run_date": "2026-11-09",
+    "source": "arrived"
+   },
+   "expect": {
+    "run_date": "2026-11-09",
+    "steps": [
+     "extract: 12 rows read",
+     "schema: ok",
+     "validate: 12 ok, 0 rejected",
+     "quality gate: 0% rejected, within 25%",
+     "load: day 2026-11-09 replaced in one transaction, 12 rows"
+    ],
+    "rows_in": 12,
+    "rows_ok": 12,
+    "rows_rejected": 0,
+    "rejected": [],
+    "kpi": {
+     "orders": 9,
+     "revenue_cents": 108240,
+     "avg_ticket_cents": 12026
+    },
+    "warehouse_rows_for_day": 12,
+    "warnings": [],
+    "status": "loaded",
+    "exit": 0
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA2000,C100,TEA-01,1,18.50,2026-11-10,paid\nA2001,C101,MUG-02,2,32.00,2026-11-10,shipped\nA2002,C102,KET-03,3,129.90,2026-11-10,paid\nA2003,C103,BOX-04,1,12.25,2026-11-10,refunded\nA2003,C104,TEA-01,2,18.50,2026-11-10,paid\nA2005,C100,MUG-02,3,32.00,2026-11-10,shipped\nA2006,C101,KET-03,1,129.90,2026-11-10,paid\nA2007,C102,BOX-04,0,12.25,2026-11-10,refunded\nA2008,C103,TEA-01,3,18.50,2026-11-10,paid\nA2009,C104,MUG-02,1,32.00,2026-11-10,shipped\nA2010,C100,KET-03,2,129.90,2026-11-10,paid\nA2011,C101,BOX-04,3,12.25,2026-11-10,refunded\n",
+    "run_date": "2026-11-10",
+    "source": "arrived"
+   },
+   "expect": {
+    "run_date": "2026-11-10",
+    "steps": [
+     "extract: 12 rows read",
+     "schema: ok",
+     "validate: 10 ok, 2 rejected",
+     "quality gate: 17% rejected, within 25%",
+     "load: day 2026-11-10 replaced in one transaction, 10 rows"
+    ],
+    "rows_in": 12,
+    "rows_ok": 10,
+    "rows_rejected": 2,
+    "rejected": [
+     {
+      "line": 6,
+      "reason": "duplicate order_id"
+     },
+     {
+      "line": 9,
+      "reason": "qty must be an integer > 0"
+     }
+    ],
+    "kpi": {
+     "orders": 8,
+     "revenue_cents": 104540,
+     "avg_ticket_cents": 13067
+    },
+    "warehouse_rows_for_day": 10,
+    "warnings": [
+     "2 rows quarantined"
+    ],
+    "status": "loaded_with_warnings",
+    "exit": 2,
+    "alert": "2 rows quarantined"
+   }
+  },
+  {
+   "input": {
+    "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA2000,C100,TEA-01,1,18.50,2026-11-10,paid\nA2001,C101,MUG-02,2,32.00,2026-11-10,shipped\nA2002,C102,KET-03,3,129.90,2026-11-10,paid\nA2003,C103,BOX-04,1,12.25,2026-11-10,refunded\nA2003,C104,TEA-01,2,18.50,2026-11-10,paid\nA2005,C100,MUG-02,3,32.00,2026-11-10,shipped\nA2006,C101,KET-03,1,129.90,2026-11-10,paid\nA2007,C102,BOX-04,0,12.25,2026-11-10,refunded\nA2008,C103,TEA-01,3,18.50,2026-11-10,paid\nA2009,C104,MUG-02,1,32.00,2026-11-10,shipped\nA2010,C100,KET-03,2,129.90,2026-11-10,paid\nA2011,C101,BOX-04,3,12.25,2026-11-10,refunded\n",
+    "run_date": "2026-11-10",
+    "source": "arrived"
+   },
+   "expect": {
+    "run_date": "2026-11-10",
+    "steps": [
+     "extract: 12 rows read",
+     "schema: ok",
+     "validate: 10 ok, 2 rejected",
+     "quality gate: 17% rejected, within 25%",
+     "load: day 2026-11-10 replaced in one transaction, 10 rows"
+    ],
+    "rows_in": 12,
+    "rows_ok": 10,
+    "rows_rejected": 2,
+    "rejected": [
+     {
+      "line": 6,
+      "reason": "duplicate order_id"
+     },
+     {
+      "line": 9,
+      "reason": "qty must be an integer > 0"
+     }
+    ],
+    "kpi": {
+     "orders": 8,
+     "revenue_cents": 104540,
+     "avg_ticket_cents": 13067
+    },
+    "warehouse_rows_for_day": 10,
+    "warnings": [
+     "2 rows quarantined"
+    ],
+    "status": "loaded_with_warnings",
+    "exit": 2,
+    "alert": "2 rows quarantined"
+   }
+  },
+  {
+   "input": {
+    "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA3000,C100,TEA-01,1,18.50,2026-11-11,paid\nA3001,C101,MUG-02,2,32.00,2026-11-11,shipped\nA3002,C102,KET-03,3,129.90,2026-11-11,paid\n",
+    "run_date": "2026-11-11",
+    "source": "arrived"
+   },
+   "expect": {
+    "run_date": "2026-11-11",
+    "steps": [
+     "extract: 3 rows read",
+     "schema: ok",
+     "validate: 3 ok, 0 rejected",
+     "quality gate: 0% rejected, within 25%",
+     "load: day 2026-11-11 replaced in one transaction, 3 rows"
+    ],
+    "rows_in": 3,
+    "rows_ok": 3,
+    "rows_rejected": 0,
+    "rejected": [],
+    "kpi": {
+     "orders": 3,
+     "revenue_cents": 47220,
+     "avg_ticket_cents": 15740
+    },
+    "warehouse_rows_for_day": 3,
+    "warnings": [
+     "volume drop: 3 good rows vs average 11 on earlier days"
+    ],
+    "status": "loaded_with_warnings",
+    "exit": 2,
+    "alert": "volume drop: 3 good rows vs average 11 on earlier days"
+   }
+  },
+  {
+   "input": {
+    "csv": "order_id,customer_id,sku,qtd,unit_price,order_date,status\nA4000,C100,TEA-01,1,18.50,2026-11-12,paid\nA4001,C101,MUG-02,2,32.00,2026-11-12,shipped\nA4002,C102,KET-03,3,129.90,2026-11-12,paid\nA4003,C103,BOX-04,1,12.25,2026-11-12,refunded\nA4004,C104,TEA-01,2,18.50,2026-11-12,paid\nA4005,C100,MUG-02,3,32.00,2026-11-12,shipped\nA4006,C101,KET-03,1,129.90,2026-11-12,paid\nA4007,C102,BOX-04,2,12.25,2026-11-12,refunded\nA4008,C103,TEA-01,3,18.50,2026-11-12,paid\nA4009,C104,MUG-02,1,32.00,2026-11-12,shipped\nA4010,C100,KET-03,2,129.90,2026-11-12,paid\nA4011,C101,BOX-04,3,12.25,2026-11-12,refunded\n",
+    "run_date": "2026-11-12",
+    "source": "arrived"
+   },
+   "expect": {
+    "run_date": "2026-11-12",
+    "steps": [
+     "extract: 12 rows read",
+     "schema: missing ['qty'], unexpected ['qtd']"
+    ],
+    "rows_in": 12,
+    "status": "halted",
+    "exit": 1,
+    "alert": "schema changed (missing ['qty'], unexpected ['qtd']); nothing loaded"
+   }
+  },
+  {
+   "input": {
+    "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA5000,C100,TEA-01,1,18.50,2026-11-12,paid\nA5001,C101,MUG-02,2,-1,2026-11-12,shipped\nA5002,C102,KET-03,3,129.90,2026-11-12,paid\nA5003,C103,BOX-04,1,-1,2026-11-12,refunded\nA5004,C104,TEA-01,2,18.50,2026-11-12,paid\nA5005,C100,MUG-02,3,-1,2026-11-12,shipped\nA5006,C101,KET-03,1,129.90,2026-11-12,paid\nA5007,C102,BOX-04,2,-1,2026-11-12,refunded\nA5008,C103,TEA-01,3,18.50,2026-11-12,paid\nA5009,C104,MUG-02,1,-1,2026-11-12,shipped\nA5010,C100,KET-03,2,129.90,2026-11-12,paid\nA5011,C101,BOX-04,3,12.25,2026-11-12,refunded\n",
+    "run_date": "2026-11-12",
+    "source": "arrived"
+   },
+   "expect": {
+    "run_date": "2026-11-12",
+    "steps": [
+     "extract: 12 rows read",
+     "schema: ok",
+     "validate: 7 ok, 5 rejected",
+     "quality gate: 42% rejected > 25%, halting"
+    ],
+    "rows_in": 12,
+    "rows_ok": 7,
+    "rows_rejected": 5,
+    "rejected": [
+     {
+      "line": 3,
+      "reason": "unit_price must be > 0"
+     },
+     {
+      "line": 5,
+      "reason": "unit_price must be > 0"
+     },
+     {
+      "line": 7,
+      "reason": "unit_price must be > 0"
+     },
+     {
+      "line": 9,
+      "reason": "unit_price must be > 0"
+     },
+     {
+      "line": 11,
+      "reason": "unit_price must be > 0"
+     }
+    ],
+    "status": "halted",
+    "exit": 1,
+    "alert": "5 of 12 rows rejected (42% > 25%); nothing loaded, check the source system"
+   }
+  },
+  {
+   "input": {
+    "csv": "",
+    "run_date": "2026-11-12",
+    "source": "missing"
+   },
+   "expect": {
+    "run_date": "2026-11-12",
+    "steps": [
+     "extract: source file not found"
+    ],
+    "status": "no_source",
+    "exit": 3,
+    "alert": "orders_2026-11-12.csv did not arrive; nothing loaded, yesterday's numbers stay"
+   }
+  }
+ ]
+}

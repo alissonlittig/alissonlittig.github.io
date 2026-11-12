@@ -1,0 +1,221 @@
+{
+ "hot": {
+  "input": {
+   "name": "Helena Costa",
+   "email": "helena@norteacos.example",
+   "company": "Norte Aço",
+   "role": "Operations Director",
+   "employees": 120,
+   "budget": 8000,
+   "source": "referral",
+   "message": "We need a demo next week, urgent."
+  },
+  "status": 200,
+  "body": {
+   "status": "created",
+   "lead_id": 1,
+   "score": 115,
+   "tier": "hot",
+   "why": [
+    "+30 50+ employees",
+    "+25 senior role",
+    "+30 budget >= 5000",
+    "+20 source referral",
+    "+10 buying words in message"
+   ],
+   "owner": "Paulo",
+   "due": "2026-11-13",
+   "notified": true
+  }
+ },
+ "warm": {
+  "input": {
+   "name": "Rafael Mota",
+   "email": "rafael@lojaviva.example",
+   "company": "Loja Viva",
+   "role": "Manager",
+   "employees": 25,
+   "budget": 2000,
+   "source": "webinar",
+   "message": "Interested in the product."
+  },
+  "status": 200,
+  "body": {
+   "status": "created",
+   "lead_id": 2,
+   "score": 40,
+   "tier": "warm",
+   "why": [
+    "+15 10+ employees",
+    "+15 budget >= 1000",
+    "+10 source webinar"
+   ],
+   "owner": "Rita",
+   "due": "2026-11-15"
+  }
+ },
+ "cold": {
+  "input": {
+   "name": "Joana Reis",
+   "email": "joana.reis@example.com",
+   "company": "",
+   "role": "Student",
+   "employees": 1,
+   "budget": 0,
+   "source": "organic",
+   "message": "Just looking."
+  },
+  "status": 200,
+  "body": {
+   "status": "created",
+   "lead_id": 3,
+   "score": -10,
+   "tier": "cold",
+   "why": [
+    "-10 free e-mail domain"
+   ],
+   "action": "nurture list, no task"
+  }
+ },
+ "duplicate": {
+  "input": {
+   "name": "Helena Costa",
+   "email": "helena@norteacos.example",
+   "company": "Norte Aço",
+   "role": "Operations Director",
+   "employees": 3,
+   "budget": 100,
+   "source": "referral",
+   "message": "We need a demo next week, urgent."
+  },
+  "status": 200,
+  "body": {
+   "status": "merged",
+   "lead_id": 1,
+   "score": 115,
+   "tier": "hot",
+   "seen": 2
+  }
+ },
+ "invalid": {
+  "input": {
+   "name": "",
+   "email": "not-an-email",
+   "source": "tv",
+   "employees": "many"
+  },
+  "status": 422,
+  "body": {
+   "status": "rejected",
+   "errors": [
+    "name is required",
+    "email is invalid",
+    "source must be referral|webinar|ads|organic",
+    "employees must be a number >= 0"
+   ]
+  }
+ },
+ "bad_json": {
+  "input": "{oops",
+  "status": 400,
+  "body": {
+   "status": "rejected",
+   "errors": [
+    "body is not valid JSON"
+   ]
+  }
+ },
+ "chat_down": {
+  "input": {
+   "name": "Ivo Barros",
+   "email": "ivo@portoeng.example",
+   "company": "Porto Eng",
+   "role": "Operations Director",
+   "employees": 120,
+   "budget": 8000,
+   "source": "referral",
+   "message": "We need a demo next week, urgent."
+  },
+  "status": 202,
+  "body": {
+   "status": "created",
+   "lead_id": 4,
+   "score": 115,
+   "tier": "hot",
+   "why": [
+    "+30 50+ employees",
+    "+25 senior role",
+    "+30 budget >= 5000",
+    "+20 source referral",
+    "+10 buying words in message"
+   ],
+   "owner": "Paulo",
+   "due": "2026-11-13",
+   "notified": false,
+   "queued": true
+  }
+ },
+ "_db": {
+  "leads": [
+   [
+    1,
+    "helena@norteacos.example",
+    115,
+    "hot",
+    2
+   ],
+   [
+    2,
+    "rafael@lojaviva.example",
+    40,
+    "warm",
+    1
+   ],
+   [
+    3,
+    "joana.reis@example.com",
+    -10,
+    "cold",
+    1
+   ],
+   [
+    4,
+    "ivo@portoeng.example",
+    115,
+    "hot",
+    1
+   ]
+  ],
+  "tasks": [
+   [
+    1,
+    "Paulo",
+    "2026-11-13",
+    "Call Helena Costa (Norte Aço)"
+   ],
+   [
+    2,
+    "Rita",
+    "2026-11-15",
+    "Call Rafael Mota (Loja Viva)"
+   ],
+   [
+    4,
+    "Paulo",
+    "2026-11-13",
+    "Call Ivo Barros (Porto Eng)"
+   ]
+  ],
+  "outbox": [
+   [
+    "HOT lead Ivo Barros (Porto Eng) score 115, owner Paulo, due 2026-11-13",
+    "TimeoutError"
+   ]
+  ],
+  "chat_messages": [
+   {
+    "text": "HOT lead Helena Costa (Norte Aço) score 115, owner Paulo, due 2026-11-13"
+   }
+  ]
+ }
+}

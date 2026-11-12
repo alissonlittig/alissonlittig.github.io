@@ -1,0 +1,6 @@
+{"day": "2026-11-10", "status": "loaded_with_warnings", "alert": "2 rows quarantined"}
+{"day": "2026-11-10", "status": "loaded_with_warnings", "alert": "2 rows quarantined"}
+{"day": "2026-11-11", "status": "loaded_with_warnings", "alert": "volume drop: 3 good rows vs average 11 on earlier days"}
+{"day": "2026-11-12", "status": "halted", "alert": "schema changed (missing ['qty'], unexpected ['qtd']); nothing loaded"}
+{"day": "2026-11-12", "status": "halted", "alert": "5 of 12 rows rejected (42% > 25%); nothing loaded, check the source system"}
+{"day": "2026-11-12", "status": "no_source", "alert": "orders_2026-11-12.csv did not arrive; nothing loaded, yesterday's numbers stay"}

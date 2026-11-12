@@ -1,0 +1,6 @@
+{
+ "hot": {"name": "Helena Costa", "email": "helena@norteacos.example", "company": "Norte Aço", "role": "Operations Director", "employees": 120, "budget": 8000, "source": "referral", "message": "We need a demo next week, urgent."},
+ "warm": {"name": "Rafael Mota", "email": "rafael@lojaviva.example", "company": "Loja Viva", "role": "Manager", "employees": 25, "budget": 2000, "source": "webinar", "message": "Interested in the product."},
+ "cold": {"name": "Joana Reis", "email": "joana.reis@example.com", "company": "", "role": "Student", "employees": 1, "budget": 0, "source": "organic", "message": "Just looking."},
+ "invalid": {"name": "", "email": "not-an-email", "source": "tv", "employees": "many"}
+}

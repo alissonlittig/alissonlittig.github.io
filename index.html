@@ -70,7 +70,7 @@
       <a role="tab" id="t-websites" href="#websites" aria-controls="websites" aria-selected="false">Websites<small>33</small></a>
       <a role="tab" id="t-crms" href="#crms" aria-controls="crms" aria-selected="false">CRMs<small>22</small></a>
       <a role="tab" id="t-dashboards" href="#dashboards" aria-controls="dashboards" aria-selected="false">Dashboards<small>20</small></a>
-      <a role="tab" id="t-automacoes" href="#automacoes" aria-controls="automacoes" aria-selected="false">Automações<small>18</small></a>
+      <a role="tab" id="t-automacoes" href="#automacoes" aria-controls="automacoes" aria-selected="false">Automações<small>24</small></a>
     </div>
     <div class="filt" role="search">
       <label class="sr" for="q"><span lang="pt">Buscar projetos</span><span lang="en">Search projects</span></label>
@@ -788,7 +788,7 @@
       </article>
   </div>
   <div class="panel" id="automacoes" role="tabpanel" aria-labelledby="t-automacoes" tabindex="-1">
-    <p class="fict"><span lang="pt">Workflows n8n com dados fictícios, sem credenciais</span><span lang="en">n8n workflows with fictional data, no credentials</span></p>
+    <p class="fict"><span lang="pt">Automações em n8n, Python, Node-RED, PowerShell, RPA e agentes de IA, com dados fictícios e sem credenciais</span><span lang="en">Automations in n8n, Python, Node-RED, PowerShell, RPA and AI agents, with fictional data and no credentials</span></p>
     <div class="grid">
       <article class="tile">
         <a class="pic" href="automacoes/demos/01-captura-de-lead/index.html" tabindex="-1" aria-hidden="true"><span class="sel">n8n</span><img src="assets/img/demo-captura-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
@@ -933,6 +933,54 @@
         <p class="d"><span lang="pt">Entra a transcrição de uma ligação (de um serviço de voz para texto). O fluxo acha nome, empresa, orçamento, prazo, objeções e o próximo passo prometido, dá uma prioridade e cria o lead no CRM. Se o CRM estiver fora do ar, o lead vai para uma fila de cartas mortas em vez de se perder, e a operação é avisada.</span><span lang="en">A call transcript comes in (from a speech-to-text service). The flow finds name, company, budget, timeline, objections and the next step promised, assigns a priority and creates the lead in the CRM. If the CRM is down, the lead goes to a dead-letter queue instead of being lost, and ops is alerted.</span></p>
         <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada nó. Saídas conferidas com a execução real no n8n local.</span><span lang="en">Interactive demo: edit the input, run it and inspect every node. Outputs checked against the real run on a local n8n.</span></p>
         <p class="links"><a class="lnk" href="automacoes/demos/18-call-summary-to-crm/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote3/18-call-summary-to-crm"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/demos/19-agente-langgraph-relatorio/index.html" tabindex="-1" aria-hidden="true"><span class="sel">Agentes IA</span><img src="assets/img/demo-agente-langgraph-relatorio-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/demos/19-agente-langgraph-relatorio/index.html">Agente de pesquisa multi-etapas (LangGraph)</a></h3>
+        <p class="tag"><span lang="pt">Python · LangGraph · agente com crítico</span><span lang="en">Python · LangGraph · agent with a critic</span></p>
+        <p class="d"><span lang="pt">Faça uma pergunta de mercado. O agente planeja as seções, busca fontes (com retry), escreve citando cada fonte, passa por um crítico que confere fontes e números, refaz o que falhar e entrega um relatório. Se a fonte cair ou não houver evidência, ele diz isso em vez de inventar.</span><span lang="en">Ask a market question. The agent plans the sections, retrieves sources (with retries), writes citing every source, passes through a critic that checks sources and numbers, redoes what fails and returns a report. If a source is down or evidence is missing, it says so instead of making things up.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada etapa. Lógica conferida contra execuções reais do código.</span><span lang="en">Interactive demo: edit the input, run it and inspect every step. Logic checked against real runs of the code.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/demos/19-agente-langgraph-relatorio/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote4/19-agente-langgraph-relatorio"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/demos/20-rpa-playwright-portal/index.html" tabindex="-1" aria-hidden="true"><span class="sel">RPA</span><img src="assets/img/demo-rpa-playwright-portal-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/demos/20-rpa-playwright-portal/index.html">RPA em Python/Playwright: portal, download e consolidação</a></h3>
+        <p class="tag"><span lang="pt">Python · Playwright · Excel</span><span lang="en">Python · Playwright · Excel</span></p>
+        <p class="d"><span lang="pt">Um robô entra num portal de distribuidora, baixa o relatório de vendas de cada filial, valida linha a linha e entrega uma planilha consolidada. Sessão que cai, erro 500 e filial fora do ar são tratados, e o que faltou aparece escrito no resultado.</span><span lang="en">A robot signs into a distributor portal, downloads each branch report, validates it row by row and delivers a consolidated workbook. Expired sessions, HTTP 500 and a branch being down are handled, and whatever is missing is written in the result.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada etapa. Lógica conferida contra execuções reais do código.</span><span lang="en">Interactive demo: edit the input, run it and inspect every step. Logic checked against real runs of the code.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/demos/20-rpa-playwright-portal/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote4/20-rpa-playwright-portal"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/demos/21-nodered-despesas-email/index.html" tabindex="-1" aria-hidden="true"><span class="sel">Node-RED</span><img src="assets/img/demo-nodered-despesas-email-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/demos/21-nodered-despesas-email/index.html">Node-RED: planilha de despesas vira e-mail de alerta</a></h3>
+        <p class="tag"><span lang="pt">Node-RED · SMTP · low-code com código</span><span lang="en">Node-RED · SMTP · low-code with code</span></p>
+        <p class="d"><span lang="pt">Mande a planilha de despesas do mês por HTTP. O fluxo confere o cabeçalho, lê as linhas, aplica a política (teto, recibo, duplicidade), rejeita linhas inválidas e envia ao financeiro um e-mail de alerta ou de tudo certo. Se o SMTP cair, o aviso vai para uma fila e a resposta é 202, não 200.</span><span lang="en">Send the month's expense sheet over HTTP. The flow checks the header, reads the rows, applies the policy (cap, receipt, duplicates), rejects invalid rows and sends finance either an alert or an all-clear e-mail. If SMTP is down, the alert goes to a queue and the answer is 202, not 200.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada etapa. Lógica conferida contra execuções reais do código.</span><span lang="en">Interactive demo: edit the input, run it and inspect every step. Logic checked against real runs of the code.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/demos/21-nodered-despesas-email/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote4/21-nodered-despesas-email"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/demos/22-crm-leads-python/index.html" tabindex="-1" aria-hidden="true"><span class="sel">Python</span><img src="assets/img/demo-crm-leads-python-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/demos/22-crm-leads-python/index.html">CRM em Python: lead entra, é qualificado e vira tarefa</a></h3>
+        <p class="tag"><span lang="pt">Python · SQLite · webhook</span><span lang="en">Python · SQLite · webhook</span></p>
+        <p class="d"><span lang="pt">Um formulário do site chama um webhook. O serviço valida os dados, junta leads repetidos, dá uma nota com os motivos, abre tarefa para o vendedor (dono em rodízio) e, se o lead é quente, avisa o chat da equipe. Se o chat cair, o aviso fica numa fila e a resposta é 202.</span><span lang="en">A website form calls a webhook. The service validates the data, merges repeated leads, scores with reasons, opens a task for a salesperson (round-robin owner) and, when the lead is hot, alerts the team chat. If the chat is down the alert is kept in a queue and the answer is 202.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada etapa. Lógica conferida contra execuções reais do código.</span><span lang="en">Interactive demo: edit the input, run it and inspect every step. Logic checked against real runs of the code.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/demos/22-crm-leads-python/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote4/22-crm-leads-python"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/demos/23-pipeline-dados-python/index.html" tabindex="-1" aria-hidden="true"><span class="sel">Python</span><img src="assets/img/demo-pipeline-dados-python-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/demos/23-pipeline-dados-python/index.html">Pipeline de dados em Python: carga diária com checagem de qualidade</a></h3>
+        <p class="tag"><span lang="pt">Python · pandas · SQLite</span><span lang="en">Python · pandas · SQLite</span></p>
+        <p class="d"><span lang="pt">Todo dia um arquivo de pedidos chega. O pipeline confere as colunas, valida linha a linha (quarentena para as ruins), trava se a qualidade cair, carrega o dia numa única transação (rodar de novo não duplica) e calcula os indicadores. Arquivo que não chegou ou colunas trocadas viram alerta, não número errado.</span><span lang="en">A file of orders arrives every day. The pipeline checks the columns, validates row by row (bad ones go to quarantine), stops if quality drops, loads the day in a single transaction (re-running does not duplicate) and computes the KPIs. A missing file or renamed columns become an alert, not a wrong number.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada etapa. Lógica conferida contra execuções reais do código.</span><span lang="en">Interactive demo: edit the input, run it and inspect every step. Logic checked against real runs of the code.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/demos/23-pipeline-dados-python/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote4/23-pipeline-dados-python"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="automacoes/demos/24-powershell-notas-estoque/index.html" tabindex="-1" aria-hidden="true"><span class="sel">PowerShell</span><img src="assets/img/demo-powershell-notas-estoque-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="automacoes/demos/24-powershell-notas-estoque/index.html">PowerShell: nota fiscal em XML vira movimento de estoque</a></h3>
+        <p class="tag"><span lang="pt">PowerShell 5.1 · XML · Windows</span><span lang="en">PowerShell 5.1 · XML · Windows</span></p>
+        <p class="d"><span lang="pt">Notas de compra e venda caem numa pasta. O script confere o XML, os campos e o ledger (nota repetida é ignorada), valida SKU e saldo e só então atualiza o estoque. Cada nota é tudo ou nada: uma linha inválida recusa a nota inteira, e o arquivo vai para a pasta certa com o motivo ao lado.</span><span lang="en">Purchase and sales invoices land in a folder. The script checks the XML, the fields and the ledger (a repeated invoice is ignored), validates SKU and balance and only then updates stock. Each invoice is all or nothing: one invalid line rejects the whole invoice, and the file goes to the right folder with the reason beside it.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa: edite a entrada, rode e inspecione cada etapa. Lógica conferida contra execuções reais do código.</span><span lang="en">Interactive demo: edit the input, run it and inspect every step. Logic checked against real runs of the code.</span></p>
+        <p class="links"><a class="lnk" href="automacoes/demos/24-powershell-notas-estoque/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/automacoes/lote4/24-powershell-notas-estoque"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
       </article>
     </div>
   </div>

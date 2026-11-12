@@ -1,0 +1,540 @@
+{
+ "slug": "24-powershell-notas-estoque",
+ "title": {
+  "pt": "PowerShell: nota fiscal em XML vira movimento de estoque",
+  "en": "PowerShell: an XML invoice becomes a stock movement"
+ },
+ "tag": {
+  "pt": "PowerShell 5.1 · XML · Windows",
+  "en": "PowerShell 5.1 · XML · Windows"
+ },
+ "summary": {
+  "pt": "Notas de compra e venda caem numa pasta. O script confere o XML, os campos e o ledger (nota repetida é ignorada), valida SKU e saldo e só então atualiza o estoque. Cada nota é tudo ou nada: uma linha inválida recusa a nota inteira, e o arquivo vai para a pasta certa com o motivo ao lado.",
+  "en": "Purchase and sales invoices land in a folder. The script checks the XML, the fields and the ledger (a repeated invoice is ignored), validates SKU and balance and only then updates stock. Each invoice is all or nothing: one invalid line rejects the whole invoice, and the file goes to the right folder with the reason beside it."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "powershell -File stock.ps1 -Inbox inbox -Data data (Agendador de Tarefas)",
+   "en": "powershell -File stock.ps1 -Inbox inbox -Data data (Task Scheduler)"
+  },
+  "note": {
+   "pt": "O estoque inicial é TEA-01 40, MUG-02 25, KET-03 8, BOX-04 60 e vive enquanto a página está aberta: rode as notas em ordem. Edite o XML à vontade (direction: in = compra, out = venda).",
+   "en": "Starting stock is TEA-01 40, MUG-02 25, KET-03 8, BOX-04 60 and lives while the page is open: run the invoices in order. Edit the XML freely (direction: in = purchase, out = sale)."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Compra (entrada)",
+     "en": "1. Purchase (in)"
+    },
+    "values": {
+     "file": "01_NF-1001_in.xml",
+     "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Venda (saída)",
+     "en": "2. Sale (out)"
+    },
+    "values": {
+     "file": "02_NF-1002_out.xml",
+     "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1002</number>\n  <date>2026-11-10</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"35\" unit_cost=\"18.50\"/>\n      <item sku=\"MUG-02\" qty=\"10\" unit_cost=\"32.00\"/>\n  </items>\n</invoice>\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. XML quebrado",
+     "en": "3. Broken XML"
+    },
+    "values": {
+     "file": "03_NF-1003_broken.xml",
+     "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1003</number>\n  <date>2026-11-10</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"MUG-02\" qty=\"2\" unit_cost=\"32.00\"/>\n  \n</invoice>\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. SKU desconhecido",
+     "en": "4. Unknown SKU"
+    },
+    "values": {
+     "file": "04_NF-1004_unknown.xml",
+     "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1004</number>\n  <date>2026-11-11</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"5\" unit_cost=\"18.50\"/>\n      <item sku=\"PAN-99\" qty=\"1\" unit_cost=\"40.00\"/>\n  </items>\n</invoice>\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Estoque insuficiente",
+     "en": "5. Not enough stock"
+    },
+    "values": {
+     "file": "05_NF-1005_toomuch.xml",
+     "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1005</number>\n  <date>2026-11-11</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"KET-03\" qty=\"25\" unit_cost=\"129.90\"/>\n  </items>\n</invoice>\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "6. Nota repetida",
+     "en": "6. Repeated invoice"
+    },
+    "values": {
+     "file": "06_NF-1001_again.xml",
+     "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "7. Sem número",
+     "en": "7. No number"
+    },
+    "values": {
+     "file": "07_noheader.xml",
+     "xml": "<invoice><date>2026-11-12</date><direction>in</direction><items><item sku=\"BOX-04\" qty=\"10\" unit_cost=\"3.10\"/></items></invoice>\n"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "file",
+    "type": "text",
+    "value": "01_NF-1001_in.xml",
+    "label": {
+     "pt": "Nome do arquivo",
+     "en": "File name"
+    }
+   },
+   {
+    "key": "xml",
+    "type": "textarea",
+    "rows": 10,
+    "value": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n",
+    "label": {
+     "pt": "Conteúdo da nota (XML)",
+     "en": "Invoice content (XML)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "New file in inbox",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "Agendador / pasta",
+    "en": "Task Scheduler / folder"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse XML",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "[xml] cast + try/catch",
+    "en": "[xml] cast + try/catch"
+   }
+  },
+  {
+   "id": "fields",
+   "name": "Required fields",
+   "icon": "if",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "número, data, direção, itens",
+    "en": "number, date, direction, items"
+   }
+  },
+  {
+   "id": "dup",
+   "name": "Already in ledger?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "ledger.csv",
+    "en": "ledger.csv"
+   }
+  },
+  {
+   "id": "duplicate",
+   "name": "duplicates\\",
+   "icon": "file",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "estoque intacto",
+    "en": "stock untouched"
+   }
+  },
+  {
+   "id": "check",
+   "name": "Check lines",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "SKU, qtd, saldo ≥ 0",
+    "en": "SKU, qty, balance ≥ 0"
+   }
+  },
+  {
+   "id": "apply",
+   "name": "Apply to stock",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "stock.csv + ledger.csv",
+    "en": "stock.csv + ledger.csv"
+   }
+  },
+  {
+   "id": "processed",
+   "name": "processed\\",
+   "icon": "respond",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "exit 0",
+    "en": "exit 0"
+   }
+  },
+  {
+   "id": "reject",
+   "name": "rejected\\ + reason",
+   "icon": "bell",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "exit 2",
+    "en": "exit 2"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "parse"
+  },
+  {
+   "from": "parse",
+   "to": "fields",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "parse",
+   "to": "reject",
+   "when": "bad",
+   "label": "malformed",
+   "route": [
+    [
+     1,
+     0,
+     "b"
+    ],
+    [
+     5,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "fields",
+   "to": "dup",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "fields",
+   "to": "reject",
+   "when": "bad",
+   "label": "missing",
+   "route": [
+    [
+     2,
+     0,
+     "b"
+    ],
+    [
+     5,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "t"
+  },
+  {
+   "from": "dup",
+   "to": "check",
+   "when": "new",
+   "label": "new"
+  },
+  {
+   "from": "dup",
+   "to": "duplicate",
+   "when": "dup",
+   "label": "duplicate"
+  },
+  {
+   "from": "check",
+   "to": "apply",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "check",
+   "to": "reject",
+   "when": "bad",
+   "label": "invalid"
+  },
+  {
+   "from": "apply",
+   "to": "processed"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "As notas de entrada e saída chegam por e-mail em XML. Alguém abre uma a uma e digita as quantidades numa planilha de estoque. Digitar errado, esquecer uma nota ou lançar a mesma duas vezes deixa o saldo diferente da prateleira.",
+   "en": "Inbound and outbound invoices arrive by e-mail as XML. Someone opens them one by one and types the quantities into a stock sheet. A typo, a forgotten invoice or the same invoice posted twice leaves the balance different from the shelf."
+  },
+  "solution": {
+   "pt": "Um script PowerShell (já vem no Windows) que lê a pasta de notas, confere cada uma e atualiza stock.csv e um ledger de auditoria. Nota repetida, XML quebrado, SKU desconhecido e saldo negativo são recusados com o motivo escrito. O agendador do Windows roda o script, e o código de saída (0 ou 2) diz se algo precisa de olho humano.",
+   "en": "A PowerShell script (built into Windows) that reads the invoice folder, checks each one and updates stock.csv and an audit ledger. A repeated invoice, broken XML, unknown SKU and negative balance are rejected with the reason written down. Windows Task Scheduler runs the script, and the exit code (0 or 2) says whether something needs a human."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: lançar uma nota de ~5 itens à mão leva ~3 min; com 30 notas por semana são ~1,5 h. O script leva segundos e o humano só olha as recusadas. O maior ganho é evitar o saldo errado, que não dá para contar em horas. O formato do XML aqui é simplificado; notas fiscais reais têm mais campos e exigem mapear o layout.",
+   "en": "An estimate, not a measurement: posting a ~5-item invoice by hand takes ~3 min; with 30 invoices a week that is ~1.5 h. The script takes seconds and a person only looks at the rejected ones. The biggest gain is avoiding a wrong balance, which cannot be counted in hours. The XML format here is simplified; real invoices have more fields and need their layout mapped."
+  },
+  "stack": [
+   "Windows PowerShell 5.1",
+   "XML ([xml])",
+   "CSV",
+   "Windows Task Scheduler",
+   "Python (test runner)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python make_data.py (gera o estoque e as 7 notas fictícias)",
+     "powershell -NoProfile -ExecutionPolicy Bypass -File stock.ps1 -Inbox inbox -Data data -Results out.json",
+     "Agendar a cada 15 min: schtasks /Create /SC MINUTE /MO 15 /TN StockInbox /TR \"powershell -File C:\\caminho\\stock.ps1 -Inbox C:\\inbox -Data C:\\data\"",
+     "Todos os cenários e o lote: python run_scenarios.py · testes: python tests/test_stock.py"
+    ],
+    "en": [
+     "python make_data.py (writes the stock and the 7 fictional invoices)",
+     "powershell -NoProfile -ExecutionPolicy Bypass -File stock.ps1 -Inbox inbox -Data data -Results out.json",
+     "Schedule every 15 min: schtasks /Create /SC MINUTE /MO 15 /TN StockInbox /TR \"powershell -File C:\\path\\stock.ps1 -Inbox C:\\inbox -Data C:\\data\"",
+     "All scenarios and the batch: python run_scenarios.py · tests: python tests/test_stock.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "stock.ps1",
+     "label": {
+      "pt": "Baixar stock.ps1",
+      "en": "Download stock.ps1"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O script PowerShell foi executado de verdade (sete notas, uma por vez, e um lote com as sete juntas, que terminou no mesmo estoque). A demo reescreve a mesma lógica em JavaScript sobre o estoque na memória da página e foi conferida contra as sete execuções gravadas. Substitui o Power Automate Desktop do plano, que não está instalado neste computador. Dados fictícios.",
+   "en": "The PowerShell script really ran (seven invoices one at a time, and a batch of all seven that ended on the same stock). The demo rewrites the same logic in JavaScript over stock held in page memory and was checked against the seven recorded runs. It replaces the Power Automate Desktop item of the plan, which is not installed on this computer. Fictional data."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "file": "01_NF-1001_in.xml",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "01_NF-1001_in.xml",
+     "invoice": "NF-1001",
+     "status": "applied",
+     "reason": "",
+     "lines": [
+      {
+       "sku": "TEA-01",
+       "delta": 60,
+       "before": 40,
+       "after": 100
+      },
+      {
+       "sku": "KET-03",
+       "delta": 12,
+       "before": 8,
+       "after": 20
+      }
+     ]
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 25,
+     "TEA-01": 100
+    }
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "file": "02_NF-1002_out.xml",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1002</number>\n  <date>2026-11-10</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"35\" unit_cost=\"18.50\"/>\n      <item sku=\"MUG-02\" qty=\"10\" unit_cost=\"32.00\"/>\n  </items>\n</invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "02_NF-1002_out.xml",
+     "invoice": "NF-1002",
+     "status": "applied",
+     "reason": "",
+     "lines": [
+      {
+       "sku": "TEA-01",
+       "delta": -35,
+       "before": 100,
+       "after": 65
+      },
+      {
+       "sku": "MUG-02",
+       "delta": -10,
+       "before": 25,
+       "after": 15
+      }
+     ]
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 15,
+     "TEA-01": 65
+    }
+   }
+  },
+  {
+   "input": {
+    "file": "03_NF-1003_broken.xml",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1003</number>\n  <date>2026-11-10</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"MUG-02\" qty=\"2\" unit_cost=\"32.00\"/>\n  \n</invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "03_NF-1003_broken.xml",
+     "invoice": "",
+     "status": "rejected",
+     "reason": "malformed XML",
+     "lines": []
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 15,
+     "TEA-01": 65
+    }
+   }
+  },
+  {
+   "input": {
+    "file": "04_NF-1004_unknown.xml",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1004</number>\n  <date>2026-11-11</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"5\" unit_cost=\"18.50\"/>\n      <item sku=\"PAN-99\" qty=\"1\" unit_cost=\"40.00\"/>\n  </items>\n</invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "04_NF-1004_unknown.xml",
+     "invoice": "NF-1004",
+     "status": "rejected",
+     "reason": "unknown SKU PAN-99",
+     "lines": []
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 15,
+     "TEA-01": 65
+    }
+   }
+  },
+  {
+   "input": {
+    "file": "05_NF-1005_toomuch.xml",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1005</number>\n  <date>2026-11-11</date>\n  <direction>out</direction>\n  <items>\n      <item sku=\"KET-03\" qty=\"25\" unit_cost=\"129.90\"/>\n  </items>\n</invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "05_NF-1005_toomuch.xml",
+     "invoice": "NF-1005",
+     "status": "rejected",
+     "reason": "insufficient stock for KET-03 (have 20, need 25)",
+     "lines": []
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 15,
+     "TEA-01": 65
+    }
+   }
+  },
+  {
+   "input": {
+    "file": "06_NF-1001_again.xml",
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <number>NF-1001</number>\n  <date>2026-11-09</date>\n  <direction>in</direction>\n  <items>\n      <item sku=\"TEA-01\" qty=\"60\" unit_cost=\"9.80\"/>\n      <item sku=\"KET-03\" qty=\"12\" unit_cost=\"71.00\"/>\n  </items>\n</invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "06_NF-1001_again.xml",
+     "invoice": "NF-1001",
+     "status": "duplicate",
+     "reason": "invoice NF-1001 already in the ledger; stock untouched",
+     "lines": []
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 15,
+     "TEA-01": 65
+    }
+   }
+  },
+  {
+   "input": {
+    "file": "07_noheader.xml",
+    "xml": "<invoice><date>2026-11-12</date><direction>in</direction><items><item sku=\"BOX-04\" qty=\"10\" unit_cost=\"3.10\"/></items></invoice>\n"
+   },
+   "expect": {
+    "result": {
+     "file": "07_noheader.xml",
+     "invoice": "",
+     "status": "rejected",
+     "reason": "missing or invalid number/date/direction/items",
+     "lines": []
+    },
+    "stock_after": {
+     "BOX-04": 60,
+     "KET-03": 20,
+     "MUG-02": 15,
+     "TEA-01": 65
+    }
+   }
+  }
+ ]
+}

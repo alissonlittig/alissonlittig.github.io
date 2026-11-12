@@ -1,0 +1,39 @@
+date,sku,product,qty,unit_price,channel
+2026-10-28,PRD-105,Protein bar x12,9,32.40,store
+2026-10-01,PRD-101,Cold brew 1 L,5,18.90,store
+2026-10-03,PRD-102,Oat milk 1 L,11,9.50,store
+2026-10-22,PRD-103,Granola 500 g,7,14.20,store
+2026-10-28,PRD-101,Cold brew 1 L,9,18.90,store
+2026-10-19,PRD-101,Cold brew 1 L,2,18.90,phone
+2026-10-07,PRD-104,Green tea box,9,11.00,phone
+2026-10-02,PRD-101,Cold brew 1 L,11,18.90,phone
+2026-10-06,PRD-103,Granola 500 g,11,14.20,store
+2026-10-10,PRD-102,Oat milk 1 L,7,9.50,store
+2026-10-19,PRD-102,Oat milk 1 L,9,9.50,store
+2026-10-14,PRD-102,Oat milk 1 L,6,9.50,store
+2026-10-31,PRD-105,Protein bar x12,8,32.40,store
+2026-10-25,PRD-102,Oat milk 1 L,2,9.50,online
+2026-10-09,PRD-103,Granola 500 g,2,14.20,store
+2026-10-17,PRD-105,Protein bar x12,8,32.40,store
+2026-10-28,PRD-101,Cold brew 1 L,10,18.90,store
+2026-10-13,PRD-103,Granola 500 g,12,14.20,online
+2026-10-21,PRD-106,Sparkling water x6,12,12.60,online
+2026-10-22,PRD-101,Cold brew 1 L,11,18.90,store
+2026-10-27,PRD-102,Oat milk 1 L,7,9.50,online
+2026-10-02,PRD-106,Sparkling water x6,5,12.60,store
+2026-10-19,PRD-103,Granola 500 g,4,14.20,store
+2026-10-26,PRD-104,Green tea box,4,11.00,online
+2026-10-07,PRD-103,Granola 500 g,9,14.20,store
+2026-10-06,PRD-103,Granola 500 g,5,14.20,store
+2026-10-07,PRD-103,Granola 500 g,8,14.20,store
+2026-10-09,PRD-104,Green tea box,11,11.00,store
+2026-10-06,PRD-102,Oat milk 1 L,8,9.50,store
+2026-10-14,PRD-106,Sparkling water x6,6,12.60,online
+2026-10-08,PRD-104,Green tea box,6,11.00,online
+2026-10-29,PRD-103,Granola 500 g,11,14.20,phone
+2026-10-16,PRD-105,Protein bar x12,7,32.40,store
+2026-10-16,PRD-103,Granola 500 g,9,14.20,phone
+2026-10-14,PRD-101,Cold brew 1 L,5,18.90,online
+2026-10-09,PRD-102,Oat milk 1 L,6,9.50,store
+2026-10-05,PRD-106,Sparkling water x6,6,12.60,online
+2026-10-24,PRD-106,Sparkling water x6,5,12.60,store

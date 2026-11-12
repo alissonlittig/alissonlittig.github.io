@@ -1,0 +1,141 @@
+[
+ {
+  "node": "plan",
+  "facets": [
+   "pricing",
+   "competition"
+  ]
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 1,
+  "ok": false,
+  "err": "d03: timeout (attempt 1)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 2,
+  "ok": false,
+  "err": "d03: timeout (attempt 2)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 3,
+  "ok": false,
+  "err": "d03: timeout (attempt 3)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d07",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "pricing",
+  "chars": 84
+ },
+ {
+  "node": "critique",
+  "problems": [
+   "needs 2+ sources"
+  ]
+ },
+ {
+  "node": "revise",
+  "n": 1
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 1,
+  "ok": false,
+  "err": "d03: timeout (attempt 1)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 2,
+  "ok": false,
+  "err": "d03: timeout (attempt 2)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 3,
+  "ok": false,
+  "err": "d03: timeout (attempt 3)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d07",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 1,
+  "ok": false,
+  "err": "d08: timeout (attempt 1)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 2,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "pricing",
+  "chars": 189
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "pricing"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d04",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 1,
+  "ok": false,
+  "err": "d08: timeout (attempt 1)"
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 2,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "competition",
+  "chars": 167
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "competition"
+ },
+ {
+  "node": "compile",
+  "sections": 2,
+  "sources": 3
+ }
+]

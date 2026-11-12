@@ -1,0 +1,303 @@
+[
+  {
+    "id": "expenses-tab",
+    "type": "tab",
+    "label": "Expense sheet to finance e-mail",
+    "disabled": false,
+    "info": "POST /expenses (text/csv) -> validate -> policy -> e-mail digest. SMTP failure -> retry queue + 202."
+  },
+  {
+    "id": "in",
+    "type": "http in",
+    "z": "expenses-tab",
+    "name": "",
+    "url": "/expenses",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 110,
+    "y": 120,
+    "wires": [
+      [
+        "hdr"
+      ]
+    ]
+  },
+  {
+    "id": "hdr",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Check header",
+    "func": "const H = 'employee,date,category,amount,receipt';\nconst body = typeof msg.payload === 'string' ? msg.payload.trim() : '';\nconst first = body.split(/\\r?\\n/)[0] || '';\nif (first.trim() !== H) {\n    msg.statusCode = 422;\n    msg.payload = { error: 'bad header', expected: H, got: first.slice(0, 80) };\n    return [null, msg];\n}\nmsg.payload = body;\nreturn [msg, null];\n",
+    "outputs": 2,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 280,
+    "y": 120,
+    "wires": [
+      [
+        "csv"
+      ],
+      [
+        "resp"
+      ]
+    ]
+  },
+  {
+    "id": "csv",
+    "type": "csv",
+    "z": "expenses-tab",
+    "name": "Parse CSV",
+    "spec": "rfc",
+    "sep": ",",
+    "hdrin": true,
+    "hdrout": "none",
+    "multi": "mult",
+    "ret": "\n",
+    "temp": "",
+    "skip": "0",
+    "strings": true,
+    "include_empty_strings": true,
+    "include_null_values": false,
+    "x": 450,
+    "y": 100,
+    "wires": [
+      [
+        "policy"
+      ]
+    ]
+  },
+  {
+    "id": "policy",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Validate + policy",
+    "func": "const CATS = ['travel', 'meals', 'software', 'office'];\nconst rows = msg.payload, invalid = [], flagged = [], seen = {}, ok = [];\nrows.forEach((r, i) => {\n    const line = i + 2, amt = Number(r.amount); let why = null;\n    if (!String(r.employee || '').trim()) why = 'missing employee';\n    else if (!/^2026-10-\\d\\d$/.test(String(r.date))) why = 'date outside 2026-10';\n    else if (!CATS.includes(String(r.category))) why = 'unknown category ' + r.category;\n    else if (!(amt > 0)) why = 'amount must be > 0';\n    if (why) { invalid.push({ line, why }); return; }\n    const key = [r.employee, r.date, r.category, amt].join('|'), flags = [];\n    if (amt > 500) flags.push('over 500: manager approval');\n    if (String(r.receipt) !== 'yes' && amt > 50) flags.push('receipt required above 50');\n    if (seen[key]) flags.push('possible duplicate of line ' + seen[key]); else seen[key] = line;\n    ok.push({ line, amount: amt });\n    if (flags.length) flagged.push({ line, employee: r.employee, category: r.category, amount: amt, flags });\n});\nconst total = Math.round(ok.reduce((a, r) => a + r.amount * 100, 0)) / 100;\nmsg.report = { rows: rows.length, valid: ok.length, invalid, flagged, total, needs_action: invalid.length + flagged.length > 0 };\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 630,
+    "y": 100,
+    "wires": [
+      [
+        "sw"
+      ]
+    ]
+  },
+  {
+    "id": "sw",
+    "type": "switch",
+    "z": "expenses-tab",
+    "name": "Needs action?",
+    "property": "report.needs_action",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "true"
+      },
+      {
+        "t": "false"
+      }
+    ],
+    "checkall": "false",
+    "repair": false,
+    "outputs": 2,
+    "x": 810,
+    "y": 100,
+    "wires": [
+      [
+        "alert"
+      ],
+      [
+        "okm"
+      ]
+    ]
+  },
+  {
+    "id": "alert",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Build alert e-mail",
+    "func": "const r = msg.report, L = [];\nL.push(`Expense sheet 2026-10: ${r.rows} rows, ${r.valid} valid, total ${r.total.toFixed(2)}.`, '');\nif (r.flagged.length) { L.push('Needs review:'); r.flagged.forEach(f => L.push(`- line ${f.line}, ${f.employee}, ${f.category} ${f.amount.toFixed(2)}: ${f.flags.join('; ')}`)); L.push(''); }\nif (r.invalid.length) { L.push('Rejected rows (not counted):'); r.invalid.forEach(x => L.push(`- line ${x.line}: ${x.why}`)); }\nmsg.to = 'finance@example.invalid';\nmsg.topic = `[ACTION] Expenses 2026-10: ${r.flagged.length} to review, ${r.invalid.length} rejected`;\nmsg.payload = L.join('\\n');\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1000,
+    "y": 60,
+    "wires": [
+      [
+        "mail"
+      ]
+    ]
+  },
+  {
+    "id": "okm",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Build all-clear e-mail",
+    "func": "const r = msg.report;\nmsg.to = 'finance@example.invalid';\nmsg.topic = `[OK] Expenses 2026-10: ${r.valid} rows, total ${r.total.toFixed(2)}`;\nmsg.payload = `Expense sheet 2026-10: ${r.rows} rows, all valid, no policy flags. Total ${r.total.toFixed(2)}.`;\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1010,
+    "y": 140,
+    "wires": [
+      [
+        "mail"
+      ]
+    ]
+  },
+  {
+    "id": "mail",
+    "type": "e-mail",
+    "z": "expenses-tab",
+    "server": "127.0.0.1",
+    "port": "2525",
+    "authtype": "NONE",
+    "saslformat": false,
+    "token": "oauth2Response.access_token",
+    "secure": false,
+    "tls": false,
+    "name": "finance@example.invalid",
+    "dname": "SMTP (local sink)",
+    "x": 1210,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "done",
+    "type": "complete",
+    "z": "expenses-tab",
+    "name": "",
+    "scope": [
+      "mail"
+    ],
+    "uncaught": false,
+    "x": 1210,
+    "y": 180,
+    "wires": [
+      [
+        "rok"
+      ]
+    ]
+  },
+  {
+    "id": "rok",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Respond 200",
+    "func": "msg.statusCode = 200;\nmsg.payload = { status: 'emailed', subject: msg.topic, rows: msg.report.rows, valid: msg.report.valid, flagged: msg.report.flagged.length, rejected: msg.report.invalid.length, total: msg.report.total };\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1210,
+    "y": 240,
+    "wires": [
+      [
+        "resp"
+      ]
+    ]
+  },
+  {
+    "id": "catch",
+    "type": "catch",
+    "z": "expenses-tab",
+    "name": "",
+    "scope": [
+      "mail"
+    ],
+    "uncaught": false,
+    "x": 1210,
+    "y": 320,
+    "wires": [
+      [
+        "queue"
+      ]
+    ]
+  },
+  {
+    "id": "queue",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Queue for retry",
+    "func": "msg.queued = { subject: msg.topic, to: msg.to, reason: msg.error && msg.error.message };\nmsg.payload = JSON.stringify({ subject: msg.topic, to: msg.to, body: msg.payload, reason: msg.queued.reason });\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1010,
+    "y": 320,
+    "wires": [
+      [
+        "file"
+      ]
+    ]
+  },
+  {
+    "id": "file",
+    "type": "file",
+    "z": "expenses-tab",
+    "name": "outbox_retry.jsonl",
+    "filename": "output/outbox_retry.jsonl",
+    "filenameType": "str",
+    "appendNewline": true,
+    "createDir": true,
+    "overwriteFile": "false",
+    "encoding": "none",
+    "x": 810,
+    "y": 320,
+    "wires": [
+      [
+        "rq"
+      ]
+    ]
+  },
+  {
+    "id": "rq",
+    "type": "function",
+    "z": "expenses-tab",
+    "name": "Respond 202",
+    "func": "msg.statusCode = 202;\nmsg.payload = { status: 'queued', note: 'e-mail not sent; saved in outbox_retry.jsonl for retry', subject: msg.queued.subject, reason: msg.queued.reason, rows: msg.report.rows, flagged: msg.report.flagged.length, rejected: msg.report.invalid.length };\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 630,
+    "y": 320,
+    "wires": [
+      [
+        "resp"
+      ]
+    ]
+  },
+  {
+    "id": "resp",
+    "type": "http response",
+    "z": "expenses-tab",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 450,
+    "y": 240,
+    "wires": []
+  }
+]

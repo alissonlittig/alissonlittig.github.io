@@ -1,0 +1,52 @@
+[
+ {
+  "node": "plan",
+  "facets": [
+   "pricing",
+   "regulation"
+  ]
+ },
+ {
+  "node": "retrieve",
+  "doc": "d03",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d07",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "pricing",
+  "chars": 177
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "pricing"
+ },
+ {
+  "node": "write",
+  "facet": "regulation",
+  "chars": 65
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "regulation"
+ },
+ {
+  "node": "compile",
+  "sections": 2,
+  "sources": 2
+ }
+]

@@ -1,0 +1,690 @@
+{
+ "slug": "22-crm-leads-python",
+ "title": {
+  "pt": "CRM em Python: lead entra, é qualificado e vira tarefa",
+  "en": "Python CRM: a lead comes in, is scored and becomes a task"
+ },
+ "tag": {
+  "pt": "Python · SQLite · webhook",
+  "en": "Python · SQLite · webhook"
+ },
+ "summary": {
+  "pt": "Um formulário do site chama um webhook. O serviço valida os dados, junta leads repetidos, dá uma nota com os motivos, abre tarefa para o vendedor (dono em rodízio) e, se o lead é quente, avisa o chat da equipe. Se o chat cair, o aviso fica numa fila e a resposta é 202.",
+  "en": "A website form calls a webhook. The service validates the data, merges repeated leads, scores with reasons, opens a task for a salesperson (round-robin owner) and, when the lead is hot, alerts the team chat. If the chat is down the alert is kept in a queue and the answer is 202."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "POST http://127.0.0.1:8770/leads (JSON)",
+   "en": "POST http://127.0.0.1:8770/leads (JSON)"
+  },
+  "note": {
+   "pt": "A memória (leads e tarefas) vale enquanto a página está aberta: envie o mesmo e-mail duas vezes para ver a mesclagem. Nota: 50+ funcionários +30, cargo sênior +25, orçamento 5000+ +30, origem indicação +20, e-mail gratuito −10, palavras de compra +10. 70+ quente, 40+ morno.",
+   "en": "Memory (leads and tasks) lasts while the page is open: send the same e-mail twice to see the merge. Score: 50+ employees +30, senior role +25, budget 5000+ +30, referral source +20, free e-mail −10, buying words +10. 70+ hot, 40+ warm."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Lead quente",
+     "en": "1. Hot lead"
+    },
+    "values": {
+     "name": "Helena Costa",
+     "email": "helena@norteacos.example",
+     "company": "Norte Aço",
+     "role": "Operations Director",
+     "employees": "120",
+     "budget": "8000",
+     "source": "referral",
+     "message": "We need a demo next week, urgent.",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Lead morno",
+     "en": "2. Warm lead"
+    },
+    "values": {
+     "name": "Rafael Mota",
+     "email": "rafael@lojaviva.example",
+     "company": "Loja Viva",
+     "role": "Manager",
+     "employees": "25",
+     "budget": "2000",
+     "source": "webinar",
+     "message": "Interested in the product.",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Lead frio",
+     "en": "3. Cold lead"
+    },
+    "values": {
+     "name": "Joana Reis",
+     "email": "joana.reis@example.com",
+     "company": "",
+     "role": "Student",
+     "employees": "1",
+     "budget": "0",
+     "source": "organic",
+     "message": "Just looking.",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Dados inválidos",
+     "en": "4. Invalid data"
+    },
+    "values": {
+     "name": "",
+     "email": "not-an-email",
+     "company": "",
+     "role": "",
+     "employees": "many",
+     "budget": "",
+     "source": "tv",
+     "message": "",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Quente, chat fora do ar",
+     "en": "5. Hot, chat down"
+    },
+    "values": {
+     "name": "Ivo Barros",
+     "email": "ivo@portoeng.example",
+     "company": "Porto Eng",
+     "role": "Operations Director",
+     "employees": "120",
+     "budget": "8000",
+     "source": "referral",
+     "message": "We need a demo next week, urgent.",
+     "chat": "down"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "name",
+    "type": "text",
+    "value": "Helena Costa",
+    "label": {
+     "pt": "Nome",
+     "en": "Name"
+    }
+   },
+   {
+    "key": "email",
+    "type": "text",
+    "value": "helena@norteacos.example",
+    "label": {
+     "pt": "E-mail",
+     "en": "E-mail"
+    }
+   },
+   {
+    "key": "company",
+    "type": "text",
+    "value": "Norte Aço",
+    "label": {
+     "pt": "Empresa",
+     "en": "Company"
+    }
+   },
+   {
+    "key": "role",
+    "type": "text",
+    "value": "Operations Director",
+    "label": {
+     "pt": "Cargo",
+     "en": "Role"
+    }
+   },
+   {
+    "key": "employees",
+    "type": "text",
+    "value": "120",
+    "label": {
+     "pt": "Funcionários",
+     "en": "Employees"
+    }
+   },
+   {
+    "key": "budget",
+    "type": "text",
+    "value": "8000",
+    "label": {
+     "pt": "Orçamento (US$)",
+     "en": "Budget (US$)"
+    }
+   },
+   {
+    "key": "source",
+    "type": "select",
+    "value": "referral",
+    "label": {
+     "pt": "Origem",
+     "en": "Source"
+    },
+    "options": [
+     {
+      "value": "referral",
+      "label": {
+       "pt": "Indicação",
+       "en": "Referral"
+      }
+     },
+     {
+      "value": "webinar",
+      "label": {
+       "pt": "Webinar",
+       "en": "Webinar"
+      }
+     },
+     {
+      "value": "ads",
+      "label": {
+       "pt": "Anúncio",
+       "en": "Ads"
+      }
+     },
+     {
+      "value": "organic",
+      "label": {
+       "pt": "Orgânico",
+       "en": "Organic"
+      }
+     }
+    ]
+   },
+   {
+    "key": "message",
+    "type": "textarea",
+    "rows": 2,
+    "value": "We need a demo next week, urgent.",
+    "label": {
+     "pt": "Mensagem",
+     "en": "Message"
+    }
+   },
+   {
+    "key": "chat",
+    "type": "select",
+    "value": "up",
+    "label": {
+     "pt": "Chat da equipe",
+     "en": "Team chat"
+    },
+    "options": [
+     {
+      "value": "up",
+      "label": {
+       "pt": "No ar",
+       "en": "Up"
+      }
+     },
+     {
+      "value": "down",
+      "label": {
+       "pt": "Fora do ar",
+       "en": "Down"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "POST /leads",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "http.server · JSON",
+    "en": "http.server · JSON"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Validate",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "nome, e-mail, origem",
+    "en": "name, e-mail, source"
+   }
+  },
+  {
+   "id": "reject",
+   "name": "Respond 422",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "nada é gravado",
+    "en": "nothing stored"
+   }
+  },
+  {
+   "id": "dedupe",
+   "name": "Same e-mail?",
+   "icon": "if",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "SQLite · UNIQUE email",
+    "en": "SQLite · UNIQUE email"
+   }
+  },
+  {
+   "id": "merge",
+   "name": "Merge + 200",
+   "icon": "memory",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "sem 2ª tarefa",
+    "en": "no 2nd task"
+   }
+  },
+  {
+   "id": "score",
+   "name": "Score lead",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "regras com motivo",
+    "en": "rules with reasons"
+   }
+  },
+  {
+   "id": "tier",
+   "name": "Tier",
+   "icon": "switch",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "hot · warm · cold",
+    "en": "hot · warm · cold"
+   }
+  },
+  {
+   "id": "nurture",
+   "name": "Nurture list",
+   "icon": "user",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "sem tarefa",
+    "en": "no task"
+   }
+  },
+  {
+   "id": "task",
+   "name": "Create task",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "dono em rodízio",
+    "en": "round-robin owner"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Chat webhook",
+   "icon": "http",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "só hot",
+    "en": "hot only"
+   }
+  },
+  {
+   "id": "ok",
+   "name": "Respond 200",
+   "icon": "respond",
+   "col": 7,
+   "row": 0,
+   "sub": {
+    "pt": "created",
+    "en": "created"
+   }
+  },
+  {
+   "id": "queue",
+   "name": "Outbox + 202",
+   "icon": "file",
+   "col": 7,
+   "row": 1,
+   "sub": {
+    "pt": "não perde o aviso",
+    "en": "alert is kept"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "validate"
+  },
+  {
+   "from": "validate",
+   "to": "dedupe",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "validate",
+   "to": "reject",
+   "when": "bad",
+   "label": "422"
+  },
+  {
+   "from": "dedupe",
+   "to": "score",
+   "when": "new",
+   "label": "new"
+  },
+  {
+   "from": "dedupe",
+   "to": "merge",
+   "when": "dup",
+   "label": "duplicate"
+  },
+  {
+   "from": "score",
+   "to": "tier"
+  },
+  {
+   "from": "tier",
+   "to": "task",
+   "when": "act",
+   "label": "hot / warm"
+  },
+  {
+   "from": "tier",
+   "to": "nurture",
+   "when": "cold",
+   "label": "cold"
+  },
+  {
+   "from": "task",
+   "to": "notify",
+   "when": "hot",
+   "label": "hot"
+  },
+  {
+   "from": "task",
+   "to": "ok",
+   "when": "warm",
+   "label": "warm",
+   "route": [
+    [
+     5,
+     0,
+     "b"
+    ],
+    [
+     7,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "b"
+  },
+  {
+   "from": "notify",
+   "to": "ok",
+   "when": "sent",
+   "label": "sent"
+  },
+  {
+   "from": "notify",
+   "to": "queue",
+   "when": "error",
+   "label": "failed"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Leads chegam por formulário, e-mail e anúncio. Alguém copia para uma planilha, adivinha quem é quente e esquece de avisar o vendedor. Lead repetido vira duas conversas; lead bom espera dias.",
+   "en": "Leads arrive by form, e-mail and ads. Someone copies them into a sheet, guesses which ones are hot and forgets to tell the salesperson. A repeated lead becomes two conversations; a good lead waits days."
+  },
+  "solution": {
+   "pt": "Um serviço Python pequeno (biblioteca padrão + SQLite): valida, deduplica por e-mail, pontua com motivos legíveis, cria a tarefa com prazo conforme a faixa e avisa só os leads quentes. Falha no chat não perde o aviso (outbox, 202). Payload inválido responde 422 com todos os motivos.",
+   "en": "A small Python service (standard library + SQLite): validates, de-duplicates by e-mail, scores with readable reasons, creates the task with a due date by tier and alerts only hot leads. A chat failure does not lose the alert (outbox, 202). An invalid payload gets 422 with every reason."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: triar um lead à mão leva ~4 min (copiar, checar duplicado, decidir, avisar). Com 60 leads por mês são ~4 h; o serviço faz a triagem em milissegundos e o humano só confere os quentes. As regras de nota são exemplos e precisam ser calibradas com as vendas reais.",
+   "en": "An estimate, not a measurement: triaging a lead by hand takes ~4 min (copy, check duplicates, decide, notify). With 60 leads a month that is ~4 h; the service triages in milliseconds and a person only reviews the hot ones. The score rules are examples and must be calibrated with real sales."
+  },
+  "stack": [
+   "Python 3.13",
+   "http.server",
+   "sqlite3",
+   "urllib",
+   "Fictional chat webhook (local)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python crm.py crm.db http://127.0.0.1:9100/notify (servidor em :8770)",
+     "curl -X POST -H \"Content-Type: application/json\" -d @lead.json localhost:8770/leads",
+     "Todos os cenários de uma vez: python run_scenarios.py",
+     "Testes: python tests/test_crm.py"
+    ],
+    "en": [
+     "python crm.py crm.db http://127.0.0.1:9100/notify (server on :8770)",
+     "curl -X POST -H \"Content-Type: application/json\" -d @lead.json localhost:8770/leads",
+     "All scenarios at once: python run_scenarios.py",
+     "Tests: python tests/test_crm.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "crm.py",
+     "label": {
+      "pt": "Baixar crm.py",
+      "en": "Download crm.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o crm.py portado para JavaScript linha a linha; SQLite e chat são simulados na memória da página, e a lógica foi conferida contra as respostas reais gravadas de um servidor Python de verdade (incluindo o chat fora do ar, com conexão recusada de verdade). Leads, empresas e e-mails são fictícios (.example). Nada é enviado.",
+   "en": "The code is crm.py ported to JavaScript line by line; SQLite and the chat are simulated in page memory, and the logic was checked against recorded answers from a real Python server (including the chat down, with a real refused connection). Leads, companies and e-mails are fictional (.example). Nothing is sent."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "name": "Helena Costa",
+    "email": "helena@norteacos.example",
+    "company": "Norte Aço",
+    "role": "Operations Director",
+    "employees": "120",
+    "budget": "8000",
+    "source": "referral",
+    "message": "We need a demo next week, urgent.",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "created",
+     "lead_id": 1,
+     "score": 115,
+     "tier": "hot",
+     "why": [
+      "+30 50+ employees",
+      "+25 senior role",
+      "+30 budget >= 5000",
+      "+20 source referral",
+      "+10 buying words in message"
+     ],
+     "owner": "Paulo",
+     "due": "2026-11-13",
+     "notified": true
+    }
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "name": "Rafael Mota",
+    "email": "rafael@lojaviva.example",
+    "company": "Loja Viva",
+    "role": "Manager",
+    "employees": "25",
+    "budget": "2000",
+    "source": "webinar",
+    "message": "Interested in the product.",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "created",
+     "lead_id": 2,
+     "score": 40,
+     "tier": "warm",
+     "why": [
+      "+15 10+ employees",
+      "+15 budget >= 1000",
+      "+10 source webinar"
+     ],
+     "owner": "Rita",
+     "due": "2026-11-15"
+    }
+   }
+  },
+  {
+   "input": {
+    "name": "Joana Reis",
+    "email": "joana.reis@example.com",
+    "company": "",
+    "role": "Student",
+    "employees": "1",
+    "budget": "0",
+    "source": "organic",
+    "message": "Just looking.",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "created",
+     "lead_id": 3,
+     "score": -10,
+     "tier": "cold",
+     "why": [
+      "-10 free e-mail domain"
+     ],
+     "action": "nurture list, no task"
+    }
+   }
+  },
+  {
+   "input": {
+    "name": "Helena Costa",
+    "email": "helena@norteacos.example",
+    "company": "Norte Aço",
+    "role": "Operations Director",
+    "employees": "3",
+    "budget": "100",
+    "source": "referral",
+    "message": "We need a demo next week, urgent.",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "merged",
+     "lead_id": 1,
+     "score": 115,
+     "tier": "hot",
+     "seen": 2
+    }
+   }
+  },
+  {
+   "input": {
+    "name": "",
+    "email": "not-an-email",
+    "company": "",
+    "role": "",
+    "employees": "many",
+    "budget": "",
+    "source": "tv",
+    "message": "",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 422,
+    "body": {
+     "status": "rejected",
+     "errors": [
+      "name is required",
+      "email is invalid",
+      "source must be referral|webinar|ads|organic",
+      "employees must be a number >= 0"
+     ]
+    }
+   }
+  },
+  {
+   "input": {
+    "name": "Ivo Barros",
+    "email": "ivo@portoeng.example",
+    "company": "Porto Eng",
+    "role": "Operations Director",
+    "employees": "120",
+    "budget": "8000",
+    "source": "referral",
+    "message": "We need a demo next week, urgent.",
+    "chat": "down"
+   },
+   "expect": {
+    "status": 202,
+    "body": {
+     "status": "created",
+     "lead_id": 4,
+     "score": 115,
+     "tier": "hot",
+     "why": [
+      "+30 50+ employees",
+      "+25 senior role",
+      "+30 budget >= 5000",
+      "+20 source referral",
+      "+10 buying words in message"
+     ],
+     "owner": "Paulo",
+     "due": "2026-11-13",
+     "notified": false,
+     "queued": true
+    }
+   }
+  }
+ ]
+}

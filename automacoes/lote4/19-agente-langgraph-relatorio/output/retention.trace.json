@@ -1,0 +1,59 @@
+[
+ {
+  "node": "plan",
+  "facets": [
+   "churn"
+  ]
+ },
+ {
+  "node": "retrieve",
+  "doc": "d05",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "churn",
+  "chars": 70
+ },
+ {
+  "node": "critique",
+  "problems": [
+   "needs 2+ sources"
+  ]
+ },
+ {
+  "node": "revise",
+  "n": 1
+ },
+ {
+  "node": "retrieve",
+  "doc": "d05",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "retrieve",
+  "doc": "d08",
+  "attempt": 1,
+  "ok": true
+ },
+ {
+  "node": "write",
+  "facet": "churn",
+  "chars": 175
+ },
+ {
+  "node": "critique",
+  "problems": []
+ },
+ {
+  "node": "accept",
+  "facet": "churn"
+ },
+ {
+  "node": "compile",
+  "sections": 1,
+  "sources": 2
+ }
+]

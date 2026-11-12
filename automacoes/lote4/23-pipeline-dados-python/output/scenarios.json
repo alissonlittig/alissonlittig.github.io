@@ -1,0 +1,259 @@
+{
+ "clean": {
+  "file": "orders_2026-11-09.csv",
+  "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA1000,C100,TEA-01,1,18.50,2026-11-09,paid\nA1001,C101,MUG-02,2,32.00,2026-11-09,shipped\nA1002,C102,KET-03,3,129.90,2026-11-09,paid\nA1003,C103,BOX-04,1,12.25,2026-11-09,refunded\nA1004,C104,TEA-01,2,18.50,2026-11-09,paid\nA1005,C100,MUG-02,3,32.00,2026-11-09,shipped\nA1006,C101,KET-03,1,129.90,2026-11-09,paid\nA1007,C102,BOX-04,2,12.25,2026-11-09,refunded\nA1008,C103,TEA-01,3,18.50,2026-11-09,paid\nA1009,C104,MUG-02,1,32.00,2026-11-09,shipped\nA1010,C100,KET-03,2,129.90,2026-11-09,paid\nA1011,C101,BOX-04,3,12.25,2026-11-09,refunded\n",
+  "run_date": "2026-11-09",
+  "exit": 0,
+  "summary": {
+   "run_date": "2026-11-09",
+   "steps": [
+    "extract: 12 rows read",
+    "schema: ok",
+    "validate: 12 ok, 0 rejected",
+    "quality gate: 0% rejected, within 25%",
+    "load: day 2026-11-09 replaced in one transaction, 12 rows"
+   ],
+   "rows_in": 12,
+   "rows_ok": 12,
+   "rows_rejected": 0,
+   "rejected": [],
+   "kpi": {
+    "orders": 9,
+    "revenue_cents": 108240,
+    "avg_ticket_cents": 12026
+   },
+   "warehouse_rows_for_day": 12,
+   "warnings": [],
+   "status": "loaded",
+   "exit": 0
+  }
+ },
+ "dirty": {
+  "file": "orders_2026-11-10.csv",
+  "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA2000,C100,TEA-01,1,18.50,2026-11-10,paid\nA2001,C101,MUG-02,2,32.00,2026-11-10,shipped\nA2002,C102,KET-03,3,129.90,2026-11-10,paid\nA2003,C103,BOX-04,1,12.25,2026-11-10,refunded\nA2003,C104,TEA-01,2,18.50,2026-11-10,paid\nA2005,C100,MUG-02,3,32.00,2026-11-10,shipped\nA2006,C101,KET-03,1,129.90,2026-11-10,paid\nA2007,C102,BOX-04,0,12.25,2026-11-10,refunded\nA2008,C103,TEA-01,3,18.50,2026-11-10,paid\nA2009,C104,MUG-02,1,32.00,2026-11-10,shipped\nA2010,C100,KET-03,2,129.90,2026-11-10,paid\nA2011,C101,BOX-04,3,12.25,2026-11-10,refunded\n",
+  "run_date": "2026-11-10",
+  "exit": 2,
+  "summary": {
+   "run_date": "2026-11-10",
+   "steps": [
+    "extract: 12 rows read",
+    "schema: ok",
+    "validate: 10 ok, 2 rejected",
+    "quality gate: 17% rejected, within 25%",
+    "load: day 2026-11-10 replaced in one transaction, 10 rows"
+   ],
+   "rows_in": 12,
+   "rows_ok": 10,
+   "rows_rejected": 2,
+   "rejected": [
+    {
+     "line": 6,
+     "reason": "duplicate order_id"
+    },
+    {
+     "line": 9,
+     "reason": "qty must be an integer > 0"
+    }
+   ],
+   "kpi": {
+    "orders": 8,
+    "revenue_cents": 104540,
+    "avg_ticket_cents": 13067
+   },
+   "warehouse_rows_for_day": 10,
+   "warnings": [
+    "2 rows quarantined"
+   ],
+   "status": "loaded_with_warnings",
+   "exit": 2,
+   "alert": "2 rows quarantined"
+  }
+ },
+ "rerun": {
+  "file": "orders_2026-11-10.csv",
+  "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA2000,C100,TEA-01,1,18.50,2026-11-10,paid\nA2001,C101,MUG-02,2,32.00,2026-11-10,shipped\nA2002,C102,KET-03,3,129.90,2026-11-10,paid\nA2003,C103,BOX-04,1,12.25,2026-11-10,refunded\nA2003,C104,TEA-01,2,18.50,2026-11-10,paid\nA2005,C100,MUG-02,3,32.00,2026-11-10,shipped\nA2006,C101,KET-03,1,129.90,2026-11-10,paid\nA2007,C102,BOX-04,0,12.25,2026-11-10,refunded\nA2008,C103,TEA-01,3,18.50,2026-11-10,paid\nA2009,C104,MUG-02,1,32.00,2026-11-10,shipped\nA2010,C100,KET-03,2,129.90,2026-11-10,paid\nA2011,C101,BOX-04,3,12.25,2026-11-10,refunded\n",
+  "run_date": "2026-11-10",
+  "exit": 2,
+  "summary": {
+   "run_date": "2026-11-10",
+   "steps": [
+    "extract: 12 rows read",
+    "schema: ok",
+    "validate: 10 ok, 2 rejected",
+    "quality gate: 17% rejected, within 25%",
+    "load: day 2026-11-10 replaced in one transaction, 10 rows"
+   ],
+   "rows_in": 12,
+   "rows_ok": 10,
+   "rows_rejected": 2,
+   "rejected": [
+    {
+     "line": 6,
+     "reason": "duplicate order_id"
+    },
+    {
+     "line": 9,
+     "reason": "qty must be an integer > 0"
+    }
+   ],
+   "kpi": {
+    "orders": 8,
+    "revenue_cents": 104540,
+    "avg_ticket_cents": 13067
+   },
+   "warehouse_rows_for_day": 10,
+   "warnings": [
+    "2 rows quarantined"
+   ],
+   "status": "loaded_with_warnings",
+   "exit": 2,
+   "alert": "2 rows quarantined"
+  }
+ },
+ "volume_drop": {
+  "file": "orders_2026-11-11.csv",
+  "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA3000,C100,TEA-01,1,18.50,2026-11-11,paid\nA3001,C101,MUG-02,2,32.00,2026-11-11,shipped\nA3002,C102,KET-03,3,129.90,2026-11-11,paid\n",
+  "run_date": "2026-11-11",
+  "exit": 2,
+  "summary": {
+   "run_date": "2026-11-11",
+   "steps": [
+    "extract: 3 rows read",
+    "schema: ok",
+    "validate: 3 ok, 0 rejected",
+    "quality gate: 0% rejected, within 25%",
+    "load: day 2026-11-11 replaced in one transaction, 3 rows"
+   ],
+   "rows_in": 3,
+   "rows_ok": 3,
+   "rows_rejected": 0,
+   "rejected": [],
+   "kpi": {
+    "orders": 3,
+    "revenue_cents": 47220,
+    "avg_ticket_cents": 15740
+   },
+   "warehouse_rows_for_day": 3,
+   "warnings": [
+    "volume drop: 3 good rows vs average 11 on earlier days"
+   ],
+   "status": "loaded_with_warnings",
+   "exit": 2,
+   "alert": "volume drop: 3 good rows vs average 11 on earlier days"
+  }
+ },
+ "schema_change": {
+  "file": "orders_2026-11-12_schema.csv",
+  "csv": "order_id,customer_id,sku,qtd,unit_price,order_date,status\nA4000,C100,TEA-01,1,18.50,2026-11-12,paid\nA4001,C101,MUG-02,2,32.00,2026-11-12,shipped\nA4002,C102,KET-03,3,129.90,2026-11-12,paid\nA4003,C103,BOX-04,1,12.25,2026-11-12,refunded\nA4004,C104,TEA-01,2,18.50,2026-11-12,paid\nA4005,C100,MUG-02,3,32.00,2026-11-12,shipped\nA4006,C101,KET-03,1,129.90,2026-11-12,paid\nA4007,C102,BOX-04,2,12.25,2026-11-12,refunded\nA4008,C103,TEA-01,3,18.50,2026-11-12,paid\nA4009,C104,MUG-02,1,32.00,2026-11-12,shipped\nA4010,C100,KET-03,2,129.90,2026-11-12,paid\nA4011,C101,BOX-04,3,12.25,2026-11-12,refunded\n",
+  "run_date": "2026-11-12",
+  "exit": 1,
+  "summary": {
+   "run_date": "2026-11-12",
+   "steps": [
+    "extract: 12 rows read",
+    "schema: missing ['qty'], unexpected ['qtd']"
+   ],
+   "rows_in": 12,
+   "status": "halted",
+   "exit": 1,
+   "alert": "schema changed (missing ['qty'], unexpected ['qtd']); nothing loaded"
+  }
+ },
+ "too_dirty": {
+  "file": "orders_2026-11-12_bad.csv",
+  "csv": "order_id,customer_id,sku,qty,unit_price,order_date,status\nA5000,C100,TEA-01,1,18.50,2026-11-12,paid\nA5001,C101,MUG-02,2,-1,2026-11-12,shipped\nA5002,C102,KET-03,3,129.90,2026-11-12,paid\nA5003,C103,BOX-04,1,-1,2026-11-12,refunded\nA5004,C104,TEA-01,2,18.50,2026-11-12,paid\nA5005,C100,MUG-02,3,-1,2026-11-12,shipped\nA5006,C101,KET-03,1,129.90,2026-11-12,paid\nA5007,C102,BOX-04,2,-1,2026-11-12,refunded\nA5008,C103,TEA-01,3,18.50,2026-11-12,paid\nA5009,C104,MUG-02,1,-1,2026-11-12,shipped\nA5010,C100,KET-03,2,129.90,2026-11-12,paid\nA5011,C101,BOX-04,3,12.25,2026-11-12,refunded\n",
+  "run_date": "2026-11-12",
+  "exit": 1,
+  "summary": {
+   "run_date": "2026-11-12",
+   "steps": [
+    "extract: 12 rows read",
+    "schema: ok",
+    "validate: 7 ok, 5 rejected",
+    "quality gate: 42% rejected > 25%, halting"
+   ],
+   "rows_in": 12,
+   "rows_ok": 7,
+   "rows_rejected": 5,
+   "rejected": [
+    {
+     "line": 3,
+     "reason": "unit_price must be > 0"
+    },
+    {
+     "line": 5,
+     "reason": "unit_price must be > 0"
+    },
+    {
+     "line": 7,
+     "reason": "unit_price must be > 0"
+    },
+    {
+     "line": 9,
+     "reason": "unit_price must be > 0"
+    },
+    {
+     "line": 11,
+     "reason": "unit_price must be > 0"
+    }
+   ],
+   "status": "halted",
+   "exit": 1,
+   "alert": "5 of 12 rows rejected (42% > 25%); nothing loaded, check the source system"
+  }
+ },
+ "no_source": {
+  "file": null,
+  "csv": null,
+  "run_date": "2026-11-12",
+  "exit": 3,
+  "summary": {
+   "run_date": "2026-11-12",
+   "steps": [
+    "extract: source file not found"
+   ],
+   "status": "no_source",
+   "exit": 3,
+   "alert": "orders_2026-11-12.csv did not arrive; nothing loaded, yesterday's numbers stay"
+  }
+ },
+ "_warehouse": {
+  "daily_kpi": [
+   [
+    "2026-11-09",
+    9,
+    108240,
+    12026,
+    12
+   ],
+   [
+    "2026-11-10",
+    8,
+    104540,
+    13067,
+    10
+   ],
+   [
+    "2026-11-11",
+    3,
+    47220,
+    15740,
+    3
+   ]
+  ],
+  "orders_per_day": [
+   [
+    "2026-11-09",
+    12
+   ],
+   [
+    "2026-11-10",
+    10
+   ],
+   [
+    "2026-11-11",
+    3
+   ]
+  ]
+ }
+}

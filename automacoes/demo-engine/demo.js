@@ -73,7 +73,7 @@
       ['pt', 'en'].forEach(function (l) { var b = el('button', '', l.toUpperCase()); b.type = 'button'; b.setAttribute('aria-pressed', l === LANG); b.onclick = function () { LANG = l; try { localStorage.setItem('lang', l); } catch (e) { } paint(); }; lg.appendChild(b); });
       top.appendChild(lg); root.appendChild(top);
       var w = el('main', 'wrap'); root.appendChild(w);
-      w.appendChild(el('div', 'hero', '<p class="eyebrow">n8n · ' + esc(L(CFG.tag)) + '</p><h1>' + esc(L(CFG.title)) + '</h1><p>' + esc(L(CFG.summary)) + '</p>'));
+      w.appendChild(el('div', 'hero', '<p class="eyebrow">' + (CFG.case.run ? '' : 'n8n · ') + esc(L(CFG.tag)) + '</p><h1>' + esc(L(CFG.title)) + '</h1><p>' + esc(L(CFG.summary)) + '</p>'));
       // 1 entrada
       var s1 = el('section'); s1.appendChild(el('h2', '', '<b>1</b>' + esc(T('s1'))));
       var c1 = el('div', 'card'); s1.appendChild(c1);
@@ -94,7 +94,7 @@
       var sim = el('label', 'sim', '<span>' + esc(T('sim')) + '</span>'); var ss = el('select'); ss.id = 'sim';
       [['none', 'sim0'], ['temp', 'sim1'], ['perm', 'sim2']].forEach(function (o) { ss.appendChild(new Option(T(o[1]), o[0])); }); sim.appendChild(ss);
       var rb = el('button', 'btn', '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span id="rl">' + esc(T('run')) + '</span>'); rb.type = 'button'; rb.id = 'runbtn';
-      ac.appendChild(sim); ac.appendChild(rb);
+      if (!CFG.input.nosim) ac.appendChild(sim); ac.appendChild(rb);
       if (LG.resetMemory) { var mb = el('button', 'btn g', esc(T('resetm'))); mb.type = 'button'; mb.onclick = function () { ctx = LG.init(); status(); }; ac.appendChild(mb); }
       c1.appendChild(ac);
       c1.appendChild(el('p', 'note', esc(L(CFG.input.note))));
@@ -127,7 +127,8 @@
       var cs = el('div', 'cs');
       cs.appendChild(el('div', 'card', '<h3>' + esc(T('prob')) + '</h3><p>' + esc(L(C.problem)) + '</p><h3>' + esc(T('sol')) + '</h3><p>' + esc(L(C.solution)) + '</p>'));
       cs.appendChild(el('div', 'card', '<h3>' + esc(T('gain')) + '</h3><p>' + esc(L(C.gain)) + '</p><h3>' + esc(T('stack')) + '</h3><div class="stack">' + C.stack.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>'));
-      cs.appendChild(el('div', 'card', '<h3>' + esc(T('imp')) + '</h3><ol>' + L(UI.impsteps).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol><a class="btn dl" href="workflow.json" download>' + esc(T('dl')) + '</a>'));
+      var R = C.run; // run = {title, steps[], files:[{href,label}]} (demos que nao sao n8n)
+      cs.appendChild(R ? el('div', 'card', '<h3>' + esc(L(R.title)) + '</h3><ol>' + L(R.steps).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' + R.files.map(function (f) { return '<a class="btn dl" href="' + esc(f.href) + '" download>' + esc(L(f.label)) + '</a> '; }).join('')) : el('div', 'card', '<h3>' + esc(T('imp')) + '</h3><ol>' + L(UI.impsteps).map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol><a class="btn dl" href="workflow.json" download>' + esc(T('dl')) + '</a>'));
       cs.appendChild(el('div', 'card', '<h3>' + esc(T('how')) + '</h3><p>' + esc(L(C.honesty)) + '</p>'));
       s4.appendChild(cs); w.appendChild(s4);
       w.appendChild(el('footer', '', esc(L(CFG.footer))));
@@ -196,7 +197,7 @@
       document.querySelectorAll('.ed').forEach(function (p) { p.setAttribute('class', 'ed'); });
       CFG.nodes.forEach(function (n) { paintNode(n.id); });
       $('#res').innerHTML = ''; status('run', T('running'));
-      var simMode = $('#sim').value, F = CFG.failure, retried = false;
+      var simMode = $('#sim') ? $('#sim').value : 'none', F = CFG.failure, retried = false;
       var data = JSON.parse(JSON.stringify(form)); CFG.input.fields.forEach(function (f) { if (f.type === 'number' && data[f.key] !== '') data[f.key] = Number(data[f.key]); });
       var queue = [{ id: LG.start, input: { body: data } }], cur, input, total = 0, steps = 0, failed = null, trace = [];
       ctx.sim = simMode; ctx.failedNode = null;

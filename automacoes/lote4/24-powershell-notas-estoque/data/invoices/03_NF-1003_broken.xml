@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice>
+  <number>NF-1003</number>
+  <date>2026-11-10</date>
+  <direction>out</direction>
+  <items>
+      <item sku="MUG-02" qty="2" unit_cost="32.00"/>
+  
+</invoice>

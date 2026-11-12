@@ -1,0 +1,18 @@
+[
+ {"id":"d01","title":"Specialty Coffee Subscription Market 2025 (fictional)","url":"https://example.invalid/market-2025","facets":["size"],
+  "text":"Specialty coffee subscriptions reached US$ 2.4 billion in 2025, up 18% from 2024. Analysts expect the segment to grow 11% a year until 2028."},
+ {"id":"d02","title":"Consumer Panel: Who Subscribes (fictional)","url":"https://example.invalid/panel","facets":["size"],
+  "text":"A panel of 3,200 buyers found 61% subscribe for convenience and 27% for discovery of new roasters. Households of 2 to 3 people buy 1 bag every 12 days."},
+ {"id":"d03","title":"Pricing Benchmark: Whole Bean Bags (fictional)","url":"https://example.invalid/pricing","facets":["pricing"],
+  "text":"The median 250 g bag costs US$ 14.50 on subscription and US$ 16.90 on single purchase. Plans with free shipping above US$ 35 raise basket size by 22%."},
+ {"id":"d04","title":"Competitor Scan: Five Regional Players (fictional)","url":"https://example.invalid/competitors","facets":["competition"],
+  "text":"Five regional roasters hold 38% of subscription revenue. The largest, Bean Harbor, has 120,000 subscribers; the others each have under 40,000."},
+ {"id":"d05","title":"Retention Study: First 90 Days (fictional)","url":"https://example.invalid/retention","facets":["churn"],
+  "text":"Monthly churn is 9% in the first three months and 4% afterwards. Subscribers who can skip a month cancel 31% less often."},
+ {"id":"d06","title":"Channel Mix Report (fictional)","url":"https://example.invalid/channels","facets":["channels"],
+  "text":"Direct website sales account for 54% of subscriptions, marketplaces 29% and grocery partnerships 17%. Paid social acquisition costs US$ 38 per subscriber."},
+ {"id":"d07","title":"Logistics Cost Note (fictional)","url":"https://example.invalid/logistics","facets":["logistics","pricing"],
+  "text":"Shipping a 250 g bag costs US$ 4.80 on average, 33% of the subscription price. Roasting to order cuts stale-stock returns from 6% to 2%."},
+ {"id":"d08","title":"Competitor Pricing Move (fictional)","url":"https://example.invalid/bean-harbor","facets":["competition","pricing"],
+  "text":"Bean Harbor lowered its entry plan to US$ 12.90 in September 2025 and added a skip-a-month option."}
+]
