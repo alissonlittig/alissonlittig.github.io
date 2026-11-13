@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Orca Barbershop · Barbearia no Capão da Imbuia, Curitiba</title>
+<meta name="description" content="Orca Barbershop: corte, fade, freestyle e barba no Capão da Imbuia, Curitiba. Agende pelo WhatsApp.">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0c'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='18' fill='%23c9a45c'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="img/espaco-480.webp" media="(max-width: 799px)">
+<link rel="preload" as="image" href="img/espaco.webp" media="(min-width: 800px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b0c;--bg2:#141416;--line:#26262a;--txt:#efece6;--mut:#a19d95;--gold:#c9a45c;--gold2:#e6c886;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--txt);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+.disp{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:.95}
+.kick{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:52px;padding:0 1.5rem;border-radius:999px;font-weight:600;text-decoration:none;border:1px solid transparent;cursor:pointer;font-size:1rem;transition:transform .15s,background .2s}
+.btn:active{transform:scale(.98)}
+.btn-gold{background:var(--gold);color:#111}
+.btn-gold:hover{background:var(--gold2)}
+.btn-ghost{border-color:#ffffff40;color:var(--txt);background:#0006;backdrop-filter:blur(6px)}
+.btn-ghost:hover{border-color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+
+/* topo */
+.top{position:fixed;inset:0 0 auto;z-index:20;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+.top.on{background:#0b0b0cee;backdrop-filter:blur(10px);border-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-size:1.55rem;text-decoration:none;color:var(--txt)}
+.logo b{color:var(--gold);font-weight:400}
+.top nav{display:none;gap:1.6rem;font-size:.92rem}
+.top nav a{text-decoration:none;color:var(--mut)}
+.top nav a:hover{color:var(--txt)}
+.top .btn{min-height:40px;padding:0 1rem;font-size:.9rem}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0b0b0c99 0%,#0b0b0c22 30%,#0b0b0cdd 72%,var(--bg) 100%)}
+.hero .wrap{position:relative;z-index:1;padding:0 0 9vh}
+.hero h1{font-size:clamp(4rem,19vw,9.5rem);margin:.4rem 0 .6rem}
+.hero h1 span{display:block;color:var(--gold)}
+.hero p.lead{max-width:30ch;font-size:1.12rem;color:#ddd8cf}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0 1.6rem}
+.chip{font-size:.82rem;padding:.35rem .8rem;border:1px solid #ffffff2a;border-radius:999px;background:#0008;color:#e8e3da}
+.chip i{font-style:normal;color:var(--gold2)}
+.ctas{display:flex;flex-wrap:wrap;gap:.7rem}
+
+section{padding:88px 0}
+.head{margin-bottom:2.2rem}
+.head h2{font-size:clamp(2.6rem,9vw,4.2rem);margin-top:.35rem}
+.head p{color:var(--mut);max-width:52ch;margin-top:.5rem}
+
+/* serviços */
+.svc{display:grid;gap:14px}
+.card{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:12px;transition:border-color .2s}
+.card:hover{border-color:#c9a45c66}
+.card img{width:96px;height:96px;object-fit:cover;border-radius:10px}
+.card h3{font-size:1.05rem;font-weight:600;line-height:1.3}
+.card .pr{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:.4rem}
+.card .val{font-family:"Bebas Neue",sans-serif;font-size:1.7rem;color:var(--gold2);line-height:1}
+.card button{background:none;border:1px solid var(--line);color:var(--txt);border-radius:999px;padding:.45rem .9rem;font:500 .85rem Inter,sans-serif;cursor:pointer;min-height:40px}
+.card button:hover{border-color:var(--gold);color:var(--gold2)}
+.nota{font-size:.82rem;color:var(--mut);margin-top:1rem}
+
+/* sobre */
+.sobre{background:linear-gradient(180deg,var(--bg),#111113)}
+.sobre .g{display:grid;gap:28px;align-items:center}
+.sobre blockquote{font-family:"Bebas Neue",sans-serif;font-size:clamp(2.2rem,8vw,3.6rem);line-height:1;color:var(--txt)}
+.sobre blockquote em{font-style:normal;color:var(--gold)}
+.sobre p{color:#cfcac1;margin-top:1rem;max-width:56ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:1.6rem}
+.stat{border:1px solid var(--line);border-radius:var(--r);padding:14px 12px;text-align:center;background:#0b0b0c}
+.stat b{display:block;font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:2.1rem;color:var(--gold2);line-height:1}
+.stat span{font-size:.78rem;color:var(--mut)}
+
+/* galeria */
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gal figure{position:relative;overflow:hidden;border-radius:var(--r);aspect-ratio:1/1;background:var(--bg2)}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{position:absolute;left:10px;bottom:10px;font-size:.75rem;background:#000b;padding:.2rem .6rem;border-radius:999px}
+
+/* agendar */
+.ag{background:var(--bg2);border-block:1px solid var(--line)}
+.form{display:grid;gap:14px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:22px}
+.form label{display:grid;gap:6px;font-size:.88rem;color:var(--mut);font-weight:500}
+.form input,.form select,.form textarea{width:100%;background:#141416;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:.85rem .9rem;font:16px Inter,sans-serif;min-height:50px}
+.form input:focus,.form select:focus,.form textarea:focus{border-color:var(--gold);outline:none}
+.form textarea{min-height:84px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{color:#f0a37a;font-size:.86rem;min-height:1.2em}
+.form .btn{width:100%}
+.form small{color:var(--mut);font-size:.8rem;text-align:center}
+
+/* local */
+.loc .g{display:grid;gap:22px}
+.hor{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:8px 18px}
+.hor li{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid var(--line);list-style:none;font-size:.95rem}
+.hor li:last-child{border:0}
+.hor li.hoje{color:var(--gold2);font-weight:600}
+.hor li .f{color:var(--mut)}
+.end{margin:1rem 0 1.2rem;color:#d8d3ca}
+.mapa{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;background:var(--bg2)}
+.mapa iframe{width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.05)}
+.status{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;margin-top:.4rem;color:var(--mut)}
+.status i{width:8px;height:8px;border-radius:50%;background:#666}
+.status.aberto i{background:#3ecf6e;box-shadow:0 0 0 4px #3ecf6e22}
+
+footer{padding:40px 0 110px;color:var(--mut);font-size:.85rem;border-top:1px solid var(--line)}
+footer .wrap{display:grid;gap:.4rem}
+footer .proto{font-size:.75rem;opacity:.7}
+footer .proto a{text-decoration:underline;text-underline-offset:2px}
+
+.wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 24px #0008;transition:transform .2s}
+.wa:hover{transform:scale(1.06)}
+.wa svg{width:32px;height:32px;fill:#fff}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@media (min-width:800px){
+ .top nav{display:flex}
+ .hero{align-items:center}
+ .hero picture{left:42%}
+ .hero:after{background:linear-gradient(90deg,var(--bg) 40%,#0b0b0c99 58%,#0b0b0c10 80%),linear-gradient(0deg,var(--bg) 0,transparent 25%)}
+ .hero .wrap{padding:0}
+ .svc{grid-template-columns:1fr 1fr}
+ .sobre .g{grid-template-columns:1.1fr .9fr;gap:56px}
+ .gal{grid-template-columns:repeat(4,1fr)}
+ .ag .g{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+ .loc .g{grid-template-columns:.8fr 1.2fr;gap:40px}
+ footer{padding-bottom:40px}
+}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+ <div class="wrap">
+  <a class="logo disp" href="#inicio">Orca <b>Barbershop</b></a>
+  <nav aria-label="Seções"><a href="#servicos">Serviços</a><a href="#sobre">A Orca</a><a href="#galeria">Cortes</a><a href="#local">Endereço</a></nav>
+  <a class="btn btn-gold" href="#agendar">Agendar</a>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="inicio" style="padding:0">
+ <picture>
+  <source media="(min-width:800px)" srcset="img/espaco.webp">
+  <img src="img/espaco-480.webp" alt="Bancada da Orca Barbershop com espelho iluminado e produtos" width="480" height="855" fetchpriority="high">
+ </picture>
+ <div class="wrap">
+  <span class="kick">Barbearia · Capão da Imbuia · Curitiba</span>
+  <h1 class="disp">Orca<span>Barbershop</span></h1>
+  <p class="lead">Onde estilo, respeito e identidade se encontram.</p>
+  <div class="chips">
+   <span class="chip"><i>★ 5,0</i> no Google</span>
+   <span class="chip">6 anos de barbearia</span>
+   <span class="chip" id="chipHoje">Ter a sáb</span>
+  </div>
+  <div class="ctas">
+   <a class="btn btn-gold" href="#agendar">Agendar horário</a>
+   <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
+  </div>
+ </div>
+</section>
+
+<section id="servicos">
+ <div class="wrap">
+  <div class="head rv"><span class="kick">Serviços</span><h2 class="disp">Escolha o seu corte</h2><p>Os mesmos valores do catálogo da Orca no WhatsApp. Toque em "Agendar" e o serviço já vai preenchido.</p></div>
+  <div class="svc">
+   <article class="card rv"><img src="img/corte1.webp" alt="Corte com freestyle desenhado na lateral" width="96" height="96" loading="lazy"><div><h3>Corte + freestyle</h3><div class="pr"><span class="val">R$ 70</span><button type="button" data-s="Corte + freestyle">Agendar</button></div></div></article>
+   <article class="card rv"><img src="img/corte2.webp" alt="Corte clássico na tesoura" width="96" height="96" loading="lazy"><div><h3>Corte clássico (tesoura)</h3><div class="pr"><span class="val">R$ 50</span><button type="button" data-s="Corte clássico (tesoura)">Agendar</button></div></div></article>
+   <article class="card rv"><img src="img/corte3.webp" alt="Cabelo e barba feitos" width="96" height="96" loading="lazy"><div><h3>Cabelo e barba (combo)</h3><div class="pr"><span class="val">R$ 90</span><button type="button" data-s="Cabelo e barba (combo)">Agendar</button></div></div></article>
+   <article class="card rv"><img src="img/corte4.webp" alt="Corte degradê" width="96" height="96" loading="lazy"><div><h3>Corte normal fade (degradê)</h3><div class="pr"><span class="val">R$ 50</span><button type="button" data-s="Corte normal fade (degradê)">Agendar</button></div></div></article>
+  </div>
+  <p class="nota">Outro serviço? Fala direto com a gente no WhatsApp.</p>
+ </div>
+</section>
+
+<section class="sobre" id="sobre">
+ <div class="wrap g">
+  <div class="rv">
+   <span class="kick">A Orca</span>
+   <blockquote class="disp" style="margin-top:.6rem">Atendimento padronizado, <em>do jeito Orca.</em></blockquote>
+   <p>Há 6 anos a Orca traz um diferencial no ramo de barbearias: atendimento único para cada cliente, trabalho de alta qualidade, com detalhe e técnica completa.</p>
+   <div class="stats">
+    <div class="stat"><b>6</b><span>anos</span></div>
+    <div class="stat"><b>5,0</b><span>no Google</span></div>
+    <div class="stat"><b>5</b><span>dias por semana</span></div>
+   </div>
+  </div>
+  <figure class="rv" style="border-radius:var(--r);overflow:hidden;aspect-ratio:4/5"><img src="img/espaco.webp" alt="Espaço da Orca Barbershop" width="739" height="1316" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
+ </div>
+</section>
+
+<section id="galeria">
+ <div class="wrap">
+  <div class="head rv"><span class="kick">Cortes</span><h2 class="disp">Feito na cadeira da Orca</h2></div>
+  <div class="gal">
+   <figure class="rv"><img src="img/corte1.webp" alt="Freestyle na lateral" width="456" height="443" loading="lazy"><figcaption>Freestyle</figcaption></figure>
+   <figure class="rv"><img src="img/corte2.webp" alt="Corte clássico na tesoura" width="456" height="443" loading="lazy"><figcaption>Tesoura</figcaption></figure>
+   <figure class="rv"><img src="img/corte3.webp" alt="Cabelo e barba" width="456" height="443" loading="lazy"><figcaption>Combo</figcaption></figure>
+   <figure class="rv"><img src="img/corte4.webp" alt="Degradê" width="456" height="443" loading="lazy"><figcaption>Degradê</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<section class="ag" id="agendar">
+ <div class="wrap g">
+  <div class="head rv"><span class="kick">Agendamento</span><h2 class="disp">Marque seu horário</h2><p>Escolha o serviço, o dia e a hora. A mensagem sai pronta no WhatsApp da Orca, é só enviar.</p></div>
+  <form class="form rv" id="f" novalidate>
+   <label>Seu nome<input id="nome" name="nome" autocomplete="given-name" required placeholder="Como te chamamos?"></label>
+   <label>Serviço<select id="serv" required>
+    <option value="">Escolha</option>
+    <option>Corte + freestyle</option><option>Corte clássico (tesoura)</option><option>Cabelo e barba (combo)</option><option>Corte normal fade (degradê)</option><option>Outro (explico na mensagem)</option>
+   </select></label>
+   <div class="row2">
+    <label>Dia<input type="date" id="dia" required></label>
+    <label>Horário<select id="hora" required disabled><option value="">Escolha o dia</option></select></label>
+   </div>
+   <label>Observação (opcional)<textarea id="obs" placeholder="Ex.: quero o degradê mais baixo"></textarea></label>
+   <p class="err" id="err" role="alert"></p>
+   <button class="btn btn-gold" type="submit">Enviar pelo WhatsApp</button>
+   <small>O horário é confirmado pela Orca na conversa.</small>
+  </form>
+ </div>
+</section>
+
+<section class="loc" id="local">
+ <div class="wrap g">
+  <div class="rv">
+   <span class="kick">Onde estamos</span>
+   <h2 class="disp" style="font-size:clamp(2.6rem,9vw,4.2rem);margin-top:.35rem">Capão da Imbuia</h2>
+   <p class="end">Rua Delegado Leopoldo Belczak, 2552, casa 1<br>Capão da Imbuia, Curitiba/PR</p>
+   <span class="status" id="status"><i></i><span>Horário de funcionamento</span></span>
+   <ul class="hor" id="hor" style="margin-top:.8rem">
+    <li data-d="2"><span>Terça</span><span>09:00 – 20:00</span></li>
+    <li data-d="3"><span>Quarta</span><span>09:00 – 20:00</span></li>
+    <li data-d="4"><span>Quinta</span><span>09:00 – 20:00</span></li>
+    <li data-d="5"><span>Sexta</span><span>09:00 – 20:00</span></li>
+    <li data-d="6"><span>Sábado</span><span>08:00 – 18:00</span></li>
+    <li data-d="0"><span>Domingo</span><span class="f">Fechado</span></li>
+    <li data-d="1"><span>Segunda</span><span class="f">Fechado</span></li>
+   </ul>
+   <div class="ctas" style="margin-top:1.2rem"><a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&destination=-25.4416349,-49.2126095" target="_blank" rel="noopener">Como chegar</a></div>
+  </div>
+  <div class="mapa rv"><iframe title="Mapa da Orca Barbershop" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=-25.4416349,-49.2126095&z=16&output=embed"></iframe></div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <span class="disp" style="font-size:1.4rem;color:var(--txt)">Orca <span style="color:var(--gold)">Barbershop</span></span>
+  <span>Rua Delegado Leopoldo Belczak, 2552 · Curitiba/PR · (41) 99986-0538</span>
+  <span class="proto">Protótipo feito por <a href="https://alissonlittig.github.io/" target="_blank" rel="noopener">Alisson Littig</a></span>
+ </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5541999860538?text=Oi!%20Vim%20pelo%20site%20da%20Orca%20e%20quero%20marcar%20um%20hor%C3%A1rio." target="_blank" rel="noopener" aria-label="Falar com a Orca no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.2-.8 1-.9 1.1-.3.2-.6.1a8.2 8.2 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.5 13.5 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4zM12 21.8a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.3 4.6zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.9L.1 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4A11.8 11.8 0 0 0 20.4 3.6z"/></svg></a>
+
+<script>
+const WA='5541999860538';
+// dia da semana (0=dom) -> [abre, fecha] em minutos; null = fechado
+const H={0:null,1:null,2:[540,1200],3:[540,1200],4:[540,1200],5:[540,1200],6:[480,1080]};
+const pad=n=>String(n).padStart(2,'0'), hm=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+
+function slots(dateStr,now=new Date()){
+  const [y,mo,d]=dateStr.split('-').map(Number), dt=new Date(y,mo-1,d), h=H[dt.getDay()];
+  if(!h) return null;
+  const hoje=dt.toDateString()===now.toDateString(), agora=now.getHours()*60+now.getMinutes();
+  const out=[]; for(let m=h[0];m<=h[1]-30;m+=30) if(!hoje||m>agora+30) out.push(hm(m));
+  return out;
+}
+function msg(v){
+  const [y,m,d]=v.dia.split('-'), dias=['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  const dow=dias[new Date(+y,m-1,+d).getDay()];
+  return `Oi! Sou ${v.nome} e quero agendar na Orca:\n• Serviço: ${v.serv}\n• Dia: ${dow}, ${d}/${m}\n• Horário: ${v.hora}`+(v.obs?`\n• Obs.: ${v.obs}`:'')+`\nPode confirmar?`;
+}
+
+// self-check rápido da regra de horários (aparece no console se quebrar)
+console.assert(slots('2026-11-16')===null,'segunda deve ser fechado');
+console.assert(slots('2026-11-14',new Date(2026,0,1))[0]==='08:00'&&slots('2026-11-14',new Date(2026,0,1)).at(-1)==='17:30','sábado 08:00-17:30');
+console.assert(slots('2026-11-17',new Date(2026,0,1)).at(-1)==='19:30','terça até 19:30');
+
+const $=id=>document.getElementById(id), f=$('f'), dia=$('dia'), hora=$('hora'), err=$('err');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const hojeD=new Date(); dia.min=iso(hojeD); const max=new Date(); max.setDate(max.getDate()+30); dia.max=iso(max);
+
+dia.addEventListener('change',()=>{
+  err.textContent=''; hora.innerHTML=''; hora.disabled=true;
+  if(!dia.value){hora.innerHTML='<option value="">Escolha o dia</option>';return}
+  const s=slots(dia.value);
+  if(s===null){hora.innerHTML='<option value="">Fechado</option>';err.textContent='A Orca não abre domingo e segunda. Escolha de terça a sábado.';return}
+  if(!s.length){hora.innerHTML='<option value="">Sem horário</option>';err.textContent='Hoje não há mais horários. Escolha outro dia.';return}
+  hora.innerHTML='<option value="">Escolha</option>'+s.map(x=>`<option>${x}</option>`).join(''); hora.disabled=false;
+});
+
+document.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{
+  $('serv').value=b.dataset.s;
+  $('agendar').scrollIntoView(); setTimeout(()=>$('nome').focus({preventScroll:true}),500);
+}));
+
+f.addEventListener('submit',e=>{
+  e.preventDefault();
+  const v={nome:$('nome').value.trim(),serv:$('serv').value,dia:dia.value,hora:hora.value,obs:$('obs').value.trim()};
+  if(!v.nome) return err.textContent='Coloca seu nome.', $('nome').focus();
+  if(!v.serv) return err.textContent='Escolha o serviço.', $('serv').focus();
+  if(!v.dia||!slots(v.dia)?.length) return err.textContent='Escolha um dia de terça a sábado.', dia.focus();
+  if(!v.hora) return err.textContent='Escolha o horário.', hora.focus();
+  err.textContent='';
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg(v)),'_blank','noopener');
+});
+
+// horário de hoje + aberto/fechado
+(()=>{const n=new Date(),d=n.getDay(),h=H[d],m=n.getHours()*60+n.getMinutes();
+ document.querySelector(`#hor li[data-d="${d}"]`)?.classList.add('hoje');
+ const st=$('status'),ab=h&&m>=h[0]&&m<h[1];
+ if(ab){st.classList.add('aberto');st.lastElementChild.textContent='Aberto agora · fecha às '+hm(h[1]);$('chipHoje').textContent='Aberto hoje até '+hm(h[1])}
+ else{st.lastElementChild.textContent='Fechado agora'}
+})();
+
+// topo com fundo ao rolar
+const top=$('top'); addEventListener('scroll',()=>top.classList.toggle('on',scrollY>40),{passive:true});
+</script>
+</body>
+</html>
