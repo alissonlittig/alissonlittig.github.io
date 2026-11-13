@@ -21,6 +21,8 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/motion.css">
+<script>if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('mo')</script>
 </head>
 <body>
 <a class="skip" href="#projetos"><span lang="pt">Pular para os projetos</span><span lang="en">Skip to projects</span></a>
@@ -42,6 +44,7 @@
 <main id="topo">
 <section class="hero wrap">
   <h1><span lang="pt">Faço sites e sistemas para quem vende.</span><span lang="en">I build websites and systems for people who sell.</span></h1>
+  <script>if(document.documentElement.classList.contains('mo'))document.querySelectorAll('h1>span').forEach(function(s){s.innerHTML=s.textContent.split(' ').map(function(w,i){return '<span class="w" style="--i:'+i+'">'+w+'</span>'}).join(' ')})</script>
   <p class="role"><span lang="pt">Desenvolvedor web</span><span lang="en">Web developer</span></p>
   <ul class="chips"><li><span lang="pt">Sites e landing pages</span><span lang="en">Websites and landing pages</span></li><li><span lang="pt">Lojas online</span><span lang="en">Online stores</span></li><li><span lang="pt">Sistemas e CRMs</span><span lang="en">Systems and CRMs</span></li><li><span lang="pt">Dashboards</span><span lang="en">Dashboards</span></li><li><span lang="pt">Automações</span><span lang="en">Automations</span></li></ul>
   <p class="value"><span lang="pt">Mais pedidos pelo WhatsApp, vendas e estoque sob controle. Primeira versão no ar em 2 dias, preço combinado antes de começar.</span><span lang="en">More orders on WhatsApp, sales and stock under control. First version live in 2 days, price agreed before we start.</span></p>
@@ -1272,7 +1275,7 @@
   function filt(){
     var v=norm(q.value.trim()),on=!!(v||stack),n=0;
     document.getElementById('projetos').classList.toggle('filtering',on);
-    if(!on){tiles.forEach(function(t){t.hidden=false});cnt.textContent='';show();return}
+    if(!on){tiles.forEach(function(t){t.hidden=false});document.querySelectorAll('.grid').forEach(function(g){g.hidden=false});cnt.textContent='';show();return}
     panels.forEach(function(p){p.hidden=false});
     tiles.forEach(function(t){var e=t.querySelector('.sel'),ok=(!stack||(e&&e.textContent.trim()===stack))&&(!v||norm(t.textContent).indexOf(v)>-1);t.hidden=!ok;if(ok)n++});
     document.querySelectorAll('.grid').forEach(function(g){g.hidden=!g.querySelector('.tile:not([hidden])')});
@@ -1282,5 +1285,6 @@
   q.addEventListener('input',filt);
 })();
 </script>
+<script src="assets/motion.js" defer></script>
 </body>
 </html>

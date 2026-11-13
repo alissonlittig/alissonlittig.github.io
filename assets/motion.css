@@ -1,0 +1,94 @@
+/* Motion do portfólio (S-1058). Tudo depende de html.mo, que só existe com JS
+   e sem prefers-reduced-motion. Sem a classe, o site fica como era. */
+
+/* microinterações que valem sempre (só transições curtas; site.css já zera com reduced-motion) */
+.btn{transition:transform .25s cubic-bezier(.2,.8,.2,1),background-color .2s,color .2s,border-color .2s,box-shadow .25s;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn-primary:hover{box-shadow:0 10px 30px -10px rgba(255,122,47,.7)}
+.nav a{position:relative;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+.lnk{transition:color .2s,border-color .2s}
+.tabs a{transition:background-color .25s,color .25s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.tabs a:hover{transform:translateY(-2px)}
+.tabs a:active{transform:scale(.97)}
+.fchips button,.lang button{transition:background-color .2s,color .2s,border-color .2s,transform .15s}
+.fchips button:active{transform:scale(.94)}
+.filt input{transition:border-color .2s,box-shadow .25s}
+.filt input:focus{box-shadow:0 0 0 5px rgba(255,122,47,.14)}
+.chips li{transition:border-color .2s,transform .25s cubic-bezier(.2,.8,.2,1)}
+.chips li:hover{border-color:var(--ac);transform:translateY(-2px)}
+.faq summary::after{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.faq details[open] summary::after{transform:rotate(180deg)}
+.cl,.pkg,.steps li,.nums div{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .25s}
+.tile h3 a{background:linear-gradient(var(--ac),var(--ac)) 0 100%/0 2px no-repeat;transition:background-size .35s cubic-bezier(.2,.8,.2,1)}
+.tile:hover h3 a,.tile h3 a:focus-visible{background-size:100% 2px}
+
+/* brilho que atravessa o botão principal */
+.mo .btn-primary::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);transform:translateX(-120%);pointer-events:none}
+.mo .btn-primary:hover::before{transform:translateX(120%);transition:transform .7s ease}
+
+/* fundo: duas manchas de luz que derivam devagar (só transform, sem blur) */
+.mo body{position:relative;z-index:0}
+.mo body::before,.mo body::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;will-change:transform}
+.mo body::before{width:90vmax;height:90vmax;left:-30vmax;top:-40vmax;background:radial-gradient(closest-side,rgba(255,122,47,.13),transparent);animation:mo-drift-a 26s ease-in-out infinite alternate}
+.mo body::after{width:80vmax;height:80vmax;right:-35vmax;top:20vh;background:radial-gradient(closest-side,rgba(91,160,255,.07),transparent);animation:mo-drift-b 34s ease-in-out infinite alternate}
+@keyframes mo-drift-a{to{transform:translate3d(18vmax,12vmax,0) scale(1.15)}}
+@keyframes mo-drift-b{to{transform:translate3d(-16vmax,-14vmax,0) scale(.9)}}
+
+/* partículas do topo, barra de progresso, luz do cursor (criados pelo motion.js) */
+.mo-dots{position:absolute;left:0;top:0;width:100%;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.2s .3s}
+.mo-dots.on{opacity:1}
+.mo-bar{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--ac);transform:scaleX(0);transform-origin:left;z-index:30;pointer-events:none}
+.mo-glow{position:fixed;left:-260px;top:-260px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,122,47,.09),transparent);pointer-events:none;z-index:-1;opacity:0;transition:opacity .6s;will-change:transform}
+.mo-glow.on{opacity:1}
+
+/* entrada do topo */
+@keyframes mo-up{from{opacity:0;transform:translate3d(0,22px,0)}}
+@keyframes mo-word{from{opacity:0;transform:translate3d(0,.45em,0) rotate(3deg)}}
+.mo .top>*{animation:mo-up .5s cubic-bezier(.2,.8,.2,1) both}
+.mo .top>.nav{animation-delay:.05s}
+.mo .top>.lang{animation-delay:.1s}
+.mo h1 .w{display:inline-block;transform-origin:left bottom;animation:mo-word .65s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.05s + var(--i)*.05s)}
+.mo .hero>:not(h1){animation:mo-up .6s cubic-bezier(.2,.8,.2,1) both}
+.mo .hero>.role{animation-delay:.3s}
+.mo .hero>.chips{animation-delay:.36s}
+.mo .hero>.value{animation-delay:.42s}
+.mo .hero>.lede{animation-delay:.48s}
+.mo .hero>.actions{animation-delay:.54s}
+.mo .role{background:linear-gradient(90deg,var(--ac) 40%,#ffd0b0 50%,var(--ac) 60%) 100% 0/300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.mo .hero>.role{animation:mo-up .7s cubic-bezier(.2,.8,.2,1) .3s both,mo-shine 5s ease-in-out 1.6s infinite}
+@keyframes mo-shine{0%,55%{background-position:100% 0}100%{background-position:0 0}}
+
+/* aparecer ao rolar */
+.mo .rv{opacity:0;transform:translate3d(0,26px,0)}
+.mo .rv.in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.8,.2,1) var(--d,0s),transform .7s cubic-bezier(.2,.8,.2,1) var(--d,0s)}
+/* depois de entrar, a transição volta a ser a de hover (sem atraso) */
+.mo .rv.done{transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .25s}
+.mo .sec-head.rv,.mo h2.rv{transform:translate3d(0,26px,0) scale(.98)}
+
+/* troca de aba */
+@keyframes mo-panel{from{opacity:0;transform:translate3d(0,14px,0)}}
+.mo .panel:not([hidden])>.fict{animation:mo-panel .45s cubic-bezier(.2,.8,.2,1) both}
+.mo .tabs a[aria-selected="true"]{animation:mo-pop .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes mo-pop{40%{transform:scale(1.06)}}
+.mo .tabs small{display:inline-block;min-width:1.2em;font-variant-numeric:tabular-nums}
+.mo .nums dd{font-variant-numeric:tabular-nums}
+
+/* cards: inclinação 3D + reflexo que segue o mouse (só com mouse de verdade) */
+@media (hover:hover) and (pointer:fine){
+  .mo .pic{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+  .mo .pic.tilt{transition:transform .08s linear,box-shadow .4s;box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,122,47,.35)}
+  .mo .pic::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),transparent 60%)}
+  .mo .pic.tilt::after{opacity:1}
+  .mo .cl,.mo .pkg,.mo .steps li,.mo .nums div{position:relative;overflow:hidden}
+  .mo .cl::after,.mo .pkg::after,.mo .steps li::after,.mo .nums div::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(255,122,47,.13),transparent 65%)}
+  .mo .cl:hover::after,.mo .pkg:hover::after,.mo .steps li:hover::after,.mo .nums div:hover::after{opacity:1}
+  .mo .cl:hover,.mo .pkg:hover,.mo .steps li:hover,.mo .nums div:hover{transform:translate3d(0,-4px,0)}
+}
+
+/* FAQ abre com fade */
+.mo .faq details[open] p{animation:mo-panel .35s cubic-bezier(.2,.8,.2,1)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
