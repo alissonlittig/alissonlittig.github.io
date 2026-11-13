@@ -1,4 +1,4 @@
-# RAG: 16 projetos de estudo (portfólio, 13/11/2026)
+# RAG: 20 projetos de estudo (portfólio, 13/11/2026)
 Todos locais, sem chave paga, sem LLM, sem rede. Cada um: `rag.py` (código), `tests/` (verde), `data/`, `build_index.py` -> `demo/` (HTML/JS puro; abre por duplo clique), README EN+PT. `_shared/` = núcleo comum (`sync.py` copia para cada projeto).
 - 01_assistente-documentos: manuais em Markdown, resposta extrativa com [n] (doc, seção, linha), recusa por cobertura.
 - 02_busca-hibrida: BM25 x n-gramas x LSA x RRF x reranker, recall@k e MRR.
@@ -16,4 +16,8 @@ Todos locais, sem chave paga, sem LLM, sem rede. Cada um: `rag.py` (código), `t
 - 14_rag-transcricoes: transcrições com mm:ss e falante, janelas de falas e linha do tempo.
 - 15_rag-agentico: planejador por regras que busca, calcula, pergunta de volta ou recusa (sem LLM).
 - 16_reescrita-de-pergunta: reescrita de pergunta antes x depois, com variante tipo HyDE sem LLM.
+- 17_rag-rh: políticas de RH com página, vigência e comparação "o que mudou" entre versões.
+- 18_rag-notas-boletos: 34 PDFs reais lidos com pypdf, soma em centavos com arquivo e página.
+- 19_cache-semantico-custo: cache por similaridade, acerto falso x economia (gerador e custo simulados).
+- 20_painel-avaliacao-continua: 7 versões avaliadas de verdade, regressão detectada e `rag.py --gate`.
 Rodar: `python NN_*/tests/test_rag_NN.py` (Node opcional, só para a paridade JS). Publicado em https://alissonlittig.github.io/#rag
