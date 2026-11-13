@@ -1,0 +1,612 @@
+{
+ "pedido": [
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/start",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1003000,
+    "message": {
+     "message_id": 1,
+     "date": 1003,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/start"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/pedido 1042",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1006000,
+    "message": {
+     "message_id": 1,
+     "date": 1006,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/pedido 1042"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Pedido 1042: enviado, 3 item(ns), previsão 2026-11-14."
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/pedido 2001",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1009000,
+    "message": {
+     "message_id": 1,
+     "date": 1009,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/pedido 2001"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Não encontrei esse pedido na sua conta."
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/estoque can-gel",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1012000,
+    "message": {
+     "message_id": 1,
+     "date": 1012,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/estoque can-gel"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Caneta gel: sem estoque no momento."
+   }
+  }
+ ],
+ "novo": [
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/novo",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1003000,
+    "message": {
+     "message_id": 1,
+     "date": 1003,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/novo"
+    }
+   },
+   "route": "flow",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Qual item você quer pedir?"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "Mochila",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1006000,
+    "message": {
+     "message_id": 1,
+     "date": 1006,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "Mochila"
+    }
+   },
+   "route": "flow",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Quantas unidades (1 a 99)?"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "abc",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1009000,
+    "message": {
+     "message_id": 1,
+     "date": 1009,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "abc"
+    }
+   },
+   "route": "flow",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Número inválido. Quantas unidades (1 a 99)?"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "2",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1012000,
+    "message": {
+     "message_id": 1,
+     "date": 1012,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "2"
+    }
+   },
+   "route": "flow",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Confirma 2 x Mochila? Responda sim ou não."
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "sim",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1015000,
+    "message": {
+     "message_id": 1,
+     "date": 1015,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "sim"
+    }
+   },
+   "route": "flow",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Pedido P-5001 registrado: 2 x Mochila. (demo: nada foi gravado em sistema real)"
+   }
+  }
+ ],
+ "discord": [
+  {
+   "input": {
+    "platform": "discord",
+    "user": "222",
+    "text": "/estoque MOC-01",
+    "gap": "3"
+   },
+   "event": {
+    "t": "MESSAGE_CREATE",
+    "d": {
+     "id": "1003000",
+     "channel_id": "c-222",
+     "author": {
+      "id": "222",
+      "username": "Bruno"
+     },
+     "content": "/estoque MOC-01",
+     "timestamp": 1003.0
+    }
+   },
+   "route": "command",
+   "payload": {
+    "channel_id": "c-222",
+    "content": "Mochila: 7 em estoque."
+   }
+  },
+  {
+   "input": {
+    "platform": "discord",
+    "user": "222",
+    "text": "/pedido@Atendimento 2001",
+    "gap": "3"
+   },
+   "event": {
+    "t": "MESSAGE_CREATE",
+    "d": {
+     "id": "1006000",
+     "channel_id": "c-222",
+     "author": {
+      "id": "222",
+      "username": "Bruno"
+     },
+     "content": "/pedido@Atendimento 2001",
+     "timestamp": 1006.0
+    }
+   },
+   "route": "command",
+   "payload": {
+    "channel_id": "c-222",
+    "content": "Pedido 2001: entregue, 2 item(ns), previsão 2026-11-09."
+   }
+  },
+  {
+   "input": {
+    "platform": "discord",
+    "user": "222",
+    "text": "oi, tudo bem?",
+    "gap": "3"
+   },
+   "event": {
+    "t": "MESSAGE_CREATE",
+    "d": {
+     "id": "1009000",
+     "channel_id": "c-222",
+     "author": {
+      "id": "222",
+      "username": "Bruno"
+     },
+     "content": "oi, tudo bem?",
+     "timestamp": 1009.0
+    }
+   },
+   "route": "unknown",
+   "payload": {
+    "channel_id": "c-222",
+    "content": "Não entendi. Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  }
+ ],
+ "admin": [
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/admin_resumo",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1003000,
+    "message": {
+     "message_id": 1,
+     "date": 1003,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/admin_resumo"
+    }
+   },
+   "route": "admin_denied",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Esse comando é só para administradores."
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "222",
+    "text": "/admin_resumo",
+    "gap": "3"
+   },
+   "event": {
+    "update_id": 1006000,
+    "message": {
+     "message_id": 1,
+     "date": 1006,
+     "from": {
+      "id": 222,
+      "first_name": "Bruno"
+     },
+     "chat": {
+      "id": 222
+     },
+     "text": "/admin_resumo"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 222,
+    "text": "Resumo: 3 pedidos na base, 1 SKU sem estoque, 2 usuário(s) ativos."
+   }
+  }
+ ],
+ "flood": [
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "0.5"
+   },
+   "event": {
+    "update_id": 1000500,
+    "message": {
+     "message_id": 1,
+     "date": 1000,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "0.5"
+   },
+   "event": {
+    "update_id": 1001000,
+    "message": {
+     "message_id": 1,
+     "date": 1001,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "0.5"
+   },
+   "event": {
+    "update_id": 1001500,
+    "message": {
+     "message_id": 1,
+     "date": 1001,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "0.5"
+   },
+   "event": {
+    "update_id": 1002000,
+    "message": {
+     "message_id": 1,
+     "date": 1002,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "0.5"
+   },
+   "event": {
+    "update_id": 1002500,
+    "message": {
+     "message_id": 1,
+     "date": 1002,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "0.5"
+   },
+   "event": {
+    "update_id": 1003000,
+    "message": {
+     "message_id": 1,
+     "date": 1003,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "limited",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Calma, são muitas mensagens seguidas. Tente de novo em alguns segundos."
+   }
+  },
+  {
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "12"
+   },
+   "event": {
+    "update_id": 1015000,
+    "message": {
+     "message_id": 1,
+     "date": 1015,
+     "from": {
+      "id": 111,
+      "first_name": "Ana"
+     },
+     "chat": {
+      "id": 111
+     },
+     "text": "/ajuda"
+    }
+   },
+   "route": "command",
+   "payload": {
+    "method": "sendMessage",
+    "chat_id": 111,
+    "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+   }
+  }
+ ]
+}

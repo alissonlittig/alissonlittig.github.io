@@ -1,0 +1,414 @@
+{
+ "slug": "31-ocr-recibo-planilha",
+ "title": {
+  "pt": "Foto de recibo vira linha de planilha, com a conta conferida",
+  "en": "Receipt photo becomes a spreadsheet row, with the math checked"
+ },
+ "tag": {
+  "pt": "Python · OCR · planilha",
+  "en": "Python · OCR · spreadsheet"
+ },
+ "summary": {
+  "pt": "Um script lê a imagem de um recibo com OCR local, extrai loja, data, itens e total e confere a conta: quantidade × unitário, soma dos itens contra o total impresso e data válida. O que fecha vai para a planilha; o que não fecha vai para revisão humana com o motivo, em vez de virar número errado.",
+  "en": "A script reads a receipt image with local OCR, extracts store, date, items and total and checks the math: quantity × unit price, sum of items against the printed total, and a valid date. What adds up goes to the spreadsheet; what does not go to human review with the reason instead of becoming a wrong number."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "python ocr_recibo.py amostras/ -o recibos.xlsx",
+   "en": "python ocr_recibo.py amostras/ -o recibos.xlsx"
+  },
+  "note": {
+   "pt": "O OCR não roda no navegador: o texto abaixo é o que o RapidOCR devolveu de verdade em cada imagem de amostra. Edite à vontade (troque um valor, apague a data) e veja a conferência decidir. Os recibos são fictícios.",
+   "en": "OCR does not run in the browser: the text below is what RapidOCR really returned for each sample image. Edit it freely (change an amount, delete the date) and watch the checks decide. The receipts are fictional."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Recibo limpo",
+     "en": "1. Clean receipt"
+    },
+    "values": {
+     "texto": "MERCADINHO BOA PRACA\nCNPJ 00.111.222/0001-00\nDATA: 08/11/2026 14:32\n1x ARROZ 5KG 28,90 28,90\n2X FEIJAO 1KG 8,45 16,90\n3x OLEO DE SOJA 7,20 21,60\n1X CAFE 500G 19,90 19,90\nTOTAL RS 87,30\nOBRIGADO PELA PREFERENCIA",
+     "conf": "0.741"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. OCR perdeu uma quantidade",
+     "en": "2. OCR dropped a quantity"
+    },
+    "values": {
+     "texto": "PAPELARIA CANTO VIVO\nCNPJ 00.333.444/0001-00\nDATA: ( 09/11/2026 10:05\n4x CADERNO 96F 18,90 75,60\n10x CANETA GEL 3,50 35,00\nPASTA A4 6,20 12,40\nTOTAL RS 123,00\nOBRIGADO PELA PREFERENCIA",
+     "conf": "0.785"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Total impresso errado",
+     "en": "3. Wrong printed total"
+    },
+    "values": {
+     "texto": "POSTO RIO CLARO\nCNPJ 00.555.666/0001-00\nDATA: 10/11/2026 18:47\n1x  GASOLINA COMUM 212,40 212,40\n2X AGUA MINERAL 4,50 9,00\nTOTAL R$ 220,00\nOBRIGADO PELAPREFERENCIA",
+     "conf": "0.803"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Imagem borrada e torta",
+     "en": "4. Blurry, tilted image"
+    },
+    "values": {
+     "texto": "PAPELARTA CANTOVTVO\nN003334440001-00\nDAA0971202610:05\nAXCADERNOO6E 218.90 7560\nTOXCANETAGEL 3503500\n2XCPASTAA4 6,201240\n123.00\nTOTAARS\nOBRIGADOPELAPREFERENCTA",
+     "conf": "0.722"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "texto",
+    "type": "textarea",
+    "rows": 9,
+    "value": "MERCADINHO BOA PRACA\nCNPJ 00.111.222/0001-00\nDATA: 08/11/2026 14:32\n1x ARROZ 5KG 28,90 28,90\n2X FEIJAO 1KG 8,45 16,90\n3x OLEO DE SOJA 7,20 21,60\n1X CAFE 500G 19,90 19,90\nTOTAL RS 87,30\nOBRIGADO PELA PREFERENCIA",
+    "label": {
+     "pt": "Texto lido pelo OCR (uma linha por linha do recibo)",
+     "en": "Text read by the OCR (one line per receipt line)"
+    }
+   },
+   {
+    "key": "conf",
+    "type": "text",
+    "value": "0.741",
+    "label": {
+     "pt": "Confiança média do OCR (0 a 1)",
+     "en": "OCR mean confidence (0 to 1)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Receipt image",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "PNG de amostra (fictício)",
+    "en": "sample PNG (fictional)"
+   }
+  },
+  {
+   "id": "ocr",
+   "name": "OCR (RapidOCR)",
+   "icon": "file",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "texto gravado: não roda no navegador",
+    "en": "recorded text: does not run in the browser"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Extract fields",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "loja · CNPJ · data · itens · total",
+    "en": "store · tax ID · date · items · total"
+   }
+  },
+  {
+   "id": "check",
+   "name": "Does the math add up?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "qtd × unit · soma × total · data",
+    "en": "qty × unit · sum × total · date"
+   }
+  },
+  {
+   "id": "sheet",
+   "name": "Spreadsheet rows",
+   "icon": "sheet",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "abas Itens e Recibos",
+    "en": "Itens and Recibos sheets"
+   }
+  },
+  {
+   "id": "review",
+   "name": "Human review queue",
+   "icon": "user",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "não grava como certo",
+    "en": "not stored as correct"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "ocr"
+  },
+  {
+   "from": "ocr",
+   "to": "parse"
+  },
+  {
+   "from": "parse",
+   "to": "check"
+  },
+  {
+   "from": "check",
+   "to": "sheet",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "check",
+   "to": "review",
+   "when": "revisar",
+   "label": "review"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Digitar recibos e notas numa planilha para prestar contas é lento e a digitação erra; e um OCR que \"lê tudo\" sem conferir grava número errado sem ninguém notar.",
+   "en": "Typing receipts into a spreadsheet to report expenses is slow and typing errors happen; and an OCR that \"reads everything\" without checking stores wrong numbers nobody notices."
+  },
+  "solution": {
+   "pt": "OCR local (RapidOCR, modelos ONNX, sem chave e sem nuvem), caixas de texto agrupadas por altura em linhas, extração por regras e uma etapa de conferência: se a quantidade foi perdida mas unitário e total estão na linha, ela é inferida e anotada; se a conta não fecha, o recibo vai para revisão. A saída é um Excel com as abas Itens e Recibos.",
+   "en": "Local OCR (RapidOCR, ONNX models, no key and no cloud), text boxes grouped by height into lines, rule-based extraction and a checking step: if a quantity was lost but unit price and total are on the line, it is inferred and noted; if the math does not add up, the receipt goes to review. Output is an Excel with Itens and Recibos sheets."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~1 min por recibo digitando à mão contra poucos segundos de OCR; os que vão para revisão ainda precisam de uma pessoa. Nos testes, 3 de 5 amostras passaram direto, 1 tinha o total impresso errado de propósito e 1 estava ilegível. Foram amostras geradas em fonte limpa: recibo térmico real, amassado e fotografado, tende a render menos.",
+   "en": "An estimate, not a measurement: ~1 min per receipt typing by hand against a few seconds of OCR; the ones sent to review still need a person. In the tests, 3 of 5 samples passed straight through, 1 had a deliberately wrong printed total and 1 was unreadable. Samples were generated in a clean font: a real thermal receipt, crumpled and photographed, will likely do worse."
+  },
+  "stack": [
+   "Python 3.13",
+   "RapidOCR (ONNX)",
+   "Pillow",
+   "openpyxl",
+   "re"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install rapidocr-onnxruntime openpyxl pillow",
+     "python make_samples.py (gera 5 recibos fictícios em amostras/)",
+     "python ocr_recibo.py (amostras/ → output/recibos.xlsx)",
+     "python run_scenarios.py · testes: python tests/test_ocr.py (13 verificações)"
+    ],
+    "en": [
+     "pip install rapidocr-onnxruntime openpyxl pillow",
+     "python make_samples.py (builds 5 fictional receipts in amostras/)",
+     "python ocr_recibo.py (amostras/ → output/recibos.xlsx)",
+     "python run_scenarios.py · tests: python tests/test_ocr.py (13 checks)"
+    ]
+   },
+   "files": [
+    {
+     "href": "ocr_recibo.py",
+     "label": {
+      "pt": "Baixar ocr_recibo.py",
+      "en": "Download ocr_recibo.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O OCR foi executado de verdade no Python (RapidOCR) sobre as imagens de amostra; o navegador só reexecuta a parte de extração e conferência, portada para JavaScript e conferida contra as saídas gravadas. As imagens são recibos fictícios gerados por mim, com lojas e CNPJ inexistentes, em fonte limpa; não testei com fotos de notas reais. Regras de extração servem a este layout de recibo.",
+   "en": "OCR really ran in Python (RapidOCR) on the sample images; the browser only re-runs the extraction and checking step, ported to JavaScript and checked against recorded outputs. The images are fictional receipts I generated, with nonexistent stores and tax IDs, in a clean font; I did not test with photos of real receipts. The extraction rules fit this receipt layout."
+  }
+ },
+ "footer": {
+  "pt": "Nada é enviado: tudo roda no seu navegador, sem imagem nenhuma.",
+  "en": "Nothing is sent: everything runs in your browser, with no image at all."
+ },
+ "recorded": [
+  {
+   "input": {
+    "texto": "MERCADINHO BOA PRACA\nCNPJ 00.111.222/0001-00\nDATA: 08/11/2026 14:32\n1x ARROZ 5KG 28,90 28,90\n2X FEIJAO 1KG 8,45 16,90\n3x OLEO DE SOJA 7,20 21,60\n1X CAFE 500G 19,90 19,90\nTOTAL RS 87,30\nOBRIGADO PELA PREFERENCIA",
+    "conf": "0.741"
+   },
+   "expect": {
+    "loja": "MERCADINHO BOA PRACA",
+    "cnpj": "00.111.222/0001-00",
+    "data": "2026-11-08",
+    "itens": [
+     {
+      "desc": "ARROZ 5KG",
+      "qtd": 1,
+      "unit": 28.9,
+      "total": 28.9
+     },
+     {
+      "desc": "FEIJAO 1KG",
+      "qtd": 2,
+      "unit": 8.45,
+      "total": 16.9
+     },
+     {
+      "desc": "OLEO DE SOJA",
+      "qtd": 3,
+      "unit": 7.2,
+      "total": 21.6
+     },
+     {
+      "desc": "CAFE 500G",
+      "qtd": 1,
+      "unit": 19.9,
+      "total": 19.9
+     }
+    ],
+    "soma": 87.3,
+    "total": 87.3,
+    "avisos": [],
+    "notas": [],
+    "status": "ok"
+   }
+  },
+  {
+   "input": {
+    "texto": "PAPELARIA CANTO VIVO\nCNPJ 00.333.444/0001-00\nDATA: ( 09/11/2026 10:05\n4x CADERNO 96F 18,90 75,60\n10x CANETA GEL 3,50 35,00\nPASTA A4 6,20 12,40\nTOTAL RS 123,00\nOBRIGADO PELA PREFERENCIA",
+    "conf": "0.785"
+   },
+   "expect": {
+    "loja": "PAPELARIA CANTO VIVO",
+    "cnpj": "00.333.444/0001-00",
+    "data": "2026-11-09",
+    "itens": [
+     {
+      "desc": "CADERNO 96F",
+      "qtd": 4,
+      "unit": 18.9,
+      "total": 75.6
+     },
+     {
+      "desc": "CANETA GEL",
+      "qtd": 10,
+      "unit": 3.5,
+      "total": 35.0
+     },
+     {
+      "desc": "PASTA A4",
+      "qtd": 2,
+      "unit": 6.2,
+      "total": 12.4
+     }
+    ],
+    "soma": 123.0,
+    "total": 123.0,
+    "avisos": [],
+    "notas": [
+     "PASTA A4: quantidade 2 inferida de 12.40 / 6.20"
+    ],
+    "status": "ok"
+   }
+  },
+  {
+   "input": {
+    "texto": "POSTO RIO CLARO\nCNPJ 00.555.666/0001-00\nDATA: 10/11/2026 18:47\n1x  GASOLINA COMUM 212,40 212,40\n2X AGUA MINERAL 4,50 9,00\nTOTAL R$ 220,00\nOBRIGADO PELAPREFERENCIA",
+    "conf": "0.803"
+   },
+   "expect": {
+    "loja": "POSTO RIO CLARO",
+    "cnpj": "00.555.666/0001-00",
+    "data": "2026-11-10",
+    "itens": [
+     {
+      "desc": "GASOLINA COMUM",
+      "qtd": 1,
+      "unit": 212.4,
+      "total": 212.4
+     },
+     {
+      "desc": "AGUA MINERAL",
+      "qtd": 2,
+      "unit": 4.5,
+      "total": 9.0
+     }
+    ],
+    "soma": 221.4,
+    "total": 220.0,
+    "avisos": [
+     "soma dos itens 221.40 difere do total impresso 220.00"
+    ],
+    "notas": [],
+    "status": "revisar"
+   }
+  },
+  {
+   "input": {
+    "texto": "FEIRA DO BAIRRO\nCNPJ 00.777.888/0001-00\nDATA: 11/11/2026 08:20\nTOMATE KG 9,80 19,60\n3X BANANA DZ 6,50 19,50\n1x OVOS 12 14,00 14,00\nTOTAL RS 53,10\nOBRIGADO PELA PREFERENCIA",
+    "conf": "0.761"
+   },
+   "expect": {
+    "loja": "FEIRA DO BAIRRO",
+    "cnpj": "00.777.888/0001-00",
+    "data": "2026-11-11",
+    "itens": [
+     {
+      "desc": "TOMATE KG",
+      "qtd": 2,
+      "unit": 9.8,
+      "total": 19.6
+     },
+     {
+      "desc": "BANANA DZ",
+      "qtd": 3,
+      "unit": 6.5,
+      "total": 19.5
+     },
+     {
+      "desc": "OVOS 12",
+      "qtd": 1,
+      "unit": 14.0,
+      "total": 14.0
+     }
+    ],
+    "soma": 53.1,
+    "total": 53.1,
+    "avisos": [],
+    "notas": [
+     "TOMATE KG: quantidade 2 inferida de 19.60 / 9.80"
+    ],
+    "status": "ok"
+   }
+  },
+  {
+   "input": {
+    "texto": "PAPELARTA CANTOVTVO\nN003334440001-00\nDAA0971202610:05\nAXCADERNOO6E 218.90 7560\nTOXCANETAGEL 3503500\n2XCPASTAA4 6,201240\n123.00\nTOTAARS\nOBRIGADOPELAPREFERENCTA",
+    "conf": "0.722"
+   },
+   "expect": {
+    "loja": "PAPELARTA CANTOVTVO",
+    "cnpj": null,
+    "data": null,
+    "itens": [],
+    "soma": 0,
+    "total": null,
+    "avisos": [
+     "data não lida",
+     "nenhum item lido",
+     "total não lido"
+    ],
+    "notas": [],
+    "status": "revisar"
+   }
+  }
+ ]
+}

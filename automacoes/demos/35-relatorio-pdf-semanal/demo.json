@@ -1,0 +1,488 @@
+{
+ "slug": "35-relatorio-pdf-semanal",
+ "title": {
+  "pt": "Relatório semanal em PDF a partir de um CSV de vendas",
+  "en": "Weekly PDF report from a sales CSV"
+ },
+ "tag": {
+  "pt": "Python · CSV · PDF",
+  "en": "Python · CSV · PDF"
+ },
+ "summary": {
+  "pt": "Toda segunda o CSV de vendas da semana vira um PDF de uma página: faturamento, unidades, variação contra a semana anterior, gráfico por dia, top produtos e vendas por região. Linhas inválidas são listadas pelo número da linha; se o arquivo vier vazio ou com muito lixo, o script não gera relatório e diz o motivo, em vez de mandar um PDF bonito com número errado.",
+  "en": "Every Monday the week's sales CSV becomes a one-page PDF: revenue, units, change against the previous week, a daily chart, top products and sales by region. Invalid rows are listed by line number; if the file arrives empty or full of junk the script produces no report and says why, instead of sending a pretty PDF with wrong numbers."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: CSV semanal chega",
+   "en": "Event: weekly CSV arrives"
+  },
+  "note": {
+   "pt": "Edite o CSV à vontade (ex.: estrague linhas) e rode. O PDF em si é gerado pelo Python (reportlab); aqui a página mostra o que vai nele. Dinheiro é calculado em centavos inteiros.",
+   "en": "Edit the CSV freely (e.g. break some rows) and run. The PDF itself is built by Python (reportlab); here the page shows what goes into it. Money is computed in whole cents."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Semana completa (W45)",
+     "en": "1. Full week (W45)"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+     "week": ""
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Semana anterior (W44)",
+     "en": "2. Previous week (W44)"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+     "week": "2026-W44"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Arquivo ruim (2 de 3 linhas inválidas)",
+     "en": "3. Bad file (2 of 3 rows invalid)"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-11-02,Cadeira Ergo,Sul,1,899.0\nontem,Mesa,Sul,1,10\n2026-11-03,,Sul,x,10\n",
+     "week": ""
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Arquivo vazio",
+     "en": "4. Empty file"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n",
+     "week": ""
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Semana sem vendas (W50)",
+     "en": "5. Week with no sales (W50)"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+     "week": "2026-W50"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "csv",
+    "type": "textarea",
+    "rows": 9,
+    "value": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+    "label": {
+     "pt": "Conteúdo do CSV (pode editar)",
+     "en": "CSV content (editable)"
+    }
+   },
+   {
+    "key": "week",
+    "type": "text",
+    "value": "",
+    "label": {
+     "pt": "Semana (vazio = a mais recente; ex.: 2026-W44)",
+     "en": "Week (empty = latest; e.g. 2026-W44)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Weekly CSV arrives",
+   "icon": "file",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "vendas.csv",
+    "en": "vendas.csv"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse + validate",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "linha e motivo",
+    "en": "line and reason"
+   }
+  },
+  {
+   "id": "gate",
+   "name": "Enough good data?",
+   "icon": "if",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "máx. 20% inválidas",
+    "en": "max 20% invalid"
+   }
+  },
+  {
+   "id": "stop",
+   "name": "No PDF",
+   "icon": "respond",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "diz por quê",
+    "en": "says why"
+   }
+  },
+  {
+   "id": "aggregate",
+   "name": "Aggregate",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "total, top, região",
+    "en": "totals, top, region"
+   }
+  },
+  {
+   "id": "compare",
+   "name": "Compare weeks",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "vs semana anterior",
+    "en": "vs previous week"
+   }
+  },
+  {
+   "id": "pdf",
+   "name": "Build PDF",
+   "icon": "pdf",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "reportlab",
+    "en": "reportlab"
+   }
+  },
+  {
+   "id": "save",
+   "name": "Save files",
+   "icon": "file",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "pdf + summary.json",
+    "en": "pdf + summary.json"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "parse"
+  },
+  {
+   "from": "parse",
+   "to": "gate"
+  },
+  {
+   "from": "gate",
+   "to": "aggregate",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "gate",
+   "to": "stop",
+   "when": "stop",
+   "label": "empty / review"
+  },
+  {
+   "from": "aggregate",
+   "to": "compare"
+  },
+  {
+   "from": "compare",
+   "to": "pdf"
+  },
+  {
+   "from": "pdf",
+   "to": "save"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Toda semana alguém abre a planilha de vendas, filtra, soma, copia os números para um documento e exporta o PDF. Demora, cada semana sai de um jeito e uma linha com data errada passa batida.",
+   "en": "Every week someone opens the sales sheet, filters, sums, copies the numbers into a document and exports the PDF. It takes time, each week looks different and one row with a wrong date slips through."
+  },
+  "solution": {
+   "pt": "Um script Python valida cada linha, agrega em centavos, compara com a semana anterior e monta o PDF com o mesmo layout toda vez. Recusa gerar relatório com dados vazios ou com mais de 20% de linhas inválidas, e avisa dias úteis sem venda.",
+   "en": "A Python script validates each row, aggregates in cents, compares with the previous week and builds the PDF with the same layout every time. It refuses to produce a report from empty data or with more than 20% invalid rows, and flags weekdays without sales."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~40 min por semana para montar o relatório à mão, ~3 h por mês. O script leva segundos; alguém ainda precisa olhar o PDF e o aviso de linhas recusadas.",
+   "en": "An estimate, not a measurement: ~40 min a week to build the report by hand, ~3 h a month. The script takes seconds; someone still has to read the PDF and the rejected-rows note."
+  },
+  "stack": [
+   "Python 3.13",
+   "csv",
+   "reportlab",
+   "pypdf (testes)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install reportlab",
+     "python report.py data/vendas.csv output [2026-W45]",
+     "Testes: python tests/test_report.py"
+    ],
+    "en": [
+     "pip install reportlab",
+     "python report.py data/vendas.csv output [2026-W45]",
+     "Tests: python tests/test_report.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "report.py",
+     "label": {
+      "pt": "Baixar report.py",
+      "en": "Download report.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O cálculo é o report.py portado para JavaScript linha a linha e conferido contra o resumo real do Python (5 casos). O PDF não é gerado no navegador: o de verdade está em output/weekly_2026-W45.pdf. Produtos e valores são fictícios. Nada é enviado; o envio do PDF por e-mail não foi escrito.",
+   "en": "The calculation is report.py ported to JavaScript line by line and checked against the real Python summary (5 cases). The PDF is not built in the browser: the real one is output/weekly_2026-W45.pdf. Products and values are fictional. Nothing is sent; e-mailing the PDF was not written."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+    "week": ""
+   },
+   "expect": {
+    "status": "ok",
+    "week": "2026-W45",
+    "revenue": 16257.1,
+    "units": 31,
+    "orders": 14,
+    "prev_revenue": 26676.0,
+    "delta_pct": -39.1,
+    "top": [
+     {
+      "product": "Monitor 24",
+      "revenue": 9592.0,
+      "units": 8
+     },
+     {
+      "product": "Teclado Mec",
+      "revenue": 3757.0,
+      "units": 13
+     },
+     {
+      "product": "Mesa Dobrável",
+      "revenue": 1099.8,
+      "units": 2
+     }
+    ],
+    "regions": [
+     {
+      "region": "Sul",
+      "revenue": 7083.8,
+      "share": 43.6
+     },
+     {
+      "region": "Nordeste",
+      "revenue": 6818.3,
+      "share": 41.9
+     },
+     {
+      "region": "Sudeste",
+      "revenue": 2355.0,
+      "share": 14.5
+     }
+    ],
+    "daily": [
+     1458.8,
+     1188.0,
+     0.0,
+     5852.8,
+     6760.6,
+     0.0,
+     996.9
+    ],
+    "zero_days": [
+     "2026-11-04"
+    ],
+    "rejected": [
+     {
+      "line": 36,
+      "errors": [
+       "qty must be > 0"
+      ]
+     },
+     {
+      "line": 37,
+      "errors": [
+       "date must be YYYY-MM-DD"
+      ]
+     }
+    ]
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+    "week": "2026-W44"
+   },
+   "expect": {
+    "status": "ok",
+    "week": "2026-W44",
+    "revenue": 26676.0,
+    "units": 52,
+    "orders": 20,
+    "prev_revenue": 0.0,
+    "delta_pct": null,
+    "top": [
+     {
+      "product": "Cadeira Ergo",
+      "revenue": 16182.0,
+      "units": 18
+     },
+     {
+      "product": "Mesa Dobrável",
+      "revenue": 3849.3,
+      "units": 7
+     },
+     {
+      "product": "Teclado Mec",
+      "revenue": 3757.0,
+      "units": 13
+     }
+    ],
+    "regions": [
+     {
+      "region": "Sudeste",
+      "revenue": 13326.9,
+      "share": 50.0
+     },
+     {
+      "region": "Nordeste",
+      "revenue": 6719.4,
+      "share": 25.2
+     },
+     {
+      "region": "Sul",
+      "revenue": 6629.7,
+      "share": 24.9
+     }
+    ],
+    "daily": [
+     3586.2,
+     5491.9,
+     2848.7,
+     6229.0,
+     4404.6,
+     4115.6,
+     0.0
+    ],
+    "zero_days": [],
+    "rejected": [
+     {
+      "line": 36,
+      "errors": [
+       "qty must be > 0"
+      ]
+     },
+     {
+      "line": 37,
+      "errors": [
+       "date must be YYYY-MM-DD"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-11-02,Cadeira Ergo,Sul,1,899.0\nontem,Mesa,Sul,1,10\n2026-11-03,,Sul,x,10\n",
+    "week": ""
+   },
+   "expect": {
+    "status": "review",
+    "rejected": [
+     {
+      "line": 3,
+      "errors": [
+       "date must be YYYY-MM-DD"
+      ]
+     },
+     {
+      "line": 4,
+      "errors": [
+       "product is empty",
+       "qty must be an integer"
+      ]
+     }
+    ],
+    "reason": "2 of 3 rows are invalid (limit 20%)"
+   }
+  },
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n",
+    "week": ""
+   },
+   "expect": {
+    "status": "empty",
+    "rejected": []
+   }
+  },
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-10-26,Luminária Led,Sul,3,129.9\n2026-10-26,Mesa Dobrável,Sudeste,4,549.9\n2026-10-26,Luminária Led,Nordeste,1,129.9\n2026-10-26,Teclado Mec,Sudeste,3,289.0\n2026-10-27,Teclado Mec,Sul,3,289.0\n2026-10-27,Cadeira Ergo,Nordeste,1,899.0\n2026-10-27,Cadeira Ergo,Nordeste,4,899.0\n2026-10-27,Luminária Led,Nordeste,1,129.9\n2026-10-28,Monitor 24,Sul,1,1199.0\n2026-10-28,Mesa Dobrável,Sudeste,1,549.9\n2026-10-28,Mesa Dobrável,Sudeste,2,549.9\n2026-10-29,Cadeira Ergo,Sudeste,3,899.0\n2026-10-29,Cadeira Ergo,Sudeste,2,899.0\n2026-10-29,Teclado Mec,Sul,2,289.0\n2026-10-29,Teclado Mec,Nordeste,4,289.0\n2026-10-30,Luminária Led,Sudeste,4,129.9\n2026-10-30,Cadeira Ergo,Sudeste,4,899.0\n2026-10-30,Teclado Mec,Nordeste,1,289.0\n2026-10-31,Luminária Led,Nordeste,4,129.9\n2026-10-31,Cadeira Ergo,Sul,4,899.0\n2026-11-02,Monitor 24,Sudeste,1,1199.0\n2026-11-02,Luminária Led,Nordeste,2,129.9\n2026-11-03,Teclado Mec,Sul,1,289.0\n2026-11-03,Cadeira Ergo,Sul,1,899.0\n2026-11-05,Mesa Dobrável,Sul,2,549.9\n2026-11-05,Monitor 24,Nordeste,1,1199.0\n2026-11-05,Monitor 24,Nordeste,2,1199.0\n2026-11-05,Teclado Mec,Sudeste,4,289.0\n2026-11-06,Monitor 24,Sul,4,1199.0\n2026-11-06,Teclado Mec,Nordeste,3,289.0\n2026-11-06,Teclado Mec,Nordeste,2,289.0\n2026-11-06,Luminária Led,Nordeste,4,129.9\n2026-11-08,Luminária Led,Nordeste,1,129.9\n2026-11-08,Teclado Mec,Nordeste,3,289.0\n2026-11-05,Monitor 24,Sul,0,1199.0\n11/05/2026,Teclado Mec,Sul,1,289.0\n",
+    "week": "2026-W50"
+   },
+   "expect": {
+    "status": "empty",
+    "rejected": [
+     {
+      "line": 36,
+      "errors": [
+       "qty must be > 0"
+      ]
+     },
+     {
+      "line": 37,
+      "errors": [
+       "date must be YYYY-MM-DD"
+      ]
+     }
+    ],
+    "reason": "no rows in 2026-W50"
+   }
+  }
+ ]
+}

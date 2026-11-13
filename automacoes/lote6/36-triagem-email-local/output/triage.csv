@@ -1,0 +1,9 @@
+id,from,subject,label,source,confidence,priority,route,why
+1,maria@loja.example,Payment confirmation,billing,model,0.985,normal,finance@team.example,model: billing 0.985 (7 known words)
+2,dev@startup.example,Cannot access dashboard - urgent,support,model,0.938,high,support@team.example,model: support 0.938 (7 known words); urgent word or VIP sender
+3,ceo@bigclient.example,Quote request,sales,model,0.995,high,sales@team.example,model: sales 0.995 (8 known words); urgent word or VIP sender
+4,x@promo-deals.example,You won!,spam,rule,1.0,low,trash,sender domain promo-deals.example is blocked
+5,ana@empresa.example,Question INV-20451,billing,rule,1.0,normal,finance@team.example,invoice number found
+6,bot@vendor.example,Automatic reply: out of office,ignore,rule,1.0,low,archive,auto-reply subject
+7,joao@gmail.example,Hello,review,review,0.352,normal,inbox-human,model: sales 0.352 (2 known words); confidence below 0.6: a person decides
+8,lia@shop.example,Refund,billing,model,0.903,normal,finance@team.example,model: billing 0.903 (6 known words)

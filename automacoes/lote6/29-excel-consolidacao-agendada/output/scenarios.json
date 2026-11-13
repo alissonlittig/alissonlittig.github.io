@@ -1,0 +1,95 @@
+{
+ "ok": {
+  "input": {
+   "inbox": "ok",
+   "agenda": "daily@07:30",
+   "agora": "2026-11-12 08:00"
+  },
+  "arquivos": {
+   "curitiba.csv": "processado",
+   "londrina.csv": "processado",
+   "maringa.csv": "processado"
+  },
+  "linhas": 22,
+  "erros": [],
+  "resumo": {
+   "curitiba": 594.4,
+   "londrina": 1279.2,
+   "maringa": 1869.6
+  },
+  "total": 3743.2,
+  "proxima": "2026-11-13 07:30"
+ },
+ "bad_rows": {
+  "input": {
+   "inbox": "bad_rows",
+   "agenda": "daily@07:30",
+   "agora": "2026-11-12 06:10"
+  },
+  "arquivos": {
+   "curitiba.csv": "processado",
+   "londrina.csv": "processado (2 linha(s) com erro)",
+   "maringa.csv": "processado"
+  },
+  "linhas": 22,
+  "erros": [
+   {
+    "arquivo": "londrina.csv",
+    "linha": 9,
+    "motivo": "data inválida"
+   },
+   {
+    "arquivo": "londrina.csv",
+    "linha": 10,
+    "motivo": "qtd inválida"
+   }
+  ],
+  "resumo": {
+   "curitiba": 594.4,
+   "londrina": 1279.2,
+   "maringa": 1869.6
+  },
+  "total": 3743.2,
+  "proxima": "2026-11-12 07:30"
+ },
+ "repeat": {
+  "input": {
+   "inbox": "repeat",
+   "agenda": "every:15m",
+   "agora": "2026-11-12 08:00"
+  },
+  "arquivos": {
+   "curitiba.csv": "duplicado",
+   "londrina.csv": "processado",
+   "maringa.csv": "processado"
+  },
+  "linhas": 13,
+  "erros": [],
+  "resumo": {
+   "londrina": 1279.2,
+   "maringa": 1869.6
+  },
+  "total": 3148.8,
+  "proxima": "2026-11-12 08:15"
+ },
+ "bad_header": {
+  "input": {
+   "inbox": "bad_header",
+   "agenda": "daily@07:30",
+   "agora": "2026-11-12 08:00"
+  },
+  "arquivos": {
+   "curitiba.csv": "processado",
+   "londrina.csv": "processado",
+   "maringa.csv": "rejeitado: faltam colunas: preco_unit"
+  },
+  "linhas": 16,
+  "erros": [],
+  "resumo": {
+   "curitiba": 594.4,
+   "londrina": 1279.2
+  },
+  "total": 1873.6,
+  "proxima": "2026-11-13 07:30"
+ }
+}

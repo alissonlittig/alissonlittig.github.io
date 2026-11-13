@@ -1,0 +1,425 @@
+{
+ "slug": "33-sync-crm-planilha",
+ "title": {
+  "pt": "Sincronizar CRM e planilha sem duplicar",
+  "en": "Sync a CRM and a spreadsheet without duplicates"
+ },
+ "tag": {
+  "pt": "Python · CSV · deduplicação",
+  "en": "Python · CSV · de-duplication"
+ },
+ "summary": {
+  "pt": "Uma linha muda no CRM ou na planilha. O script padroniza e-mail, telefone e nome, procura a mesma pessoa (por e-mail, senão por telefone), junta duplicatas, deixa o valor mais recente vencer em cada campo, cria a pessoa do outro lado se ela não existe e avisa quando dois valores diferentes têm a mesma data (conflito para uma pessoa decidir).",
+  "en": "A row changes in the CRM or the spreadsheet. The script standardises e-mail, phone and name, looks for the same person (by e-mail, else phone), merges duplicates, lets the newest value win per field, creates the person on the other side if missing and flags it when two different values share the same date (a conflict for a person to decide)."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: linha alterada (CRM ou planilha)",
+   "en": "Event: row changed (CRM or spreadsheet)"
+  },
+  "note": {
+   "pt": "A memória (CRM e planilha com 5 pessoas) vale enquanto a página está aberta: rode os 5 exemplos em ordem e veja as duas tabelas mudarem. Regra: mais recente vence por campo; mesma data e valores diferentes = conflito, o valor existente fica.",
+   "en": "Memory (a CRM and a sheet with 5 people) lasts while the page is open: run the 5 examples in order and watch both tables change. Rule: newest wins per field; same date and different values = conflict, the existing value stays."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Edição no CRM (empresa nova)",
+     "en": "1. CRM edit (new company)"
+    },
+    "values": {
+     "origin": "crm",
+     "name": "Eva Prado",
+     "email": "EVA@graos.example",
+     "phone": "",
+     "company": "Grãos da Serra Ltda",
+     "updated": "2026-11-10"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Pessoa nova na planilha",
+     "en": "2. New person in the sheet"
+    },
+    "values": {
+     "origin": "sheet",
+     "name": "hugo  AZEVEDO",
+     "email": "hugo@vitrine.example",
+     "phone": "+55 41 94444-1212",
+     "company": "Vitrine",
+     "updated": "2026-11-10"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Mesmo dia, valor diferente (conflito)",
+     "en": "3. Same day, different value (conflict)"
+    },
+    "values": {
+     "origin": "sheet",
+     "name": "Bruno Lima",
+     "email": "bruno@norteacos.example",
+     "phone": "",
+     "company": "Norte Aço Brasil",
+     "updated": "2026-11-09"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Sem e-mail, casa pelo telefone",
+     "en": "4. No e-mail, matched by phone"
+    },
+    "values": {
+     "origin": "sheet",
+     "name": "diego r.",
+     "email": "",
+     "phone": "(41) 97777-3333",
+     "company": "Vitrine ERP",
+     "updated": "2026-11-11"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Linha inválida",
+     "en": "5. Invalid row"
+    },
+    "values": {
+     "origin": "crm",
+     "name": "",
+     "email": "isso-nao-e-email",
+     "phone": "12",
+     "company": "",
+     "updated": "ontem"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "origin",
+    "type": "select",
+    "value": "crm",
+    "label": {
+     "pt": "Onde mudou",
+     "en": "Where it changed"
+    },
+    "options": [
+     {
+      "value": "crm",
+      "label": {
+       "pt": "CRM",
+       "en": "CRM"
+      }
+     },
+     {
+      "value": "sheet",
+      "label": {
+       "pt": "Planilha",
+       "en": "Spreadsheet"
+      }
+     }
+    ]
+   },
+   {
+    "key": "name",
+    "type": "text",
+    "value": "Eva Prado",
+    "label": {
+     "pt": "Nome",
+     "en": "Name"
+    }
+   },
+   {
+    "key": "email",
+    "type": "text",
+    "value": "EVA@graos.example",
+    "label": {
+     "pt": "E-mail",
+     "en": "E-mail"
+    }
+   },
+   {
+    "key": "phone",
+    "type": "text",
+    "value": "",
+    "label": {
+     "pt": "Telefone",
+     "en": "Phone"
+    }
+   },
+   {
+    "key": "company",
+    "type": "text",
+    "value": "Grãos da Serra Ltda",
+    "label": {
+     "pt": "Empresa",
+     "en": "Company"
+    }
+   },
+   {
+    "key": "updated",
+    "type": "text",
+    "value": "2026-11-10",
+    "label": {
+     "pt": "Atualizado em (AAAA-MM-DD)",
+     "en": "Updated on (YYYY-MM-DD)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Row changed",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "CRM ou planilha",
+    "en": "CRM or sheet"
+   }
+  },
+  {
+   "id": "normalize",
+   "name": "Normalize",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "e-mail, telefone, nome",
+    "en": "e-mail, phone, name"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Valid?",
+   "icon": "if",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "campos mínimos",
+    "en": "minimum fields"
+   }
+  },
+  {
+   "id": "reject",
+   "name": "Reject row",
+   "icon": "respond",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "linha e motivo no relatório",
+    "en": "line and reason in report"
+   }
+  },
+  {
+   "id": "own",
+   "name": "Own side",
+   "icon": "sheet",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "cria ou mescla duplicata",
+    "en": "create or merge duplicate"
+   }
+  },
+  {
+   "id": "other",
+   "name": "Other side",
+   "icon": "sheet",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "o mais novo vence",
+    "en": "newest wins"
+   }
+  },
+  {
+   "id": "report",
+   "name": "Report",
+   "icon": "file",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "ações e conflitos",
+    "en": "actions and conflicts"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "normalize"
+  },
+  {
+   "from": "normalize",
+   "to": "validate"
+  },
+  {
+   "from": "validate",
+   "to": "own",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "validate",
+   "to": "reject",
+   "when": "bad",
+   "label": "rejected"
+  },
+  {
+   "from": "own",
+   "to": "other"
+  },
+  {
+   "from": "other",
+   "to": "report"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "A equipe usa um CRM e uma planilha ao mesmo tempo. Cada um corrige uma ponta, a mesma pessoa aparece duas ou três vezes com telefone escrito de jeitos diferentes, e ninguém sabe qual versão é a certa.",
+   "en": "The team uses a CRM and a spreadsheet at the same time. Each fixes one side, the same person shows up two or three times with phones written in different ways, and nobody knows which version is right."
+  },
+  "solution": {
+   "pt": "Um script que lê os dois CSVs, padroniza, casa por e-mail ou telefone, junta duplicatas, aplica 'o mais novo vence' por campo e escreve os dois arquivos de volta iguais. Linha inválida vai para o relatório com número da linha. Rodar de novo não muda nada (idempotente). Conflito não é decidido sozinho.",
+   "en": "A script that reads both CSVs, standardises, matches by e-mail or phone, merges duplicates, applies 'newest wins' per field and writes both files back identical. An invalid row goes to the report with its line number. Running it again changes nothing (idempotent). A conflict is never decided silently."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: conferir e corrigir à mão ~2 min por linha duplicada ou divergente. Com 150 linhas divergentes por mês são ~5 h. O script faz em segundos e deixa para a pessoa só os conflitos reais.",
+   "en": "An estimate, not a measurement: checking and fixing by hand ~2 min per duplicate or diverging row. With 150 diverging rows a month that is ~5 h. The script does it in seconds and leaves only real conflicts for a person."
+  },
+  "stack": [
+   "Python 3.13",
+   "csv",
+   "re",
+   "json"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python sync.py data/crm.csv data/planilha.csv output",
+     "Testes: python tests/test_sync.py"
+    ],
+    "en": [
+     "python sync.py data/crm.csv data/planilha.csv output",
+     "Tests: python tests/test_sync.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "sync.py",
+     "label": {
+      "pt": "Baixar sync.py",
+      "en": "Download sync.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o sync.py portado para JavaScript linha a linha; os dois CSVs são simulados em memória na página, e a lógica foi conferida contra as respostas reais gravadas do Python. Pessoas e e-mails são fictícios (.example). Nada é enviado nem lido de um CRM de verdade; o conector para um CRM real não foi escrito.",
+   "en": "The code is sync.py ported to JavaScript line by line; the two CSVs are simulated in memory on the page, and the logic was checked against recorded answers from the real Python. People and e-mails are fictional (.example). Nothing is sent or read from a real CRM; the connector to a real CRM was not written."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "origin": "crm",
+    "name": "Eva Prado",
+    "email": "EVA@graos.example",
+    "phone": "",
+    "company": "Grãos da Serra Ltda",
+    "updated": "2026-11-10"
+   },
+   "expect": {
+    "status": "synced",
+    "actions": [
+     "same-side duplicate merged in crm (company)",
+     "updated in sheet (company)"
+    ],
+    "conflicts": []
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "origin": "sheet",
+    "name": "hugo  AZEVEDO",
+    "email": "hugo@vitrine.example",
+    "phone": "+55 41 94444-1212",
+    "company": "Vitrine",
+    "updated": "2026-11-10"
+   },
+   "expect": {
+    "status": "synced",
+    "actions": [
+     "created in sheet",
+     "created in crm"
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "input": {
+    "origin": "sheet",
+    "name": "Bruno Lima",
+    "email": "bruno@norteacos.example",
+    "phone": "",
+    "company": "Norte Aço Brasil",
+    "updated": "2026-11-09"
+   },
+   "expect": {
+    "status": "synced",
+    "actions": [
+     "same-side duplicate merged in sheet (company)",
+     "updated in crm (company)"
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "input": {
+    "origin": "sheet",
+    "name": "diego r.",
+    "email": "",
+    "phone": "(41) 97777-3333",
+    "company": "Vitrine ERP",
+    "updated": "2026-11-11"
+   },
+   "expect": {
+    "status": "synced",
+    "actions": [
+     "same-side duplicate merged in sheet (name, company)",
+     "updated in crm (name, company)"
+    ],
+    "conflicts": []
+   }
+  },
+  {
+   "input": {
+    "origin": "crm",
+    "name": "",
+    "email": "isso-nao-e-email",
+    "phone": "12",
+    "company": "",
+    "updated": "ontem"
+   },
+   "expect": {
+    "status": "rejected",
+    "errors": [
+     "name is required",
+     "email is invalid",
+     "updated must be YYYY-MM-DD"
+    ]
+   }
+  }
+ ]
+}

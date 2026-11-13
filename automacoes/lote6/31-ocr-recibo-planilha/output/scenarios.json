@@ -1,0 +1,168 @@
+{
+ "ok": {
+  "file": "recibo_01.png",
+  "input": {
+   "texto": "MERCADINHO BOA PRACA\nCNPJ 00.111.222/0001-00\nDATA: 08/11/2026 14:32\n1x ARROZ 5KG 28,90 28,90\n2X FEIJAO 1KG 8,45 16,90\n3x OLEO DE SOJA 7,20 21,60\n1X CAFE 500G 19,90 19,90\nTOTAL RS 87,30\nOBRIGADO PELA PREFERENCIA",
+   "conf": "0.741"
+  },
+  "loja": "MERCADINHO BOA PRACA",
+  "cnpj": "00.111.222/0001-00",
+  "data": "2026-11-08",
+  "itens": [
+   {
+    "desc": "ARROZ 5KG",
+    "qtd": 1,
+    "unit": 28.9,
+    "total": 28.9
+   },
+   {
+    "desc": "FEIJAO 1KG",
+    "qtd": 2,
+    "unit": 8.45,
+    "total": 16.9
+   },
+   {
+    "desc": "OLEO DE SOJA",
+    "qtd": 3,
+    "unit": 7.2,
+    "total": 21.6
+   },
+   {
+    "desc": "CAFE 500G",
+    "qtd": 1,
+    "unit": 19.9,
+    "total": 19.9
+   }
+  ],
+  "soma": 87.3,
+  "total": 87.3,
+  "avisos": [],
+  "notas": [],
+  "status": "ok"
+ },
+ "qtd_inferida": {
+  "file": "recibo_02.png",
+  "input": {
+   "texto": "PAPELARIA CANTO VIVO\nCNPJ 00.333.444/0001-00\nDATA: ( 09/11/2026 10:05\n4x CADERNO 96F 18,90 75,60\n10x CANETA GEL 3,50 35,00\nPASTA A4 6,20 12,40\nTOTAL RS 123,00\nOBRIGADO PELA PREFERENCIA",
+   "conf": "0.785"
+  },
+  "loja": "PAPELARIA CANTO VIVO",
+  "cnpj": "00.333.444/0001-00",
+  "data": "2026-11-09",
+  "itens": [
+   {
+    "desc": "CADERNO 96F",
+    "qtd": 4,
+    "unit": 18.9,
+    "total": 75.6
+   },
+   {
+    "desc": "CANETA GEL",
+    "qtd": 10,
+    "unit": 3.5,
+    "total": 35.0
+   },
+   {
+    "desc": "PASTA A4",
+    "qtd": 2,
+    "unit": 6.2,
+    "total": 12.4
+   }
+  ],
+  "soma": 123.0,
+  "total": 123.0,
+  "avisos": [],
+  "notas": [
+   "PASTA A4: quantidade 2 inferida de 12.40 / 6.20"
+  ],
+  "status": "ok"
+ },
+ "total_errado": {
+  "file": "recibo_03.png",
+  "input": {
+   "texto": "POSTO RIO CLARO\nCNPJ 00.555.666/0001-00\nDATA: 10/11/2026 18:47\n1x  GASOLINA COMUM 212,40 212,40\n2X AGUA MINERAL 4,50 9,00\nTOTAL R$ 220,00\nOBRIGADO PELAPREFERENCIA",
+   "conf": "0.803"
+  },
+  "loja": "POSTO RIO CLARO",
+  "cnpj": "00.555.666/0001-00",
+  "data": "2026-11-10",
+  "itens": [
+   {
+    "desc": "GASOLINA COMUM",
+    "qtd": 1,
+    "unit": 212.4,
+    "total": 212.4
+   },
+   {
+    "desc": "AGUA MINERAL",
+    "qtd": 2,
+    "unit": 4.5,
+    "total": 9.0
+   }
+  ],
+  "soma": 221.4,
+  "total": 220.0,
+  "avisos": [
+   "soma dos itens 221.40 difere do total impresso 220.00"
+  ],
+  "notas": [],
+  "status": "revisar"
+ },
+ "feira": {
+  "file": "recibo_04.png",
+  "input": {
+   "texto": "FEIRA DO BAIRRO\nCNPJ 00.777.888/0001-00\nDATA: 11/11/2026 08:20\nTOMATE KG 9,80 19,60\n3X BANANA DZ 6,50 19,50\n1x OVOS 12 14,00 14,00\nTOTAL RS 53,10\nOBRIGADO PELA PREFERENCIA",
+   "conf": "0.761"
+  },
+  "loja": "FEIRA DO BAIRRO",
+  "cnpj": "00.777.888/0001-00",
+  "data": "2026-11-11",
+  "itens": [
+   {
+    "desc": "TOMATE KG",
+    "qtd": 2,
+    "unit": 9.8,
+    "total": 19.6
+   },
+   {
+    "desc": "BANANA DZ",
+    "qtd": 3,
+    "unit": 6.5,
+    "total": 19.5
+   },
+   {
+    "desc": "OVOS 12",
+    "qtd": 1,
+    "unit": 14.0,
+    "total": 14.0
+   }
+  ],
+  "soma": 53.1,
+  "total": 53.1,
+  "avisos": [],
+  "notas": [
+   "TOMATE KG: quantidade 2 inferida de 19.60 / 9.80"
+  ],
+  "status": "ok"
+ },
+ "borrado": {
+  "file": "recibo_05_borrado.png",
+  "input": {
+   "texto": "PAPELARTA CANTOVTVO\nN003334440001-00\nDAA0971202610:05\nAXCADERNOO6E 218.90 7560\nTOXCANETAGEL 3503500\n2XCPASTAA4 6,201240\n123.00\nTOTAARS\nOBRIGADOPELAPREFERENCTA",
+   "conf": "0.722"
+  },
+  "loja": "PAPELARTA CANTOVTVO",
+  "cnpj": null,
+  "data": null,
+  "itens": [],
+  "soma": 0,
+  "total": null,
+  "avisos": [
+   "data não lida",
+   "nenhum item lido",
+   "total não lido"
+  ],
+  "notas": [],
+  "status": "revisar"
+ }
+}

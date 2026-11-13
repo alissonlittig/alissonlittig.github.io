@@ -1,0 +1,394 @@
+{
+ "slug": "29-excel-consolidacao-agendada",
+ "title": {
+  "pt": "Planilhas de várias filiais viram um Excel consolidado, no horário",
+  "en": "Branch spreadsheets become one consolidated Excel, on schedule"
+ },
+ "tag": {
+  "pt": "Python · openpyxl · agendador",
+  "en": "Python · openpyxl · scheduler"
+ },
+ "summary": {
+  "pt": "Todo dia, num horário fixo, o fluxo pega os CSV de vendas de cada filial, confere linha a linha, junta tudo num Excel com fórmulas (total por linha, resumo por filial) e manda o que está errado para uma aba de Erros. Arquivo repetido é ignorado e arquivo com coluna faltando é recusado, sem derrubar o resto.",
+  "en": "Every day at a fixed time the flow picks up each branch's sales CSV, checks it row by row, merges everything into an Excel with formulas (line total, per-branch summary) and sends what is wrong to an Errors sheet. A repeated file is ignored and a file with a missing column is refused without stopping the rest."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "python fluxo.py ./entrada consolidado.xlsx --agendar daily@07:30",
+   "en": "python fluxo.py ./inbox consolidated.xlsx --schedule daily@07:30"
+  },
+  "note": {
+   "pt": "A demo usa 3 CSV fictícios (22 linhas). O seletor 'Pasta de entrada' troca o cenário; 'Agenda' e 'Agora' mostram o cálculo da próxima execução.",
+   "en": "The demo uses 3 fictional CSVs (22 rows). The 'Inbox' selector swaps the scenario; 'Schedule' and 'Now' show how the next run is computed."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Pasta limpa",
+     "en": "1. Clean folder"
+    },
+    "values": {
+     "inbox": "ok",
+     "agenda": "daily@07:30",
+     "agora": "2026-11-12 08:00"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Linhas inválidas",
+     "en": "2. Invalid rows"
+    },
+    "values": {
+     "inbox": "bad_rows",
+     "agenda": "daily@07:30",
+     "agora": "2026-11-12 06:10"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Arquivo reenviado",
+     "en": "3. File sent again"
+    },
+    "values": {
+     "inbox": "repeat",
+     "agenda": "every:15m",
+     "agora": "2026-11-12 08:00"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Coluna faltando",
+     "en": "4. Missing column"
+    },
+    "values": {
+     "inbox": "bad_header",
+     "agenda": "daily@07:30",
+     "agora": "2026-11-12 08:00"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "inbox",
+    "type": "select",
+    "value": "ok",
+    "label": {
+     "pt": "Pasta de entrada",
+     "en": "Inbox"
+    },
+    "options": [
+     {
+      "value": "ok",
+      "label": {
+       "pt": "3 arquivos corretos",
+       "en": "3 correct files"
+      }
+     },
+     {
+      "value": "bad_rows",
+      "label": {
+       "pt": "Londrina com 2 linhas inválidas",
+       "en": "Londrina with 2 invalid rows"
+      }
+     },
+     {
+      "value": "repeat",
+      "label": {
+       "pt": "Curitiba já processado antes",
+       "en": "Curitiba already processed"
+      }
+     },
+     {
+      "value": "bad_header",
+      "label": {
+       "pt": "Maringá sem a coluna preco_unit",
+       "en": "Maringa missing the preco_unit column"
+      }
+     }
+    ]
+   },
+   {
+    "key": "agenda",
+    "type": "text",
+    "value": "daily@07:30",
+    "label": {
+     "pt": "Agenda (daily@HH:MM ou every:Nm)",
+     "en": "Schedule (daily@HH:MM or every:Nm)"
+    }
+   },
+   {
+    "key": "agora",
+    "type": "text",
+    "value": "2026-11-12 08:00",
+    "label": {
+     "pt": "Agora (AAAA-MM-DD HH:MM)",
+     "en": "Now (YYYY-MM-DD HH:MM)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Schedule",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "daily@07:30 ou every:15m",
+    "en": "daily@07:30 or every:15m"
+   }
+  },
+  {
+   "id": "ledger",
+   "name": "Already processed?",
+   "icon": "if",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "hash do conteúdo",
+    "en": "content hash"
+   }
+  },
+  {
+   "id": "nothing",
+   "name": "Nothing new",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "não gera planilha repetida",
+    "en": "no duplicate sheet"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Validate rows",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "data · qtd · preço · colunas",
+    "en": "date · qty · price · columns"
+   }
+  },
+  {
+   "id": "errsheet",
+   "name": "Errors sheet",
+   "icon": "sheet",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "linha ruim vai para Erros",
+    "en": "bad rows go to Erros"
+   }
+  },
+  {
+   "id": "excel",
+   "name": "Build .xlsx",
+   "icon": "file",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "Consolidado · Resumo · Erros",
+    "en": "Consolidado · Resumo · Erros"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "ledger"
+  },
+  {
+   "from": "ledger",
+   "to": "validate",
+   "when": "new",
+   "label": "new"
+  },
+  {
+   "from": "ledger",
+   "to": "nothing",
+   "when": "none",
+   "label": "none"
+  },
+  {
+   "from": "validate",
+   "to": "excel",
+   "when": "clean",
+   "label": "clean"
+  },
+  {
+   "from": "validate",
+   "to": "errsheet",
+   "when": "errors",
+   "label": "errors"
+  },
+  {
+   "from": "errsheet",
+   "to": "excel"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Cada filial manda sua planilha de um jeito; alguém abre uma por uma, copia para uma planilha mestra e some os totais. Reenvio duplica linhas e um número digitado errado passa batido.",
+   "en": "Each branch sends its spreadsheet its own way; someone opens them one by one, copies into a master sheet and adds up the totals. A resend duplicates rows and a mistyped number slips through."
+  },
+  "solution": {
+   "pt": "Um script Python (openpyxl) que lê a pasta, rejeita o que está fora do formato, guarda o hash de cada arquivo já processado e gera o Excel com fórmulas vivas (=D*E, SUMIF, SUM) e formatação condicional. O agendador próprio calcula o próximo horário e roda sozinho; no Windows pode ser disparado também pelo Agendador de Tarefas.",
+   "en": "A Python script (openpyxl) that reads the folder, rejects what is out of format, keeps a hash of every processed file and builds the Excel with live formulas (=D*E, SUMIF, SUM) and conditional formatting. The built-in scheduler works out the next run time and fires it on its own; on Windows it can also be triggered by Task Scheduler."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~40 min por dia abrindo 3 planilhas, copiando e conferindo à mão; o fluxo leva segundos. O ganho real depende de quantas filiais e de quanto tempo a conferência manual leva hoje.",
+   "en": "An estimate, not a measurement: ~40 min a day opening 3 spreadsheets, copying and checking by hand; the flow takes seconds. The real gain depends on how many branches there are and how long the manual check takes today."
+  },
+  "stack": [
+   "Python 3.13",
+   "openpyxl",
+   "csv",
+   "datetime",
+   "FNV-1a"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python fluxo.py (pasta fixtures/ok, uma vez → output/consolidado.xlsx)",
+     "python fluxo.py ./entrada saida.xlsx --agendar daily@07:30 (fica rodando)",
+     "python run_scenarios.py (4 cenários → output/)",
+     "Testes: python tests/test_fluxo.py"
+    ],
+    "en": [
+     "python fluxo.py (fixtures/ok folder, once → output/consolidado.xlsx)",
+     "python fluxo.py ./inbox out.xlsx --agendar daily@07:30 (keeps running)",
+     "python run_scenarios.py (4 scenarios → output/)",
+     "Tests: python tests/test_fluxo.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "fluxo.py",
+     "label": {
+      "pt": "Baixar fluxo.py",
+      "en": "Download fluxo.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o fluxo.py portado para JavaScript e conferido contra as saídas gravadas do Python. O navegador não gera o .xlsx: o arquivo real foi gerado e relido pelo Python (output/consolidado_ok.xlsx). As fórmulas foram conferidas como texto, não recalculadas no Excel. Os CSV e as filiais são fictícios. O agendador foi testado com relógio falso; não deixei nada agendado no Windows.",
+   "en": "The code is fluxo.py ported to JavaScript and checked against recorded Python outputs. The browser does not build the .xlsx: the real file was built and re-read by Python (output/consolidado_ok.xlsx). Formulas were checked as text, not recalculated in Excel. CSVs and branches are fictional. The scheduler was tested with a fake clock; nothing was left scheduled on Windows."
+  }
+ },
+ "footer": {
+  "pt": "Nada é enviado: tudo roda no seu navegador, sem acessar arquivo nenhum.",
+  "en": "Nothing is sent: everything runs in your browser, without touching any file."
+ },
+ "recorded": [
+  {
+   "input": {
+    "inbox": "ok",
+    "agenda": "daily@07:30",
+    "agora": "2026-11-12 08:00"
+   },
+   "expect": {
+    "arquivos": {
+     "curitiba.csv": "processado",
+     "londrina.csv": "processado",
+     "maringa.csv": "processado"
+    },
+    "linhas": 22,
+    "erros": [],
+    "resumo": {
+     "curitiba": 594.4,
+     "londrina": 1279.2,
+     "maringa": 1869.6
+    },
+    "total": 3743.2,
+    "proxima": "2026-11-13 07:30"
+   }
+  },
+  {
+   "input": {
+    "inbox": "bad_rows",
+    "agenda": "daily@07:30",
+    "agora": "2026-11-12 06:10"
+   },
+   "expect": {
+    "arquivos": {
+     "curitiba.csv": "processado",
+     "londrina.csv": "processado (2 linha(s) com erro)",
+     "maringa.csv": "processado"
+    },
+    "linhas": 22,
+    "erros": [
+     {
+      "arquivo": "londrina.csv",
+      "linha": 9,
+      "motivo": "data inválida"
+     },
+     {
+      "arquivo": "londrina.csv",
+      "linha": 10,
+      "motivo": "qtd inválida"
+     }
+    ],
+    "resumo": {
+     "curitiba": 594.4,
+     "londrina": 1279.2,
+     "maringa": 1869.6
+    },
+    "total": 3743.2,
+    "proxima": "2026-11-12 07:30"
+   }
+  },
+  {
+   "input": {
+    "inbox": "repeat",
+    "agenda": "every:15m",
+    "agora": "2026-11-12 08:00"
+   },
+   "expect": {
+    "arquivos": {
+     "curitiba.csv": "duplicado",
+     "londrina.csv": "processado",
+     "maringa.csv": "processado"
+    },
+    "linhas": 13,
+    "erros": [],
+    "resumo": {
+     "londrina": 1279.2,
+     "maringa": 1869.6
+    },
+    "total": 3148.8,
+    "proxima": "2026-11-12 08:15"
+   }
+  },
+  {
+   "input": {
+    "inbox": "bad_header",
+    "agenda": "daily@07:30",
+    "agora": "2026-11-12 08:00"
+   },
+   "expect": {
+    "arquivos": {
+     "curitiba.csv": "processado",
+     "londrina.csv": "processado",
+     "maringa.csv": "rejeitado: faltam colunas: preco_unit"
+    },
+    "linhas": 16,
+    "erros": [],
+    "resumo": {
+     "curitiba": 594.4,
+     "londrina": 1279.2
+    },
+    "total": 1873.6,
+    "proxima": "2026-11-13 07:30"
+   }
+  }
+ ]
+}

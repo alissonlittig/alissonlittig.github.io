@@ -1,0 +1,40 @@
+billing|Invoice for October services is attached please confirm payment date
+billing|My card was charged twice for the same subscription please refund the duplicate payment
+billing|Can you send the receipt for last month payment I need it for accounting
+billing|The boleto expired before I could pay can you issue a new one with a later due date
+billing|Question about the tax on my invoice the total looks higher than the quote
+billing|Please update the billing address and company tax id on my account invoices
+billing|Payment reminder your subscription renewal is due this week
+billing|I want to cancel the subscription and stop the monthly charge on my card
+billing|Wrong amount on the invoice the discount we agreed was not applied
+billing|Bank transfer sent today please confirm that the payment was received
+support|The app crashes when I open the reports page after the latest update
+support|I cannot log in my password reset email never arrives
+support|The export button does nothing and the spreadsheet is never downloaded
+support|Error message appears when I try to upload a file bigger than ten megabytes
+support|How do I add a new user to my team and set permissions
+support|The dashboard is very slow and sometimes shows empty charts
+support|Feature not working after migration the sync with my calendar stopped
+support|I need help configuring the integration with my online store settings page
+support|Mobile app shows a blank screen on startup on my phone
+support|Found a bug the filter by date returns the wrong rows
+sales|I would like a quote for fifty licenses for our company
+sales|Interested in a demo of the platform for our sales team next week
+sales|What are your pricing plans and is there a discount for annual contracts
+sales|We are evaluating vendors for a new system can we schedule a call
+sales|Do you offer a free trial and onboarding for a team of twenty people
+sales|Please send a proposal with pricing for the enterprise plan
+sales|Looking for a partnership reseller program do you have one
+sales|Our company needs a custom integration can you send the price and timeline
+sales|Can I get a demo and a price list for the premium package
+sales|Requesting information about plans volume discount and contract terms
+spam|Congratulations you won a prize click here to claim your free gift now
+spam|Make money fast working from home guaranteed income no experience
+spam|Cheap pills online limited offer buy now no prescription
+spam|Your account will be suspended verify your password at this link immediately
+spam|Exclusive crypto investment double your money in one week
+spam|Lottery winner you have been selected claim your million dollars
+spam|Hot singles in your area click now unsubscribe at the bottom
+spam|Buy followers and likes cheap boost your social media today
+spam|Unclaimed inheritance send your bank details to receive funds
+spam|Special promotion win a free phone just fill this survey

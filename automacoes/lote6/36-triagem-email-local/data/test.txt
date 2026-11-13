@@ -1,0 +1,16 @@
+billing|Please send me the invoice and confirm the payment I made yesterday
+billing|You charged my card again this month I want a refund
+billing|Receipt needed for the subscription payment last week
+billing|The total on the invoice is wrong the discount is missing
+support|The upload fails with an error and the app crashes
+support|I cannot log in and the password reset does not work
+support|The report export is not working and the dashboard is slow
+support|Bug in the date filter shows wrong rows on mobile
+sales|We need a quote and a demo for our team of thirty
+sales|What is the price of the enterprise plan can we schedule a call
+sales|Send us a proposal with the pricing and contract terms
+sales|Interested in the reseller partnership and volume discount
+spam|You won a free prize claim now click this link
+spam|Guaranteed income work from home make money fast
+spam|Verify your password now or your account will be suspended
+spam|Cheap pills buy now limited offer

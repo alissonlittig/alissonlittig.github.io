@@ -1,0 +1,92 @@
+[
+ {
+  "file": "guia_acesso_ti.pdf",
+  "page": 1,
+  "section": "",
+  "text": "Guia de Acesso e Segurança de TI (Alfa Serviços, documento fictício)"
+ },
+ {
+  "file": "guia_acesso_ti.pdf",
+  "page": 1,
+  "section": "1. Redefinir a senha",
+  "text": "Para redefinir a senha, abra o portal de acesso e use a opção esqueci minha senha. O link de redefinição vale por 15 minutos. A nova senha precisa ter pelo menos 12 caracteres, com letras e números."
+ },
+ {
+  "file": "guia_acesso_ti.pdf",
+  "page": 1,
+  "section": "2. Bloqueio de conta",
+  "text": "A conta é bloqueada depois de 5 tentativas erradas seguidas. O desbloqueio é automático após 30 minutos ou imediato se o suporte de TI confirmar a identidade."
+ },
+ {
+  "file": "guia_acesso_ti.pdf",
+  "page": 2,
+  "section": "3. Acesso por VPN",
+  "text": "O acesso remoto à rede interna exige VPN e verificação em duas etapas pelo aplicativo autenticador. A VPN desconecta sozinha depois de 8 horas e precisa ser conectada de novo."
+ },
+ {
+  "file": "guia_acesso_ti.pdf",
+  "page": 2,
+  "section": "4. Equipamento perdido",
+  "text": "Notebook ou celular perdido deve ser comunicado ao suporte de TI no mesmo dia. O acesso do aparelho é revogado em até 1 hora depois do aviso."
+ },
+ {
+  "file": "manual_atendimento.pdf",
+  "page": 1,
+  "section": "",
+  "text": "Manual de Atendimento ao Cliente (Alfa Serviços, documento fictício)"
+ },
+ {
+  "file": "manual_atendimento.pdf",
+  "page": 1,
+  "section": "1. Horário de atendimento",
+  "text": "O atendimento por telefone e chat funciona de segunda a sexta, das 8h às 18h. Aos sábados o chat atende das 9h às 13h. Não há atendimento em domingos e feriados nacionais."
+ },
+ {
+  "file": "manual_atendimento.pdf",
+  "page": 1,
+  "section": "2. Prazo de resposta",
+  "text": "Todo chamado recebe a primeira resposta em até 4 horas úteis. Chamados marcados como urgentes, como sistema fora do ar, recebem resposta em até 1 hora."
+ },
+ {
+  "file": "manual_atendimento.pdf",
+  "page": 2,
+  "section": "3. Cancelamento de contrato",
+  "text": "O cliente pode cancelar o contrato a qualquer momento, com aviso de 30 dias. Não há multa para contratos com mais de 12 meses. Em contratos mais novos a multa é de 20% das mensalidades restantes."
+ },
+ {
+  "file": "manual_atendimento.pdf",
+  "page": 2,
+  "section": "4. Escalonamento",
+  "text": "Quando o atendente não resolve em 2 dias úteis, o chamado sobe para o coordenador do turno. Reclamações sobre cobrança vão direto para o time financeiro."
+ },
+ {
+  "file": "politica_reembolso.pdf",
+  "page": 1,
+  "section": "",
+  "text": "Política de Reembolso de Despesas (Alfa Serviços, documento fictício)"
+ },
+ {
+  "file": "politica_reembolso.pdf",
+  "page": 1,
+  "section": "1. Quem pode pedir",
+  "text": "Todo colaborador com contrato ativo pode pedir reembolso de despesas feitas a trabalho. Estagiários pedem pelo gestor da área. Despesas pessoais nunca são reembolsadas."
+ },
+ {
+  "file": "politica_reembolso.pdf",
+  "page": 1,
+  "section": "2. Prazo para pedir",
+  "text": "O pedido de reembolso deve ser feito em até 30 dias corridos após a data da despesa. Depois desse prazo o pedido é recusado, salvo aprovação por escrito da diretoria financeira."
+ },
+ {
+  "file": "politica_reembolso.pdf",
+  "page": 2,
+  "section": "3. Limites por refeição",
+  "text": "Em viagem a trabalho, o limite é de R$ 80 para almoço e R$ 120 para jantar. Bebida alcoólica não é reembolsada em nenhuma hipótese. Valores acima do limite ficam por conta do colaborador."
+ },
+ {
+  "file": "politica_reembolso.pdf",
+  "page": 2,
+  "section": "4. Comprovantes",
+  "text": "Todo pedido precisa de nota fiscal ou recibo legível com CNPJ, data e valor. Foto de cupom amassado ou ilegível é devolvida para correção. O pagamento sai em até 10 dias úteis depois da aprovação."
+ }
+]

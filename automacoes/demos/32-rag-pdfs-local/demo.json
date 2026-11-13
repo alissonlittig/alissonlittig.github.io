@@ -1,0 +1,470 @@
+{
+ "slug": "32-rag-pdfs-local",
+ "title": {
+  "pt": "Pergunte aos seus PDFs: resposta com fonte, ou \"não encontrei\"",
+  "en": "Ask your PDFs: an answer with its source, or \"not found\""
+ },
+ "tag": {
+  "pt": "Python · RAG local · PDF",
+  "en": "Python · local RAG · PDF"
+ },
+ "summary": {
+  "pt": "Um protótipo que lê PDFs (política de reembolso, manual de atendimento, guia de TI, todos fictícios), busca os trechos mais parecidos com a pergunta e responde com a frase do próprio documento, citando arquivo, página e seção. Se a pergunta não está nos PDFs, diz que não encontrou. Roda local, sem chave e sem modelo de linguagem.",
+  "en": "A prototype that reads PDFs (a refund policy, a support manual, an IT guide, all fictional), finds the passages closest to the question and answers with the document's own sentence, citing file, page and section. If the question is not in the PDFs, it says it did not find it. Runs locally, no key and no language model."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "python rag.py \"qual o prazo para pedir reembolso?\"",
+   "en": "python rag.py \"qual o prazo para pedir reembolso?\""
+  },
+  "note": {
+   "pt": "Os 15 trechos vêm dos PDFs de verdade (lidos pelo pypdf). Escreva sua própria pergunta em português: tente palavras que estão nos documentos e palavras que não estão.",
+   "en": "The 15 passages come from the real PDFs (read by pypdf). Write your own question in Portuguese: try words that are in the documents and words that are not."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Prazo de reembolso",
+     "en": "1. Refund deadline"
+    },
+    "values": {
+     "pergunta": "qual o prazo para pedir reembolso?"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Atendimento no sábado",
+     "en": "2. Saturday support"
+    },
+    "values": {
+     "pergunta": "qual o horário de atendimento no sábado?"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Redefinir senha",
+     "en": "3. Reset password"
+    },
+    "values": {
+     "pergunta": "como redefinir minha senha?"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Termo que não existe (bitcoin)",
+     "en": "4. A term that is not there (bitcoin)"
+    },
+    "values": {
+     "pergunta": "como pedir reembolso de bitcoin?"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Fora dos documentos",
+     "en": "5. Outside the documents"
+    },
+    "values": {
+     "pergunta": "qual a capital da França?"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "pergunta",
+    "type": "text",
+    "value": "qual o prazo para pedir reembolso?",
+    "label": {
+     "pt": "Pergunta",
+     "en": "Question"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Question",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "3 PDFs · 15 trechos indexados",
+    "en": "3 PDFs · 15 indexed passages"
+   }
+  },
+  {
+   "id": "tokenize",
+   "name": "Normalize question",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "sem acento, sem plural, sem palavra comum",
+    "en": "no accents, no plural, no stopwords"
+   }
+  },
+  {
+   "id": "retrieve",
+   "name": "Search (BM25)",
+   "icon": "http",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "top 3 trechos + cobertura",
+    "en": "top 3 passages + coverage"
+   }
+  },
+  {
+   "id": "gate",
+   "name": "Is it in the docs?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "score > 0 e cobertura ≥ 50%",
+    "en": "score > 0 and coverage ≥ 50%"
+   }
+  },
+  {
+   "id": "extract",
+   "name": "Pick sentence + cite",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "frase do PDF · arquivo · página",
+    "en": "sentence from the PDF · file · page"
+   }
+  },
+  {
+   "id": "refuse",
+   "name": "Say: not found",
+   "icon": "respond",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "não inventa",
+    "en": "does not make it up"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "tokenize"
+  },
+  {
+   "from": "tokenize",
+   "to": "retrieve",
+   "when": "ok",
+   "label": "terms"
+  },
+  {
+   "from": "tokenize",
+   "to": "refuse",
+   "when": "empty",
+   "label": "empty",
+   "route": [
+    [
+     1,
+     1,
+     "b"
+    ],
+    [
+     4,
+     1,
+     "b"
+    ]
+   ]
+  },
+  {
+   "from": "retrieve",
+   "to": "gate"
+  },
+  {
+   "from": "gate",
+   "to": "extract",
+   "when": "answer",
+   "label": "yes"
+  },
+  {
+   "from": "gate",
+   "to": "refuse",
+   "when": "refuse",
+   "label": "no"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Regras da empresa ficam espalhadas em PDFs; quem pergunta no chat recebe a resposta de memória de alguém, e uma IA que \"responde sobre os documentos\" sem citar fonte pode inventar um prazo ou um valor.",
+   "en": "Company rules are scattered across PDFs; whoever asks in chat gets someone's answer from memory, and an AI that \"answers about the documents\" without citing a source may make up a deadline or an amount."
+  },
+  "solution": {
+   "pt": "Um buscador local sobre o texto dos PDFs: divide por seção, ranqueia com BM25 (palavras raras pesam mais), devolve a frase do documento e a fonte, avisa quando parte da pergunta não existe nos PDFs e recusa quando nada casa. É extrativo: não escreve texto novo, então não alucina.",
+   "en": "A local search over the PDFs' text: splits by section, ranks with BM25 (rare words weigh more), returns the document's sentence and source, warns when part of the question is not in the PDFs and refuses when nothing matches. It is extractive: it writes no new text, so it does not hallucinate."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: achar uma regra folheando 3 PDFs leva uns 3 a 5 minutos; aqui são segundos, com a página para conferir. O limite é real: busca por palavras (sem sinônimos), PDF escaneado não funciona sem OCR e resposta é só a frase literal, não uma explicação.",
+   "en": "An estimate, not a measurement: finding a rule by flipping through 3 PDFs takes about 3 to 5 minutes; here it is seconds, with the page to check. The limits are real: word-based search (no synonyms), scanned PDFs do not work without OCR and the answer is just the literal sentence, not an explanation."
+  },
+  "stack": [
+   "Python 3.13",
+   "pypdf",
+   "BM25 (própria)",
+   "reportlab (PDFs de amostra)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install pypdf reportlab",
+     "python make_docs.py (gera 3 PDFs fictícios em docs/)",
+     "python rag.py \"qual o prazo para pedir reembolso?\"",
+     "python run_scenarios.py · testes: python tests/test_rag.py (19 verificações)"
+    ],
+    "en": [
+     "pip install pypdf reportlab",
+     "python make_docs.py (builds 3 fictional PDFs in docs/)",
+     "python rag.py \"qual o prazo para pedir reembolso?\"",
+     "python run_scenarios.py · tests: python tests/test_rag.py (19 checks)"
+    ]
+   },
+   "files": [
+    {
+     "href": "rag.py",
+     "label": {
+      "pt": "Baixar rag.py",
+      "en": "Download rag.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "É um protótipo de estudo sobre 3 PDFs fictícios criados para isto: não está em produção em lugar nenhum e não foi testado com documentos reais. A leitura dos PDFs foi feita de verdade no Python (pypdf); o navegador só repete a busca e a escolha da frase sobre os 15 trechos extraídos, em JavaScript conferido contra as saídas gravadas. Não usa LLM nem embeddings: a busca é por palavras e não entende sinônimos (\"gastar\" não acha \"limite\").",
+   "en": "A study prototype over 3 fictional PDFs created for this: it is not in production anywhere and was not tested with real documents. The PDFs were really read in Python (pypdf); the browser only repeats the search and the sentence choice over the 15 extracted passages, in JavaScript checked against recorded outputs. It uses no LLM and no embeddings: the search is word-based and does not understand synonyms (\"spend\" will not find \"limit\")."
+  }
+ },
+ "footer": {
+  "pt": "Nada é enviado: tudo roda no seu navegador, sem acessar PDF nenhum.",
+  "en": "Nothing is sent: everything runs in your browser, without opening any PDF."
+ },
+ "recorded": [
+  {
+   "input": {
+    "pergunta": "qual o prazo para pedir reembolso?"
+   },
+   "expect": {
+    "status": "answered",
+    "answer": "O pedido de reembolso deve ser feito em até 30 dias corridos após a data da despesa. Depois desse prazo o pedido é recusado, salvo aprovação por escrito da diretoria financeira.",
+    "terms": [
+     "prazo",
+     "pedir",
+     "reembolso"
+    ],
+    "unmatched": [],
+    "coverage": 1.0,
+    "sources": [
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "2. Prazo para pedir",
+      "score": 5.4707
+     },
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "1. Quem pode pedir",
+      "score": 3.9604
+     },
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "",
+      "score": 2.081
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "pergunta": "qual o limite para jantar em viagem?"
+   },
+   "expect": {
+    "status": "answered",
+    "answer": "Em viagem a trabalho, o limite é de R$ 80 para almoço e R$ 120 para jantar.",
+    "terms": [
+     "limite",
+     "jantar",
+     "viagem"
+    ],
+    "unmatched": [],
+    "coverage": 1.0,
+    "sources": [
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 2,
+      "section": "3. Limites por refeição",
+      "score": 8.2513
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "pergunta": "como redefinir minha senha?"
+   },
+   "expect": {
+    "status": "answered",
+    "answer": "Para redefinir a senha, abra o portal de acesso e use a opção esqueci minha senha. A nova senha precisa ter pelo menos 12 caracteres, com letras e números.",
+    "terms": [
+     "redefinir",
+     "senha"
+    ],
+    "unmatched": [],
+    "coverage": 1.0,
+    "sources": [
+     {
+      "file": "guia_acesso_ti.pdf",
+      "page": 1,
+      "section": "1. Redefinir a senha",
+      "score": 6.9248
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "pergunta": "qual o horário de atendimento no sábado?"
+   },
+   "expect": {
+    "status": "answered",
+    "answer": "O atendimento por telefone e chat funciona de segunda a sexta, das 8h às 18h. Aos sábados o chat atende das 9h às 13h.",
+    "terms": [
+     "horario",
+     "atendimento",
+     "sabado"
+    ],
+    "unmatched": [],
+    "coverage": 1.0,
+    "sources": [
+     {
+      "file": "manual_atendimento.pdf",
+      "page": 1,
+      "section": "1. Horário de atendimento",
+      "score": 7.5817
+     },
+     {
+      "file": "manual_atendimento.pdf",
+      "page": 1,
+      "section": "",
+      "score": 2.5417
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "pergunta": "cancelar contrato tem multa?"
+   },
+   "expect": {
+    "status": "answered",
+    "answer": "O cliente pode cancelar o contrato a qualquer momento, com aviso de 30 dias. Não há multa para contratos com mais de 12 meses.",
+    "terms": [
+     "cancelar",
+     "contrato",
+     "multa"
+    ],
+    "unmatched": [],
+    "coverage": 1.0,
+    "sources": [
+     {
+      "file": "manual_atendimento.pdf",
+      "page": 2,
+      "section": "3. Cancelamento de contrato",
+      "score": 8.7309
+     },
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "1. Quem pode pedir",
+      "score": 1.7426
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "pergunta": "como pedir reembolso de bitcoin?"
+   },
+   "expect": {
+    "status": "partial",
+    "answer": "Todo colaborador com contrato ativo pode pedir reembolso de despesas feitas a trabalho.",
+    "terms": [
+     "pedir",
+     "reembolso",
+     "bitcoin"
+    ],
+    "unmatched": [
+     "bitcoin"
+    ],
+    "coverage": 0.67,
+    "sources": [
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "1. Quem pode pedir",
+      "score": 3.9604
+     },
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "2. Prazo para pedir",
+      "score": 3.023
+     },
+     {
+      "file": "politica_reembolso.pdf",
+      "page": 1,
+      "section": "",
+      "score": 2.081
+     }
+    ]
+   }
+  },
+  {
+   "input": {
+    "pergunta": "qual a capital da França?"
+   },
+   "expect": {
+    "status": "refused",
+    "answer": null,
+    "terms": [
+     "capital",
+     "franca"
+    ],
+    "unmatched": [
+     "capital",
+     "franca"
+    ],
+    "coverage": 0.0,
+    "sources": []
+   }
+  },
+  {
+   "input": {
+    "pergunta": "como é o que?"
+   },
+   "expect": {
+    "status": "refused",
+    "answer": null,
+    "terms": [],
+    "unmatched": [],
+    "coverage": 0.0,
+    "sources": []
+   }
+  }
+ ]
+}

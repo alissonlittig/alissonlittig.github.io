@@ -1,0 +1,251 @@
+[
+ {
+  "cycle": "1 baseline",
+  "alerts": [],
+  "state": {
+   "notebook": {
+    "price": 4299.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": false,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 589.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   }
+  }
+ },
+ {
+  "cycle": "2 notebook -12%, headphones back in stock",
+  "alerts": [
+   {
+    "kind": "drop",
+    "text": "Notebook Aurora 14: R$ 4.299,00 -> R$ 3.783,00 (-12.0%)"
+   },
+   {
+    "kind": "restock",
+    "text": "Fone Pulso BT: back in stock at R$ 349,90"
+   }
+  ],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 589.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   }
+  }
+ },
+ {
+  "cycle": "3 coffee maker hits the target",
+  "alerts": [
+   {
+    "kind": "drop",
+    "text": "Cafeteira Brasa: R$ 589,00 -> R$ 449,00 (-23.8%)"
+   },
+   {
+    "kind": "target",
+    "text": "Cafeteira Brasa: R$ 449,00 reached the target of R$ 450,00"
+   }
+  ],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 449.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": true
+   }
+  }
+ },
+ {
+  "cycle": "4 shop layout changed (notebook)",
+  "alerts": [
+   {
+    "kind": "layout_changed",
+    "text": "Notebook Aurora 14: price or stock element not found (layout changed?). Nothing was saved; fix the parser."
+   }
+  ],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": true,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 449.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": true
+   }
+  }
+ },
+ {
+  "cycle": "5 notebook source down (1st failure)",
+  "alerts": [],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 1,
+    "layout_alerted": true,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 449.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": true
+   }
+  }
+ },
+ {
+  "cycle": "6 notebook source down (2nd)",
+  "alerts": [],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 2,
+    "layout_alerted": true,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 449.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": true
+   }
+  }
+ },
+ {
+  "cycle": "7 notebook source down (3rd: alert)",
+  "alerts": [
+   {
+    "kind": "source_down",
+    "text": "Notebook Aurora 14: source failed 3 times in a row (Internal Server Error). Last known price kept."
+   }
+  ],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 3,
+    "layout_alerted": true,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 449.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": true
+   }
+  }
+ },
+ {
+  "cycle": "8 price typo 99,00 (suspicious)",
+  "alerts": [
+   {
+    "kind": "suspicious",
+    "text": "Notebook Aurora 14: price jumped from R$ 3.783,00 to R$ 99,00. Not saved until it repeats or a person confirms."
+   }
+  ],
+  "state": {
+   "notebook": {
+    "price": 3783.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "fone": {
+    "price": 349.9,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": false
+   },
+   "cafe": {
+    "price": 449.0,
+    "in_stock": true,
+    "fails": 0,
+    "layout_alerted": false,
+    "below_target": true
+   }
+  }
+ }
+]

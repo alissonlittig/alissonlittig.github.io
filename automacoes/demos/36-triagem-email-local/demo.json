@@ -1,0 +1,455 @@
+{
+ "slug": "36-triagem-email-local",
+ "title": {
+  "pt": "Triagem de e-mails: regras fixas + modelo local, sem API paga",
+  "en": "E-mail triage: fixed rules + a local model, no paid API"
+ },
+ "tag": {
+  "pt": "Python · Naive Bayes · regras",
+  "en": "Python · Naive Bayes · rules"
+ },
+ "summary": {
+  "pt": "Cada e-mail passa primeiro por regras que não erram (resposta automática, remetente bloqueado, número de nota). O resto vai para um modelo pequeno treinado localmente, que escolhe cobrança, suporte, comercial ou spam. Se a confiança for baixa, o e-mail vai para uma pessoa em vez de ser chutado. Urgência e clientes VIP sobem a prioridade, e o script escreve só RASCUNHOS de resposta: nada é enviado.",
+  "en": "Each e-mail first goes through rules that do not guess (auto-reply, blocked sender, invoice number). The rest goes to a small locally trained model that picks billing, support, sales or spam. If confidence is low the e-mail goes to a person instead of being guessed. Urgency and VIP clients raise the priority, and the script writes DRAFT replies only: nothing is sent."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: e-mail novo na caixa",
+   "en": "Event: new e-mail in the inbox"
+  },
+  "note": {
+   "pt": "Rode os 7 exemplos e depois escreva os seus (em inglês). Palavras que o modelo nunca viu não contam; se quase nada é conhecido, a confiança cai e o caso vai para uma pessoa.",
+   "en": "Run the 7 examples and then write your own (in English). Words the model never saw do not count; if almost nothing is known, confidence drops and the case goes to a person."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Cobrança (modelo)",
+     "en": "1. Billing (model)"
+    },
+    "values": {
+     "from": "maria@loja.example",
+     "subject": "Payment confirmation",
+     "body": "Please confirm that my bank transfer was received and send the receipt."
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Suporte urgente",
+     "en": "2. Urgent support"
+    },
+    "values": {
+     "from": "dev@startup.example",
+     "subject": "Cannot access dashboard - urgent",
+     "body": "The dashboard is down for the whole team and the export is not working."
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Comercial de cliente VIP",
+     "en": "3. Sales from a VIP client"
+    },
+    "values": {
+     "from": "ceo@bigclient.example",
+     "subject": "Quote request",
+     "body": "We would like a demo and the pricing of the enterprise plan for our company."
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Remetente bloqueado (regra)",
+     "en": "4. Blocked sender (rule)"
+    },
+    "values": {
+     "from": "x@promo-deals.example",
+     "subject": "You won!",
+     "body": "Claim your prize now."
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Número de nota (regra)",
+     "en": "5. Invoice number (rule)"
+    },
+    "values": {
+     "from": "ana@empresa.example",
+     "subject": "Question INV-20451",
+     "body": "The total on this one looks wrong."
+    }
+   },
+   {
+    "label": {
+     "pt": "6. Resposta automática",
+     "en": "6. Auto-reply"
+    },
+    "values": {
+     "from": "bot@vendor.example",
+     "subject": "Automatic reply: out of office",
+     "body": "I am away until Monday."
+    }
+   },
+   {
+    "label": {
+     "pt": "7. Vago: humano decide",
+     "en": "7. Vague: a person decides"
+    },
+    "values": {
+     "from": "joao@gmail.example",
+     "subject": "Hello",
+     "body": "Just checking something, can you call me?"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "from",
+    "type": "text",
+    "value": "maria@loja.example",
+    "label": {
+     "pt": "De",
+     "en": "From"
+    }
+   },
+   {
+    "key": "subject",
+    "type": "text",
+    "value": "Payment confirmation",
+    "label": {
+     "pt": "Assunto",
+     "en": "Subject"
+    }
+   },
+   {
+    "key": "body",
+    "type": "textarea",
+    "rows": 4,
+    "value": "Please confirm that my bank transfer was received and send the receipt.",
+    "label": {
+     "pt": "Mensagem (em inglês: o modelo foi treinado em inglês)",
+     "en": "Message (English: the model was trained in English)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "E-mail arrives",
+   "icon": "mail",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "de, assunto, corpo",
+    "en": "from, subject, body"
+   }
+  },
+  {
+   "id": "rules",
+   "name": "Fixed rules?",
+   "icon": "if",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "auto-reply, bloqueio, nota",
+    "en": "auto-reply, block, invoice"
+   }
+  },
+  {
+   "id": "model",
+   "name": "Local model",
+   "icon": "llm",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "Naive Bayes, sem API",
+    "en": "Naive Bayes, no API"
+   }
+  },
+  {
+   "id": "confidence",
+   "name": "Confident?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "mínimo 0,6",
+    "en": "minimum 0.6"
+   }
+  },
+  {
+   "id": "review",
+   "name": "Send to a person",
+   "icon": "user",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "não chuta",
+    "en": "no guessing"
+   }
+  },
+  {
+   "id": "priority",
+   "name": "Priority",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "urgente / VIP",
+    "en": "urgent / VIP"
+   }
+  },
+  {
+   "id": "route",
+   "name": "Route + draft",
+   "icon": "mail",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "pasta e rascunho",
+    "en": "folder and draft"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "rules"
+  },
+  {
+   "from": "rules",
+   "to": "model",
+   "when": "model",
+   "label": "no rule"
+  },
+  {
+   "from": "rules",
+   "to": "priority",
+   "when": "rule",
+   "label": "rule hit",
+   "route": [
+    [
+     1,
+     0,
+     "b"
+    ],
+    [
+     4,
+     0,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "b"
+  },
+  {
+   "from": "model",
+   "to": "confidence"
+  },
+  {
+   "from": "confidence",
+   "to": "priority",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "confidence",
+   "to": "review",
+   "when": "low",
+   "label": "low"
+  },
+  {
+   "from": "review",
+   "to": "priority"
+  },
+  {
+   "from": "priority",
+   "to": "route"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "A caixa de entrada mistura cobrança, suporte, pedidos de orçamento e lixo. Alguém lê tudo para decidir quem responde, o urgente se perde no meio e o cliente importante espera na fila.",
+   "en": "The inbox mixes billing, support, quote requests and junk. Someone reads everything to decide who answers, the urgent one gets lost and the important client waits in line."
+  },
+  "solution": {
+   "pt": "Regras fixas para o que é óbvio, um classificador local (Naive Bayes em Python puro, sem chave nem custo) para o resto, limite de confiança que manda dúvida para uma pessoa, prioridade por palavras de urgência e lista VIP, e rascunho de resposta salvo em arquivo.",
+   "en": "Fixed rules for the obvious, a local classifier (Naive Bayes in plain Python, no key and no cost) for the rest, a confidence threshold that sends doubt to a person, priority by urgency words and a VIP list, and a draft reply saved to a file."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ler e rotear um e-mail leva ~1 min; com 40 por dia são ~13 h por mês. O script tria em milissegundos, mas alguém ainda lê a fila 'review' e revisa os rascunhos. A precisão medida (16 de 16) é em 16 mensagens sintéticas e fáceis: com e-mail real será menor.",
+   "en": "An estimate, not a measurement: reading and routing an e-mail takes ~1 min; at 40 a day that is ~13 h a month. The script triages in milliseconds, but someone still reads the 'review' queue and edits the drafts. The measured accuracy (16 of 16) is on 16 easy synthetic messages: on real mail it will be lower."
+  },
+  "stack": [
+   "Python 3.13",
+   "re",
+   "math",
+   "csv"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python triage.py data/inbox.csv output",
+     "Testes (inclui a precisão em mensagens não vistas): python tests/test_triage.py"
+    ],
+    "en": [
+     "python triage.py data/inbox.csv output",
+     "Tests (including accuracy on unseen messages): python tests/test_triage.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "triage.py",
+     "label": {
+      "pt": "Baixar triage.py",
+      "en": "Download triage.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o triage.py portado para JavaScript linha a linha, com o modelo (contagens de palavras treinadas em Python em 40 mensagens inventadas) embutido; a lógica foi conferida contra as saídas reais do Python em 7 casos. Remetentes e textos são fictícios (.example). Nada é enviado: o rascunho fica em arquivo. A leitura de uma caixa real (IMAP) não foi escrita.",
+   "en": "The code is triage.py ported to JavaScript line by line, with the model (word counts trained in Python on 40 invented messages) embedded; the logic was checked against the real Python outputs in 7 cases. Senders and texts are fictional (.example). Nothing is sent: the draft stays in a file. Reading a real mailbox (IMAP) was not written."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "from": "maria@loja.example",
+    "subject": "Payment confirmation",
+    "body": "Please confirm that my bank transfer was received and send the receipt."
+   },
+   "expect": {
+    "label": "billing",
+    "source": "model",
+    "confidence": 0.985,
+    "priority": "normal",
+    "route": "finance@team.example",
+    "why": [
+     "model: billing 0.985 (7 known words)"
+    ],
+    "draft": "Hello,\n\nWe received your billing message and passed it to our finance team.\nA person will confirm the details with you.\n\nBest regards"
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "from": "dev@startup.example",
+    "subject": "Cannot access dashboard - urgent",
+    "body": "The dashboard is down for the whole team and the export is not working."
+   },
+   "expect": {
+    "label": "support",
+    "source": "model",
+    "confidence": 0.938,
+    "priority": "high",
+    "route": "support@team.example",
+    "why": [
+     "model: support 0.938 (7 known words)",
+     "urgent word or VIP sender"
+    ],
+    "draft": "Hello,\n\nWe received your support request and passed it to our support team.\nWe are treating it as a priority.\nIt would help if you could send a screenshot and the steps to reproduce the problem.\n\nBest regards"
+   }
+  },
+  {
+   "input": {
+    "from": "ceo@bigclient.example",
+    "subject": "Quote request",
+    "body": "We would like a demo and the pricing of the enterprise plan for our company."
+   },
+   "expect": {
+    "label": "sales",
+    "source": "model",
+    "confidence": 0.995,
+    "priority": "high",
+    "route": "sales@team.example",
+    "why": [
+     "model: sales 0.995 (8 known words)",
+     "urgent word or VIP sender"
+    ],
+    "draft": "Hello,\n\nThank you for your interest. Your message went to our sales team, who will get back to you with details.\nWe are treating it as a priority.\n\nBest regards"
+   }
+  },
+  {
+   "input": {
+    "from": "x@promo-deals.example",
+    "subject": "You won!",
+    "body": "Claim your prize now."
+   },
+   "expect": {
+    "label": "spam",
+    "source": "rule",
+    "confidence": 1.0,
+    "priority": "low",
+    "route": "trash",
+    "why": [
+     "sender domain promo-deals.example is blocked"
+    ],
+    "draft": null
+   }
+  },
+  {
+   "input": {
+    "from": "ana@empresa.example",
+    "subject": "Question INV-20451",
+    "body": "The total on this one looks wrong."
+   },
+   "expect": {
+    "label": "billing",
+    "source": "rule",
+    "confidence": 1.0,
+    "priority": "normal",
+    "route": "finance@team.example",
+    "why": [
+     "invoice number found"
+    ],
+    "draft": "Hello,\n\nWe received your billing message and passed it to our finance team.\nA person will confirm the details with you.\n\nBest regards"
+   }
+  },
+  {
+   "input": {
+    "from": "bot@vendor.example",
+    "subject": "Automatic reply: out of office",
+    "body": "I am away until Monday."
+   },
+   "expect": {
+    "label": "ignore",
+    "source": "rule",
+    "confidence": 1.0,
+    "priority": "low",
+    "route": "archive",
+    "why": [
+     "auto-reply subject"
+    ],
+    "draft": null
+   }
+  },
+  {
+   "input": {
+    "from": "joao@gmail.example",
+    "subject": "Hello",
+    "body": "Just checking something, can you call me?"
+   },
+   "expect": {
+    "label": "review",
+    "source": "review",
+    "confidence": 0.352,
+    "priority": "normal",
+    "route": "inbox-human",
+    "why": [
+     "model: sales 0.352 (2 known words)",
+     "confidence below 0.6: a person decides"
+    ],
+    "draft": null
+   }
+  }
+ ]
+}

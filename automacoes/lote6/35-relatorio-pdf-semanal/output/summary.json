@@ -1,0 +1,69 @@
+{
+ "status": "ok",
+ "week": "2026-W45",
+ "revenue": 16257.1,
+ "units": 31,
+ "orders": 14,
+ "prev_revenue": 26676.0,
+ "delta_pct": -39.1,
+ "top": [
+  {
+   "product": "Monitor 24",
+   "revenue": 9592.0,
+   "units": 8
+  },
+  {
+   "product": "Teclado Mec",
+   "revenue": 3757.0,
+   "units": 13
+  },
+  {
+   "product": "Mesa Dobrável",
+   "revenue": 1099.8,
+   "units": 2
+  }
+ ],
+ "regions": [
+  {
+   "region": "Sul",
+   "revenue": 7083.8,
+   "share": 43.6
+  },
+  {
+   "region": "Nordeste",
+   "revenue": 6818.3,
+   "share": 41.9
+  },
+  {
+   "region": "Sudeste",
+   "revenue": 2355.0,
+   "share": 14.5
+  }
+ ],
+ "daily": [
+  1458.8,
+  1188.0,
+  0.0,
+  5852.8,
+  6760.6,
+  0.0,
+  996.9
+ ],
+ "zero_days": [
+  "2026-11-04"
+ ],
+ "rejected": [
+  {
+   "line": 36,
+   "errors": [
+    "qty must be > 0"
+   ]
+  },
+  {
+   "line": 37,
+   "errors": [
+    "date must be YYYY-MM-DD"
+   ]
+  }
+ ]
+}

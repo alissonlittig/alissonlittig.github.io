@@ -1,0 +1,9 @@
+from,subject,body
+maria@loja.example,Payment confirmation,"Please confirm that my bank transfer was received and send the receipt."
+dev@startup.example,Cannot access dashboard - urgent,"The dashboard is down for the whole team and the export is not working."
+ceo@bigclient.example,Quote request,"We would like a demo and the pricing of the enterprise plan for our company."
+x@promo-deals.example,You won!,"Claim your prize now."
+ana@empresa.example,Question INV-20451,"The total on this one looks wrong."
+bot@vendor.example,Automatic reply: out of office,"I am away until Monday."
+joao@gmail.example,Hello,"Just checking something, can you call me?"
+lia@shop.example,Refund,"You charged my card twice and I want my money back."

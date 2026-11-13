@@ -1,0 +1,207 @@
+{
+ "prazo": {
+  "input": {
+   "pergunta": "qual o prazo para pedir reembolso?"
+  },
+  "status": "answered",
+  "answer": "O pedido de reembolso deve ser feito em até 30 dias corridos após a data da despesa. Depois desse prazo o pedido é recusado, salvo aprovação por escrito da diretoria financeira.",
+  "terms": [
+   "prazo",
+   "pedir",
+   "reembolso"
+  ],
+  "unmatched": [],
+  "coverage": 1.0,
+  "sources": [
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "2. Prazo para pedir",
+    "score": 5.4707
+   },
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "1. Quem pode pedir",
+    "score": 3.9604
+   },
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "",
+    "score": 2.081
+   }
+  ],
+  "reason": null
+ },
+ "jantar": {
+  "input": {
+   "pergunta": "qual o limite para jantar em viagem?"
+  },
+  "status": "answered",
+  "answer": "Em viagem a trabalho, o limite é de R$ 80 para almoço e R$ 120 para jantar.",
+  "terms": [
+   "limite",
+   "jantar",
+   "viagem"
+  ],
+  "unmatched": [],
+  "coverage": 1.0,
+  "sources": [
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 2,
+    "section": "3. Limites por refeição",
+    "score": 8.2513
+   }
+  ],
+  "reason": null
+ },
+ "senha": {
+  "input": {
+   "pergunta": "como redefinir minha senha?"
+  },
+  "status": "answered",
+  "answer": "Para redefinir a senha, abra o portal de acesso e use a opção esqueci minha senha. A nova senha precisa ter pelo menos 12 caracteres, com letras e números.",
+  "terms": [
+   "redefinir",
+   "senha"
+  ],
+  "unmatched": [],
+  "coverage": 1.0,
+  "sources": [
+   {
+    "file": "guia_acesso_ti.pdf",
+    "page": 1,
+    "section": "1. Redefinir a senha",
+    "score": 6.9248
+   }
+  ],
+  "reason": null
+ },
+ "sabado": {
+  "input": {
+   "pergunta": "qual o horário de atendimento no sábado?"
+  },
+  "status": "answered",
+  "answer": "O atendimento por telefone e chat funciona de segunda a sexta, das 8h às 18h. Aos sábados o chat atende das 9h às 13h.",
+  "terms": [
+   "horario",
+   "atendimento",
+   "sabado"
+  ],
+  "unmatched": [],
+  "coverage": 1.0,
+  "sources": [
+   {
+    "file": "manual_atendimento.pdf",
+    "page": 1,
+    "section": "1. Horário de atendimento",
+    "score": 7.5817
+   },
+   {
+    "file": "manual_atendimento.pdf",
+    "page": 1,
+    "section": "",
+    "score": 2.5417
+   }
+  ],
+  "reason": null
+ },
+ "multa": {
+  "input": {
+   "pergunta": "cancelar contrato tem multa?"
+  },
+  "status": "answered",
+  "answer": "O cliente pode cancelar o contrato a qualquer momento, com aviso de 30 dias. Não há multa para contratos com mais de 12 meses.",
+  "terms": [
+   "cancelar",
+   "contrato",
+   "multa"
+  ],
+  "unmatched": [],
+  "coverage": 1.0,
+  "sources": [
+   {
+    "file": "manual_atendimento.pdf",
+    "page": 2,
+    "section": "3. Cancelamento de contrato",
+    "score": 8.7309
+   },
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "1. Quem pode pedir",
+    "score": 1.7426
+   }
+  ],
+  "reason": null
+ },
+ "bitcoin": {
+  "input": {
+   "pergunta": "como pedir reembolso de bitcoin?"
+  },
+  "status": "partial",
+  "answer": "Todo colaborador com contrato ativo pode pedir reembolso de despesas feitas a trabalho.",
+  "terms": [
+   "pedir",
+   "reembolso",
+   "bitcoin"
+  ],
+  "unmatched": [
+   "bitcoin"
+  ],
+  "coverage": 0.67,
+  "sources": [
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "1. Quem pode pedir",
+    "score": 3.9604
+   },
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "2. Prazo para pedir",
+    "score": 3.023
+   },
+   {
+    "file": "politica_reembolso.pdf",
+    "page": 1,
+    "section": "",
+    "score": 2.081
+   }
+  ],
+  "reason": null
+ },
+ "fora": {
+  "input": {
+   "pergunta": "qual a capital da França?"
+  },
+  "status": "refused",
+  "answer": null,
+  "terms": [
+   "capital",
+   "franca"
+  ],
+  "unmatched": [
+   "capital",
+   "franca"
+  ],
+  "coverage": 0.0,
+  "sources": [],
+  "reason": "não encontrei isso nos documentos (cobertura da pergunta abaixo de 50%)"
+ },
+ "vazia": {
+  "input": {
+   "pergunta": "como é o que?"
+  },
+  "status": "refused",
+  "answer": null,
+  "terms": [],
+  "unmatched": [],
+  "coverage": 0.0,
+  "sources": [],
+  "reason": "a pergunta só tem palavras comuns; reescreva com o assunto"
+ }
+}

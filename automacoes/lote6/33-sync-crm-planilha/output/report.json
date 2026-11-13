@@ -1,0 +1,44 @@
+{
+ "rows_in": 12,
+ "rejected": [
+  {
+   "file": "crm",
+   "line": 6,
+   "errors": [
+    "name is required"
+   ]
+  },
+  {
+   "file": "sheet",
+   "line": 7,
+   "errors": [
+    "email is invalid"
+   ]
+  },
+  {
+   "file": "sheet",
+   "line": 8,
+   "errors": [
+    "updated must be YYYY-MM-DD"
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "file": "sheet",
+   "line": 3,
+   "fields": [
+    "company"
+   ]
+  }
+ ],
+ "counts": {
+  "created in crm": 5,
+  "created in sheet": 5,
+  "same-side duplicate merged in sheet": 4,
+  "updated in crm": 3,
+  "crm already up to date": 1
+ },
+ "crm_rows": 5,
+ "sheet_rows": 5
+}

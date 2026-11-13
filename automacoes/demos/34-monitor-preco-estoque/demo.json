@@ -1,0 +1,570 @@
+{
+ "slug": "34-monitor-preco-estoque",
+ "title": {
+  "pt": "Monitor de preço e estoque com alerta que não enche o saco",
+  "en": "Price and stock monitor whose alerts are worth reading"
+ },
+ "tag": {
+  "pt": "Python · HTTP · histórico",
+  "en": "Python · HTTP · history"
+ },
+ "summary": {
+  "pt": "A cada hora o script abre a página de cada produto, lê preço e estoque, compara com o histórico e só avisa quando importa: queda grande, meta atingida, volta ao estoque. Se a loja mudar o layout, o preço dá um salto absurdo ou o servidor cair, ele não grava lixo: avisa o que houve (o erro de servidor só depois de 3 falhas seguidas).",
+  "en": "Every hour the script opens each product page, reads price and stock, compares with the history and only alerts when it matters: a big drop, a target reached, back in stock. If the shop changes its layout, the price jumps absurdly or the server goes down, it does not save garbage: it says what happened (a server error only after 3 failures in a row)."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Execução agendada (a cada hora)",
+   "en": "Scheduled run (every hour)"
+  },
+  "note": {
+   "pt": "O histórico (3 produtos, preços de partida) vale enquanto a página está aberta. Rode os exemplos em ordem; o 5 precisa de 3 cliques para virar alerta. Metas: notebook R$ 3.500, fone R$ 299, cafeteira R$ 450.",
+   "en": "History (3 products, starting prices) lasts while the page is open. Run the examples in order; example 5 needs 3 clicks to become an alert. Targets: laptop R$ 3,500, headphones R$ 299, coffee maker R$ 450."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Notebook cai 12%",
+     "en": "1. Laptop drops 12%"
+    },
+    "values": {
+     "product": "notebook",
+     "price": "3.783,00",
+     "stock": "in",
+     "page": "ok"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Fone volta ao estoque",
+     "en": "2. Headphones back in stock"
+    },
+    "values": {
+     "product": "fone",
+     "price": "349,90",
+     "stock": "in",
+     "page": "ok"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Cafeteira bate a meta",
+     "en": "3. Coffee maker hits the target"
+    },
+    "values": {
+     "product": "cafe",
+     "price": "449,00",
+     "stock": "in",
+     "page": "ok"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Loja mudou o layout",
+     "en": "4. Shop changed its layout"
+    },
+    "values": {
+     "product": "notebook",
+     "price": "3.783,00",
+     "stock": "in",
+     "page": "layout"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Servidor da loja fora (clique 3x)",
+     "en": "5. Shop server down (click 3x)"
+    },
+    "values": {
+     "product": "notebook",
+     "price": "3.783,00",
+     "stock": "in",
+     "page": "500"
+    }
+   },
+   {
+    "label": {
+     "pt": "6. Preço suspeito (49,00)",
+     "en": "6. Suspicious price (49,00)"
+    },
+    "values": {
+     "product": "cafe",
+     "price": "49,00",
+     "stock": "in",
+     "page": "ok"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "product",
+    "type": "select",
+    "value": "notebook",
+    "label": {
+     "pt": "Produto",
+     "en": "Product"
+    },
+    "options": [
+     {
+      "value": "notebook",
+      "label": {
+       "pt": "Notebook Aurora 14",
+       "en": "Notebook Aurora 14"
+      }
+     },
+     {
+      "value": "fone",
+      "label": {
+       "pt": "Fone Pulso BT",
+       "en": "Fone Pulso BT"
+      }
+     },
+     {
+      "value": "cafe",
+      "label": {
+       "pt": "Cafeteira Brasa",
+       "en": "Cafeteira Brasa"
+      }
+     }
+    ]
+   },
+   {
+    "key": "price",
+    "type": "text",
+    "value": "3.783,00",
+    "label": {
+     "pt": "Preço na página (R$)",
+     "en": "Price on the page (R$)"
+    }
+   },
+   {
+    "key": "stock",
+    "type": "select",
+    "value": "in",
+    "label": {
+     "pt": "Estoque",
+     "en": "Stock"
+    },
+    "options": [
+     {
+      "value": "in",
+      "label": {
+       "pt": "Em estoque",
+       "en": "In stock"
+      }
+     },
+     {
+      "value": "out",
+      "label": {
+       "pt": "Esgotado",
+       "en": "Out of stock"
+      }
+     }
+    ]
+   },
+   {
+    "key": "page",
+    "type": "select",
+    "value": "ok",
+    "label": {
+     "pt": "Estado da loja",
+     "en": "Shop state"
+    },
+    "options": [
+     {
+      "value": "ok",
+      "label": {
+       "pt": "Página normal",
+       "en": "Normal page"
+      }
+     },
+     {
+      "value": "500",
+      "label": {
+       "pt": "Servidor com erro 500",
+       "en": "Server error 500"
+      }
+     },
+     {
+      "value": "layout",
+      "label": {
+       "pt": "Layout mudou",
+       "en": "Layout changed"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Schedule tick",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "a cada hora",
+    "en": "every hour"
+   }
+  },
+  {
+   "id": "fetch",
+   "name": "GET product page",
+   "icon": "http",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "urllib, timeout 3 s",
+    "en": "urllib, 3 s timeout"
+   }
+  },
+  {
+   "id": "down",
+   "name": "Count failure",
+   "icon": "file",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "avisa só na 3ª",
+    "en": "alerts only on the 3rd"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse price+stock",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "regex + formato BR",
+    "en": "regex + BR format"
+   }
+  },
+  {
+   "id": "layout",
+   "name": "Layout alert",
+   "icon": "bell",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "não grava nada",
+    "en": "saves nothing"
+   }
+  },
+  {
+   "id": "guard",
+   "name": "Sanity check",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "salto > 50%?",
+    "en": "jump > 50%?"
+   }
+  },
+  {
+   "id": "suspect",
+   "name": "Suspicious alert",
+   "icon": "bell",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "não grava",
+    "en": "not saved"
+   }
+  },
+  {
+   "id": "compare",
+   "name": "Compare history",
+   "icon": "code",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "queda, meta, estoque",
+    "en": "drop, target, stock"
+   }
+  },
+  {
+   "id": "notify",
+   "name": "Write alert",
+   "icon": "bell",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "arquivo local",
+    "en": "local file"
+   }
+  },
+  {
+   "id": "quiet",
+   "name": "Save quietly",
+   "icon": "file",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "sem aviso",
+    "en": "no alert"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "fetch"
+  },
+  {
+   "from": "fetch",
+   "to": "parse",
+   "when": "ok",
+   "label": "200"
+  },
+  {
+   "from": "fetch",
+   "to": "down",
+   "when": "err",
+   "label": "error"
+  },
+  {
+   "from": "parse",
+   "to": "guard",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "parse",
+   "to": "layout",
+   "when": "bad",
+   "label": "no element"
+  },
+  {
+   "from": "guard",
+   "to": "compare",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "guard",
+   "to": "suspect",
+   "when": "sus",
+   "label": "suspicious"
+  },
+  {
+   "from": "compare",
+   "to": "notify",
+   "when": "alert",
+   "label": "alert"
+  },
+  {
+   "from": "compare",
+   "to": "quiet",
+   "when": "quiet",
+   "label": "nothing"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Acompanhar preço e estoque de produtos à mão é abrir dez abas todo dia. Ferramentas prontas avisam de tudo, o alerta vira ruído e quando a loja muda o site o robô passa a gravar lixo sem ninguém notar.",
+   "en": "Tracking prices and stock by hand means opening ten tabs every day. Off-the-shelf tools alert on everything, the alert becomes noise, and when the shop changes its site the bot starts saving garbage unnoticed."
+  },
+  "solution": {
+   "pt": "Um monitor em Python (biblioteca padrão): busca com timeout, lê o preço no formato brasileiro, compara com o histórico e dispara só 4 tipos de aviso úteis (queda mínima, meta, volta ao estoque) mais 3 de saúde (layout mudou, fonte fora após 3 falhas, preço suspeito). Meta atingida não se repete enquanto o preço fica abaixo.",
+   "en": "A Python monitor (standard library): fetches with a timeout, reads the Brazilian price format, compares with history and fires only useful alerts (minimum drop, target, back in stock) plus 3 health alerts (layout changed, source down after 3 failures, suspicious price). A reached target is not repeated while the price stays below it."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: conferir 10 produtos em 3 lojas à mão leva ~10 min por rodada; 2 rodadas por dia são ~7 h por mês. O script roda em segundos; o ganho real depende de quantas páginas a loja deixa ler (respeite o robots.txt e os termos).",
+   "en": "An estimate, not a measurement: checking 10 products in 3 shops by hand takes ~10 min per round; 2 rounds a day is ~7 h a month. The script runs in seconds; the real gain depends on how many pages the shop lets you read (respect robots.txt and the terms)."
+  },
+  "stack": [
+   "Python 3.13",
+   "urllib",
+   "re",
+   "http.server (loja fictícia)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python monitor.py data/watchlist.json state.json (agende a cada hora)",
+     "Loja fictícia + 8 ciclos reais: python run_scenarios.py",
+     "Testes: python tests/test_monitor.py"
+    ],
+    "en": [
+     "python monitor.py data/watchlist.json state.json (schedule hourly)",
+     "Fictional shop + 8 real cycles: python run_scenarios.py",
+     "Tests: python tests/test_monitor.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "monitor.py",
+     "label": {
+      "pt": "Baixar monitor.py",
+      "en": "Download monitor.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o monitor.py portado para JavaScript linha a linha; a loja e o HTTP são simulados na página, e a lógica foi conferida contra os alertas reais gravados de 8 ciclos feitos com HTTP de verdade contra uma loja local. Produtos, lojas e preços são fictícios. Nada é enviado: o alerta vai para um arquivo local; o envio por e-mail/chat não foi escrito.",
+   "en": "The code is monitor.py ported to JavaScript line by line; the shop and HTTP are simulated on the page, and the logic was checked against the real alerts recorded in 8 cycles over real HTTP against a local shop. Products, shops and prices are fictional. Nothing is sent: the alert goes to a local file; e-mail/chat delivery was not written."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "product": "notebook",
+    "price": "3.783,00",
+    "stock": "in",
+    "page": "ok"
+   },
+   "expect": {
+    "id": "notebook",
+    "alerts": [
+     {
+      "kind": "drop",
+      "text": "Notebook Aurora 14: R$ 4.299,00 -> R$ 3.783,00 (-12.0%)"
+     }
+    ],
+    "price": 3783.0,
+    "fails": 0
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "product": "fone",
+    "price": "349,90",
+    "stock": "in",
+    "page": "ok"
+   },
+   "expect": {
+    "id": "fone",
+    "alerts": [
+     {
+      "kind": "restock",
+      "text": "Fone Pulso BT: back in stock at R$ 349,90"
+     }
+    ],
+    "price": 349.9,
+    "fails": 0
+   }
+  },
+  {
+   "input": {
+    "product": "cafe",
+    "price": "449,00",
+    "stock": "in",
+    "page": "ok"
+   },
+   "expect": {
+    "id": "cafe",
+    "alerts": [
+     {
+      "kind": "drop",
+      "text": "Cafeteira Brasa: R$ 589,00 -> R$ 449,00 (-23.8%)"
+     },
+     {
+      "kind": "target",
+      "text": "Cafeteira Brasa: R$ 449,00 reached the target of R$ 450,00"
+     }
+    ],
+    "price": 449.0,
+    "fails": 0
+   }
+  },
+  {
+   "input": {
+    "product": "notebook",
+    "price": "3.783,00",
+    "stock": "in",
+    "page": "layout"
+   },
+   "expect": {
+    "id": "notebook",
+    "alerts": [
+     {
+      "kind": "layout_changed",
+      "text": "Notebook Aurora 14: price or stock element not found (layout changed?). Nothing was saved; fix the parser."
+     }
+    ],
+    "price": 3783.0,
+    "fails": 0
+   }
+  },
+  {
+   "input": {
+    "product": "notebook",
+    "price": "3.783,00",
+    "stock": "in",
+    "page": "500"
+   },
+   "expect": {
+    "id": "notebook",
+    "alerts": [],
+    "price": 3783.0,
+    "fails": 1
+   }
+  },
+  {
+   "input": {
+    "product": "notebook",
+    "price": "3.783,00",
+    "stock": "in",
+    "page": "500"
+   },
+   "expect": {
+    "id": "notebook",
+    "alerts": [],
+    "price": 3783.0,
+    "fails": 2
+   }
+  },
+  {
+   "input": {
+    "product": "notebook",
+    "price": "3.783,00",
+    "stock": "in",
+    "page": "500"
+   },
+   "expect": {
+    "id": "notebook",
+    "alerts": [
+     {
+      "kind": "source_down",
+      "text": "Notebook Aurora 14: source failed 3 times in a row (HTTP Error 500). Last known price kept."
+     }
+    ],
+    "price": 3783.0,
+    "fails": 3
+   }
+  },
+  {
+   "input": {
+    "product": "cafe",
+    "price": "49,00",
+    "stock": "in",
+    "page": "ok"
+   },
+   "expect": {
+    "id": "cafe",
+    "alerts": [
+     {
+      "kind": "suspicious",
+      "text": "Cafeteira Brasa: price jumped from R$ 449,00 to R$ 49,00. Not saved until it repeats or a person confirms."
+     }
+    ],
+    "price": 449.0,
+    "fails": 0
+   }
+  }
+ ]
+}

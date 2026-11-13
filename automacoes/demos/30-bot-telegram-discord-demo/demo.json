@@ -1,0 +1,545 @@
+{
+ "slug": "30-bot-telegram-discord-demo",
+ "title": {
+  "pt": "Bot de atendimento para Telegram e Discord (modo demo)",
+  "en": "Support bot for Telegram and Discord (demo mode)"
+ },
+ "tag": {
+  "pt": "Python · bot · Telegram · Discord",
+  "en": "Python · bot · Telegram · Discord"
+ },
+ "summary": {
+  "pt": "Um bot que consulta pedido e estoque, conduz um pedido em etapas, barra flood e separa comandos de administrador. Recebe o evento no formato real do Telegram ou do Discord e devolve o payload que seria enviado. Sem token e sem rede: é um modo demo, não um bot no ar.",
+  "en": "A bot that looks up orders and stock, walks a user through a new order in steps, blocks flooding and keeps admin commands separate. It takes the event in the real Telegram or Discord format and returns the payload that would be sent. No token, no network: it is a demo mode, not a live bot."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "python bot.py (conversa de exemplo, sem rede)",
+   "en": "python bot.py (sample conversation, no network)"
+  },
+  "note": {
+   "pt": "A conversa continua entre as execuções, como num chat: rode /novo e depois responda item, quantidade e sim. Mande 6 mensagens com 0.5 s de intervalo para ver o limite. Ana (111) é cliente; Bruno (222) é administrador.",
+   "en": "The conversation carries over between runs, like a chat: run /novo and then answer item, quantity and yes. Send 6 messages 0.5 s apart to see the rate limit. Ana (111) is a customer; Bruno (222) is an admin."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Meu pedido",
+     "en": "1. My order"
+    },
+    "values": {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/pedido 1042",
+     "gap": "3"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Pedido de outra pessoa",
+     "en": "2. Someone else's order"
+    },
+    "values": {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/pedido 2001",
+     "gap": "3"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Começar um pedido",
+     "en": "3. Start an order"
+    },
+    "values": {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/novo",
+     "gap": "3"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Discord: texto solto",
+     "en": "4. Discord: loose text"
+    },
+    "values": {
+     "platform": "discord",
+     "user": "222",
+     "text": "oi, tudo bem?",
+     "gap": "3"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Admin sem permissão",
+     "en": "5. Admin without permission"
+    },
+    "values": {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/admin_resumo",
+     "gap": "3"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "platform",
+    "type": "select",
+    "value": "telegram",
+    "label": {
+     "pt": "Plataforma",
+     "en": "Platform"
+    },
+    "options": [
+     {
+      "value": "telegram",
+      "label": {
+       "pt": "Telegram",
+       "en": "Telegram"
+      }
+     },
+     {
+      "value": "discord",
+      "label": {
+       "pt": "Discord",
+       "en": "Discord"
+      }
+     }
+    ]
+   },
+   {
+    "key": "user",
+    "type": "select",
+    "value": "111",
+    "label": {
+     "pt": "Quem escreve",
+     "en": "Who writes"
+    },
+    "options": [
+     {
+      "value": "111",
+      "label": {
+       "pt": "Ana (cliente)",
+       "en": "Ana (customer)"
+      }
+     },
+     {
+      "value": "222",
+      "label": {
+       "pt": "Bruno (administrador)",
+       "en": "Bruno (admin)"
+      }
+     }
+    ]
+   },
+   {
+    "key": "text",
+    "type": "text",
+    "value": "/pedido 1042",
+    "label": {
+     "pt": "Mensagem",
+     "en": "Message"
+    }
+   },
+   {
+    "key": "gap",
+    "type": "text",
+    "value": "3",
+    "label": {
+     "pt": "Segundos desde a anterior",
+     "en": "Seconds since the previous one"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Webhook update",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "evento no formato da plataforma",
+    "en": "event in the platform's format"
+   }
+  },
+  {
+   "id": "normalize",
+   "name": "Normalize",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "Telegram e Discord viram 1 formato",
+    "en": "Telegram and Discord become 1 format"
+   }
+  },
+  {
+   "id": "bot",
+   "name": "Bot router",
+   "icon": "switch",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "limite · comando · conversa · admin",
+    "en": "limit · command · flow · admin"
+   }
+  },
+  {
+   "id": "guard",
+   "name": "Guard",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "limite de msgs ou só admin",
+    "en": "message limit or admin-only"
+   }
+  },
+  {
+   "id": "command",
+   "name": "Command",
+   "icon": "code",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "/pedido /estoque /ajuda",
+    "en": "/pedido /estoque /ajuda"
+   }
+  },
+  {
+   "id": "flow",
+   "name": "Guided flow",
+   "icon": "memory",
+   "col": 3,
+   "row": 2,
+   "sub": {
+    "pt": "/novo em etapas",
+    "en": "/novo in steps"
+   }
+  },
+  {
+   "id": "unknown",
+   "name": "Fallback",
+   "icon": "set",
+   "col": 3,
+   "row": 3,
+   "sub": {
+    "pt": "não entendi + ajuda",
+    "en": "didn't get it + help"
+   }
+  },
+  {
+   "id": "send",
+   "name": "Reply payload",
+   "icon": "http",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "sendMessage / create message (não enviado)",
+    "en": "sendMessage / create message (not sent)"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "normalize"
+  },
+  {
+   "from": "normalize",
+   "to": "bot"
+  },
+  {
+   "from": "bot",
+   "to": "guard",
+   "when": "guard",
+   "label": "guard"
+  },
+  {
+   "from": "bot",
+   "to": "command",
+   "when": "command",
+   "label": "command"
+  },
+  {
+   "from": "bot",
+   "to": "flow",
+   "when": "flow",
+   "label": "flow"
+  },
+  {
+   "from": "bot",
+   "to": "unknown",
+   "when": "unknown",
+   "label": "unknown"
+  },
+  {
+   "from": "guard",
+   "to": "send"
+  },
+  {
+   "from": "command",
+   "to": "send"
+  },
+  {
+   "from": "flow",
+   "to": "send"
+  },
+  {
+   "from": "unknown",
+   "to": "send"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Perguntas repetidas de cliente (\"onde está meu pedido?\", \"tem em estoque?\") tomam o tempo de quem atende, e um bot feito às pressas ou vaza dado de outro cliente ou aceita qualquer comando.",
+   "en": "Repeated customer questions (\"where is my order?\", \"is it in stock?\") eat the support team's time, and a hastily built bot either leaks another customer's data or accepts any command."
+  },
+  "solution": {
+   "pt": "Um roteador pequeno: o evento é normalizado, passa pelo limite de mensagens, e cai em comando, conversa em etapas, comando de administrador (lista fixa) ou resposta de ajuda. Pedido de outra pessoa responde igual a pedido inexistente. A resposta sai no formato de cada plataforma.",
+   "en": "A small router: the event is normalized, passes the rate limit and lands on a command, a stepped conversation, an admin command (fixed list) or a help reply. Someone else's order gets the same answer as a missing one. The reply goes out in each platform's format."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: se 30 perguntas simples por dia levam ~2 min cada, são ~1 h de atendimento por dia que o bot absorve. Isso supõe perguntas repetitivas e uma base de pedidos acessível; o que foge do roteiro continua indo para uma pessoa.",
+   "en": "An estimate, not a measurement: if 30 simple questions a day take ~2 min each, that is ~1 h of support a day the bot absorbs. It assumes repetitive questions and an accessible orders base; anything off-script still goes to a person."
+  },
+  "stack": [
+   "Python 3.13",
+   "re",
+   "Telegram Bot API (formato)",
+   "Discord API (formato)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python bot.py (conversa de exemplo no terminal)",
+     "python run_scenarios.py (5 conversas → output/)",
+     "Testes: python tests/test_bot.py"
+    ],
+    "en": [
+     "python bot.py (sample conversation in the terminal)",
+     "python run_scenarios.py (5 conversations → output/)",
+     "Tests: python tests/test_bot.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "bot.py",
+     "label": {
+      "pt": "Baixar bot.py",
+      "en": "Download bot.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o bot.py portado para JavaScript e conferido contra as saídas gravadas do Python. Os eventos têm o formato dos de Telegram e Discord, mas NENHUM foi enviado a essas plataformas: não há token, não há bot criado e o adaptador que chama a API de verdade não foi escrito. Pedidos, estoque e usuários são fictícios.",
+   "en": "The code is bot.py ported to JavaScript and checked against recorded Python outputs. Events have the shape of Telegram and Discord ones, but NONE was sent to those platforms: there is no token, no bot created, and the adapter that calls the real API was not written. Orders, stock and users are fictional."
+  }
+ },
+ "footer": {
+  "pt": "Nada é enviado: tudo roda no seu navegador.",
+  "en": "Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "fresh": true,
+   "before": [
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/start",
+     "gap": "3"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/pedido 1042",
+     "gap": "3"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/pedido 2001",
+     "gap": "3"
+    }
+   ],
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/estoque can-gel",
+    "gap": "3"
+   },
+   "expect": {
+    "route": "command",
+    "payload": {
+     "method": "sendMessage",
+     "chat_id": 111,
+     "text": "Caneta gel: sem estoque no momento."
+    }
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/novo",
+     "gap": "3"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "Mochila",
+     "gap": "3"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "abc",
+     "gap": "3"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "2",
+     "gap": "3"
+    }
+   ],
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "sim",
+    "gap": "3"
+   },
+   "expect": {
+    "route": "flow",
+    "payload": {
+     "method": "sendMessage",
+     "chat_id": 111,
+     "text": "Pedido P-5001 registrado: 2 x Mochila. (demo: nada foi gravado em sistema real)"
+    }
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "platform": "discord",
+     "user": "222",
+     "text": "/estoque MOC-01",
+     "gap": "3"
+    },
+    {
+     "platform": "discord",
+     "user": "222",
+     "text": "/pedido@Atendimento 2001",
+     "gap": "3"
+    }
+   ],
+   "input": {
+    "platform": "discord",
+    "user": "222",
+    "text": "oi, tudo bem?",
+    "gap": "3"
+   },
+   "expect": {
+    "route": "unknown",
+    "payload": {
+     "channel_id": "c-222",
+     "content": "Não entendi. Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+    }
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/admin_resumo",
+     "gap": "3"
+    }
+   ],
+   "input": {
+    "platform": "telegram",
+    "user": "222",
+    "text": "/admin_resumo",
+    "gap": "3"
+   },
+   "expect": {
+    "route": "command",
+    "payload": {
+     "method": "sendMessage",
+     "chat_id": 222,
+     "text": "Resumo: 3 pedidos na base, 1 SKU sem estoque, 2 usuário(s) ativos."
+    }
+   }
+  },
+  {
+   "fresh": true,
+   "before": [
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/ajuda",
+     "gap": "0.5"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/ajuda",
+     "gap": "0.5"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/ajuda",
+     "gap": "0.5"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/ajuda",
+     "gap": "0.5"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/ajuda",
+     "gap": "0.5"
+    },
+    {
+     "platform": "telegram",
+     "user": "111",
+     "text": "/ajuda",
+     "gap": "0.5"
+    }
+   ],
+   "input": {
+    "platform": "telegram",
+    "user": "111",
+    "text": "/ajuda",
+    "gap": "12"
+   },
+   "expect": {
+    "route": "command",
+    "payload": {
+     "method": "sendMessage",
+     "chat_id": 111,
+     "text": "Oi, Ana! Sou o bot de atendimento (demo). Comandos: /pedido <numero> · /estoque <sku> · /novo · /cancelar · /ajuda"
+    }
+   }
+  }
+ ]
+}

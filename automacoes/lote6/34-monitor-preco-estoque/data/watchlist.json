@@ -1,0 +1,5 @@
+[
+ {"id": "notebook", "name": "Notebook Aurora 14", "target": 3500.00, "min_drop_pct": 10},
+ {"id": "fone", "name": "Fone Pulso BT", "target": 299.00, "min_drop_pct": 15},
+ {"id": "cafe", "name": "Cafeteira Brasa", "target": 450.00, "min_drop_pct": 10}
+]

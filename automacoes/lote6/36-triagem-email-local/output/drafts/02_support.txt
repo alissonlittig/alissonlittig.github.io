@@ -1,0 +1,7 @@
+Hello,
+
+We received your support request and passed it to our support team.
+We are treating it as a priority.
+It would help if you could send a screenshot and the steps to reproduce the problem.
+
+Best regards
