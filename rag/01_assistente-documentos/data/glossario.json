@@ -1,0 +1,83 @@
+{
+"reinicio": [
+"redefinir",
+"reset",
+"fabrica"
+],
+"reiniciar": [
+"redefinir",
+"reset",
+"fabrica"
+],
+"reinicia": [
+"redefinir",
+"reset",
+"fabrica"
+],
+"dura": [
+"prazo",
+"meses"
+],
+"duracao": [
+"prazo",
+"meses"
+],
+"cobre": [
+"cobertura",
+"coberto"
+],
+"lento": [
+"velocidade",
+"lenta"
+],
+"lenta": [
+"velocidade",
+"lento"
+],
+"devolver": [
+"devolucao",
+"arrependimento"
+],
+"devolucao": [
+"arrependimento",
+"reembolso"
+],
+"conserto": [
+"assistencia",
+"consertar"
+],
+"consertar": [
+"conserto",
+"assistencia"
+],
+"casa": [
+"home",
+"office"
+],
+"wifi": [
+"wi-fi",
+"rede"
+],
+"senha": [
+"password"
+],
+"vpn": [
+"seguranca"
+],
+"dinheiro": [
+"reembolso",
+"valor"
+],
+"atualiza": [
+"atualizacao",
+"firmware",
+"automaticamente"
+],
+"sozinho": [
+"automaticamente"
+],
+"atualizar": [
+"atualizacao",
+"firmware"
+]
+}

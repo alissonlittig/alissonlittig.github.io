@@ -1,0 +1,170 @@
+[
+ {
+  "id": 0,
+  "q": "Qual o prazo de entrega?",
+  "a": "Para capitais, a entrega leva de 2 a 5 dias úteis. Para o interior, de 5 a 10 dias úteis, sempre contados a partir da confirmação do pagamento.",
+  "cat": "Entrega"
+ },
+ {
+  "id": 1,
+  "q": "Tem frete grátis?",
+  "a": "Sim. Compras acima de R$ 199 têm frete grátis para Sul e Sudeste. Para as demais regiões, o frete grátis vale a partir de R$ 299.",
+  "cat": "Entrega"
+ },
+ {
+  "id": 2,
+  "q": "Como rastrear meu pedido?",
+  "a": "O código de rastreio chega por e-mail em até 24 horas depois do envio. Você também acompanha tudo na página Meus pedidos, dentro da sua conta.",
+  "cat": "Entrega"
+ },
+ {
+  "id": 3,
+  "q": "Posso mudar o endereço depois de comprar?",
+  "a": "Só antes do envio. Chame o chat em até 2 horas depois da compra informando o número do pedido e o novo endereço.",
+  "cat": "Entrega"
+ },
+ {
+  "id": 4,
+  "q": "Quais são as formas de pagamento?",
+  "a": "Aceitamos cartão de crédito em até 10 vezes sem juros, Pix e boleto bancário. Não aceitamos cheque nem pagamento na entrega.",
+  "cat": "Pagamento"
+ },
+ {
+  "id": 5,
+  "q": "Tem desconto pagando no Pix?",
+  "a": "Sim. Pagando com Pix, você recebe 5% de desconto automático sobre o valor dos produtos, sem precisar de cupom.",
+  "cat": "Pagamento"
+ },
+ {
+  "id": 6,
+  "q": "Por quanto tempo o boleto fica válido?",
+  "a": "O boleto vence em 3 dias corridos. Se não for pago até o vencimento, o pedido é cancelado e o estoque volta para o site.",
+  "cat": "Pagamento"
+ },
+ {
+  "id": 7,
+  "q": "Qual o valor mínimo da parcela no cartão?",
+  "a": "Cada parcela precisa ter no mínimo R$ 30. Por isso, o número de parcelas disponíveis depende do valor total da compra.",
+  "cat": "Pagamento"
+ },
+ {
+  "id": 8,
+  "q": "Como uso um cupom de desconto?",
+  "a": "No carrinho, digite o código no campo Cupom e toque em aplicar. Só é possível usar um cupom por pedido, e ele não vale para produtos já em promoção.",
+  "cat": "Pagamento"
+ },
+ {
+  "id": 9,
+  "q": "Como faço uma troca?",
+  "a": "Você tem 30 dias depois do recebimento para pedir a troca, com o produto sem uso e com etiqueta. Solicite em Meus pedidos e enviaremos um código de postagem gratuito.",
+  "cat": "Trocas e devoluções"
+ },
+ {
+  "id": 10,
+  "q": "Posso devolver se me arrependi da compra?",
+  "a": "Pode, em até 7 dias corridos depois de receber o pedido. O reembolso é integral, incluindo o valor do frete pago.",
+  "cat": "Trocas e devoluções"
+ },
+ {
+  "id": 11,
+  "q": "Em quanto tempo recebo o reembolso?",
+  "a": "No cartão de crédito, o estorno aparece em até duas faturas. No Pix, o dinheiro volta em até 5 dias úteis depois que recebermos o produto de volta.",
+  "cat": "Trocas e devoluções"
+ },
+ {
+  "id": 12,
+  "q": "Recebi um produto com defeito, o que faço?",
+  "a": "Temos 90 dias de garantia contra defeito. Envie fotos pelo chat com o número do pedido e faremos a troca ou o reembolso, sem custo de envio.",
+  "cat": "Trocas e devoluções"
+ },
+ {
+  "id": 13,
+  "q": "Recebi o produto errado.",
+  "a": "Avise em até 7 dias depois do recebimento. Buscamos o item errado sem custo e enviamos o correto com prioridade.",
+  "cat": "Trocas e devoluções"
+ },
+ {
+  "id": 14,
+  "q": "Meu pedido está atrasado.",
+  "a": "Se o prazo de entrega passou, fale com um atendente informando o número do pedido. Verificamos com a transportadora e, no atraso confirmado, damos um cupom de R$ 20.",
+  "cat": "Entrega"
+ },
+ {
+  "id": 15,
+  "q": "Como cancelo um pedido?",
+  "a": "Antes do envio, cancele em Meus pedidos, em Cancelar pedido. Depois do envio, recuse a entrega ou devolva o produto dentro do prazo de arrependimento.",
+  "cat": "Pedidos"
+ },
+ {
+  "id": 16,
+  "q": "Onde encontro a nota fiscal?",
+  "a": "A nota fiscal é enviada por e-mail e fica disponível em Meus pedidos em até 48 horas depois do faturamento.",
+  "cat": "Pedidos"
+ },
+ {
+  "id": 17,
+  "q": "Como descubro meu tamanho?",
+  "a": "Cada página de produto tem uma tabela de medidas. Se ficar em dúvida entre dois tamanhos, escolha o maior. A primeira troca de tamanho é gratuita.",
+  "cat": "Produtos"
+ },
+ {
+  "id": 18,
+  "q": "O produto esgotado voltará ao estoque?",
+  "a": "Em produtos esgotados, use o botão Avise-me. Enviamos um e-mail assim que o item voltar, mas não há garantia de reposição.",
+  "cat": "Produtos"
+ },
+ {
+  "id": 19,
+  "q": "Posso retirar o pedido em uma loja?",
+  "a": "A retirada é gratuita nas lojas de Curitiba e Joinville, em até 2 dias úteis depois da aprovação do pagamento. Leve um documento com foto.",
+  "cat": "Entrega"
+ },
+ {
+  "id": 20,
+  "q": "Esqueci minha senha.",
+  "a": "Na tela de entrada, toque em Esqueci minha senha. Mandamos um e-mail com um link que vale por 30 minutos para criar uma nova.",
+  "cat": "Conta"
+ },
+ {
+  "id": 21,
+  "q": "Como excluo meus dados da loja?",
+  "a": "Peça a exclusão pelo formulário Privacidade, no rodapé do site. O pedido é atendido em até 15 dias, exceto dados que a lei obriga a guardar, como notas fiscais.",
+  "cat": "Conta"
+ },
+ {
+  "id": 22,
+  "q": "Qual o horário de atendimento?",
+  "a": "O chat atende de segunda a sexta, das 9h às 18h, e aos sábados, das 9h às 13h. Fora desse horário, deixe sua mensagem que respondemos no próximo dia útil.",
+  "cat": "Atendimento"
+ },
+ {
+  "id": 23,
+  "q": "Vocês embalam para presente?",
+  "a": "Sim. No carrinho, marque Embalagem para presente por R$ 9,90 e escreva uma mensagem para o cartão que vai junto. A nota fiscal não vai na embalagem.",
+  "cat": "Produtos"
+ },
+ {
+  "id": 24,
+  "q": "Vocês vendem para empresas?",
+  "a": "Vendemos. Informe o CNPJ no cadastro para a nota sair em nome da empresa. Para compras acima de 20 unidades, peça um orçamento com preço especial pelo chat.",
+  "cat": "Pedidos"
+ },
+ {
+  "id": 25,
+  "q": "Como funciona o programa de pontos?",
+  "a": "Você ganha 1 ponto a cada R$ 1 gasto. A cada 100 pontos, recebe R$ 5 de desconto na próxima compra. Os pontos valem por 12 meses.",
+  "cat": "Conta"
+ },
+ {
+  "id": 26,
+  "q": "Meus dados de cartão estão seguros?",
+  "a": "Não guardamos o número do seu cartão. O pagamento é processado por uma operadora certificada, e o site usa conexão criptografada.",
+  "cat": "Pagamento"
+ },
+ {
+  "id": 27,
+  "q": "Vocês enviam para fora do Brasil?",
+  "a": "Não. Por enquanto, entregamos somente dentro do território brasileiro.",
+  "cat": "Entrega"
+ }
+]

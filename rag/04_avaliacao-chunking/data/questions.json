@@ -1,0 +1,112 @@
+[
+ {
+  "doc": "regulamento_parque_aurora",
+  "q": "qual o horário de funcionamento do parque",
+  "gold": "abre todos os dias das 6h às 20h"
+ },
+ {
+  "doc": "regulamento_parque_aurora",
+  "q": "quanto custa o ingresso de quem mora em outra cidade",
+  "gold": "Visitantes de outras cidades pagam ingresso de R$ 8"
+ },
+ {
+  "doc": "regulamento_parque_aurora",
+  "q": "de que tamanho pode ser a guia do cachorro",
+  "gold": "guia curta de no máximo dois metros"
+ },
+ {
+  "doc": "regulamento_parque_aurora",
+  "q": "quanto custa reservar a churrasqueira e com quanta antecedência",
+  "gold": "A reserva custa R$ 40 por período de quatro horas e deve ser feita com cinco dias de antecedência"
+ },
+ {
+  "doc": "regulamento_parque_aurora",
+  "q": "qual a velocidade máxima da bicicleta na ciclovia",
+  "gold": "velocidade máxima de 15 quilômetros por hora"
+ },
+ {
+  "doc": "biblioteca_municipal",
+  "q": "quanto tempo vale a carteirinha da biblioteca",
+  "gold": "A carteirinha é emitida na hora e vale por dois anos"
+ },
+ {
+  "doc": "biblioteca_municipal",
+  "q": "quantos livros posso levar de uma vez e por quantos dias",
+  "gold": "até cinco livros por vez, pelo prazo de 21 dias"
+ },
+ {
+  "doc": "biblioteca_municipal",
+  "q": "quanto é a multa por atraso",
+  "gold": "multa de R$ 0,50 por dia e por livro"
+ },
+ {
+  "doc": "biblioteca_municipal",
+  "q": "que horas a sala de estudos funciona",
+  "gold": "funciona das 9h às 21h"
+ },
+ {
+  "doc": "biblioteca_municipal",
+  "q": "quando tem contação de histórias",
+  "gold": "contação de histórias aos sábados, às 10h"
+ },
+ {
+  "doc": "manual_compostagem",
+  "q": "em quanto tempo o composto fica pronto",
+  "gold": "transforma restos de comida em adubo em cerca de 90 dias"
+ },
+ {
+  "doc": "manual_compostagem",
+  "q": "o que não pode colocar na composteira",
+  "gold": "Carnes, laticínios, óleo, fezes de animais e alimentos cozidos com muito tempero devem ficar de fora"
+ },
+ {
+  "doc": "manual_compostagem",
+  "q": "qual a proporção de material seco e resto de comida",
+  "gold": "duas partes de material seco para uma parte de resto de comida"
+ },
+ {
+  "doc": "manual_compostagem",
+  "q": "como usar o chorume nas plantas",
+  "gold": "O chorume deve ser diluído em dez partes de água"
+ },
+ {
+  "doc": "torneio_xadrez_escolar",
+  "q": "quantos jogadores tem cada equipe do torneio",
+  "gold": "equipes de quatro jogadores titulares e um reserva"
+ },
+ {
+  "doc": "torneio_xadrez_escolar",
+  "q": "qual o tempo de cada jogador na partida",
+  "gold": "tempo de 15 minutos para cada jogador"
+ },
+ {
+  "doc": "torneio_xadrez_escolar",
+  "q": "quanto vale um empate",
+  "gold": "empate meio ponto"
+ },
+ {
+  "doc": "torneio_xadrez_escolar",
+  "q": "quem vai para a etapa estadual",
+  "gold": "a campeã representa a cidade na etapa estadual em maio"
+ },
+ {
+  "doc": "bicicletas_compartilhadas",
+  "q": "quanto custa o plano mensal da bicicleta",
+  "gold": "O plano mensal custa R$ 49 e tem viagens de até 60 minutos"
+ },
+ {
+  "doc": "bicicletas_compartilhadas",
+  "q": "qual a multa por deixar a bicicleta fora da estação",
+  "gold": "Deixar a bicicleta fora de estação gera multa de R$ 30"
+ },
+ {
+  "doc": "bicicletas_compartilhadas",
+  "q": "não pagam viagem se a bicicleta estiver com defeito",
+  "gold": "a viagem não é cobrada se o defeito for registrado em até dois minutos"
+ },
+ {
+  "doc": "bicicletas_compartilhadas",
+  "q": "a manutenção repõe as bicicletas em que horário",
+  "gold": "a manutenção reabastece as bicicletas entre as 5h e as 7h"
+ }
+]

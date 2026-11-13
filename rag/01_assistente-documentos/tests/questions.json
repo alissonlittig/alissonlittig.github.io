@@ -1,0 +1,19 @@
+[
+ {"q": "como reinicio o roteador?", "doc": "manual_roteador_zeta.md", "section": "3. Redefinir para o padrão de fábrica"},
+ {"q": "o que significa a luz vermelha?", "doc": "manual_roteador_zeta.md", "section": "2. Significado das luzes"},
+ {"q": "quando o firmware atualiza sozinho?", "doc": "manual_roteador_zeta.md", "section": "4. Atualização de firmware"},
+ {"q": "como limitar a velocidade da rede de convidados?", "doc": "manual_roteador_zeta.md", "section": "5. Rede de convidados"},
+ {"q": "qual o consumo máximo de energia em watts?", "doc": "manual_roteador_zeta.md", "section": "7. Especificações"},
+ {"q": "quantos dias por semana posso trabalhar de casa?", "doc": "politica_trabalho_remoto.md", "section": "1. Quem pode trabalhar de casa"},
+ {"q": "quanto é o auxílio home office?", "doc": "politica_trabalho_remoto.md", "section": "2. Auxílio home office"},
+ {"q": "preciso de VPN em casa?", "doc": "politica_trabalho_remoto.md", "section": "4. Segurança da informação"},
+ {"q": "posso trabalhar de outro país?", "doc": "politica_trabalho_remoto.md", "section": "6. Viagens e trabalho de outra cidade"},
+ {"q": "quanto tempo dura a garantia?", "doc": "guia_garantia_assistencia.md", "section": "1. Prazo de garantia"},
+ {"q": "o que a garantia não cobre?", "doc": "guia_garantia_assistencia.md", "section": "2. O que a garantia não cobre"},
+ {"q": "como faço pra devolver uma compra do site?", "doc": "guia_garantia_assistencia.md", "section": "5. Troca por arrependimento"},
+ {"q": "qual o prazo do conserto?", "doc": "guia_garantia_assistencia.md", "section": "4. Envio e prazo de conserto"},
+ {"q": "quem ganhou a copa de 2014?", "refuse": true},
+ {"q": "qual a receita de bolo de cenoura?", "refuse": true},
+ {"q": "quanto custa o roteador?", "refuse": true},
+ {"q": "o roteador funciona com fibra óptica da operadora XYZ?", "refuse": true}
+]

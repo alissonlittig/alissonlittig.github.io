@@ -1,0 +1,101 @@
+{
+ "fixo30_0": {
+  "chunks": 35,
+  "avg_words": 27.4,
+  "hit@1": 0.591,
+  "hit@3": 0.682,
+  "mrr": 0.629,
+  "ceiling": 0.727,
+  "ctx_words": 78.6
+ },
+ "fixo30_25": {
+  "chunks": 44,
+  "avg_words": 28.9,
+  "hit@1": 0.682,
+  "hit@3": 0.818,
+  "mrr": 0.742,
+  "ceiling": 0.909,
+  "ctx_words": 81.7
+ },
+ "fixo60_0": {
+  "chunks": 20,
+  "avg_words": 48.0,
+  "hit@1": 0.727,
+  "hit@3": 0.773,
+  "mrr": 0.742,
+  "ceiling": 0.864,
+  "ctx_words": 153.6
+ },
+ "fixo60_25": {
+  "chunks": 22,
+  "avg_words": 55.2,
+  "hit@1": 0.909,
+  "hit@3": 0.955,
+  "mrr": 0.932,
+  "ceiling": 1.0,
+  "ctx_words": 156.6
+ },
+ "fixo120_0": {
+  "chunks": 10,
+  "avg_words": 96.0,
+  "hit@1": 0.773,
+  "hit@3": 0.864,
+  "mrr": 0.811,
+  "ceiling": 0.909,
+  "ctx_words": 254.5
+ },
+ "fixo120_25": {
+  "chunks": 10,
+  "avg_words": 111.0,
+  "hit@1": 0.864,
+  "hit@3": 1.0,
+  "mrr": 0.917,
+  "ceiling": 1.0,
+  "ctx_words": 293.2
+ },
+ "fixo240_0": {
+  "chunks": 5,
+  "avg_words": 192.0,
+  "hit@1": 0.955,
+  "hit@3": 1.0,
+  "mrr": 0.97,
+  "ceiling": 1.0,
+  "ctx_words": 435.3
+ },
+ "fixo240_25": {
+  "chunks": 5,
+  "avg_words": 192.0,
+  "hit@1": 0.955,
+  "hit@3": 1.0,
+  "mrr": 0.97,
+  "ceiling": 1.0,
+  "ctx_words": 435.3
+ },
+ "frases2": {
+  "chunks": 30,
+  "avg_words": 32.0,
+  "hit@1": 0.909,
+  "hit@3": 0.909,
+  "mrr": 0.909,
+  "ceiling": 1.0,
+  "ctx_words": 82.0
+ },
+ "frases4": {
+  "chunks": 15,
+  "avg_words": 64.0,
+  "hit@1": 0.864,
+  "hit@3": 0.909,
+  "mrr": 0.879,
+  "ceiling": 1.0,
+  "ctx_words": 168.2
+ },
+ "paragrafo": {
+  "chunks": 25,
+  "avg_words": 38.4,
+  "hit@1": 0.864,
+  "hit@3": 0.955,
+  "mrr": 0.902,
+  "ceiling": 1.0,
+  "ctx_words": 104.6
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "all": {
+  "bm25": {
+   "recall@1": 0.794,
+   "recall@3": 0.912,
+   "recall@5": 0.941,
+   "mrr": 0.86
+  },
+  "vector": {
+   "recall@1": 0.853,
+   "recall@3": 0.941,
+   "recall@5": 0.941,
+   "mrr": 0.892
+  },
+  "lsa": {
+   "recall@1": 0.824,
+   "recall@3": 0.941,
+   "recall@5": 0.941,
+   "mrr": 0.882
+  },
+  "hybrid": {
+   "recall@1": 0.853,
+   "recall@3": 0.971,
+   "recall@5": 0.971,
+   "mrr": 0.907
+  },
+  "rerank": {
+   "recall@1": 0.853,
+   "recall@3": 0.971,
+   "recall@5": 0.971,
+   "mrr": 0.907
+  }
+ },
+ "by_type": {
+  "L": {
+   "bm25": {
+    "recall@1": 0.875,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 0.938
+   },
+   "vector": {
+    "recall@1": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0
+   },
+   "lsa": {
+    "recall@1": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0
+   },
+   "hybrid": {
+    "recall@1": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0
+   },
+   "rerank": {
+    "recall@1": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0
+   }
+  },
+  "P": {
+   "bm25": {
+    "recall@1": 0.875,
+    "recall@3": 0.938,
+    "recall@5": 1.0,
+    "mrr": 0.922
+   },
+   "vector": {
+    "recall@1": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0
+   },
+   "lsa": {
+    "recall@1": 0.875,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 0.938
+   },
+   "hybrid": {
+    "recall@1": 0.938,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 0.969
+   },
+   "rerank": {
+    "recall@1": 0.938,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 0.969
+   }
+  },
+  "H": {
+   "bm25": {
+    "recall@1": 0.6,
+    "recall@3": 0.8,
+    "recall@5": 0.8,
+    "mrr": 0.7
+   },
+   "vector": {
+    "recall@1": 0.5,
+    "recall@3": 0.8,
+    "recall@5": 0.8,
+    "mrr": 0.633
+   },
+   "lsa": {
+    "recall@1": 0.6,
+    "recall@3": 0.8,
+    "recall@5": 0.8,
+    "mrr": 0.7
+   },
+   "hybrid": {
+    "recall@1": 0.6,
+    "recall@3": 0.9,
+    "recall@5": 0.9,
+    "mrr": 0.733
+   },
+   "rerank": {
+    "recall@1": 0.6,
+    "recall@3": 0.9,
+    "recall@5": 0.9,
+    "mrr": 0.733
+   }
+  }
+ },
+ "n": 34
+}

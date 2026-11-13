@@ -1,0 +1,4 @@
+{"encomenda":["pedido","compra"],"pacote":["pedido","entrega"],"chega":["entrega","prazo"],"chegar":["entrega","prazo"],"quebrado":["defeito"],"estragado":["defeito"],"danificado":["defeito"],"defeituoso":["defeito"],
+"trocado":["errado"],"chat":["atendimento"],"atende":["atendimento"],"horas":["horario"],"buscar":["retirada","retirar"],"apagar":["excluir"],"cadastro":["conta","dados"],"fidelidade":["pontos"],"juntar":["ganha","pontos"],
+"abatimento":["desconto"],"caixinha":["embalagem","presente"],"desistir":["cancelar","arrependi"],"numeracao":["tamanho"],"medida":["tamanho"],"login":["entrada","conta"],"juridica":["empresa","cnpj"],"graca":["gratis","gratuito"],
+"dinheiro":["reembolso","estorno"],"volta":["reembolso","estorno","estoque"],"expira":["vence","validade"],"portugal":["fora","brasil"],"exterior":["fora","brasil"],"internacional":["fora","brasil"],"seguro":["seguranca","seguros"]}

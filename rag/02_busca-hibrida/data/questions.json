@@ -1,0 +1,240 @@
+[
+ {
+  "q": "quanto tempo os backups ficam guardados",
+  "rel": [
+   0
+  ],
+  "type": "L"
+ },
+ {
+  "q": "como recuperar arquivo excluído sem querer",
+  "rel": [
+   1
+  ],
+  "type": "P"
+ },
+ {
+  "q": "preciso de VPN para acessar sistemas de casa",
+  "rel": [
+   2
+  ],
+  "type": "L"
+ },
+ {
+  "q": "a VPN não conecta o que fazer",
+  "rel": [
+   3
+  ],
+  "type": "L"
+ },
+ {
+  "q": "quantos caracteres a senha precisa ter",
+  "rel": [
+   4
+  ],
+  "type": "L"
+ },
+ {
+  "q": "como redefinir senha esquecida",
+  "rel": [
+   5
+  ],
+  "type": "P"
+ },
+ {
+  "q": "tenho que usar autenticador no login",
+  "rel": [
+   6
+  ],
+  "type": "P"
+ },
+ {
+  "q": "tamanho máximo de anexo no e-mail",
+  "rel": [
+   8
+  ],
+  "type": "P"
+ },
+ {
+  "q": "como digitalizar um documento",
+  "rel": [
+   9
+  ],
+  "type": "P"
+ },
+ {
+  "q": "quando posso trocar de computador",
+  "rel": [
+   10
+  ],
+  "type": "H"
+ },
+ {
+  "q": "perdi o notebook e agora",
+  "rel": [
+   11
+  ],
+  "type": "P"
+ },
+ {
+  "q": "quem instala programas pagos",
+  "rel": [
+   12
+  ],
+  "type": "P"
+ },
+ {
+  "q": "qual rede wi-fi os visitantes usam",
+  "rel": [
+   13
+  ],
+  "type": "P"
+ },
+ {
+  "q": "até que horas o suporte funciona",
+  "rel": [
+   14
+  ],
+  "type": "P"
+ },
+ {
+  "q": "quem atende fora do expediente de madrugada",
+  "rel": [
+   15
+  ],
+  "type": "H"
+ },
+ {
+  "q": "em quanto tempo um chamado crítico é atendido",
+  "rel": [
+   16
+  ],
+  "type": "L"
+ },
+ {
+  "q": "recebi um e-mail suspeito pedindo senha",
+  "rel": [
+   18
+  ],
+  "type": "P"
+ },
+ {
+  "q": "pode publicar em produção na sexta",
+  "rel": [
+   19
+  ],
+  "type": "P"
+ },
+ {
+  "q": "como voltar para a versão anterior depois de um erro",
+  "rel": [
+   20
+  ],
+  "type": "H"
+ },
+ {
+  "q": "onde testar funcionalidade antes de lançar",
+  "rel": [
+   21
+  ],
+  "type": "H"
+ },
+ {
+  "q": "alerta quando o sistema fica lento",
+  "rel": [
+   22
+  ],
+  "type": "H"
+ },
+ {
+  "q": "posso consultar o banco de produção",
+  "rel": [
+   23
+  ],
+  "type": "P"
+ },
+ {
+  "q": "como pedir férias",
+  "rel": [
+   25
+  ],
+  "type": "L"
+ },
+ {
+  "q": "esqueci de bater o ponto",
+  "rel": [
+   26
+  ],
+  "type": "H"
+ },
+ {
+  "q": "como compensar horas extras",
+  "rel": [
+   27
+  ],
+  "type": "P"
+ },
+ {
+  "q": "limite de hospedagem em viagem a trabalho",
+  "rel": [
+   29
+  ],
+  "type": "P"
+ },
+ {
+  "q": "compra de cinco mil reais precisa de cotação",
+  "rel": [
+   30
+  ],
+  "type": "P"
+ },
+ {
+  "q": "quem emite nota fiscal e quando",
+  "rel": [
+   31
+  ],
+  "type": "L"
+ },
+ {
+  "q": "quanto a empresa paga do plano de saúde",
+  "rel": [
+   33
+  ],
+  "type": "L"
+ },
+ {
+  "q": "verba para cursos e certificações",
+  "rel": [
+   34
+  ],
+  "type": "H"
+ },
+ {
+  "q": "jogar computador velho no lixo",
+  "rel": [
+   36
+  ],
+  "type": "H"
+ },
+ {
+  "q": "denunciar assédio sem me identificar",
+  "rel": [
+   35
+  ],
+  "type": "H"
+ },
+ {
+  "q": "como funciona o primeiro dia de um funcionário novo",
+  "rel": [
+   32
+  ],
+  "type": "H"
+ },
+ {
+  "q": "reembolso de comprovantes de viagem",
+  "rel": [
+   28
+  ],
+  "type": "P"
+ }
+]
