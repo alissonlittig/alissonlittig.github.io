@@ -1,0 +1,7 @@
+﻿arquivo;numero;data;prestador;cnpj;itens;total;iss;status;problemas
+nf_1024.pdf;1024;2026-10-05;Grafica Norte Ltda;11.222.333/0001-81;2;1.250,00;62,50;ok;
+nf_1024_copia.pdf;1024;2026-10-05;Grafica Norte Ltda;11.222.333/0001-81;2;1.250,00;62,50;revisar;duplicada de nf_1024.pdf
+nf_2210.pdf;2210;2026-10-12;Oficina Beta ME;44.555.666/0001-81;2;3.902,00;195,10;ok;
+nf_3005.pdf;3005;2026-10-20;Consultoria Delta SA;77.888.999/0001-81;1;5.500,00;275,00;revisar;soma dos itens (5.000,00) diferente do total (5.500,00)
+nf_4001.pdf;4001;2026-10-28;Papelaria Sul Ltda;12.345.000/0001-99;1;279,00;13,95;revisar;CNPJ inválido
+nf_escaneada.pdf;;;;;0;;;revisar;PDF sem texto (escaneado?): precisa de OCR

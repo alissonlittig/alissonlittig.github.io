@@ -1,0 +1,314 @@
+{
+ "slug": "37-conciliacao-bancaria",
+ "title": {
+  "pt": "Conciliação bancária: extrato x ERP com relatório de divergências",
+  "en": "Bank reconciliation: statement x ERP with a divergence report"
+ },
+ "tag": {
+  "pt": "Python · CSV",
+  "en": "Python · CSV"
+ },
+ "summary": {
+  "pt": "O script lê o extrato do banco e os lançamentos do ERP (CSV), casa o que bate (mesmo valor, data até 3 dias de diferença), tenta de novo com tolerância de 2% e descrição parecida (tarifa de cartão, arredondamento) e lista só o que sobra: cobranças que não estão no ERP, vendas que não entraram no banco e valores diferentes. Não altera nenhum dado.",
+  "en": "The script reads the bank statement and the ERP entries (CSV), matches what agrees (same amount, dates up to 3 days apart), tries again with a 2% tolerance and a similar description (card fee, rounding) and lists only what is left: charges missing in the ERP, sales that never reached the bank, and different amounts. It changes no data."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: arquivos do mês prontos",
+   "en": "Event: month files ready"
+  },
+  "note": {
+   "pt": "Edite os CSVs (colunas date, description, amount; no ERP também id) e rode. Valores com ponto decimal.",
+   "en": "Edit the CSVs (columns date, description, amount; ERP also id) and run. Decimal point for amounts."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Mês com divergências",
+     "en": "1. Month with divergences"
+    },
+    "values": {
+     "bank": "date,description,amount\n2026-10-02,PIX recebido Padaria Central,1250.00\n2026-10-03,Boleto fornecedor Grafica Norte,-890.40\n2026-10-05,PIX recebido Clinica Sol,2300.00\n2026-10-07,TED recebida Oficina Beta,4100.00\n2026-10-08,Tarifa bancaria pacote servicos,-49.90\n2026-10-09,Cartao liquidacao Loja Alfa,1978.00\n2026-10-12,Boleto energia eletrica,-612.35\n2026-10-12,Boleto energia eletrica,-612.35\n2026-10-15,PIX recebido Mercado Lima,780.00\n",
+     "erp": "id,date,description,amount\nE101,2026-10-02,Venda Padaria Central,1250.00\nE102,2026-10-01,Pagamento Grafica Norte,-890.40\nE103,2026-10-05,Venda Clinica Sol,2300.00\nE104,2026-10-04,Venda Oficina Beta,4100.00\nE105,2026-10-08,Venda Loja Alfa cartao,2000.00\nE106,2026-10-11,Conta energia eletrica,-612.35\nE107,2026-10-14,Venda Mercado Lima,780.00\nE108,2026-10-20,Venda Bar do Zeca,950.00\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Tudo certo",
+     "en": "2. All clear"
+    },
+    "values": {
+     "bank": "date,description,amount\n2026-11-02,PIX recebido Cafe Rio,300.00\n2026-11-03,Boleto Papelaria Sul,-120.00",
+     "erp": "id,date,description,amount\nE1,2026-11-02,Venda Cafe Rio,300.00\nE2,2026-11-03,Pagamento Papelaria Sul,-120.00"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Datas longe demais",
+     "en": "3. Dates too far apart"
+    },
+    "values": {
+     "bank": "date,description,amount\n2026-11-01,PIX recebido Joao,500.00",
+     "erp": "id,date,description,amount\nE9,2026-11-20,Venda Joao,500.00"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "bank",
+    "type": "textarea",
+    "rows": 8,
+    "value": "date,description,amount\n2026-10-02,PIX recebido Padaria Central,1250.00\n2026-10-03,Boleto fornecedor Grafica Norte,-890.40\n2026-10-05,PIX recebido Clinica Sol,2300.00\n2026-10-07,TED recebida Oficina Beta,4100.00\n2026-10-08,Tarifa bancaria pacote servicos,-49.90\n2026-10-09,Cartao liquidacao Loja Alfa,1978.00\n2026-10-12,Boleto energia eletrica,-612.35\n2026-10-12,Boleto energia eletrica,-612.35\n2026-10-15,PIX recebido Mercado Lima,780.00\n",
+    "label": {
+     "pt": "Extrato do banco (CSV)",
+     "en": "Bank statement (CSV)"
+    }
+   },
+   {
+    "key": "erp",
+    "type": "textarea",
+    "rows": 8,
+    "value": "id,date,description,amount\nE101,2026-10-02,Venda Padaria Central,1250.00\nE102,2026-10-01,Pagamento Grafica Norte,-890.40\nE103,2026-10-05,Venda Clinica Sol,2300.00\nE104,2026-10-04,Venda Oficina Beta,4100.00\nE105,2026-10-08,Venda Loja Alfa cartao,2000.00\nE106,2026-10-11,Conta energia eletrica,-612.35\nE107,2026-10-14,Venda Mercado Lima,780.00\nE108,2026-10-20,Venda Bar do Zeca,950.00\n",
+    "label": {
+     "pt": "Lançamentos do ERP (CSV)",
+     "en": "ERP entries (CSV)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Read CSVs",
+   "icon": "file",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "extrato + ERP",
+    "en": "bank + ERP"
+   }
+  },
+  {
+   "id": "exact",
+   "name": "Exact match",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "mesmo valor, ±3 dias",
+    "en": "same amount, ±3 days"
+   }
+  },
+  {
+   "id": "tolerance",
+   "name": "Close match",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "±2% + descrição",
+    "en": "±2% + description"
+   }
+  },
+  {
+   "id": "report",
+   "name": "Divergence report",
+   "icon": "sheet",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "CSV + resumo",
+    "en": "CSV + summary"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "exact"
+  },
+  {
+   "from": "exact",
+   "to": "tolerance"
+  },
+  {
+   "from": "tolerance",
+   "to": "report"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "No fechamento do mês alguém compara linha a linha o extrato com o ERP, na planilha. Dá horas, e um erro de R$ 22 de taxa de cartão passa batido.",
+   "en": "At month end someone compares the statement with the ERP line by line in a spreadsheet. It takes hours and a R$ 22 card-fee gap slips through."
+  },
+  "solution": {
+   "pt": "Dois passes automáticos (valor exato com janela de datas; valor próximo com descrição parecida), cada lançamento usado uma vez (cobrança duplicada aparece), e um CSV só com o que precisa de olho humano.",
+   "en": "Two automatic passes (exact amount with a date window; close amount with a similar description), each entry used once (a duplicate charge shows up), and a CSV with only what needs a human eye."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: conciliar ~200 linhas à mão leva ~2 h por mês; o script roda em segundos e a pessoa revisa só as divergências (~15 min). Casamento por valor/data/palavra erra com valores repetidos de clientes diferentes: por isso nada é lançado sozinho.",
+   "en": "An estimate, not a measurement: reconciling ~200 lines by hand takes ~2 h a month; the script runs in seconds and a person reviews only the divergences (~15 min). Matching by amount/date/word can err on repeated amounts from different clients, which is why nothing is posted automatically."
+  },
+  "stack": [
+   "Python 3.13",
+   "csv",
+   "datetime"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python reconcile.py data/bank.csv data/erp.csv output",
+     "Testes: python tests/test_reconcile.py"
+    ],
+    "en": [
+     "python reconcile.py data/bank.csv data/erp.csv output",
+     "Tests: python tests/test_reconcile.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "reconcile.py",
+     "label": {
+      "pt": "Baixar reconcile.py",
+      "en": "Download reconcile.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o reconcile.py portado para JavaScript linha a linha; a lógica foi conferida contra as saídas reais do Python em 3 casos. Dados fictícios. Não há conexão com banco ou ERP: a leitura é de CSV exportado. Importação OFX e baixa automática no ERP não foram escritas.",
+   "en": "The code is reconcile.py ported to JavaScript line by line; the logic was checked against the real Python outputs in 3 cases. Fictional data. No bank or ERP connection: it reads exported CSV. OFX import and automatic posting to the ERP were not written."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "bank": "date,description,amount\n2026-10-02,PIX recebido Padaria Central,1250.00\n2026-10-03,Boleto fornecedor Grafica Norte,-890.40\n2026-10-05,PIX recebido Clinica Sol,2300.00\n2026-10-07,TED recebida Oficina Beta,4100.00\n2026-10-08,Tarifa bancaria pacote servicos,-49.90\n2026-10-09,Cartao liquidacao Loja Alfa,1978.00\n2026-10-12,Boleto energia eletrica,-612.35\n2026-10-12,Boleto energia eletrica,-612.35\n2026-10-15,PIX recebido Mercado Lima,780.00\n",
+    "erp": "id,date,description,amount\nE101,2026-10-02,Venda Padaria Central,1250.00\nE102,2026-10-01,Pagamento Grafica Norte,-890.40\nE103,2026-10-05,Venda Clinica Sol,2300.00\nE104,2026-10-04,Venda Oficina Beta,4100.00\nE105,2026-10-08,Venda Loja Alfa cartao,2000.00\nE106,2026-10-11,Conta energia eletrica,-612.35\nE107,2026-10-14,Venda Mercado Lima,780.00\nE108,2026-10-20,Venda Bar do Zeca,950.00\n"
+   },
+   "expect": {
+    "matched": [
+     {
+      "bank": "B1",
+      "erp": "E101",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B2",
+      "erp": "E102",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B3",
+      "erp": "E103",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B4",
+      "erp": "E104",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B7",
+      "erp": "E106",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B9",
+      "erp": "E107",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B6",
+      "erp": "E105",
+      "kind": "amount_diff",
+      "diff": -2200
+     }
+    ],
+    "bank_only": [
+     "B5",
+     "B8"
+    ],
+    "erp_only": [
+     "E108"
+    ],
+    "summary": {
+     "bank_total": 824300,
+     "erp_total": 987725,
+     "gap": -163425,
+     "matched": 7,
+     "divergences": 4
+    }
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "bank": "date,description,amount\n2026-11-02,PIX recebido Cafe Rio,300.00\n2026-11-03,Boleto Papelaria Sul,-120.00",
+    "erp": "id,date,description,amount\nE1,2026-11-02,Venda Cafe Rio,300.00\nE2,2026-11-03,Pagamento Papelaria Sul,-120.00"
+   },
+   "expect": {
+    "matched": [
+     {
+      "bank": "B1",
+      "erp": "E1",
+      "kind": "exact",
+      "diff": 0
+     },
+     {
+      "bank": "B2",
+      "erp": "E2",
+      "kind": "exact",
+      "diff": 0
+     }
+    ],
+    "bank_only": [],
+    "erp_only": [],
+    "summary": {
+     "bank_total": 18000,
+     "erp_total": 18000,
+     "gap": 0,
+     "matched": 2,
+     "divergences": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "bank": "date,description,amount\n2026-11-01,PIX recebido Joao,500.00",
+    "erp": "id,date,description,amount\nE9,2026-11-20,Venda Joao,500.00"
+   },
+   "expect": {
+    "matched": [],
+    "bank_only": [
+     "B1"
+    ],
+    "erp_only": [
+     "E9"
+    ],
+    "summary": {
+     "bank_total": 50000,
+     "erp_total": 50000,
+     "gap": 0,
+     "matched": 0,
+     "divergences": 2
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,147 @@
+date,product,region,qty,unit_price
+2026-08-04,Chaleira bico fino,Sul,3,145.00
+2026-08-08,Filtro de papel,Sudeste,1,12.50
+2026-08-24,Chaleira bico fino,Sul,4,145.00
+2026-08-01,Cafe especial 250g,Sul,2,42.90
+2026-08-17,Filtro de papel,Sul,2,12.50
+2026-08-21,Chaleira bico fino,Centro-Oeste,2,145.00
+2026-08-19,Caneca termica,Nordeste,1,64.90
+2026-08-23,Filtro de papel,Centro-Oeste,3,12.50
+2026-08-05,Moedor manual,Sudeste,3,189.00
+2026-08-03,Cafe especial 250g,Centro-Oeste,1,42.90
+2026-08-28,Moedor manual,Nordeste,3,189.00
+2026-08-24,Cafe especial 250g,Centro-Oeste,1,42.90
+2026-08-03,Caneca termica,Nordeste,3,64.90
+2026-08-07,Assinatura mensal,Sul,1,79.00
+2026-08-08,Chaleira bico fino,Nordeste,1,145.00
+2026-08-28,Filtro de papel,Sul,4,12.50
+2026-08-15,Moedor manual,Nordeste,2,189.00
+2026-08-12,Moedor manual,Sudeste,3,189.00
+2026-08-22,Chaleira bico fino,Sul,2,145.00
+2026-08-24,Assinatura mensal,Sudeste,2,79.00
+2026-08-13,Caneca termica,Nordeste,2,64.90
+2026-08-11,Chaleira bico fino,Sul,2,145.00
+2026-08-26,Cafe especial 250g,Nordeste,4,42.90
+2026-08-03,Moedor manual,Sudeste,3,189.00
+2026-08-21,Filtro de papel,Centro-Oeste,4,12.50
+2026-08-15,Chaleira bico fino,Sudeste,3,145.00
+2026-08-08,Filtro de papel,Nordeste,4,12.50
+2026-08-13,Assinatura mensal,Nordeste,2,79.00
+2026-08-17,Filtro de papel,Centro-Oeste,1,12.50
+2026-09-31,Filtro de papel,Sul,1,12.50
+2026-08-28,Cafe especial 250g,Sul,2,42.90
+2026-08-06,Chaleira bico fino,Centro-Oeste,1,145.00
+2026-08-13,Caneca termica,Centro-Oeste,3,64.90
+2026-08-28,Assinatura mensal,Sul,1,79.00
+2026-08-18,Chaleira bico fino,Nordeste,3,145.00
+2026-08-10,Cafe especial 250g,Centro-Oeste,2,42.90
+2026-08-01,Caneca termica,Nordeste,2,64.90
+2026-08-04,Assinatura mensal,Nordeste,2,79.00
+2026-08-12,Filtro de papel,Sudeste,1,12.50
+2026-08-11,Assinatura mensal,Centro-Oeste,1,79.00
+2026-08-12,Cafe especial 250g,Nordeste,2,42.90
+2026-09-08,Cafe especial 250g,Sul,1,42.90
+2026-09-16,Chaleira bico fino,Sul,2,145.00
+2026-09-22,Filtro de papel,Centro-Oeste,2,12.50
+2026-09-17,Moedor manual,Centro-Oeste,2,189.00
+2026-09-25,Assinatura mensal,Sudeste,3,79.00
+2026-09-22,Caneca termica,Nordeste,4,64.90
+2026-09-15,Assinatura mensal,Sul,2,79.00
+2026-09-03,Filtro de papel,Nordeste,1,12.50
+2026-09-18,Assinatura mensal,Sudeste,2,79.00
+2026-09-03,Cafe especial 250g,Sul,2,42.90
+2026-09-02,Cafe especial 250g,Nordeste,1,42.90
+2026-09-08,Assinatura mensal,Nordeste,4,79.00
+2026-09-18,Filtro de papel,Sudeste,4,12.50
+2026-09-26,Filtro de papel,Centro-Oeste,4,12.50
+2026-09-04,Filtro de papel,Sul,4,12.50
+2026-09-14,Moedor manual,Centro-Oeste,4,189.00
+2026-09-02,Chaleira bico fino,Sul,1,145.00
+2026-09-24,Caneca termica,Nordeste,1,64.90
+2026-09-07,Filtro de papel,Sudeste,4,12.50
+2026-09-14,Filtro de papel,Sudeste,3,12.50
+2026-09-08,Caneca termica,Sul,4,64.90
+2026-09-04,Assinatura mensal,Sul,1,79.00
+2026-09-25,Cafe especial 250g,Sudeste,2,42.90
+2026-09-16,Caneca termica,Centro-Oeste,2,64.90
+2026-09-02,Caneca termica,Sudeste,4,64.90
+2026-09-13,Cafe especial 250g,Nordeste,4,42.90
+2026-09-14,Moedor manual,Centro-Oeste,2,189.00
+2026-09-10,Filtro de papel,Sudeste,1,12.50
+2026-10-05,Moedor manual,Sul,0,189.00
+2026-09-24,Assinatura mensal,Sul,3,79.00
+2026-09-02,Cafe especial 250g,Centro-Oeste,2,42.90
+2026-09-17,Cafe especial 250g,Sul,2,42.90
+2026-09-20,Cafe especial 250g,Sul,2,42.90
+2026-09-04,Caneca termica,Sudeste,1,64.90
+2026-09-03,Assinatura mensal,Centro-Oeste,3,79.00
+2026-09-07,Moedor manual,Nordeste,2,189.00
+2026-09-13,Moedor manual,Sudeste,3,189.00
+2026-09-11,Caneca termica,Sul,1,64.90
+2026-09-20,Caneca termica,Sul,1,64.90
+2026-09-07,Assinatura mensal,Nordeste,2,79.00
+2026-09-03,Moedor manual,Sudeste,3,189.00
+2026-09-06,Moedor manual,Centro-Oeste,3,189.00
+2026-09-26,Assinatura mensal,Sul,3,79.00
+2026-09-04,Chaleira bico fino,Sudeste,3,145.00
+2026-09-04,Cafe especial 250g,Sudeste,3,42.90
+2026-09-20,Moedor manual,Sudeste,3,189.00
+2026-09-22,Filtro de papel,Nordeste,4,12.50
+2026-09-28,Moedor manual,Sul,1,189.00
+2026-09-14,Chaleira bico fino,Nordeste,1,145.00
+2026-10-11,Cafe especial 250g,Sudeste,3,42.90
+2026-10-24,Filtro de papel,Centro-Oeste,4,12.50
+2026-10-01,Assinatura mensal,Sul,1,79.00
+2026-10-05,Chaleira bico fino,Sul,3,145.00
+2026-10-18,Assinatura mensal,Sudeste,4,79.00
+2026-10-02,Filtro de papel,Nordeste,3,12.50
+2026-10-12,Cafe especial 250g,Sudeste,2,42.90
+2026-10-04,Chaleira bico fino,Nordeste,4,145.00
+2026-10-24,Assinatura mensal,Sudeste,2,79.00
+2026-10-26,Filtro de papel,Sudeste,4,12.50
+2026-10-06,Cafe especial 250g,Nordeste,4,42.90
+2026-10-28,Chaleira bico fino,Sudeste,3,145.00
+2026-10-26,Filtro de papel,Sul,4,12.50
+2026-10-28,Cafe especial 250g,Centro-Oeste,2,42.90
+2026-10-27,Filtro de papel,Centro-Oeste,3,12.50
+2026-10-27,Moedor manual,Sudeste,2,189.00
+2026-10-22,Cafe especial 250g,Sudeste,4,42.90
+2026-10-09,Moedor manual,Sul,3,189.00
+2026-10-21,Moedor manual,Centro-Oeste,3,189.00
+2026-10-04,Cafe especial 250g,Nordeste,2,42.90
+2026-10-09,Assinatura mensal,Sul,1,79.00
+2026-10-14,Assinatura mensal,Nordeste,3,79.00
+2026-10-20,Caneca termica,Sul,4,64.90
+2026-10-07,Assinatura mensal,Nordeste,1,79.00
+2026-10-14,Chaleira bico fino,Sul,2,145.00
+2026-10-14,Moedor manual,Sul,3,189.00
+2026-10-11,Assinatura mensal,Sul,3,79.00
+2026-10-10,Assinatura mensal,Centro-Oeste,3,79.00
+2026-10-23,Caneca termica,Nordeste,2,64.90
+2026-10-14,Filtro de papel,Centro-Oeste,2,12.50
+2026-10-19,Assinatura mensal,Nordeste,4,79.00
+2026-10-27,Assinatura mensal,Sul,3,79.00
+2026-10-07,Moedor manual,Centro-Oeste,3,189.00
+2026-10-15,Caneca termica,Centro-Oeste,2,64.90
+2026-10-16,Assinatura mensal,Sudeste,1,79.00
+2026-10-17,Moedor manual,Nordeste,1,189.00
+2026-10-22,Filtro de papel,Nordeste,2,12.50
+2026-10-05,Filtro de papel,Sul,1,12.50
+2026-10-16,Filtro de papel,Sul,4,12.50
+2026-10-21,Caneca termica,Sudeste,4,64.90
+2026-10-13,Caneca termica,Sudeste,2,64.90
+2026-10-23,Chaleira bico fino,Sul,1,145.00
+2026-10-08,Caneca termica,Sudeste,4,64.90
+2026-10-18,Cafe especial 250g,Sudeste,1,42.90
+2026-10-05,Caneca termica,Centro-Oeste,3,64.90
+2026-10-20,Caneca termica,Centro-Oeste,4,64.90
+2026-10-24,Filtro de papel,Centro-Oeste,4,12.50
+2026-10-25,Moedor manual,Sudeste,3,189.00
+2026-10-16,Assinatura mensal,Sudeste,3,79.00
+2026-10-03,Caneca termica,Nordeste,2,64.90
+2026-10-11,Moedor manual,Nordeste,1,189.00
+2026-10-05,Filtro de papel,Sudeste,4,12.50
+2026-10-05,Chaleira bico fino,Sudeste,1,145.00
+2026-10-14,Caneca termica,Nordeste,4,64.90
+2026-10-02,Caneca termica,Sudeste,4,64.90
+2026-10-25,Caneca termica,Sul,4,64.90

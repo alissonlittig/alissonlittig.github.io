@@ -1,0 +1,314 @@
+{
+ "slug": "39-pdf-notas-fiscais-planilha",
+ "title": {
+  "pt": "Notas fiscais em PDF viram planilha, com conferência",
+  "en": "PDF invoices become a spreadsheet, with checks"
+ },
+ "tag": {
+  "pt": "Python · pypdf · openpyxl",
+  "en": "Python · pypdf · openpyxl"
+ },
+ "summary": {
+  "pt": "O script lê uma pasta de PDFs de notas fiscais (com texto), extrai número, data, prestador, CNPJ, itens e totais e grava uma planilha CSV e XLSX. Antes de aceitar uma linha ele confere o dígito do CNPJ, se a soma dos itens fecha com o total, se a data existe e se a nota não está duplicada. O que não confere vai marcado 'revisar'. PDF só de imagem não é adivinhado: pede OCR.",
+  "en": "The script reads a folder of invoice PDFs (with text), extracts number, date, issuer, CNPJ, items and totals and writes a CSV and XLSX spreadsheet. Before accepting a row it checks the CNPJ check digits, that the item sum matches the total, that the date exists and that the invoice is not a duplicate. Anything that fails is marked 'revisar'. Image-only PDFs are not guessed at: they ask for OCR."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: PDFs novos na pasta",
+   "en": "Event: new PDFs in the folder"
+  },
+  "note": {
+   "pt": "A demo recebe o texto que o script extraiu de PDFs reais de exemplo. Edite o texto (troque um valor, estrague o CNPJ) e veja a conferência pegar.",
+   "en": "The demo takes the text the script extracted from real sample PDFs. Edit the text (change an amount, break the CNPJ) and watch the check catch it."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Nota correta",
+     "en": "1. Correct invoice"
+    },
+    "values": {
+     "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 1024\nData de emissao: 05/10/2026\nPrestador: Grafica Norte Ltda\nCNPJ: 11.222.333/0001-81\nDescricao  Qtd  Valor unitario\nImpressao de folders 2 x 450,00\nArte final 1 x 350,00\nValor total: R$ 1.250,00\nISS: R$ 62,50\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Vários itens, milhar",
+     "en": "2. Several items, thousands"
+    },
+    "values": {
+     "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 2210\nData de emissao: 12/10/2026\nPrestador: Oficina Beta ME\nCNPJ: 44.555.666/0001-81\nDescricao  Qtd  Valor unitario\nManutencao preventiva 3 x 1.200,00\nPecas 4 x 75,50\nValor total: R$ 3.902,00\nISS: R$ 195,10\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Total não bate",
+     "en": "3. Total does not add up"
+    },
+    "values": {
+     "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 3005\nData de emissao: 20/10/2026\nPrestador: Consultoria Delta SA\nCNPJ: 77.888.999/0001-81\nDescricao  Qtd  Valor unitario\nConsultoria mensal 1 x 5.000,00\nValor total: R$ 5.500,00\nISS: R$ 275,00\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. CNPJ inválido",
+     "en": "4. Invalid CNPJ"
+    },
+    "values": {
+     "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 4001\nData de emissao: 28/10/2026\nPrestador: Papelaria Sul Ltda\nCNPJ: 12.345.000/0001-99\nDescricao  Qtd  Valor unitario\nResmas A4 10 x 27,90\nValor total: R$ 279,00\nISS: R$ 13,95\n"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Texto sem campos",
+     "en": "5. Text without fields"
+    },
+    "values": {
+     "text": "Recibo avulso\nvalor combinado, sem numero"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "text",
+    "type": "textarea",
+    "rows": 12,
+    "value": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 1024\nData de emissao: 05/10/2026\nPrestador: Grafica Norte Ltda\nCNPJ: 11.222.333/0001-81\nDescricao  Qtd  Valor unitario\nImpressao de folders 2 x 450,00\nArte final 1 x 350,00\nValor total: R$ 1.250,00\nISS: R$ 62,50\n",
+    "label": {
+     "pt": "Texto da nota (extraído do PDF)",
+     "en": "Invoice text (extracted from the PDF)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "PDF text",
+   "icon": "pdf",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "texto da página",
+    "en": "page text"
+   }
+  },
+  {
+   "id": "fields",
+   "name": "Read fields",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "número, data, CNPJ, itens",
+    "en": "number, date, CNPJ, items"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Checks pass?",
+   "icon": "if",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "CNPJ, soma, data",
+    "en": "CNPJ, sum, date"
+   }
+  },
+  {
+   "id": "row",
+   "name": "Spreadsheet row",
+   "icon": "sheet",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "status ok",
+    "en": "status ok"
+   }
+  },
+  {
+   "id": "flag",
+   "name": "Mark 'revisar'",
+   "icon": "bell",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "humano confere",
+    "en": "a person checks"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "fields"
+  },
+  {
+   "from": "fields",
+   "to": "validate"
+  },
+  {
+   "from": "validate",
+   "to": "row",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "validate",
+   "to": "flag",
+   "when": "review",
+   "label": "problem"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Alguém abre cada PDF e digita número, data e valores numa planilha. Dá erro de digitação, nota duplicada e total que não fecha, e só se descobre no fechamento.",
+   "en": "Someone opens each PDF and types number, date and amounts into a spreadsheet. Typos, duplicates and totals that do not add up only show at month end."
+  },
+  "solution": {
+   "pt": "Extração do texto com pypdf, regras de leitura por rótulo, validação do CNPJ e da soma, detecção de duplicada e marcação 'revisar' para qualquer dúvida. O mesmo formato de nota sai sempre na mesma planilha.",
+   "en": "Text extraction with pypdf, label-based reading rules, CNPJ and sum validation, duplicate detection and a 'revisar' mark for any doubt. The same invoice layout always lands in the same spreadsheet."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~4 min por nota digitada; 60 notas por mês são ~4 h. O script lê em segundos, mas só funciona bem em notas com o mesmo layout e com texto: layouts novos exigem ajustar as regras e escaneados exigem OCR (não incluído).",
+   "en": "An estimate, not a measurement: ~4 min per typed invoice; 60 a month is ~4 h. The script reads in seconds, but it only works well on invoices with the same layout and with text: new layouts need the rules adjusted and scans need OCR (not included)."
+  },
+  "stack": [
+   "Python 3.13",
+   "pypdf",
+   "openpyxl",
+   "reportlab (só gera os exemplos)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install pypdf openpyxl reportlab",
+     "python make_samples.py",
+     "python nfe_extract.py data/pdfs output",
+     "Testes: python tests/test_nfe.py"
+    ],
+    "en": [
+     "pip install pypdf openpyxl reportlab",
+     "python make_samples.py",
+     "python nfe_extract.py data/pdfs output",
+     "Tests: python tests/test_nfe.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "nfe_extract.py",
+     "label": {
+      "pt": "Baixar nfe_extract.py",
+      "en": "Download nfe_extract.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o nfe_extract.py portado para JavaScript; a leitura do PDF em si (pypdf) não roda no navegador, então a demo parte do texto extraído de PDFs reais; a lógica foi conferida contra as saídas reais do Python em 5 casos. Notas e CNPJs fictícios (dígitos válidos, empresas inexistentes). Layout de nota municipal real varia muito: não foi testado.",
+   "en": "The code is nfe_extract.py ported to JavaScript; the PDF reading itself (pypdf) does not run in the browser, so the demo starts from text extracted from real PDFs; the logic was checked against the real Python outputs in 5 cases. Fictional invoices and CNPJs (valid digits, non-existent companies). Real municipal invoice layouts vary a lot: not tested."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 1024\nData de emissao: 05/10/2026\nPrestador: Grafica Norte Ltda\nCNPJ: 11.222.333/0001-81\nDescricao  Qtd  Valor unitario\nImpressao de folders 2 x 450,00\nArte final 1 x 350,00\nValor total: R$ 1.250,00\nISS: R$ 62,50\n"
+   },
+   "expect": {
+    "numero": "1024",
+    "data": "2026-10-05",
+    "prestador": "Grafica Norte Ltda",
+    "cnpj": "11.222.333/0001-81",
+    "itens": 2,
+    "total": 125000,
+    "iss": 6250,
+    "status": "ok",
+    "problemas": []
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 2210\nData de emissao: 12/10/2026\nPrestador: Oficina Beta ME\nCNPJ: 44.555.666/0001-81\nDescricao  Qtd  Valor unitario\nManutencao preventiva 3 x 1.200,00\nPecas 4 x 75,50\nValor total: R$ 3.902,00\nISS: R$ 195,10\n"
+   },
+   "expect": {
+    "numero": "2210",
+    "data": "2026-10-12",
+    "prestador": "Oficina Beta ME",
+    "cnpj": "44.555.666/0001-81",
+    "itens": 2,
+    "total": 390200,
+    "iss": 19510,
+    "status": "ok",
+    "problemas": []
+   }
+  },
+  {
+   "input": {
+    "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 3005\nData de emissao: 20/10/2026\nPrestador: Consultoria Delta SA\nCNPJ: 77.888.999/0001-81\nDescricao  Qtd  Valor unitario\nConsultoria mensal 1 x 5.000,00\nValor total: R$ 5.500,00\nISS: R$ 275,00\n"
+   },
+   "expect": {
+    "numero": "3005",
+    "data": "2026-10-20",
+    "prestador": "Consultoria Delta SA",
+    "cnpj": "77.888.999/0001-81",
+    "itens": 1,
+    "total": 550000,
+    "iss": 27500,
+    "status": "revisar",
+    "problemas": [
+     "soma dos itens (5.000,00) diferente do total (5.500,00)"
+    ]
+   }
+  },
+  {
+   "input": {
+    "text": "NOTA FISCAL DE SERVICO ELETRONICA\nNumero: 4001\nData de emissao: 28/10/2026\nPrestador: Papelaria Sul Ltda\nCNPJ: 12.345.000/0001-99\nDescricao  Qtd  Valor unitario\nResmas A4 10 x 27,90\nValor total: R$ 279,00\nISS: R$ 13,95\n"
+   },
+   "expect": {
+    "numero": "4001",
+    "data": "2026-10-28",
+    "prestador": "Papelaria Sul Ltda",
+    "cnpj": "12.345.000/0001-99",
+    "itens": 1,
+    "total": 27900,
+    "iss": 1395,
+    "status": "revisar",
+    "problemas": [
+     "CNPJ inválido"
+    ]
+   }
+  },
+  {
+   "input": {
+    "text": "Recibo avulso\nvalor combinado, sem numero"
+   },
+   "expect": {
+    "numero": null,
+    "data": null,
+    "prestador": null,
+    "cnpj": null,
+    "itens": 0,
+    "total": null,
+    "iss": null,
+    "status": "revisar",
+    "problemas": [
+     "falta número",
+     "falta prestador",
+     "falta CNPJ",
+     "falta valor total",
+     "falta data"
+    ]
+   }
+  }
+ ]
+}

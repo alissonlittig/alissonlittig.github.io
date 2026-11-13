@@ -7,3 +7,4 @@ Workflows built and run end to end on a local n8n (free, self-hosted). All data 
 - `lote4/`: beyond n8n: AI research agent (LangGraph), RPA with Playwright, Node-RED flow, Python CRM, pandas data pipeline, PowerShell invoice-to-stock. Each has source, tests, real outputs and an interactive demo in `demos/` (19-24).
 - `lote5/`: Google Apps Script report, FastAPI signed webhook router, tool-calling support agent (simulated LLM), polite scraper. Source, tests and interactive demo in `demos/` (25-28).
 - `lote6/`: Excel consolidation, Telegram/Discord bot (demo mode), receipt OCR to sheet, local RAG over PDFs, CRM-sheet sync, price/stock monitor, weekly PDF report, local e-mail triage. Source, tests and interactive demo in `demos/` (29-36).
+- `lote7/`: bank reconciliation (statement x ERP), client onboarding automation, invoice PDFs to spreadsheet, sales dashboard as one HTML file. Source, tests and interactive demo in `demos/` (37-40).

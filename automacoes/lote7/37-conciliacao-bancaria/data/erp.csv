@@ -1,0 +1,9 @@
+id,date,description,amount
+E101,2026-10-02,Venda Padaria Central,1250.00
+E102,2026-10-01,Pagamento Grafica Norte,-890.40
+E103,2026-10-05,Venda Clinica Sol,2300.00
+E104,2026-10-04,Venda Oficina Beta,4100.00
+E105,2026-10-08,Venda Loja Alfa cartao,2000.00
+E106,2026-10-11,Conta energia eletrica,-612.35
+E107,2026-10-14,Venda Mercado Lima,780.00
+E108,2026-10-20,Venda Bar do Zeca,950.00

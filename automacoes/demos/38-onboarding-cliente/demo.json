@@ -1,0 +1,380 @@
+{
+ "slug": "38-onboarding-cliente",
+ "title": {
+  "pt": "Onboarding de cliente: formulário vira pasta, contrato e rascunho de e-mail",
+  "en": "Client onboarding: a form becomes a folder, a contract and an e-mail draft"
+ },
+ "tag": {
+  "pt": "Python · JSON",
+  "en": "Python · JSON"
+ },
+ "summary": {
+  "pt": "Quando o cliente fecha, os dados do formulário entram no script. Ele valida (e-mail, plano, valor, data), cria a pasta do cliente com subpastas, preenche o contrato com os dados e o plano, escreve um rascunho de e-mail de boas-vindas e um checklist. Nada é enviado: a pessoa revisa e manda. Se o cliente já existe, o script recusa em vez de sobrescrever.",
+  "en": "When the client signs, the form data goes into the script. It validates (e-mail, plan, amount, date), creates the client folder with subfolders, fills the contract with the data and plan, writes a welcome e-mail draft and a checklist. Nothing is sent: a person reviews and sends. If the client already exists the script refuses instead of overwriting."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: formulário de novo cliente enviado",
+   "en": "Event: new-client form submitted"
+  },
+  "note": {
+   "pt": "Rode o exemplo, depois mude o plano ou estrague o e-mail para ver a recusa com todos os motivos de uma vez.",
+   "en": "Run the example, then change the plan or break the e-mail to see the rejection with every reason at once."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Plano Pro (válido)",
+     "en": "1. Pro plan (valid)"
+    },
+    "values": {
+     "company": "Padaria Pão Quente Ltda",
+     "contact": "Marina Souza",
+     "email": "marina@paoquente.example",
+     "city": "Curitiba",
+     "plan": "pro",
+     "value": "1500.00",
+     "start": "2026-12-01"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Enterprise, nome com acento",
+     "en": "2. Enterprise, accented name"
+    },
+    "values": {
+     "company": "Clínica São José & Filhos",
+     "contact": "Dr. Álvaro Lima",
+     "email": "alvaro@saojose.example",
+     "city": "Londrina",
+     "plan": "enterprise",
+     "value": "12345.50",
+     "start": "2027-01-10"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Formulário com erros",
+     "en": "3. Form with errors"
+    },
+    "values": {
+     "company": "Padaria Pão Quente Ltda",
+     "contact": "Marina Souza",
+     "email": "marina@",
+     "city": "Curitiba",
+     "plan": "gold",
+     "value": "mil",
+     "start": "2026-11-01"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "company",
+    "type": "text",
+    "value": "Padaria Pão Quente Ltda",
+    "label": {
+     "pt": "Empresa",
+     "en": "Company"
+    }
+   },
+   {
+    "key": "contact",
+    "type": "text",
+    "value": "Marina Souza",
+    "label": {
+     "pt": "Contato",
+     "en": "Contact"
+    }
+   },
+   {
+    "key": "email",
+    "type": "text",
+    "value": "marina@paoquente.example",
+    "label": {
+     "pt": "E-mail",
+     "en": "E-mail"
+    }
+   },
+   {
+    "key": "city",
+    "type": "text",
+    "value": "Curitiba",
+    "label": {
+     "pt": "Cidade",
+     "en": "City"
+    }
+   },
+   {
+    "key": "plan",
+    "type": "select",
+    "value": "pro",
+    "label": {
+     "pt": "Plano",
+     "en": "Plan"
+    },
+    "options": [
+     {
+      "value": "basic",
+      "label": "Basic"
+     },
+     {
+      "value": "pro",
+      "label": "Pro"
+     },
+     {
+      "value": "enterprise",
+      "label": "Enterprise"
+     }
+    ]
+   },
+   {
+    "key": "value",
+    "type": "text",
+    "value": "1500.00",
+    "label": {
+     "pt": "Valor mensal (ponto decimal)",
+     "en": "Monthly amount (decimal point)"
+    }
+   },
+   {
+    "key": "start",
+    "type": "text",
+    "value": "2026-12-01",
+    "label": {
+     "pt": "Início (AAAA-MM-DD; hoje na demo = 2026-11-13)",
+     "en": "Start (YYYY-MM-DD; today in the demo = 2026-11-13)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Form received",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "empresa, contato, plano",
+    "en": "company, contact, plan"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Valid?",
+   "icon": "if",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "e-mail, plano, valor, data",
+    "en": "e-mail, plan, amount, date"
+   }
+  },
+  {
+   "id": "reject",
+   "name": "Reject with reasons",
+   "icon": "bell",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "nada é criado",
+    "en": "nothing is created"
+   }
+  },
+  {
+   "id": "folder",
+   "name": "Create folders",
+   "icon": "file",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "clientes/<slug>/",
+    "en": "clientes/<slug>/"
+   }
+  },
+  {
+   "id": "contract",
+   "name": "Fill contract",
+   "icon": "pdf",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "modelo + dados",
+    "en": "template + data"
+   }
+  },
+  {
+   "id": "email",
+   "name": "E-mail draft",
+   "icon": "mail",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "arquivo, não envia",
+    "en": "file, never sends"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "validate"
+  },
+  {
+   "from": "validate",
+   "to": "folder",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "validate",
+   "to": "reject",
+   "when": "invalid",
+   "label": "invalid"
+  },
+  {
+   "from": "folder",
+   "to": "contract"
+  },
+  {
+   "from": "contract",
+   "to": "email"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Cada cliente novo vira o mesmo ritual: criar pasta, copiar o contrato antigo, trocar nome e valor (e esquecer um), escrever o e-mail de boas-vindas.",
+   "en": "Every new client becomes the same ritual: create a folder, copy the old contract, swap name and amount (and miss one), write the welcome e-mail."
+  },
+  "solution": {
+   "pt": "Um modelo de contrato e de e-mail com campos, validação antes de criar qualquer coisa, estrutura de pasta padrão e checklist. Humano só revisa e envia.",
+   "en": "A contract and e-mail template with fields, validation before anything is created, a standard folder structure and a checklist. A human only reviews and sends."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~25 min por cliente à mão; com 6 clientes novos por mês são ~2,5 h. O script leva segundos, mas a revisão do contrato continua sendo humana (o modelo é de demonstração e não substitui revisão jurídica).",
+   "en": "An estimate, not a measurement: ~25 min per client by hand; with 6 new clients a month that is ~2.5 h. The script takes seconds, but contract review stays human (the template is a demo and does not replace legal review)."
+  },
+  "stack": [
+   "Python 3.13",
+   "json",
+   "re",
+   "unicodedata"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python onboard.py data/form.json output 2026-11-13",
+     "Testes: python tests/test_onboard.py"
+    ],
+    "en": [
+     "python onboard.py data/form.json output 2026-11-13",
+     "Tests: python tests/test_onboard.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "onboard.py",
+     "label": {
+      "pt": "Baixar onboard.py",
+      "en": "Download onboard.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o onboard.py portado para JavaScript, com os modelos de contrato e e-mail injetados do próprio Python; a lógica foi conferida contra as saídas reais em 3 casos. Dados e empresa fictícios. Na demo a pasta não é criada (o navegador não grava em disco) e 'hoje' é fixo em 13/11/2026. Envio de e-mail e assinatura digital não foram escritos.",
+   "en": "The code is onboard.py ported to JavaScript, with the contract and e-mail templates injected from the Python itself; the logic was checked against the real outputs in 3 cases. Fictional data and company. In the demo the folder is not created (a browser does not write to disk) and 'today' is fixed at 2026-11-13. E-mail sending and digital signature were not written."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "company": "Padaria Pão Quente Ltda",
+    "contact": "Marina Souza",
+    "email": "marina@paoquente.example",
+    "city": "Curitiba",
+    "plan": "pro",
+    "value": "1500.00",
+    "start": "2026-12-01"
+   },
+   "expect": {
+    "ok": true,
+    "slug": "padaria-pao-quente-ltda",
+    "folders": [
+     "clientes/padaria-pao-quente-ltda/01_contrato",
+     "clientes/padaria-pao-quente-ltda/02_documentos",
+     "clientes/padaria-pao-quente-ltda/03_entregas"
+    ],
+    "contract": "CONTRATO DE PRESTAÇÃO DE SERVIÇOS Nº 2026-001\n\nCONTRATANTE: Padaria Pão Quente Ltda, representada por Marina Souza (marina@paoquente.example), cidade: Curitiba.\nCONTRATADA: Estúdio Exemplo Ltda. (empresa fictícia de demonstração).\n\n1. OBJETO. Plano Pro: 20 horas mensais de suporte, 1 relatório mensal e 1 reunião de acompanhamento.\n2. VALOR. R$ 1.500,00 por mês, pagos todo dia 10.\n3. INÍCIO E PRAZO. Início em 01/12/2026, por 12 meses, renovável por acordo escrito.\n4. RESCISÃO. Qualquer parte pode rescindir com 30 dias de aviso por escrito.\n\nEste texto é um MODELO de demonstração e não substitui revisão jurídica.\n",
+    "email": "Assunto: Boas-vindas, Padaria Pão Quente Ltda!\n\nOlá, Marina,\n\nFoi um prazer fechar o plano Pro com a Padaria Pão Quente Ltda. Deixei o contrato em anexo para sua leitura e assinatura; nosso início está marcado para 01/12/2026.\n\nPara começarmos, precisamos de: logo em alta resolução, acessos ao sistema atual e um contato técnico.\n\nQualquer dúvida, é só responder esta mensagem.\n\nUm abraço\n",
+    "checklist": [
+     "Revisar o contrato e anexar ao e-mail",
+     "Enviar o e-mail (rascunho abaixo: um humano envia)",
+     "Receber logo, acessos e contato técnico",
+     "Cadastrar o cliente na cobrança do dia 10",
+     "Agendar a reunião de início"
+    ]
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "company": "Clínica São José & Filhos",
+    "contact": "Dr. Álvaro Lima",
+    "email": "alvaro@saojose.example",
+    "city": "Londrina",
+    "plan": "enterprise",
+    "value": "12345.50",
+    "start": "2027-01-10"
+   },
+   "expect": {
+    "ok": true,
+    "slug": "clinica-sao-jose-filhos",
+    "folders": [
+     "clientes/clinica-sao-jose-filhos/01_contrato",
+     "clientes/clinica-sao-jose-filhos/02_documentos",
+     "clientes/clinica-sao-jose-filhos/03_entregas"
+    ],
+    "contract": "CONTRATO DE PRESTAÇÃO DE SERVIÇOS Nº 2026-001\n\nCONTRATANTE: Clínica São José & Filhos, representada por Dr. Álvaro Lima (alvaro@saojose.example), cidade: Londrina.\nCONTRATADA: Estúdio Exemplo Ltda. (empresa fictícia de demonstração).\n\n1. OBJETO. Plano Enterprise: 40 horas mensais de suporte, relatório semanal e reuniões quinzenais.\n2. VALOR. R$ 12.345,50 por mês, pagos todo dia 10.\n3. INÍCIO E PRAZO. Início em 10/01/2027, por 12 meses, renovável por acordo escrito.\n4. RESCISÃO. Qualquer parte pode rescindir com 30 dias de aviso por escrito.\n\nEste texto é um MODELO de demonstração e não substitui revisão jurídica.\n",
+    "email": "Assunto: Boas-vindas, Clínica São José & Filhos!\n\nOlá, Dr.,\n\nFoi um prazer fechar o plano Enterprise com a Clínica São José & Filhos. Deixei o contrato em anexo para sua leitura e assinatura; nosso início está marcado para 10/01/2027.\n\nPara começarmos, precisamos de: logo em alta resolução, acessos ao sistema atual e um contato técnico.\n\nQualquer dúvida, é só responder esta mensagem.\n\nUm abraço\n",
+    "checklist": [
+     "Revisar o contrato e anexar ao e-mail",
+     "Enviar o e-mail (rascunho abaixo: um humano envia)",
+     "Receber logo, acessos e contato técnico",
+     "Cadastrar o cliente na cobrança do dia 10",
+     "Agendar a reunião de início"
+    ]
+   }
+  },
+  {
+   "input": {
+    "company": "Padaria Pão Quente Ltda",
+    "contact": "Marina Souza",
+    "email": "marina@",
+    "city": "Curitiba",
+    "plan": "gold",
+    "value": "mil",
+    "start": "2026-11-01"
+   },
+   "expect": {
+    "ok": false,
+    "errors": [
+     "email: formato inválido",
+     "plan: use basic, pro ou enterprise",
+     "value: use número com ponto, ex. 1500.00",
+     "start: data já passou"
+    ]
+   }
+  }
+ ]
+}

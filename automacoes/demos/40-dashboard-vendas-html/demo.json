@@ -1,0 +1,362 @@
+{
+ "slug": "40-dashboard-vendas-html",
+ "title": {
+  "pt": "Dashboard de vendas automático: CSV vira uma página HTML pronta",
+  "en": "Automatic sales dashboard: CSV becomes a ready HTML page"
+ },
+ "tag": {
+  "pt": "Python · HTML estático",
+  "en": "Python · static HTML"
+ },
+ "summary": {
+  "pt": "O script lê o CSV de vendas, ignora (e lista) linhas com erro, calcula faturamento, pedidos, ticket médio e variação contra o mês anterior, monta os rankings por mês, produto e região e grava UMA página HTML sem JavaScript e sem recurso externo, com gráficos de barras em CSS. Feito para rodar agendado (por exemplo todo dia às 7h) e deixar a página sempre atual numa pasta ou no site.",
+  "en": "The script reads the sales CSV, ignores (and lists) bad lines, computes revenue, orders, average ticket and change versus the previous month, builds rankings by month, product and region and writes ONE HTML page with no JavaScript and no external resource, with CSS bar charts. Built to run on a schedule (for example every day at 7am) and keep the page current in a folder or on the site."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Evento: agendamento diário (ou CSV novo)",
+   "en": "Event: daily schedule (or a new CSV)"
+  },
+  "note": {
+   "pt": "Cole um CSV seu (date, product, region, qty, unit_price; preço com ponto) ou use os exemplos. Para ver a página completa, baixe o dashboard.html.",
+   "en": "Paste your own CSV (date, product, region, qty, unit_price; decimal point) or use the examples. To see the full page, download dashboard.html."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Pequeno (2 meses)",
+     "en": "1. Small (2 months)"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-10-01,Cafe especial 250g,Sul,2,42.90\n2026-10-02,Moedor manual,Sudeste,1,189.00\n2026-11-03,Cafe especial 250g,Sul,3,42.90\n2026-11-04,Caneca termica,Nordeste,2,64.90\n2026-11-04,Filtro de papel,Sul,5,12.50"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Linhas com erro",
+     "en": "2. Lines with errors"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-10-01,Cafe,Sul,2,42.90\n2026-10-32,Cafe,Sul,1,42.90\n2026-10-03,Cafe,Sul,0,42.90\n2026-10-04,,Sul,1,42.90\n2026-10-05,Cafe,Sul,1,quarenta"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Três meses, 144 pedidos",
+     "en": "3. Three months, 144 orders"
+    },
+    "values": {
+     "csv": "date,product,region,qty,unit_price\n2026-08-04,Chaleira bico fino,Sul,3,145.00\n2026-08-08,Filtro de papel,Sudeste,1,12.50\n2026-08-24,Chaleira bico fino,Sul,4,145.00\n2026-08-01,Cafe especial 250g,Sul,2,42.90\n2026-08-17,Filtro de papel,Sul,2,12.50\n2026-08-21,Chaleira bico fino,Centro-Oeste,2,145.00\n2026-08-19,Caneca termica,Nordeste,1,64.90\n2026-08-23,Filtro de papel,Centro-Oeste,3,12.50\n2026-08-05,Moedor manual,Sudeste,3,189.00\n2026-08-03,Cafe especial 250g,Centro-Oeste,1,42.90\n2026-08-28,Moedor manual,Nordeste,3,189.00\n2026-08-24,Cafe especial 250g,Centro-Oeste,1,42.90\n2026-08-03,Caneca termica,Nordeste,3,64.90\n2026-08-07,Assinatura mensal,Sul,1,79.00\n2026-08-08,Chaleira bico fino,Nordeste,1,145.00\n2026-08-28,Filtro de papel,Sul,4,12.50\n2026-08-15,Moedor manual,Nordeste,2,189.00\n2026-08-12,Moedor manual,Sudeste,3,189.00\n2026-08-22,Chaleira bico fino,Sul,2,145.00\n2026-08-24,Assinatura mensal,Sudeste,2,79.00\n2026-08-13,Caneca termica,Nordeste,2,64.90\n2026-08-11,Chaleira bico fino,Sul,2,145.00\n2026-08-26,Cafe especial 250g,Nordeste,4,42.90\n2026-08-03,Moedor manual,Sudeste,3,189.00\n2026-08-21,Filtro de papel,Centro-Oeste,4,12.50\n2026-08-15,Chaleira bico fino,Sudeste,3,145.00\n2026-08-08,Filtro de papel,Nordeste,4,12.50\n2026-08-13,Assinatura mensal,Nordeste,2,79.00\n2026-08-17,Filtro de papel,Centro-Oeste,1,12.50\n2026-09-31,Filtro de papel,Sul,1,12.50\n2026-08-28,Cafe especial 250g,Sul,2,42.90\n2026-08-06,Chaleira bico fino,Centro-Oeste,1,145.00\n2026-08-13,Caneca termica,Centro-Oeste,3,64.90\n2026-08-28,Assinatura mensal,Sul,1,79.00\n2026-08-18,Chaleira bico fino,Nordeste,3,145.00\n2026-08-10,Cafe especial 250g,Centro-Oeste,2,42.90\n2026-08-01,Caneca termica,Nordeste,2,64.90\n2026-08-04,Assinatura mensal,Nordeste,2,79.00\n2026-08-12,Filtro de papel,Sudeste,1,12.50\n2026-08-11,Assinatura mensal,Centro-Oeste,1,79.00\n2026-08-12,Cafe especial 250g,Nordeste,2,42.90\n2026-09-08,Cafe especial 250g,Sul,1,42.90\n2026-09-16,Chaleira bico fino,Sul,2,145.00\n2026-09-22,Filtro de papel,Centro-Oeste,2,12.50\n2026-09-17,Moedor manual,Centro-Oeste,2,189.00\n2026-09-25,Assinatura mensal,Sudeste,3,79.00\n2026-09-22,Caneca termica,Nordeste,4,64.90\n2026-09-15,Assinatura mensal,Sul,2,79.00\n2026-09-03,Filtro de papel,Nordeste,1,12.50\n2026-09-18,Assinatura mensal,Sudeste,2,79.00\n2026-09-03,Cafe especial 250g,Sul,2,42.90\n2026-09-02,Cafe especial 250g,Nordeste,1,42.90\n2026-09-08,Assinatura mensal,Nordeste,4,79.00\n2026-09-18,Filtro de papel,Sudeste,4,12.50\n2026-09-26,Filtro de papel,Centro-Oeste,4,12.50\n2026-09-04,Filtro de papel,Sul,4,12.50\n2026-09-14,Moedor manual,Centro-Oeste,4,189.00\n2026-09-02,Chaleira bico fino,Sul,1,145.00\n2026-09-24,Caneca termica,Nordeste,1,64.90\n2026-09-07,Filtro de papel,Sudeste,4,12.50\n2026-09-14,Filtro de papel,Sudeste,3,12.50\n2026-09-08,Caneca termica,Sul,4,64.90\n2026-09-04,Assinatura mensal,Sul,1,79.00\n2026-09-25,Cafe especial 250g,Sudeste,2,42.90\n2026-09-16,Caneca termica,Centro-Oeste,2,64.90\n2026-09-02,Caneca termica,Sudeste,4,64.90\n2026-09-13,Cafe especial 250g,Nordeste,4,42.90\n2026-09-14,Moedor manual,Centro-Oeste,2,189.00\n2026-09-10,Filtro de papel,Sudeste,1,12.50\n2026-10-05,Moedor manual,Sul,0,189.00\n2026-09-24,Assinatura mensal,Sul,3,79.00\n2026-09-02,Cafe especial 250g,Centro-Oeste,2,42.90\n2026-09-17,Cafe especial 250g,Sul,2,42.90\n2026-09-20,Cafe especial 250g,Sul,2,42.90\n2026-09-04,Caneca termica,Sudeste,1,64.90\n2026-09-03,Assinatura mensal,Centro-Oeste,3,79.00\n2026-09-07,Moedor manual,Nordeste,2,189.00\n2026-09-13,Moedor manual,Sudeste,3,189.00\n2026-09-11,Caneca termica,Sul,1,64.90\n2026-09-20,Caneca termica,Sul,1,64.90\n2026-09-07,Assinatura mensal,Nordeste,2,79.00\n2026-09-03,Moedor manual,Sudeste,3,189.00\n2026-09-06,Moedor manual,Centro-Oeste,3,189.00\n2026-09-26,Assinatura mensal,Sul,3,79.00\n2026-09-04,Chaleira bico fino,Sudeste,3,145.00\n2026-09-04,Cafe especial 250g,Sudeste,3,42.90\n2026-09-20,Moedor manual,Sudeste,3,189.00\n2026-09-22,Filtro de papel,Nordeste,4,12.50\n2026-09-28,Moedor manual,Sul,1,189.00\n2026-09-14,Chaleira bico fino,Nordeste,1,145.00\n2026-10-11,Cafe especial 250g,Sudeste,3,42.90\n2026-10-24,Filtro de papel,Centro-Oeste,4,12.50\n2026-10-01,Assinatura mensal,Sul,1,79.00\n2026-10-05,Chaleira bico fino,Sul,3,145.00\n2026-10-18,Assinatura mensal,Sudeste,4,79.00\n2026-10-02,Filtro de papel,Nordeste,3,12.50\n2026-10-12,Cafe especial 250g,Sudeste,2,42.90\n2026-10-04,Chaleira bico fino,Nordeste,4,145.00\n2026-10-24,Assinatura mensal,Sudeste,2,79.00\n2026-10-26,Filtro de papel,Sudeste,4,12.50\n2026-10-06,Cafe especial 250g,Nordeste,4,42.90\n2026-10-28,Chaleira bico fino,Sudeste,3,145.00\n2026-10-26,Filtro de papel,Sul,4,12.50\n2026-10-28,Cafe especial 250g,Centro-Oeste,2,42.90\n2026-10-27,Filtro de papel,Centro-Oeste,3,12.50\n2026-10-27,Moedor manual,Sudeste,2,189.00\n2026-10-22,Cafe especial 250g,Sudeste,4,42.90\n2026-10-09,Moedor manual,Sul,3,189.00\n2026-10-21,Moedor manual,Centro-Oeste,3,189.00\n2026-10-04,Cafe especial 250g,Nordeste,2,42.90\n2026-10-09,Assinatura mensal,Sul,1,79.00\n2026-10-14,Assinatura mensal,Nordeste,3,79.00\n2026-10-20,Caneca termica,Sul,4,64.90\n2026-10-07,Assinatura mensal,Nordeste,1,79.00\n2026-10-14,Chaleira bico fino,Sul,2,145.00\n2026-10-14,Moedor manual,Sul,3,189.00\n2026-10-11,Assinatura mensal,Sul,3,79.00\n2026-10-10,Assinatura mensal,Centro-Oeste,3,79.00\n2026-10-23,Caneca termica,Nordeste,2,64.90\n2026-10-14,Filtro de papel,Centro-Oeste,2,12.50\n2026-10-19,Assinatura mensal,Nordeste,4,79.00\n2026-10-27,Assinatura mensal,Sul,3,79.00\n2026-10-07,Moedor manual,Centro-Oeste,3,189.00\n2026-10-15,Caneca termica,Centro-Oeste,2,64.90\n2026-10-16,Assinatura mensal,Sudeste,1,79.00\n2026-10-17,Moedor manual,Nordeste,1,189.00\n2026-10-22,Filtro de papel,Nordeste,2,12.50\n2026-10-05,Filtro de papel,Sul,1,12.50\n2026-10-16,Filtro de papel,Sul,4,12.50\n2026-10-21,Caneca termica,Sudeste,4,64.90\n2026-10-13,Caneca termica,Sudeste,2,64.90\n2026-10-23,Chaleira bico fino,Sul,1,145.00\n2026-10-08,Caneca termica,Sudeste,4,64.90\n2026-10-18,Cafe especial 250g,Sudeste,1,42.90\n2026-10-05,Caneca termica,Centro-Oeste,3,64.90\n2026-10-20,Caneca termica,Centro-Oeste,4,64.90\n2026-10-24,Filtro de papel,Centro-Oeste,4,12.50\n2026-10-25,Moedor manual,Sudeste,3,189.00\n2026-10-16,Assinatura mensal,Sudeste,3,79.00\n2026-10-03,Caneca termica,Nordeste,2,64.90\n2026-10-11,Moedor manual,Nordeste,1,189.00\n2026-10-05,Filtro de papel,Sudeste,4,12.50\n2026-10-05,Chaleira bico fino,Sudeste,1,145.00\n2026-10-14,Caneca termica,Nordeste,4,64.90\n2026-10-02,Caneca termica,Sudeste,4,64.90\n2026-10-25,Caneca termica,Sul,4,64.90\n"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "csv",
+    "type": "textarea",
+    "rows": 9,
+    "value": "date,product,region,qty,unit_price\n2026-10-01,Cafe especial 250g,Sul,2,42.90\n2026-10-02,Moedor manual,Sudeste,1,189.00\n2026-11-03,Cafe especial 250g,Sul,3,42.90\n2026-11-04,Caneca termica,Nordeste,2,64.90\n2026-11-04,Filtro de papel,Sul,5,12.50",
+    "label": {
+     "pt": "Vendas (CSV)",
+     "en": "Sales (CSV)"
+    }
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Read CSV",
+   "icon": "file",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "valida linha a linha",
+    "en": "validates line by line"
+   }
+  },
+  {
+   "id": "kpis",
+   "name": "Indicators",
+   "icon": "code",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "faturamento, ticket, variação",
+    "en": "revenue, ticket, change"
+   }
+  },
+  {
+   "id": "groups",
+   "name": "Rankings",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "mês, produto, região",
+    "en": "month, product, region"
+   }
+  },
+  {
+   "id": "html",
+   "name": "Static HTML",
+   "icon": "file",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "sem JS, abre offline",
+    "en": "no JS, opens offline"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "kpis"
+  },
+  {
+   "from": "kpis",
+   "to": "groups"
+  },
+  {
+   "from": "groups",
+   "to": "html"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Todo começo de mês alguém monta o resumo de vendas na planilha: copia dados, refaz fórmulas, tira print de gráfico. O número chega tarde e, às vezes, errado.",
+   "en": "Every start of month someone builds the sales summary in a spreadsheet: copy data, redo formulas, screenshot a chart. The number arrives late and sometimes wrong."
+  },
+  "solution": {
+   "pt": "O mesmo cálculo, sempre igual, em dinheiro por centavos inteiros (sem erro de arredondamento), com linhas ruins listadas em vez de escondidas, e uma página que qualquer pessoa abre no celular.",
+   "en": "The same calculation every time, in whole cents (no rounding error), with bad lines listed instead of hidden, and a page anyone opens on a phone."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~1 h por mês montando o resumo à mão, mais a espera de quem pede. O script roda em milissegundos; o agendamento do Windows (comando impresso por --agendar) não foi criado: quem for usar decide. Dependência: o CSV precisa ser exportado do sistema de vendas, e isso não está automatizado.",
+   "en": "An estimate, not a measurement: ~1 h a month building the summary by hand, plus the wait of whoever asks. The script runs in milliseconds; the Windows schedule (command printed by --agendar) was not created: whoever uses it decides. Dependency: the CSV must be exported from the sales system, and that step is not automated."
+  },
+  "stack": [
+   "Python 3.13",
+   "csv",
+   "html",
+   "CSS"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python make_data.py",
+     "python dashboard.py data/vendas.csv output/dashboard.html",
+     "python dashboard.py --agendar   (só imprime o comando do agendador)",
+     "Testes: python tests/test_dashboard.py"
+    ],
+    "en": [
+     "python make_data.py",
+     "python dashboard.py data/vendas.csv output/dashboard.html",
+     "python dashboard.py --agendar   (only prints the scheduler command)",
+     "Tests: python tests/test_dashboard.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "dashboard.py",
+     "label": {
+      "pt": "Baixar dashboard.py",
+      "en": "Download dashboard.py"
+     }
+    },
+    {
+     "href": "output/dashboard.html",
+     "label": {
+      "pt": "Baixar output/dashboard.html",
+      "en": "Download output/dashboard.html"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o summarize do dashboard.py portado para JavaScript; a lógica foi conferida contra as saídas reais do Python em 3 casos (incluindo o arquivo de 144 pedidos). O HTML baixável foi gerado pelo Python. Dados fictícios. Moeda fixa em R$; sem filtros por período na página.",
+   "en": "The code is dashboard.py's summarize ported to JavaScript; the logic was checked against the real Python outputs in 3 cases (including the 144-order file). The downloadable HTML was generated by Python. Fictional data. Fixed R$ currency; no period filters on the page."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-10-01,Cafe especial 250g,Sul,2,42.90\n2026-10-02,Moedor manual,Sudeste,1,189.00\n2026-11-03,Cafe especial 250g,Sul,3,42.90\n2026-11-04,Caneca termica,Nordeste,2,64.90\n2026-11-04,Filtro de papel,Sul,5,12.50"
+   },
+   "expect": {
+    "revenue": 59580,
+    "orders": 5,
+    "avg_ticket": 11916,
+    "by_month": [
+     [
+      "2026-10",
+      27480
+     ],
+     [
+      "2026-11",
+      32100
+     ]
+    ],
+    "mom_pct": 16,
+    "top_products": [
+     [
+      "Cafe especial 250g",
+      21450,
+      5
+     ],
+     [
+      "Moedor manual",
+      18900,
+      1
+     ],
+     [
+      "Caneca termica",
+      12980,
+      2
+     ],
+     [
+      "Filtro de papel",
+      6250,
+      5
+     ]
+    ],
+    "by_region": [
+     [
+      "Sul",
+      27700
+     ],
+     [
+      "Sudeste",
+      18900
+     ],
+     [
+      "Nordeste",
+      12980
+     ]
+    ],
+    "rejected_lines": []
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-10-01,Cafe,Sul,2,42.90\n2026-10-32,Cafe,Sul,1,42.90\n2026-10-03,Cafe,Sul,0,42.90\n2026-10-04,,Sul,1,42.90\n2026-10-05,Cafe,Sul,1,quarenta"
+   },
+   "expect": {
+    "revenue": 8580,
+    "orders": 1,
+    "avg_ticket": 8580,
+    "by_month": [
+     [
+      "2026-10",
+      8580
+     ]
+    ],
+    "mom_pct": null,
+    "top_products": [
+     [
+      "Cafe",
+      8580,
+      2
+     ]
+    ],
+    "by_region": [
+     [
+      "Sul",
+      8580
+     ]
+    ],
+    "rejected_lines": [
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  {
+   "input": {
+    "csv": "date,product,region,qty,unit_price\n2026-08-04,Chaleira bico fino,Sul,3,145.00\n2026-08-08,Filtro de papel,Sudeste,1,12.50\n2026-08-24,Chaleira bico fino,Sul,4,145.00\n2026-08-01,Cafe especial 250g,Sul,2,42.90\n2026-08-17,Filtro de papel,Sul,2,12.50\n2026-08-21,Chaleira bico fino,Centro-Oeste,2,145.00\n2026-08-19,Caneca termica,Nordeste,1,64.90\n2026-08-23,Filtro de papel,Centro-Oeste,3,12.50\n2026-08-05,Moedor manual,Sudeste,3,189.00\n2026-08-03,Cafe especial 250g,Centro-Oeste,1,42.90\n2026-08-28,Moedor manual,Nordeste,3,189.00\n2026-08-24,Cafe especial 250g,Centro-Oeste,1,42.90\n2026-08-03,Caneca termica,Nordeste,3,64.90\n2026-08-07,Assinatura mensal,Sul,1,79.00\n2026-08-08,Chaleira bico fino,Nordeste,1,145.00\n2026-08-28,Filtro de papel,Sul,4,12.50\n2026-08-15,Moedor manual,Nordeste,2,189.00\n2026-08-12,Moedor manual,Sudeste,3,189.00\n2026-08-22,Chaleira bico fino,Sul,2,145.00\n2026-08-24,Assinatura mensal,Sudeste,2,79.00\n2026-08-13,Caneca termica,Nordeste,2,64.90\n2026-08-11,Chaleira bico fino,Sul,2,145.00\n2026-08-26,Cafe especial 250g,Nordeste,4,42.90\n2026-08-03,Moedor manual,Sudeste,3,189.00\n2026-08-21,Filtro de papel,Centro-Oeste,4,12.50\n2026-08-15,Chaleira bico fino,Sudeste,3,145.00\n2026-08-08,Filtro de papel,Nordeste,4,12.50\n2026-08-13,Assinatura mensal,Nordeste,2,79.00\n2026-08-17,Filtro de papel,Centro-Oeste,1,12.50\n2026-09-31,Filtro de papel,Sul,1,12.50\n2026-08-28,Cafe especial 250g,Sul,2,42.90\n2026-08-06,Chaleira bico fino,Centro-Oeste,1,145.00\n2026-08-13,Caneca termica,Centro-Oeste,3,64.90\n2026-08-28,Assinatura mensal,Sul,1,79.00\n2026-08-18,Chaleira bico fino,Nordeste,3,145.00\n2026-08-10,Cafe especial 250g,Centro-Oeste,2,42.90\n2026-08-01,Caneca termica,Nordeste,2,64.90\n2026-08-04,Assinatura mensal,Nordeste,2,79.00\n2026-08-12,Filtro de papel,Sudeste,1,12.50\n2026-08-11,Assinatura mensal,Centro-Oeste,1,79.00\n2026-08-12,Cafe especial 250g,Nordeste,2,42.90\n2026-09-08,Cafe especial 250g,Sul,1,42.90\n2026-09-16,Chaleira bico fino,Sul,2,145.00\n2026-09-22,Filtro de papel,Centro-Oeste,2,12.50\n2026-09-17,Moedor manual,Centro-Oeste,2,189.00\n2026-09-25,Assinatura mensal,Sudeste,3,79.00\n2026-09-22,Caneca termica,Nordeste,4,64.90\n2026-09-15,Assinatura mensal,Sul,2,79.00\n2026-09-03,Filtro de papel,Nordeste,1,12.50\n2026-09-18,Assinatura mensal,Sudeste,2,79.00\n2026-09-03,Cafe especial 250g,Sul,2,42.90\n2026-09-02,Cafe especial 250g,Nordeste,1,42.90\n2026-09-08,Assinatura mensal,Nordeste,4,79.00\n2026-09-18,Filtro de papel,Sudeste,4,12.50\n2026-09-26,Filtro de papel,Centro-Oeste,4,12.50\n2026-09-04,Filtro de papel,Sul,4,12.50\n2026-09-14,Moedor manual,Centro-Oeste,4,189.00\n2026-09-02,Chaleira bico fino,Sul,1,145.00\n2026-09-24,Caneca termica,Nordeste,1,64.90\n2026-09-07,Filtro de papel,Sudeste,4,12.50\n2026-09-14,Filtro de papel,Sudeste,3,12.50\n2026-09-08,Caneca termica,Sul,4,64.90\n2026-09-04,Assinatura mensal,Sul,1,79.00\n2026-09-25,Cafe especial 250g,Sudeste,2,42.90\n2026-09-16,Caneca termica,Centro-Oeste,2,64.90\n2026-09-02,Caneca termica,Sudeste,4,64.90\n2026-09-13,Cafe especial 250g,Nordeste,4,42.90\n2026-09-14,Moedor manual,Centro-Oeste,2,189.00\n2026-09-10,Filtro de papel,Sudeste,1,12.50\n2026-10-05,Moedor manual,Sul,0,189.00\n2026-09-24,Assinatura mensal,Sul,3,79.00\n2026-09-02,Cafe especial 250g,Centro-Oeste,2,42.90\n2026-09-17,Cafe especial 250g,Sul,2,42.90\n2026-09-20,Cafe especial 250g,Sul,2,42.90\n2026-09-04,Caneca termica,Sudeste,1,64.90\n2026-09-03,Assinatura mensal,Centro-Oeste,3,79.00\n2026-09-07,Moedor manual,Nordeste,2,189.00\n2026-09-13,Moedor manual,Sudeste,3,189.00\n2026-09-11,Caneca termica,Sul,1,64.90\n2026-09-20,Caneca termica,Sul,1,64.90\n2026-09-07,Assinatura mensal,Nordeste,2,79.00\n2026-09-03,Moedor manual,Sudeste,3,189.00\n2026-09-06,Moedor manual,Centro-Oeste,3,189.00\n2026-09-26,Assinatura mensal,Sul,3,79.00\n2026-09-04,Chaleira bico fino,Sudeste,3,145.00\n2026-09-04,Cafe especial 250g,Sudeste,3,42.90\n2026-09-20,Moedor manual,Sudeste,3,189.00\n2026-09-22,Filtro de papel,Nordeste,4,12.50\n2026-09-28,Moedor manual,Sul,1,189.00\n2026-09-14,Chaleira bico fino,Nordeste,1,145.00\n2026-10-11,Cafe especial 250g,Sudeste,3,42.90\n2026-10-24,Filtro de papel,Centro-Oeste,4,12.50\n2026-10-01,Assinatura mensal,Sul,1,79.00\n2026-10-05,Chaleira bico fino,Sul,3,145.00\n2026-10-18,Assinatura mensal,Sudeste,4,79.00\n2026-10-02,Filtro de papel,Nordeste,3,12.50\n2026-10-12,Cafe especial 250g,Sudeste,2,42.90\n2026-10-04,Chaleira bico fino,Nordeste,4,145.00\n2026-10-24,Assinatura mensal,Sudeste,2,79.00\n2026-10-26,Filtro de papel,Sudeste,4,12.50\n2026-10-06,Cafe especial 250g,Nordeste,4,42.90\n2026-10-28,Chaleira bico fino,Sudeste,3,145.00\n2026-10-26,Filtro de papel,Sul,4,12.50\n2026-10-28,Cafe especial 250g,Centro-Oeste,2,42.90\n2026-10-27,Filtro de papel,Centro-Oeste,3,12.50\n2026-10-27,Moedor manual,Sudeste,2,189.00\n2026-10-22,Cafe especial 250g,Sudeste,4,42.90\n2026-10-09,Moedor manual,Sul,3,189.00\n2026-10-21,Moedor manual,Centro-Oeste,3,189.00\n2026-10-04,Cafe especial 250g,Nordeste,2,42.90\n2026-10-09,Assinatura mensal,Sul,1,79.00\n2026-10-14,Assinatura mensal,Nordeste,3,79.00\n2026-10-20,Caneca termica,Sul,4,64.90\n2026-10-07,Assinatura mensal,Nordeste,1,79.00\n2026-10-14,Chaleira bico fino,Sul,2,145.00\n2026-10-14,Moedor manual,Sul,3,189.00\n2026-10-11,Assinatura mensal,Sul,3,79.00\n2026-10-10,Assinatura mensal,Centro-Oeste,3,79.00\n2026-10-23,Caneca termica,Nordeste,2,64.90\n2026-10-14,Filtro de papel,Centro-Oeste,2,12.50\n2026-10-19,Assinatura mensal,Nordeste,4,79.00\n2026-10-27,Assinatura mensal,Sul,3,79.00\n2026-10-07,Moedor manual,Centro-Oeste,3,189.00\n2026-10-15,Caneca termica,Centro-Oeste,2,64.90\n2026-10-16,Assinatura mensal,Sudeste,1,79.00\n2026-10-17,Moedor manual,Nordeste,1,189.00\n2026-10-22,Filtro de papel,Nordeste,2,12.50\n2026-10-05,Filtro de papel,Sul,1,12.50\n2026-10-16,Filtro de papel,Sul,4,12.50\n2026-10-21,Caneca termica,Sudeste,4,64.90\n2026-10-13,Caneca termica,Sudeste,2,64.90\n2026-10-23,Chaleira bico fino,Sul,1,145.00\n2026-10-08,Caneca termica,Sudeste,4,64.90\n2026-10-18,Cafe especial 250g,Sudeste,1,42.90\n2026-10-05,Caneca termica,Centro-Oeste,3,64.90\n2026-10-20,Caneca termica,Centro-Oeste,4,64.90\n2026-10-24,Filtro de papel,Centro-Oeste,4,12.50\n2026-10-25,Moedor manual,Sudeste,3,189.00\n2026-10-16,Assinatura mensal,Sudeste,3,79.00\n2026-10-03,Caneca termica,Nordeste,2,64.90\n2026-10-11,Moedor manual,Nordeste,1,189.00\n2026-10-05,Filtro de papel,Sudeste,4,12.50\n2026-10-05,Chaleira bico fino,Sudeste,1,145.00\n2026-10-14,Caneca termica,Nordeste,4,64.90\n2026-10-02,Caneca termica,Sudeste,4,64.90\n2026-10-25,Caneca termica,Sul,4,64.90\n"
+   },
+   "expect": {
+    "revenue": 2911910,
+    "orders": 144,
+    "avg_ticket": 20221,
+    "by_month": [
+     [
+      "2026-08",
+      796650
+     ],
+     [
+      "2026-09",
+      949980
+     ],
+     [
+      "2026-10",
+      1165280
+     ]
+    ],
+    "mom_pct": 22,
+    "top_products": [
+     [
+      "Moedor manual",
+      1058400,
+      56
+     ],
+     [
+      "Chaleira bico fino",
+      609000,
+      42
+     ],
+     [
+      "Assinatura mensal",
+      481900,
+      61
+     ],
+     [
+      "Caneca termica",
+      441320,
+      68
+     ],
+     [
+      "Cafe especial 250g",
+      218790,
+      51
+     ]
+    ],
+    "by_region": [
+     [
+      "Sudeste",
+      929160
+     ],
+     [
+      "Sul",
+      734200
+     ],
+     [
+      "Nordeste",
+      669520
+     ],
+     [
+      "Centro-Oeste",
+      579030
+     ]
+    ],
+    "rejected_lines": [
+     31,
+     71
+    ]
+   }
+  }
+ ]
+}

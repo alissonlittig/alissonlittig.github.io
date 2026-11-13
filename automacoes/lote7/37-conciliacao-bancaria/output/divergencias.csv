@@ -1,0 +1,5 @@
+tipo,extrato,erp,descricao,valor_extrato,valor_erp,diferenca
+amount_diff,B6,E105,Cartao liquidacao Loja Alfa,1978.00,2000.00,-22.00
+bank_only,B5,,Tarifa bancaria pacote servicos,-49.90,,-49.90
+bank_only,B8,,Boleto energia eletrica,-612.35,,-612.35
+erp_only,,E108,Venda Bar do Zeca,,950.00,-950.00
