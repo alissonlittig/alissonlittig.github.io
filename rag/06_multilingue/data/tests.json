@@ -1,0 +1,201 @@
+[
+ {
+  "q": "What time does the space open on Saturday?",
+  "lang": "en",
+  "doc": 0
+ },
+ {
+  "q": "¿Abren los domingos?",
+  "lang": "es",
+  "doc": 0
+ },
+ {
+  "q": "Qual a senha do wifi?",
+  "lang": "pt",
+  "doc": 1
+ },
+ {
+  "q": "¿Cómo me conecto a la red inalámbrica?",
+  "lang": "es",
+  "doc": 1
+ },
+ {
+  "q": "Quanto custa estacionar o carro?",
+  "lang": "pt",
+  "doc": 2
+ },
+ {
+  "q": "Where can I leave my bike?",
+  "lang": "en",
+  "doc": 2
+ },
+ {
+  "q": "Can I cancel a room booking for free?",
+  "lang": "en",
+  "doc": 3
+ },
+ {
+  "q": "¿Cuánto cobran si cancelo una reserva tarde?",
+  "lang": "es",
+  "doc": 3
+ },
+ {
+  "q": "Posso trazer meu cachorro?",
+  "lang": "pt",
+  "doc": 4
+ },
+ {
+  "q": "¿Se admiten gatos en las salas?",
+  "lang": "es",
+  "doc": 4
+ },
+ {
+  "q": "Quantas páginas posso imprimir de graça?",
+  "lang": "pt",
+  "doc": 5
+ },
+ {
+  "q": "How much does printing cost?",
+  "lang": "en",
+  "doc": 5
+ },
+ {
+  "q": "How much is the monthly plan?",
+  "lang": "en",
+  "doc": 6
+ },
+ {
+  "q": "¿Hay descuento para estudiantes?",
+  "lang": "es",
+  "doc": 6
+ },
+ {
+  "q": "Quando vocês emitem a nota fiscal?",
+  "lang": "pt",
+  "doc": 7
+ },
+ {
+  "q": "¿Aceptan pago con tarjeta?",
+  "lang": "es",
+  "doc": 7
+ },
+ {
+  "q": "Tem café de graça?",
+  "lang": "pt",
+  "doc": 8
+ },
+ {
+  "q": "Can I leave food in the fridge?",
+  "lang": "en",
+  "doc": 8
+ },
+ {
+  "q": "How much does a locker cost?",
+  "lang": "en",
+  "doc": 9
+ },
+ {
+  "q": "¿Dónde se entrega la llave del armario?",
+  "lang": "es",
+  "doc": 9
+ },
+ {
+  "q": "Quantas pessoas cabem na sala de reunião?",
+  "lang": "pt",
+  "doc": 10
+ },
+ {
+  "q": "¿Hay proyector en la sala?",
+  "lang": "es",
+  "doc": 10
+ },
+ {
+  "q": "Dá para fazer um evento fora do horário?",
+  "lang": "pt",
+  "doc": 11
+ },
+ {
+  "q": "How much does the main hall cost per hour?",
+  "lang": "en",
+  "doc": 11
+ },
+ {
+  "q": "Do you have a gym?",
+  "lang": "en",
+  "doc": null
+ },
+ {
+  "q": "¿Cuál es la capital de Francia?",
+  "lang": "es",
+  "doc": null
+ },
+ {
+  "q": "Qual a receita de bolo de cenoura?",
+  "lang": "pt",
+  "doc": null
+ },
+ {
+  "q": "Vocês têm academia?",
+  "lang": "pt",
+  "doc": null
+ },
+ {
+  "q": "¿Venden entradas para conciertos?",
+  "lang": "es",
+  "doc": null
+ },
+ {
+  "q": "Is there a place to park my car?",
+  "lang": "en",
+  "doc": 2,
+  "set": "extra"
+ },
+ {
+  "q": "¿A qué hora cierran los viernes?",
+  "lang": "es",
+  "doc": 0,
+  "set": "extra"
+ },
+ {
+  "q": "Aceitam gatos no coworking?",
+  "lang": "pt",
+  "doc": 4,
+  "set": "extra"
+ },
+ {
+  "q": "Is the printer on the second floor?",
+  "lang": "en",
+  "doc": 5,
+  "set": "extra"
+ },
+ {
+  "q": "¿Cuánto cuesta el plan mensual?",
+  "lang": "es",
+  "doc": 6,
+  "set": "extra"
+ },
+ {
+  "q": "Como pago a mensalidade?",
+  "lang": "pt",
+  "doc": 7,
+  "set": "extra"
+ },
+ {
+  "q": "Podemos usar o projetor?",
+  "lang": "pt",
+  "doc": 10,
+  "set": "extra"
+ },
+ {
+  "q": "Where do I return the key?",
+  "lang": "en",
+  "doc": 9,
+  "set": "extra"
+ },
+ {
+  "q": "Is coffee free?",
+  "lang": "en",
+  "doc": 8,
+  "set": "extra"
+ }
+]

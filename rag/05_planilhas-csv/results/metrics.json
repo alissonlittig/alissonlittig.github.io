@@ -1,0 +1,24 @@
+{
+ "dev": {
+  "value_ok": 12,
+  "value_n": 12,
+  "first_ok": 8,
+  "first_n": 8,
+  "refuse_ok": 6,
+  "refuse_n": 6,
+  "wrong": []
+ },
+ "extra": {
+  "value_ok": 3,
+  "value_n": 5,
+  "first_ok": 2,
+  "first_n": 3,
+  "refuse_ok": 3,
+  "refuse_n": 3,
+  "wrong": [
+   "Quanto a loja de Londrina arrecadou em fevereiro?",
+   "Me diz o ticket médio do Diego",
+   "Quem é o melhor vendedor?"
+  ]
+ }
+}

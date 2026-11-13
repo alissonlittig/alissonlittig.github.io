@@ -1,0 +1,23 @@
+{"questions": [
+{"q": "Qual o preço total do serviço?", "ok": ["A:2.1"]},
+{"q": "O que acontece se a contratante atrasar um pagamento?", "ok": ["A:2.2"]},
+{"q": "Por quanto tempo o contrato vigora?", "ok": ["A:3.2"]},
+{"q": "O contrato renova sozinho?", "ok": ["A:3.2"]},
+{"q": "Posso cancelar o contrato antes do fim?", "ok": ["A:4.1", "A:4.2"]},
+{"q": "Qual a multa se a contratante rescindir antes do prazo?", "ok": ["A:4.2"]},
+{"q": "Por quanto tempo o sigilo continua depois do fim?", "ok": ["A:5.1"]},
+{"q": "De quem é o código-fonte depois de pago?", "ok": ["A:6.1"]},
+{"q": "A contratada pode atender concorrentes?", "ok": ["A:7.1"]},
+{"q": "Existe limite para a responsabilidade da contratada?", "ok": ["A:8.1"]},
+{"q": "Em quanto tempo avisam se houver vazamento de dados?", "ok": ["A:9.2"]},
+{"q": "Quanto custa a hora de suporte?", "ok": ["A:10.2"]},
+{"q": "Qual índice reajusta os valores?", "ok": ["A:11.1"]},
+{"q": "Qual cidade é o foro do contrato de serviços?", "ok": ["A:12.1"]},
+{"q": "Qual o valor do aluguel?", "ok": ["B:3.1"]},
+{"q": "Posso ter cachorro no apartamento?", "ok": ["B:8.2"]},
+{"q": "Quando devolvem a caução?", "ok": ["B:5.1"]},
+{"q": "Posso sublocar o imóvel?", "ok": ["B:8.1"]},
+{"q": "Qual o aviso para sair do imóvel antes do fim?", "ok": ["B:6.2"]},
+{"q": "Quem paga o IPTU?", "ok": ["B:3.3"]}
+], "oos": ["Qual o salário do diretor da Studio Lume?", "Como funciona o seguro de vida?", "Qual a cor da fachada do prédio?", "O contrato prevê arbitragem?", "Qual a previsão do tempo para amanhã?"],
+"flags": {"A:3.2": ["renovacao_automatica", "aviso_curto"], "A:4.1": ["aviso_curto"], "A:4.2": ["multa_alta"], "A:7.1": ["exclusividade"], "A:8.1": ["responsabilidade_ilimitada"], "A:11.1": ["criterio_unilateral"], "A:12.1": ["foro_distante"]}}

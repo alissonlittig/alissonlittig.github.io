@@ -1,0 +1,55 @@
+[
+ {
+  "window": 0,
+  "first_ok": 8,
+  "first_n": 8,
+  "follow_ok": 10,
+  "follow_n": 14,
+  "wrong": [
+   "D1.3 Posso cancelar quando quiser?",
+   "D3.2 E na versão Web?",
+   "D4.3 E para quem é Premium?",
+   "D5.2 E no premium?"
+  ]
+ },
+ {
+  "window": 1,
+  "first_ok": 8,
+  "first_n": 8,
+  "follow_ok": 13,
+  "follow_n": 14,
+  "wrong": [
+   "D1.3 Posso cancelar quando quiser?"
+  ]
+ },
+ {
+  "window": 2,
+  "first_ok": 8,
+  "first_n": 8,
+  "follow_ok": 13,
+  "follow_n": 14,
+  "wrong": [
+   "D1.3 Posso cancelar quando quiser?"
+  ]
+ },
+ {
+  "window": 3,
+  "first_ok": 8,
+  "first_n": 8,
+  "follow_ok": 13,
+  "follow_n": 14,
+  "wrong": [
+   "D1.3 Posso cancelar quando quiser?"
+  ]
+ },
+ {
+  "window": 4,
+  "first_ok": 8,
+  "first_n": 8,
+  "follow_ok": 13,
+  "follow_n": 14,
+  "wrong": [
+   "D1.3 Posso cancelar quando quiser?"
+  ]
+ }
+]

@@ -1,0 +1,10 @@
+{
+ "n": 20,
+ "recall1": 0.8,
+ "recall3": 1.0,
+ "oos": 5,
+ "oos_answered": 0,
+ "flag_tp": 8,
+ "flag_fp": [],
+ "flag_fn": []
+}

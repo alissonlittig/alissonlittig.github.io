@@ -1,0 +1,198 @@
+[
+ {
+  "q": "Quanto vendemos no total?",
+  "kind": "value",
+  "expect": 11190
+ },
+ {
+  "q": "Qual o faturamento de Curitiba?",
+  "kind": "value",
+  "expect": 4448
+ },
+ {
+  "q": "Quanto a Ana vendeu em março?",
+  "kind": "value",
+  "expect": 103
+ },
+ {
+  "q": "Quantos pedidos foram feitos em Londrina?",
+  "kind": "value",
+  "expect": 16
+ },
+ {
+  "q": "Quantas unidades de caneta gel foram vendidas?",
+  "kind": "value",
+  "expect": 71
+ },
+ {
+  "q": "Qual a média de venda por pedido em Maringá?",
+  "kind": "value",
+  "expect": 92.14
+ },
+ {
+  "q": "Qual a maior venda do Bruno?",
+  "kind": "value",
+  "expect": 324
+ },
+ {
+  "q": "Qual a menor venda de Arte?",
+  "kind": "value",
+  "expect": 22
+ },
+ {
+  "q": "Total vendido de grampeador em maio",
+  "kind": "value",
+  "expect": 648
+ },
+ {
+  "q": "Quantos pedidos tiveram a Carla como vendedora?",
+  "kind": "value",
+  "expect": 30
+ },
+ {
+  "q": "Qual o faturamento de Escrita em abril?",
+  "kind": "value",
+  "expect": 205
+ },
+ {
+  "q": "Quantas unidades vendemos em janeiro?",
+  "kind": "value",
+  "expect": 120
+ },
+ {
+  "q": "Qual cidade vendeu mais?",
+  "kind": "first",
+  "expect": "Curitiba"
+ },
+ {
+  "q": "Qual vendedor vendeu menos?",
+  "kind": "first",
+  "expect": "Ana"
+ },
+ {
+  "q": "Qual categoria faturou mais em junho?",
+  "kind": "first",
+  "expect": "Escritório"
+ },
+ {
+  "q": "Qual produto vendeu mais unidades?",
+  "kind": "first",
+  "expect": "Pincel Chato"
+ },
+ {
+  "q": "Qual mês teve o maior faturamento?",
+  "kind": "first",
+  "expect": "janeiro"
+ },
+ {
+  "q": "Faturamento por cidade",
+  "kind": "first",
+  "expect": "Curitiba"
+ },
+ {
+  "q": "Total por categoria em Curitiba",
+  "kind": "first",
+  "expect": "Escritório"
+ },
+ {
+  "q": "Vendas por mês",
+  "kind": "first",
+  "expect": "janeiro"
+ },
+ {
+  "q": "Qual a margem de lucro?",
+  "kind": "refuse",
+  "expect": null
+ },
+ {
+  "q": "Quanto gastamos com frete?",
+  "kind": "refuse",
+  "expect": null
+ },
+ {
+  "q": "Qual cliente comprou mais?",
+  "kind": "refuse",
+  "expect": null
+ },
+ {
+  "q": "Quantos pedidos foram feitos em Florianópolis?",
+  "kind": "refuse",
+  "expect": null
+ },
+ {
+  "q": "Como fazer um bolo de cenoura?",
+  "kind": "refuse",
+  "expect": null
+ },
+ {
+  "q": "Qual o estoque de canetas?",
+  "kind": "refuse",
+  "expect": null
+ },
+ {
+  "q": "Quanto a loja de Londrina arrecadou em fevereiro?",
+  "kind": "value",
+  "expect": 482,
+  "set": "extra"
+ },
+ {
+  "q": "Me diz o ticket médio do Diego",
+  "kind": "value",
+  "expect": 116.33,
+  "set": "extra"
+ },
+ {
+  "q": "Número de pedidos da categoria Escritório",
+  "kind": "value",
+  "expect": 29,
+  "set": "extra"
+ },
+ {
+  "q": "Quanto rendeu a Resma A4?",
+  "kind": "value",
+  "expect": 1312,
+  "set": "extra"
+ },
+ {
+  "q": "Quem é o melhor vendedor?",
+  "kind": "first",
+  "expect": "Diego",
+  "set": "extra"
+ },
+ {
+  "q": "Em qual filial se vendeu menos?",
+  "kind": "first",
+  "expect": "Ponta Grossa",
+  "set": "extra"
+ },
+ {
+  "q": "Soma das unidades vendidas por produto",
+  "kind": "first",
+  "expect": "Pincel Chato",
+  "set": "extra"
+ },
+ {
+  "q": "Qual o preço médio da Caneta Gel?",
+  "kind": "value",
+  "expect": 6.0,
+  "set": "extra"
+ },
+ {
+  "q": "Qual o lucro de Curitiba?",
+  "kind": "refuse",
+  "expect": null,
+  "set": "extra"
+ },
+ {
+  "q": "Quantos clientes novos tivemos em março?",
+  "kind": "refuse",
+  "expect": null,
+  "set": "extra"
+ },
+ {
+  "q": "Qual a previsão de vendas para julho?",
+  "kind": "refuse",
+  "expect": null,
+  "set": "extra"
+ }
+]

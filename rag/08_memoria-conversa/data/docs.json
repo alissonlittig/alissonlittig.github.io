@@ -1,0 +1,18 @@
+[
+{"id":0,"title":"Plano Grátis","text":"O plano Grátis permite até 2 contas bancárias e 3 meses de histórico. Não tem custo."},
+{"id":1,"title":"Preço do plano Premium","text":"O plano Premium custa R$ 19,90 por mês e libera contas ilimitadas, histórico completo e relatórios."},
+{"id":2,"title":"Preço do plano Família","text":"O plano Família custa R$ 34,90 por mês e inclui até 5 pessoas, cada uma com seu próprio login."},
+{"id":3,"title":"Cancelar a assinatura","text":"Para cancelar a assinatura Premium ou Família, abra Perfil, depois Assinatura e toque em Cancelar. O acesso continua até o fim do período pago."},
+{"id":4,"title":"Reembolso","text":"O reembolso pode ser pedido em até 7 dias após a primeira cobrança de qualquer plano pago. Depois disso não há reembolso proporcional."},
+{"id":5,"title":"Exportar relatórios no Android","text":"No Android, abra Relatórios, toque nos três pontos e escolha Exportar. O arquivo é salvo na pasta Downloads em formato CSV."},
+{"id":6,"title":"Exportar relatórios no iOS","text":"No iOS, abra Relatórios, toque no ícone de compartilhar e escolha Exportar. O arquivo vai para o app Arquivos em formato CSV."},
+{"id":7,"title":"Exportar relatórios na Web","text":"Na versão Web, clique em Relatórios e depois em Baixar. É possível escolher CSV ou PDF."},
+{"id":8,"title":"Sincronização","text":"Os dados sincronizam entre aparelhos automaticamente quando há internet. Para forçar a sincronização, puxe a tela para baixo."},
+{"id":9,"title":"Uso sem internet","text":"Sem internet, você pode lançar gastos normalmente. Eles sincronizam quando a conexão voltar."},
+{"id":10,"title":"Trocar a senha","text":"Para trocar a senha, abra Perfil, Segurança e Alterar senha. Você receberá um código por e-mail."},
+{"id":11,"title":"Desbloqueio por digital ou rosto","text":"O desbloqueio por digital ou rosto está disponível no Android e no iOS, mas não na versão Web."},
+{"id":12,"title":"Limite de categorias","text":"Você pode criar até 10 categorias no plano Grátis. Nos planos Premium e Família não há limite."},
+{"id":13,"title":"Contas bancárias conectadas","text":"Os planos Premium e Família permitem conectar contas bancárias ilimitadas; o plano Grátis permite 2."},
+{"id":14,"title":"Metas de economia","text":"As metas de economia aparecem no painel e avisam quando você chega a 80% do limite."},
+{"id":15,"title":"Suporte","text":"O suporte responde por e-mail em até 2 dias úteis. Clientes Premium e Família têm prioridade e resposta em 1 dia útil."}
+]

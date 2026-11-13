@@ -1,0 +1,65 @@
+# conceito: formas PT | formas EN | formas ES   (palavras soltas; acento e plural são normalizados no código)
+horario: horario | schedule time | horario
+abrir: abre abrem aberto abrir abrimos | open opens opening | abre abren abierto abrir abrimos
+fechar: fecha fechado fechar fechamos | close closed closes | cierra cerrado cerrar cerramos
+segunda: segunda | monday | lunes
+sexta: sexta | friday | viernes
+sabado: sabado | saturday | sabado
+domingo: domingo | sunday | domingo
+wifi: wifi internet | wifi internet | wifi internet
+rede: rede | network | red
+inalambrica: fio | wireless | inalambrica
+senha: senha | password | contrasena clave
+conectar: conectar conecto conecta | connect connected | conectar conecto conecta conectarme
+membro: membro | member | miembro
+mes: mes mensal | month monthly | mes mensual
+mudar: muda mudar | change changes | cambia cambiar
+estacionar: estacionamento estacionar vaga | parking park space | estacionamiento estacionar plaza aparcamiento
+carro: carro | car | carro coche
+bicicleta: bicicleta bike bicicletario | bike bicycle | bicicleta bicicletero
+guardar: guardar deixar | store leave keep | guardar dejar
+gratis: gratis gratuito gratuitamente graca | free | gratis gratuito
+custar: custa custar preco valor | cost costs price much | cuesta costar precio
+cobrar: cobramos cobra cobram cobrar | charge charges charged | cobramos cobra cobran cobrar cobro
+dia: dia diaria | day daily | dia diaria
+cancelar: cancelar cancelada canceladas cancelamento cancelo cancela | cancel canceled cancelled cancellation | cancelar cancelo cancela cancelada cancelacion
+reserva: reserva reservar | booking reservation reserve book | reserva reservar
+sala: sala | room | sala
+reuniao: reuniao | meeting | reunion
+antes: antes | before | antes previa
+hora: hora | hour | hora
+cachorro: cachorro cao | dog | perro
+gato: gato | cat | gato
+animal: animal bicho | animal pet | animal mascota
+permitir: posso pode podem permitido permitir | welcome allowed allow | admiten admite permiten permitido bienvenido
+imprimir: imprimir impressora impressao imprimo | print printing printer | imprimir impresora impresion imprimo
+pagina: pagina | page | pagina
+andar: andar piso | floor | piso
+desconto: desconto | discount | descuento
+estudante: estudante | student | estudiante
+plano: plano | plan | plan
+fatura: fatura nota emitem emite emitida | invoice issued | factura emiten emite
+enviar: enviada enviar | sent send | enviadas enviar
+email: email | email | correo email
+pagamento: pagamento pagar | payment pay | pago pagar
+cartao: cartao | card | tarjeta
+transferencia: transferencia | transfer | transferencia
+cafe: cafe | coffee | cafe
+cozinha: cozinha | kitchen | cocina
+geladeira: geladeira | fridge refrigerator | nevera refrigerador
+comida: comida | food | comida
+agua: agua | water | agua
+limpar: limpa limpar | clean | limpia limpiar
+armario: armario | locker | armario
+chave: chave | key | llave
+recepcao: recepcao | reception | recepcion
+alugar: alugado aluga alugar aluguel | rented rent | alquiler alquilar
+capacidade: cabem cabe capacidade | capacity fit | capacidad caben
+pessoa: pessoa | person people | persona
+projetor: projetor | projector | proyector
+quadro: quadro | whiteboard | pizarra
+evento: evento | event | evento
+fora: fora | outside | fuera
+aprovacao: aprovacao | approval | aprobacion
+principal: principal | main | principal
+salao: salao | hall | salon

@@ -1,0 +1,10 @@
+[
+{"id": "D1", "turns": [["Quanto custa o plano premium?", 1], ["E o família?", 2], ["Posso cancelar quando quiser?", 3], ["E tem reembolso?", 4]]},
+{"id": "D2", "turns": [["Como exporto os relatórios no Android?", 5], ["E no iOS?", 6], ["E na versão Web?", 7]]},
+{"id": "D3", "turns": [["O desbloqueio por digital funciona no Android?", 11], ["E na versão Web?", 11]]},
+{"id": "D4", "turns": [["Como troco a senha?", 10], ["E o suporte, quanto demora?", 15], ["E para quem é Premium?", 15]]},
+{"id": "D5", "turns": [["Quantas categorias posso criar no plano grátis?", 12], ["E no premium?", 12], ["E contas bancárias?", 13]]},
+{"id": "D6", "turns": [["Quanto custa o plano família?", 2], ["Como cancelo a assinatura?", 3], ["Qual a capital da França?", null]]},
+{"id": "D7", "turns": [["Qual o preço do Premium?", 1], ["O que ele libera?", 1]]},
+{"id": "D8", "turns": [["Posso usar o app sem internet?", 9], ["E como forço a sincronização?", 8]]}
+]

@@ -1,0 +1,4 @@
+{"plano": {"gratis": ["gratis", "gratuito", "free"], "premium": ["premium", "pago"], "familia": ["familia", "family"]},
+ "plataforma": {"android": ["android"], "ios": ["ios", "iphone"], "web": ["web", "navegador", "site"]},
+ "filler": "ele ela eles elas isso isto essa esse nesse nessa tambem la entao mesmo outro outra versao aplicativo app tambem funciona quanto quem",
+ "glossario": {"preco": ["custa"], "exporto": ["exportar"], "exportar": ["exportar"], "cancelo": ["cancelar"], "cancelamento": ["cancelar"], "lancar": ["lancar"], "sincronizacao": ["sincronizam"], "forco": ["forcar", "forcar"], "troco": ["trocar"], "demora": ["responde", "dias"], "pessoas": ["pessoa"], "desbloqueio": ["desbloqueio"], "gastos": ["gasto"], "baixar": ["baixar"], "aviso": ["avisam"], "avisa": ["avisam"], "limite": ["limite"]}}
