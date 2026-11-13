@@ -1,0 +1,22 @@
+[
+{"id": "plano_gratis", "title": "Plano Grátis", "text": "O plano Grátis permite até 50 notas e 1 caderno compartilhado. Não inclui anexos maiores que 5 MB."},
+{"id": "plano_pro", "title": "Plano Pro", "text": "O plano Pro custa R$ 19,90 por mês ou R$ 199,00 por ano. Inclui notas ilimitadas, anexos de até 100 MB e busca em PDFs."},
+{"id": "plano_equipe", "title": "Plano Equipe", "text": "O plano Equipe custa R$ 39,90 por usuário por mês, com mínimo de 3 usuários. Inclui permissões por caderno e histórico de 90 dias."},
+{"id": "cancelar", "title": "Cancelar a assinatura", "text": "Para cancelar a assinatura, abra Configurações, Assinatura e toque em Cancelar. O acesso Pro continua até o fim do período já pago e não há reembolso parcial."},
+{"id": "reembolso", "title": "Reembolso", "text": "O reembolso integral pode ser pedido em até 7 dias após a primeira cobrança, pelo formulário de suporte do aplicativo."},
+{"id": "sincronizacao", "title": "Sincronização", "text": "As notas sincronizam automaticamente entre celular e computador quando há conexão. Se houver conflito, a versão mais recente é mantida e a anterior fica no histórico por 30 dias."},
+{"id": "offline", "title": "Uso sem internet", "text": "O aplicativo funciona sem internet. As alterações feitas offline são enviadas quando a conexão volta."},
+{"id": "exportar", "title": "Exportar notas", "text": "É possível exportar notas em Markdown, PDF ou JSON em Configurações, Exportar. A exportação de todos os cadernos gera um arquivo ZIP."},
+{"id": "importar", "title": "Importar notas", "text": "O Caderno importa notas do Evernote (arquivos ENEX) e de arquivos Markdown. Imagens são importadas junto com a nota."},
+{"id": "senha_reset", "title": "Redefinir senha", "text": "Para redefinir a senha, toque em Esqueci minha senha na tela de entrada. O link de redefinição vale por 30 minutos."},
+{"id": "doisfatores", "title": "Verificação em duas etapas", "text": "A verificação em duas etapas é opcional e pode ser ativada em Segurança, com aplicativo autenticador. Guarde os 10 códigos de recuperação."},
+{"id": "criptografia", "title": "Criptografia", "text": "As notas são criptografadas em trânsito e em repouso. Cadernos protegidos por senha usam criptografia de ponta a ponta, e a senha não pode ser recuperada pela equipe."},
+{"id": "lixeira", "title": "Lixeira", "text": "Notas apagadas ficam na lixeira por 30 dias e depois são removidas definitivamente. No plano Pro o prazo é de 90 dias."},
+{"id": "compartilhar", "title": "Compartilhar cadernos", "text": "Um caderno pode ser compartilhado por link com permissão de leitura ou edição. O link pode ser desativado a qualquer momento."},
+{"id": "lembretes", "title": "Lembretes", "text": "Lembretes podem ser definidos por data e hora e se repetem diariamente, semanalmente ou todo mês. As notificações dependem da permissão do sistema."},
+{"id": "widget", "title": "Widget", "text": "O widget da tela inicial mostra as 5 tarefas mais próximas do vencimento. Está disponível no Android e no iPhone."},
+{"id": "ocr", "title": "Reconhecimento de texto (OCR)", "text": "O reconhecimento de texto em imagens (OCR) está disponível no plano Pro e reconhece português, inglês e espanhol."},
+{"id": "excluir_conta", "title": "Excluir a conta", "text": "Para excluir a conta, abra Configurações, Conta e escolha Excluir conta. Os dados são apagados em até 14 dias e a ação não pode ser desfeita."},
+{"id": "temas", "title": "Temas e modo escuro", "text": "O modo escuro e os temas de cor estão disponíveis em todos os planos, em Configurações, Aparência."},
+{"id": "api", "title": "API pública", "text": "A API pública está em beta fechado para o plano Equipe. O limite é de 60 requisições por minuto."}
+]

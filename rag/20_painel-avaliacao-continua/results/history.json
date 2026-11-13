@@ -1,0 +1,3675 @@
+{
+ "disclaimer": "Protótipo de estudo: base fictícia, versões escritas por mim, datas inventadas.",
+ "tol": 1.0,
+ "flips_alert": 2,
+ "docs": [
+  {
+   "id": "plano_gratis",
+   "title": "Plano Grátis",
+   "text": "O plano Grátis permite até 50 notas e 1 caderno compartilhado. Não inclui anexos maiores que 5 MB."
+  },
+  {
+   "id": "plano_pro",
+   "title": "Plano Pro",
+   "text": "O plano Pro custa R$ 19,90 por mês ou R$ 199,00 por ano. Inclui notas ilimitadas, anexos de até 100 MB e busca em PDFs."
+  },
+  {
+   "id": "plano_equipe",
+   "title": "Plano Equipe",
+   "text": "O plano Equipe custa R$ 39,90 por usuário por mês, com mínimo de 3 usuários. Inclui permissões por caderno e histórico de 90 dias."
+  },
+  {
+   "id": "cancelar",
+   "title": "Cancelar a assinatura",
+   "text": "Para cancelar a assinatura, abra Configurações, Assinatura e toque em Cancelar. O acesso Pro continua até o fim do período já pago e não há reembolso parcial."
+  },
+  {
+   "id": "reembolso",
+   "title": "Reembolso",
+   "text": "O reembolso integral pode ser pedido em até 7 dias após a primeira cobrança, pelo formulário de suporte do aplicativo."
+  },
+  {
+   "id": "sincronizacao",
+   "title": "Sincronização",
+   "text": "As notas sincronizam automaticamente entre celular e computador quando há conexão. Se houver conflito, a versão mais recente é mantida e a anterior fica no histórico por 30 dias."
+  },
+  {
+   "id": "offline",
+   "title": "Uso sem internet",
+   "text": "O aplicativo funciona sem internet. As alterações feitas offline são enviadas quando a conexão volta."
+  },
+  {
+   "id": "exportar",
+   "title": "Exportar notas",
+   "text": "É possível exportar notas em Markdown, PDF ou JSON em Configurações, Exportar. A exportação de todos os cadernos gera um arquivo ZIP."
+  },
+  {
+   "id": "importar",
+   "title": "Importar notas",
+   "text": "O Caderno importa notas do Evernote (arquivos ENEX) e de arquivos Markdown. Imagens são importadas junto com a nota."
+  },
+  {
+   "id": "senha_reset",
+   "title": "Redefinir senha",
+   "text": "Para redefinir a senha, toque em Esqueci minha senha na tela de entrada. O link de redefinição vale por 30 minutos."
+  },
+  {
+   "id": "doisfatores",
+   "title": "Verificação em duas etapas",
+   "text": "A verificação em duas etapas é opcional e pode ser ativada em Segurança, com aplicativo autenticador. Guarde os 10 códigos de recuperação."
+  },
+  {
+   "id": "criptografia",
+   "title": "Criptografia",
+   "text": "As notas são criptografadas em trânsito e em repouso. Cadernos protegidos por senha usam criptografia de ponta a ponta, e a senha não pode ser recuperada pela equipe."
+  },
+  {
+   "id": "lixeira",
+   "title": "Lixeira",
+   "text": "Notas apagadas ficam na lixeira por 30 dias e depois são removidas definitivamente. No plano Pro o prazo é de 90 dias."
+  },
+  {
+   "id": "compartilhar",
+   "title": "Compartilhar cadernos",
+   "text": "Um caderno pode ser compartilhado por link com permissão de leitura ou edição. O link pode ser desativado a qualquer momento."
+  },
+  {
+   "id": "lembretes",
+   "title": "Lembretes",
+   "text": "Lembretes podem ser definidos por data e hora e se repetem diariamente, semanalmente ou todo mês. As notificações dependem da permissão do sistema."
+  },
+  {
+   "id": "widget",
+   "title": "Widget",
+   "text": "O widget da tela inicial mostra as 5 tarefas mais próximas do vencimento. Está disponível no Android e no iPhone."
+  },
+  {
+   "id": "ocr",
+   "title": "Reconhecimento de texto (OCR)",
+   "text": "O reconhecimento de texto em imagens (OCR) está disponível no plano Pro e reconhece português, inglês e espanhol."
+  },
+  {
+   "id": "excluir_conta",
+   "title": "Excluir a conta",
+   "text": "Para excluir a conta, abra Configurações, Conta e escolha Excluir conta. Os dados são apagados em até 14 dias e a ação não pode ser desfeita."
+  },
+  {
+   "id": "temas",
+   "title": "Temas e modo escuro",
+   "text": "O modo escuro e os temas de cor estão disponíveis em todos os planos, em Configurações, Aparência."
+  },
+  {
+   "id": "api",
+   "title": "API pública",
+   "text": "A API pública está em beta fechado para o plano Equipe. O limite é de 60 requisições por minuto."
+  }
+ ],
+ "questions": [
+  {
+   "q": "Quanto custa o plano Pro?",
+   "doc": "plano_pro",
+   "cat": "preços"
+  },
+  {
+   "q": "Qual o preço do plano para equipes?",
+   "doc": "plano_equipe",
+   "cat": "preços"
+  },
+  {
+   "q": "O que o plano grátis inclui?",
+   "doc": "plano_gratis",
+   "cat": "preços"
+  },
+  {
+   "q": "Quantas notas posso ter no plano gratuito?",
+   "doc": "plano_gratis",
+   "cat": "preços"
+  },
+  {
+   "q": "Tem desconto no plano anual?",
+   "doc": "plano_pro",
+   "cat": "preços"
+  },
+  {
+   "q": "Qual o minimo de usuarios do plano Equipe?",
+   "doc": "plano_equipe",
+   "cat": "preços"
+  },
+  {
+   "q": "Qual o preco do plano pro?",
+   "doc": "plano_pro",
+   "cat": "preços"
+  },
+  {
+   "q": "Como cancelo minha assinatura?",
+   "doc": "cancelar",
+   "cat": "assinatura"
+  },
+  {
+   "q": "Se eu cancelar perco o acesso na hora?",
+   "doc": "cancelar",
+   "cat": "assinatura"
+  },
+  {
+   "q": "Posso pedir reembolso?",
+   "doc": "reembolso",
+   "cat": "assinatura"
+  },
+  {
+   "q": "Em quantos dias posso pedir meu dinheiro de volta?",
+   "doc": "reembolso",
+   "cat": "assinatura"
+  },
+  {
+   "q": "As notas sincronizam entre celular e PC?",
+   "doc": "sincronizacao",
+   "cat": "sincronização"
+  },
+  {
+   "q": "O que acontece se eu editar a mesma nota em dois aparelhos?",
+   "doc": "sincronizacao",
+   "cat": "sincronização"
+  },
+  {
+   "q": "Funciona sem internet?",
+   "doc": "offline",
+   "cat": "sincronização"
+  },
+  {
+   "q": "Posso usar o app no avião?",
+   "doc": "offline",
+   "cat": "sincronização"
+  },
+  {
+   "q": "Funciona sem conexao?",
+   "doc": "offline",
+   "cat": "sincronização"
+  },
+  {
+   "q": "Como exportar minhas notas em PDF?",
+   "doc": "exportar",
+   "cat": "dados"
+  },
+  {
+   "q": "Dá para exportar tudo de uma vez?",
+   "doc": "exportar",
+   "cat": "dados"
+  },
+  {
+   "q": "Como exportar em formato markdown?",
+   "doc": "exportar",
+   "cat": "dados"
+  },
+  {
+   "q": "Consigo importar do Evernote?",
+   "doc": "importar",
+   "cat": "dados"
+  },
+  {
+   "q": "Como migrar notas de arquivos markdown?",
+   "doc": "importar",
+   "cat": "dados"
+  },
+  {
+   "q": "Esqueci minha senha, e agora?",
+   "doc": "senha_reset",
+   "cat": "segurança"
+  },
+  {
+   "q": "Esqueci a senha, como redefinir?",
+   "doc": "senha_reset",
+   "cat": "segurança"
+  },
+  {
+   "q": "Quanto tempo vale o link de redefinição de senha?",
+   "doc": "senha_reset",
+   "cat": "segurança"
+  },
+  {
+   "q": "Como ativar a verificação em duas etapas?",
+   "doc": "doisfatores",
+   "cat": "segurança"
+  },
+  {
+   "q": "Quantos códigos de recuperação eu recebo?",
+   "doc": "doisfatores",
+   "cat": "segurança"
+  },
+  {
+   "q": "As notas são criptografadas?",
+   "doc": "criptografia",
+   "cat": "segurança"
+  },
+  {
+   "q": "A equipe consegue recuperar a senha de um caderno protegido?",
+   "doc": "criptografia",
+   "cat": "segurança"
+  },
+  {
+   "q": "Onde ficam as notas apagadas?",
+   "doc": "lixeira",
+   "cat": "uso"
+  },
+  {
+   "q": "Por quanto tempo a lixeira guarda notas?",
+   "doc": "lixeira",
+   "cat": "uso"
+  },
+  {
+   "q": "Notas apagadas voltam?",
+   "doc": "lixeira",
+   "cat": "uso"
+  },
+  {
+   "q": "Como compartilhar um caderno?",
+   "doc": "compartilhar",
+   "cat": "uso"
+  },
+  {
+   "q": "Posso desativar o link de compartilhamento?",
+   "doc": "compartilhar",
+   "cat": "uso"
+  },
+  {
+   "q": "Como criar lembrete que repete toda semana?",
+   "doc": "lembretes",
+   "cat": "uso"
+  },
+  {
+   "q": "O app avisa quando vence uma tarefa?",
+   "doc": "lembretes",
+   "cat": "uso"
+  },
+  {
+   "q": "O widget mostra quantas tarefas?",
+   "doc": "widget",
+   "cat": "uso"
+  },
+  {
+   "q": "O app lê texto de foto?",
+   "doc": "ocr",
+   "cat": "uso"
+  },
+  {
+   "q": "Quais idiomas o OCR reconhece?",
+   "doc": "ocr",
+   "cat": "uso"
+  },
+  {
+   "q": "Como excluir minha conta?",
+   "doc": "excluir_conta",
+   "cat": "conta"
+  },
+  {
+   "q": "Em quanto tempo meus dados são apagados?",
+   "doc": "excluir_conta",
+   "cat": "conta"
+  },
+  {
+   "q": "Tem modo escuro?",
+   "doc": "temas",
+   "cat": "uso"
+  },
+  {
+   "q": "Quais sao os temas disponiveis?",
+   "doc": "temas",
+   "cat": "uso"
+  },
+  {
+   "q": "A API é pública?",
+   "doc": "api",
+   "cat": "conta"
+  },
+  {
+   "q": "Qual o limite de requisições da API?",
+   "doc": "api",
+   "cat": "conta"
+  },
+  {
+   "q": "Qual o telefone do suporte?",
+   "cat": "fora do escopo",
+   "oos": true
+  },
+  {
+   "q": "O Caderno tem integração com o Notion?",
+   "cat": "fora do escopo",
+   "oos": true
+  },
+  {
+   "q": "Como faço para sincronizar com o Google Calendar?",
+   "cat": "fora do escopo",
+   "oos": true
+  },
+  {
+   "q": "Vocês têm plano para estudantes?",
+   "cat": "fora do escopo",
+   "oos": true
+  },
+  {
+   "q": "Qual a capital da França?",
+   "cat": "fora do escopo",
+   "oos": true
+  },
+  {
+   "q": "O app funciona em smartwatch?",
+   "cat": "fora do escopo",
+   "oos": true
+  }
+ ],
+ "versions": [
+  {
+   "id": "v1",
+   "date": "2026-09-14",
+   "note": "BM25 simples: sem stopwords, sem plural",
+   "cfg": {
+    "tok": "raw",
+    "bm25": 1,
+    "ng": 0,
+    "gl": 0,
+    "cov": null,
+    "rerank": 0
+   },
+   "metrics": {
+    "recall1": 0.8182,
+    "recall3": 0.8864,
+    "mrr": 0.8542,
+    "false_refusal": 0.0,
+    "oos_refusal": 0.0,
+    "nota": 63.9678
+   },
+   "by_cat": {
+    "preços": 0.7143,
+    "assinatura": 1.0,
+    "sincronização": 0.8,
+    "dados": 1.0,
+    "segurança": 1.0,
+    "uso": 0.8333,
+    "conta": 1.0,
+    "fora do escopo": 0.0
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 4,
+     "refused": false,
+     "top": [
+      "api",
+      "cancelar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_equipe",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "plano_gratis",
+      "ocr"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "ocr",
+      "lixeira",
+      "widget"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "ocr",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "offline",
+      "reembolso",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "criptografia",
+      "importar"
+     ]
+    },
+    {
+     "rank": 3,
+     "refused": false,
+     "top": [
+      "importar",
+      "plano_gratis",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "widget",
+      "ocr",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "criptografia",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "widget",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "reembolso",
+      "widget"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "criptografia",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "ocr",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "offline",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "senha_reset",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "senha_reset",
+      "ocr"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "api"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget",
+      "api",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "api",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "api",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "criptografia",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "excluir_conta",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "excluir_conta",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "widget",
+      "lembretes"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "importar",
+      "widget"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "importar",
+      "compartilhar",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "api",
+      "importar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "api",
+      "plano_gratis",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "widget",
+      "lembretes",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "offline",
+      "temas",
+      "api"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v2",
+   "date": "2026-09-21",
+   "note": "Tokenizador padrão: stopwords, plural, sem acento",
+   "cfg": {
+    "tok": "std",
+    "bm25": 1,
+    "ng": 0,
+    "gl": 0,
+    "cov": null,
+    "rerank": 0
+   },
+   "metrics": {
+    "recall1": 0.8636,
+    "recall3": 0.9318,
+    "mrr": 0.8939,
+    "false_refusal": 0.0,
+    "oos_refusal": 0.0,
+    "nota": 67.2348
+   },
+   "by_cat": {
+    "preços": 1.0,
+    "assinatura": 1.0,
+    "sincronização": 0.6,
+    "dados": 1.0,
+    "segurança": 1.0,
+    "uso": 0.9167,
+    "conta": 1.0,
+    "fora do escopo": 0.0
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 3,
+     "refused": false,
+     "top": [
+      "offline",
+      "lixeira",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": []
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "senha_reset",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "widget"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "importar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": []
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": []
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "offline"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v3",
+   "date": "2026-09-28",
+   "note": "+ n-gramas de caracteres, fusão RRF",
+   "cfg": {
+    "tok": "std",
+    "bm25": 1,
+    "ng": 1,
+    "gl": 0,
+    "cov": null,
+    "rerank": 0
+   },
+   "metrics": {
+    "recall1": 0.8864,
+    "recall3": 0.9545,
+    "mrr": 0.925,
+    "false_refusal": 0.0,
+    "oos_refusal": 0.0,
+    "nota": 69.1477
+   },
+   "by_cat": {
+    "preços": 1.0,
+    "assinatura": 1.0,
+    "sincronização": 0.8,
+    "dados": 1.0,
+    "segurança": 1.0,
+    "uso": 0.9167,
+    "conta": 1.0,
+    "fora do escopo": 0.0
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "reembolso",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "offline",
+      "reembolso",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 5,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "lembretes",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "criptografia",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "importar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "plano_equipe",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "senha_reset",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes",
+      "criptografia",
+      "offline"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "widget",
+      "temas",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget",
+      "temas",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "senha_reset",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "sincronizacao",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "exportar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "temas",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "excluir_conta",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "widget",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "reembolso",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "plano_equipe",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "widget",
+      "importar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "cancelar",
+      "ocr"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "api",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "offline",
+      "doisfatores",
+      "compartilhar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v4",
+   "date": "2026-10-05",
+   "note": "+ glossário de sinônimos na pergunta",
+   "cfg": {
+    "tok": "std",
+    "bm25": 1,
+    "ng": 1,
+    "gl": 1,
+    "cov": null,
+    "rerank": 0
+   },
+   "metrics": {
+    "recall1": 0.9773,
+    "recall3": 1.0,
+    "mrr": 0.9886,
+    "false_refusal": 0.0,
+    "oos_refusal": 0.0,
+    "nota": 74.1477
+   },
+   "by_cat": {
+    "preços": 1.0,
+    "assinatura": 1.0,
+    "sincronização": 1.0,
+    "dados": 1.0,
+    "segurança": 1.0,
+    "uso": 1.0,
+    "conta": 1.0,
+    "fora do escopo": 0.0
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_gratis",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "reembolso",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "plano_gratis",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "lembretes",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "lembretes"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "importar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "plano_equipe",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "senha_reset",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes",
+      "criptografia",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes",
+      "widget",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget",
+      "temas",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "importar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "sincronizacao",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "exportar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "temas",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "excluir_conta",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "widget",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "reembolso",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "plano_equipe",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "widget",
+      "importar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "cancelar",
+      "ocr"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "api",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "offline",
+      "doisfatores",
+      "compartilhar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v5",
+   "date": "2026-10-12",
+   "note": "+ recusa por cobertura (mínimo 0,3)",
+   "cfg": {
+    "tok": "std",
+    "bm25": 1,
+    "ng": 1,
+    "gl": 1,
+    "cov": 0.3,
+    "rerank": 0
+   },
+   "metrics": {
+    "recall1": 0.8636,
+    "recall3": 0.8636,
+    "mrr": 0.8636,
+    "false_refusal": 0.1364,
+    "oos_refusal": 0.8333,
+    "nota": 85.6061
+   },
+   "by_cat": {
+    "preços": 0.8571,
+    "assinatura": 1.0,
+    "sincronização": 0.6,
+    "dados": 0.8,
+    "segurança": 1.0,
+    "uso": 0.8333,
+    "conta": 1.0,
+    "fora do escopo": 0.8333
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_gratis",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": true,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "reembolso",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "plano_gratis",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "lembretes",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "lembretes"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "exportar",
+      "importar",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "importar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "plano_equipe",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "compartilhar",
+      "senha_reset",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "lembretes",
+      "criptografia",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes",
+      "widget",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget",
+      "temas",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "importar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "sincronizacao",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "exportar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "temas",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "excluir_conta",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "widget",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "reembolso",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "plano_equipe",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "widget",
+      "importar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "sincronizacao",
+      "cancelar",
+      "ocr"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "reembolso",
+      "api",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "offline",
+      "doisfatores",
+      "compartilhar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v6",
+   "date": "2026-10-19",
+   "note": "Refatoração do tokenizador: acentos deixam de ser normalizados",
+   "cfg": {
+    "tok": "accent",
+    "bm25": 1,
+    "ng": 1,
+    "gl": 1,
+    "cov": 0.3,
+    "rerank": 0
+   },
+   "metrics": {
+    "recall1": 0.8409,
+    "recall3": 0.8409,
+    "mrr": 0.8409,
+    "false_refusal": 0.1591,
+    "oos_refusal": 0.8333,
+    "nota": 83.9015
+   },
+   "by_cat": {
+    "preços": 0.7143,
+    "assinatura": 1.0,
+    "sincronização": 0.6,
+    "dados": 0.8,
+    "segurança": 1.0,
+    "uso": 0.8333,
+    "conta": 1.0,
+    "fora do escopo": 0.8333
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_gratis",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "plano_equipe",
+      "api",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 3,
+     "refused": true,
+     "top": [
+      "plano_equipe",
+      "plano_gratis",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "reembolso",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "offline",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "plano_gratis",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "lembretes",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": true,
+     "top": [
+      "criptografia",
+      "offline",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "lembretes"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "exportar",
+      "importar",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "sincronizacao",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "criptografia",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "importar",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "plano_equipe",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "compartilhar",
+      "senha_reset",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "lembretes",
+      "criptografia",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes",
+      "widget",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget",
+      "exportar",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "importar",
+      "widget"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "sincronizacao",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "exportar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "importar",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "excluir_conta",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "widget",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "doisfatores",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "widget",
+      "importar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "compartilhar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "sincronizacao",
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "reembolso",
+      "doisfatores",
+      "api"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "offline",
+      "doisfatores",
+      "compartilhar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v7",
+   "date": "2026-10-26",
+   "note": "Corrige os acentos + reranker por bigramas",
+   "cfg": {
+    "tok": "std",
+    "bm25": 1,
+    "ng": 1,
+    "gl": 1,
+    "cov": 0.3,
+    "rerank": 1
+   },
+   "metrics": {
+    "recall1": 0.8636,
+    "recall3": 0.8636,
+    "mrr": 0.8636,
+    "false_refusal": 0.1364,
+    "oos_refusal": 0.8333,
+    "nota": 85.6061
+   },
+   "by_cat": {
+    "preços": 0.8571,
+    "assinatura": 1.0,
+    "sincronização": 0.6,
+    "dados": 0.8,
+    "segurança": 1.0,
+    "uso": 0.8333,
+    "conta": 1.0,
+    "fora do escopo": 0.8333
+   },
+   "per_q": [
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_equipe",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_pro",
+      "plano_gratis",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "plano_equipe",
+      "api",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 2,
+     "refused": true,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "reembolso",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "cancelar",
+      "lembretes",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "cancelar",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "sincronizacao",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "lembretes",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "offline",
+      "sincronizacao",
+      "lembretes"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "plano_pro",
+      "importar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "exportar",
+      "importar",
+      "excluir_conta"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "exportar",
+      "importar",
+      "reembolso"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "importar",
+      "exportar",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "cancelar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "criptografia",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "senha_reset",
+      "compartilhar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "sincronizacao",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "doisfatores",
+      "criptografia",
+      "sincronizacao"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "criptografia",
+      "plano_equipe",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lixeira",
+      "importar",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "compartilhar",
+      "senha_reset",
+      "plano_gratis"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": true,
+     "top": [
+      "lembretes",
+      "criptografia",
+      "offline"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "lembretes",
+      "widget",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "widget",
+      "temas",
+      "exportar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "importar",
+      "senha_reset"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "ocr",
+      "sincronizacao",
+      "temas"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "exportar",
+      "criptografia"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "excluir_conta",
+      "temas",
+      "lixeira"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "excluir_conta",
+      "compartilhar"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "temas",
+      "widget",
+      "ocr"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "reembolso",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": 1,
+     "refused": false,
+     "top": [
+      "api",
+      "plano_equipe",
+      "plano_pro"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": false,
+     "top": [
+      "reembolso",
+      "widget",
+      "importar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "compartilhar",
+      "plano_gratis",
+      "exportar"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "sincronizacao",
+      "cancelar",
+      "ocr"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "plano_gratis",
+      "plano_pro",
+      "plano_equipe"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "reembolso",
+      "api",
+      "doisfatores"
+     ]
+    },
+    {
+     "rank": null,
+     "refused": true,
+     "top": [
+      "offline",
+      "doisfatores",
+      "compartilhar"
+     ]
+    }
+   ]
+  }
+ ]
+}

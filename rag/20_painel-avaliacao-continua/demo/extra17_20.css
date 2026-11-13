@@ -1,0 +1,10 @@
+.psg mark.s-v,mark.s-p,mark.s-d{color:#111;font-weight:600}
+mark.s-v{background:#5bd18b}mark.s-p{background:#f5c04a}mark.s-d{background:#6cb4ff}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+.kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.kpi b{display:block;font:700 24px var(--mono);letter-spacing:-.02em}.kpi span{font:500 11px var(--mono);color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.kpi.good b{color:var(--ok)}.kpi.badk b{color:var(--err)}
+.chart{background:#0f0f0f;border:1px solid var(--line);border-radius:10px;padding:8px}.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:#a9a9a3;font:11px "JetBrains Mono",ui-monospace,Consolas,monospace}
+table td.up{color:var(--ok)}table td.down{color:var(--err)}
+.pdfp{background:#f4f2ea;color:#1b1b1b;border-radius:6px;padding:12px 14px;font:12.5px/1.45 "JetBrains Mono",ui-monospace,Consolas,monospace;white-space:pre-wrap;margin:8px 0}
+.pdfp mark{background:#ffb65c;color:#111}

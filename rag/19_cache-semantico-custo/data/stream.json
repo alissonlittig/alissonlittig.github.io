@@ -1,0 +1,22 @@
+{"intents": {
+"horario": ["Qual o horário de funcionamento?", "Que horas vocês abrem?", "A clínica abre aos sábados?", "Até que horas vocês atendem na sexta?", "Horário de atendimento de segunda a sexta"],
+"consulta": ["Quanto custa uma consulta?", "Qual o valor da consulta clínica geral?", "Preço da consulta com especialista", "Quanto é a consulta?", "O retorno é cobrado?"],
+"vacina_v10": ["Quanto custa a vacina V10?", "Qual o preço da vacina V10 para cachorro?", "Quantas doses da V10 meu filhote precisa?", "Valor da vacina múltipla V10", "Qual o intervalo entre as doses da V10?"],
+"vacina_antirrabica": ["Quanto custa a vacina antirrábica?", "Com quantos meses o cão toma a antirrábica?", "Preço da vacina contra raiva", "Antirrábica é anual?", "Valor da vacina antirrábica"],
+"vacina_gato": ["Qual o valor da vacina V4 para gatos?", "Vacina de gato, quanto custa?", "Quantas doses da V4 o gatinho toma?", "Preço da vacina felina V4", "Intervalo das doses da vacina do gato"],
+"emergencia": ["Vocês atendem emergência?", "Qual a taxa de atendimento de emergência?", "Tem plantão 24 horas?", "Meu cachorro passou mal de madrugada, vocês atendem?", "Atendem em feriado?"],
+"castracao": ["Quanto custa castrar uma cadela?", "Preço da castração de cachorro macho", "Qual o jejum antes da cirurgia de castração?", "Valor da castração", "Quantas horas de jejum para castrar?"],
+"banho_tosa": ["Quanto custa o banho?", "Valor da tosa higiênica", "Como agendar banho e tosa?", "Preço do banho para cão de porte grande", "Dá para marcar banho pelo aplicativo?"],
+"pagamento": ["Vocês aceitam Pix?", "Posso parcelar no cartão?", "Quais formas de pagamento aceitam?", "Aceitam cheque?", "Parcelam em quantas vezes?"],
+"estacionamento": ["Tem estacionamento?", "Onde posso deixar o carro?", "Quantas vagas tem o estacionamento?", "O estacionamento é pago?", "Por qual rua entra o estacionamento?"],
+"exames": ["Em quanto tempo sai o exame de sangue?", "Quanto custa um ultrassom?", "O ultrassom precisa de hora marcada?", "Prazo do resultado do exame de sangue", "Preço do ultrassom veterinário"],
+"internacao": ["Quanto custa a internação?", "Qual o valor da diária de internação?", "Posso visitar meu pet internado?", "Horário de visita na internação", "O que a diária da internação inclui?"],
+"microchip": ["Quanto custa colocar microchip?", "Preço do microchip", "O registro do microchip é no mesmo dia?", "Como funciona a aplicação do microchip?"],
+"hotel_pet": ["Vocês têm hotelzinho para cachorro?", "Quanto é a diária do hotel pet?", "Hotelzinho aceita gatos?", "Precisa de carteira de vacinação para hospedar?"],
+"vermifugo": ["Com quantos dias o filhote toma vermífugo?", "Quanto custa o vermífugo do filhote?", "Calendário de vermifugação de filhotes", "Quando dar o primeiro vermífugo?"],
+"cancelamento": ["Como cancelar um agendamento?", "Tem taxa se eu faltar à consulta?", "Até quando posso desmarcar sem custo?", "Perdi o horário, vou pagar multa?"],
+"viagem": ["Quanto custa o atestado de saúde para viajar?", "Preciso de atestado para viajar com meu cachorro?", "O atestado de viagem sai na hora?", "Documento para viagem com pet"],
+"dentaria": ["Quanto custa limpeza de tártaro?", "Limpeza dentária precisa de anestesia?", "Preço da limpeza dos dentes do cachorro", "Quais exames antes da limpeza dentária?"],
+"receitas": ["Vocês fazem receita de remédio controlado?", "Posso renovar a receita de uso contínuo?", "Precisa de consulta para a receita?", "De quanto em quanto tempo renova a receita?"],
+"localizacao": ["Qual o endereço da clínica?", "Onde fica a Pata Feliz?", "A clínica fica perto de quê?", "Como chego aí?", "Em qual bairro vocês ficam?"]
+}}

@@ -1,0 +1,22 @@
+[
+{"id": "horario", "title": "Horário de funcionamento", "text": "A clínica funciona de segunda a sexta das 8h às 19h e aos sábados das 8h às 13h. O plantão de emergência atende 24 horas por dia."},
+{"id": "consulta", "title": "Preço da consulta", "text": "A consulta clínica geral custa R$ 120,00. A consulta com especialista custa R$ 190,00. O retorno em até 15 dias é gratuito."},
+{"id": "vacina_v10", "title": "Vacina V10 para cães", "text": "A vacina V10 para cães custa R$ 95,00 por dose. O esquema inicial tem 3 doses com intervalo de 21 dias."},
+{"id": "vacina_antirrabica", "title": "Vacina antirrábica", "text": "A vacina antirrábica custa R$ 60,00 e é aplicada uma vez por ano a partir dos 4 meses de idade."},
+{"id": "vacina_gato", "title": "Vacina V4 para gatos", "text": "A vacina V4 para gatos custa R$ 110,00 por dose; o esquema inicial tem 2 doses com intervalo de 30 dias."},
+{"id": "emergencia", "title": "Plantão de emergência", "text": "O plantão de emergência atende 24 horas, inclusive feriados. A taxa de atendimento de emergência é de R$ 250,00, já incluindo a avaliação inicial."},
+{"id": "castracao", "title": "Castração", "text": "A castração de cadela custa a partir de R$ 450,00 e a de cão macho a partir de R$ 320,00. O jejum é de 12 horas antes da cirurgia."},
+{"id": "banho_tosa", "title": "Banho e tosa", "text": "O banho custa de R$ 45,00 a R$ 90,00 conforme o porte. A tosa higiênica custa R$ 35,00. O agendamento é feito pelo aplicativo ou por telefone."},
+{"id": "pagamento", "title": "Formas de pagamento", "text": "Aceitamos cartão de crédito em até 6 vezes sem juros, débito, Pix e dinheiro. Não aceitamos cheque."},
+{"id": "estacionamento", "title": "Estacionamento", "text": "A clínica tem estacionamento gratuito com 12 vagas na parte de trás do prédio, com entrada pela Rua das Palmeiras."},
+{"id": "exames", "title": "Exames", "text": "Exames de sangue ficam prontos em até 24 horas. O ultrassom é feito com hora marcada e custa R$ 180,00."},
+{"id": "internacao", "title": "Internação", "text": "A diária de internação custa R$ 220,00 e inclui alimentação e medicação básica. Os tutores podem visitar das 15h às 17h."},
+{"id": "microchip", "title": "Microchip", "text": "A aplicação de microchip custa R$ 140,00 e o registro nacional é feito no mesmo dia."},
+{"id": "hotel_pet", "title": "Hotel pet", "text": "O hotelzinho aceita cães e gatos vacinados; a diária é de R$ 85,00. É preciso apresentar a carteira de vacinação atualizada."},
+{"id": "vermifugo", "title": "Vermifugação de filhotes", "text": "A vermifugação de filhotes é feita aos 15, 30 e 45 dias de vida e o comprimido custa R$ 25,00."},
+{"id": "cancelamento", "title": "Cancelamento e faltas", "text": "Agendamentos podem ser cancelados sem custo até 4 horas antes do horário marcado. Faltas sem aviso geram taxa de R$ 40,00."},
+{"id": "viagem", "title": "Atestado para viagem", "text": "O atestado de saúde para viagem custa R$ 90,00 e é emitido na hora, mediante consulta e carteira de vacinação em dia."},
+{"id": "dentaria", "title": "Limpeza dentária", "text": "A limpeza dentária com anestesia custa a partir de R$ 380,00 e exige exames pré-operatórios."},
+{"id": "receitas", "title": "Receitas", "text": "Receitas de medicamentos controlados só são emitidas após consulta presencial. Receitas de uso contínuo são renovadas a cada 6 meses."},
+{"id": "localizacao", "title": "Endereço", "text": "A clínica fica na Rua das Palmeiras, 410, bairro Jardim Alegre, ao lado da padaria Pão Dourado."}
+]

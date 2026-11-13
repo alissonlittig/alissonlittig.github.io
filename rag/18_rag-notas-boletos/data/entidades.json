@@ -1,0 +1,23 @@
+[
+{"name": "energia", "kind": "categoria", "match": ["energia", "luz", "conta de luz"]},
+{"name": "internet", "kind": "categoria", "match": ["internet", "banda larga", "fibra", "wifi"]},
+{"name": "água", "kind": "categoria", "match": ["água", "esgoto", "saneamento"]},
+{"name": "condomínio", "kind": "categoria", "match": ["condomínio"]},
+{"name": "supermercado", "kind": "categoria", "match": ["supermercado", "mercado", "mercearia"]},
+{"name": "farmácia", "kind": "categoria", "match": ["farmácia", "remédio", "medicamento", "drogaria"]},
+{"name": "combustível", "kind": "categoria", "match": ["combustível", "gasolina", "posto", "abastecimento"]},
+{"name": "assinatura", "kind": "categoria", "match": ["assinatura", "streaming"]},
+{"name": "papelaria", "kind": "categoria", "match": ["papelaria", "material de escritório"]},
+{"name": "contabilidade", "kind": "categoria", "match": ["contabilidade", "contador", "honorários"]},
+{"name": "Luz Sul Energia S.A.", "kind": "emitente", "match": ["luz sul"]},
+{"name": "NetFibra Telecom Ltda.", "kind": "emitente", "match": ["netfibra"]},
+{"name": "Águas do Vale Saneamento", "kind": "emitente", "match": ["águas do vale"]},
+{"name": "Condomínio Residencial Ipê", "kind": "emitente", "match": ["ipê"]},
+{"name": "Mercado Bom Preço Ltda.", "kind": "emitente", "match": ["bom preço"]},
+{"name": "Empório Santa Clara Ltda.", "kind": "emitente", "match": ["empório", "santa clara"]},
+{"name": "Farmácia Saúde Plena Ltda.", "kind": "emitente", "match": ["saúde plena"]},
+{"name": "Posto Estrada Azul Ltda.", "kind": "emitente", "match": ["estrada azul"]},
+{"name": "StreamMax Serviços Digitais", "kind": "emitente", "match": ["streammax"]},
+{"name": "Papelaria Central Ltda.", "kind": "emitente", "match": ["papelaria central"]},
+{"name": "Escritório Contábil Ribeiro S/S", "kind": "emitente", "match": ["ribeiro"]}
+]
