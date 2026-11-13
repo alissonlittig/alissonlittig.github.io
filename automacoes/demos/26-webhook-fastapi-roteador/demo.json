@@ -1,0 +1,735 @@
+{
+ "slug": "26-webhook-fastapi-roteador",
+ "title": {
+  "pt": "Webhook em FastAPI: evento entra, é roteado e entregue (estilo Make/Zapier)",
+  "en": "FastAPI webhook: event in, routed and delivered (Make/Zapier style)"
+ },
+ "tag": {
+  "pt": "Python · FastAPI · HMAC · retry",
+  "en": "Python · FastAPI · HMAC · retry"
+ },
+ "summary": {
+  "pt": "Um endpoint recebe eventos de pagamento e formulário de outro sistema, confere a assinatura, ignora reenvios, escolhe o destino por regra (planilha, e-mail, chat) e tenta de novo se um destino falhar. O que não entregar vai para uma dead letter, sem perder o resto.",
+  "en": "An endpoint receives payment and form events from another system, checks the signature, ignores replays, picks destinations by rule (sheet, e-mail, chat) and retries when a destination fails. What cannot be delivered goes to a dead letter without losing the rest."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "POST /hooks/shop · header X-Signature: sha256=…",
+   "en": "POST /hooks/shop · header X-Signature: sha256=…"
+  },
+  "note": {
+   "pt": "Regras: pagamento aprovado → planilha + recibo por e-mail, e aviso no chat se for 1000+; estorno → planilha (valor negativo) + chat; formulário → planilha + e-mail. A memória vale enquanto a página está aberta: envie o mesmo id duas vezes.",
+   "en": "Rules: approved payment → sheet + e-mail receipt, plus chat alert if 1000+; refund → sheet (negative amount) + chat; form → sheet + e-mail. Memory lasts while the page is open: send the same id twice."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Venda grande",
+     "en": "1. Big sale"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1001\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Lume Studio\",\n  \"email\": \"pay@lume.example\",\n  \"amount\": 2400\n }\n}",
+     "sig": "valid",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Venda pequena",
+     "en": "2. Small sale"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1002\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Café Norte\",\n  \"email\": \"caf@norte.example\",\n  \"amount\": 89.9\n }\n}",
+     "sig": "valid",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Estorno",
+     "en": "3. Refund"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1003\",\n \"type\": \"payment.refunded\",\n \"data\": {\n  \"customer\": \"Lume Studio\",\n  \"amount\": 300\n }\n}",
+     "sig": "valid",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. Formulário",
+     "en": "4. Form"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1004\",\n \"type\": \"form.submitted\",\n \"data\": {\n  \"name\": \"Ana Reis\",\n  \"email\": \"ana@reis.example\"\n }\n}",
+     "sig": "valid",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Assinatura falsa",
+     "en": "5. Forged signature"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1002\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Café Norte\",\n  \"email\": \"caf@norte.example\",\n  \"amount\": 89.9\n }\n}",
+     "sig": "bad",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "6. Evento inválido",
+     "en": "6. Invalid event"
+    },
+    "values": {
+     "event": "{\n \"id\": \"\",\n \"type\": \"payment.deleted\",\n \"data\": {\n  \"amount\": -5\n }\n}",
+     "sig": "valid",
+     "chat": "up"
+    }
+   },
+   {
+    "label": {
+     "pt": "7. Chat instável",
+     "en": "7. Flaky chat"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1005\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Porto Eng\",\n  \"email\": \"fin@porto.example\",\n  \"amount\": 5000\n }\n}",
+     "sig": "valid",
+     "chat": "flaky"
+    }
+   },
+   {
+    "label": {
+     "pt": "8. Chat fora do ar",
+     "en": "8. Chat down"
+    },
+    "values": {
+     "event": "{\n \"id\": \"evt_1006\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Serra Foods\",\n  \"email\": \"fin@serra.example\",\n  \"amount\": 1500\n }\n}",
+     "sig": "valid",
+     "chat": "down"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "event",
+    "type": "textarea",
+    "rows": 8,
+    "value": "{\n \"id\": \"evt_1001\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Lume Studio\",\n  \"email\": \"pay@lume.example\",\n  \"amount\": 2400\n }\n}",
+    "label": {
+     "pt": "Evento (JSON)",
+     "en": "Event (JSON)"
+    }
+   },
+   {
+    "key": "sig",
+    "type": "select",
+    "value": "valid",
+    "label": {
+     "pt": "Assinatura (simulada)",
+     "en": "Signature (simulated)"
+    },
+    "options": [
+     {
+      "value": "valid",
+      "label": {
+       "pt": "Válida",
+       "en": "Valid"
+      }
+     },
+     {
+      "value": "bad",
+      "label": {
+       "pt": "Inválida",
+       "en": "Invalid"
+      }
+     }
+    ]
+   },
+   {
+    "key": "chat",
+    "type": "select",
+    "value": "up",
+    "label": {
+     "pt": "Chat da equipe",
+     "en": "Team chat"
+    },
+    "options": [
+     {
+      "value": "up",
+      "label": {
+       "pt": "No ar",
+       "en": "Up"
+      }
+     },
+     {
+      "value": "flaky",
+      "label": {
+       "pt": "Instável (falha 2×)",
+       "en": "Flaky (fails 2×)"
+      }
+     },
+     {
+      "value": "down",
+      "label": {
+       "pt": "Fora do ar",
+       "en": "Down"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "POST /hooks/shop",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "FastAPI",
+    "en": "FastAPI"
+   }
+  },
+  {
+   "id": "sig",
+   "name": "HMAC válido?",
+   "icon": "if",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "X-Signature · SHA-256",
+    "en": "X-Signature · SHA-256"
+   }
+  },
+  {
+   "id": "rej401",
+   "name": "Responde 401",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "nada é lido",
+    "en": "nothing is read"
+   }
+  },
+  {
+   "id": "validate",
+   "name": "Validar evento",
+   "icon": "code",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "id, type, data",
+    "en": "id, type, data"
+   }
+  },
+  {
+   "id": "rejbad",
+   "name": "Responde 400/422",
+   "icon": "respond",
+   "col": 2,
+   "row": 1,
+   "sub": {
+    "pt": "com os motivos",
+    "en": "with reasons"
+   }
+  },
+  {
+   "id": "dedupe",
+   "name": "Id já visto?",
+   "icon": "if",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "idempotência",
+    "en": "idempotency"
+   }
+  },
+  {
+   "id": "dup",
+   "name": "Responde 200 duplicate",
+   "icon": "memory",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "sem novo efeito",
+    "en": "no new effect"
+   }
+  },
+  {
+   "id": "route",
+   "name": "Rotear por regra",
+   "icon": "switch",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "tipo + valor",
+    "en": "type + amount"
+   }
+  },
+  {
+   "id": "deliver",
+   "name": "Entregar",
+   "icon": "http",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "3 tentativas · backoff",
+    "en": "3 attempts · backoff"
+   }
+  },
+  {
+   "id": "ok",
+   "name": "Responde 200",
+   "icon": "respond",
+   "col": 6,
+   "row": 0,
+   "sub": {
+    "pt": "tudo entregue",
+    "en": "all delivered"
+   }
+  },
+  {
+   "id": "dead",
+   "name": "Dead letter + 202",
+   "icon": "file",
+   "col": 6,
+   "row": 1,
+   "sub": {
+    "pt": "reprocessar depois",
+    "en": "reprocess later"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "sig"
+  },
+  {
+   "from": "sig",
+   "to": "validate",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "sig",
+   "to": "rej401",
+   "when": "bad",
+   "label": "401"
+  },
+  {
+   "from": "validate",
+   "to": "dedupe",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "validate",
+   "to": "rejbad",
+   "when": "bad",
+   "label": "400/422"
+  },
+  {
+   "from": "dedupe",
+   "to": "route",
+   "when": "new",
+   "label": "new"
+  },
+  {
+   "from": "dedupe",
+   "to": "dup",
+   "when": "dup",
+   "label": "duplicate"
+  },
+  {
+   "from": "route",
+   "to": "deliver"
+  },
+  {
+   "from": "deliver",
+   "to": "ok",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "deliver",
+   "to": "dead",
+   "when": "partial",
+   "label": "failed"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "O sistema de pagamentos avisa por webhook, mas ninguém lança na planilha, o financeiro descobre a venda grande no fim do dia e, quando o remetente reenvia por timeout, a venda entra duas vezes.",
+   "en": "The payment system notifies by webhook, but nobody logs it in the sheet, finance finds out about the big sale at the end of the day and, when the sender resends after a timeout, the sale is logged twice."
+  },
+  "solution": {
+   "pt": "Um roteador pequeno em FastAPI faz o que um cenário de Make/Zapier faria, só que no seu código e sem pagar por operação: assinatura HMAC, idempotência por id, regras por tipo e valor, retentativa com espera crescente e dead letter.",
+   "en": "A small FastAPI router does what a Make/Zapier scenario would, but in your own code and without per-operation pricing: HMAC signature, idempotency by id, rules by type and amount, retry with growing wait and a dead letter."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: lançar cada venda à mão leva ~2 min; com 40 vendas por mês são ~1h20, fora o erro de lançamento duplicado. Se o volume for baixo, Make/Zapier no plano grátis pode ser mais barato que hospedar isto; o ganho aqui é controle e custo fixo.",
+   "en": "An estimate, not a measurement: logging each sale by hand takes ~2 min; with 40 sales a month that is ~1h20, not counting duplicate-entry errors. At low volume, Make/Zapier's free plan may be cheaper than hosting this; the gain here is control and flat cost."
+  },
+  "stack": [
+   "Python 3.13",
+   "FastAPI",
+   "HMAC-SHA256",
+   "TestClient (httpx)"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "pip install fastapi uvicorn httpx",
+     "uvicorn app:app --port 8780  (secret e destinos reais ficam por sua conta)",
+     "Todos os cenários de uma vez: python run_scenarios.py",
+     "Testes: python tests/test_app.py"
+    ],
+    "en": [
+     "pip install fastapi uvicorn httpx",
+     "uvicorn app:app --port 8780  (secret and real destinations are up to you)",
+     "All scenarios at once: python run_scenarios.py",
+     "Tests: python tests/test_app.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "app.py",
+     "label": {
+      "pt": "Baixar app.py",
+      "en": "Download app.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "A lógica é o app.py portado para JavaScript e conferida contra as respostas gravadas de um FastAPI de verdade (incluindo o backoff de 0,5 s e 1 s). A assinatura HMAC é verificada no Python; na página o campo apenas simula válida/inválida. Planilha, e-mail e chat são destinos fictícios em memória; o estado (ids vistos, dead letter) não sobrevive a reinício do servidor real. Nada é enviado.",
+   "en": "The logic is app.py ported to JavaScript and checked against recorded answers from a real FastAPI (including the 0.5 s and 1 s backoff). The HMAC signature is verified in Python; on the page the field only simulates valid/invalid. Sheet, e-mail and chat are fictional in-memory destinations; state (seen ids, dead letter) does not survive a restart of the real server. Nothing is sent."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1001\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Lume Studio\",\n  \"email\": \"pay@lume.example\",\n  \"amount\": 2400\n }\n}",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "ok",
+     "id": "evt_1001",
+     "source": "shop",
+     "delivered": [
+      {
+       "action": "sheet",
+       "attempts": 1
+      },
+      {
+       "action": "mail",
+       "attempts": 1
+      },
+      {
+       "action": "chat",
+       "attempts": 1
+      }
+     ],
+     "dead_letter": []
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 1,
+     "chat": 1,
+     "mail": 1,
+     "dead": 0
+    }
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1002\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Café Norte\",\n  \"email\": \"caf@norte.example\",\n  \"amount\": 89.9\n }\n}",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "ok",
+     "id": "evt_1002",
+     "source": "shop",
+     "delivered": [
+      {
+       "action": "sheet",
+       "attempts": 1
+      },
+      {
+       "action": "mail",
+       "attempts": 1
+      }
+     ],
+     "dead_letter": []
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 2,
+     "chat": 1,
+     "mail": 2,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1003\",\n \"type\": \"payment.refunded\",\n \"data\": {\n  \"customer\": \"Lume Studio\",\n  \"amount\": 300\n }\n}",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "ok",
+     "id": "evt_1003",
+     "source": "shop",
+     "delivered": [
+      {
+       "action": "sheet",
+       "attempts": 1
+      },
+      {
+       "action": "chat",
+       "attempts": 1
+      }
+     ],
+     "dead_letter": []
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 3,
+     "chat": 2,
+     "mail": 2,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1004\",\n \"type\": \"form.submitted\",\n \"data\": {\n  \"name\": \"Ana Reis\",\n  \"email\": \"ana@reis.example\"\n }\n}",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "ok",
+     "id": "evt_1004",
+     "source": "shop",
+     "delivered": [
+      {
+       "action": "sheet",
+       "attempts": 1
+      },
+      {
+       "action": "mail",
+       "attempts": 1
+      }
+     ],
+     "dead_letter": []
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 4,
+     "chat": 2,
+     "mail": 3,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1001\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Lume Studio\",\n  \"email\": \"pay@lume.example\",\n  \"amount\": 2400\n }\n}",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "duplicate",
+     "id": "evt_1001",
+     "first_result": "ok"
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 4,
+     "chat": 2,
+     "mail": 3,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1002\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Café Norte\",\n  \"email\": \"caf@norte.example\",\n  \"amount\": 89.9\n }\n}",
+    "sig": "bad",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 401,
+    "body": {
+     "status": "rejected",
+     "error": "invalid signature"
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 4,
+     "chat": 2,
+     "mail": 3,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"\",\n \"type\": \"payment.deleted\",\n \"data\": {\n  \"amount\": -5\n }\n}",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 422,
+    "body": {
+     "status": "rejected",
+     "errors": [
+      "id is required",
+      "type must be payment.approved|payment.refunded|form.submitted",
+      "data.amount must be a number > 0"
+     ]
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 4,
+     "chat": 2,
+     "mail": 3,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{oops",
+    "sig": "valid",
+    "chat": "up"
+   },
+   "expect": {
+    "status": 400,
+    "body": {
+     "status": "rejected",
+     "errors": [
+      "malformed JSON"
+     ]
+    },
+    "sleeps": [],
+    "counts": {
+     "sheet": 4,
+     "chat": 2,
+     "mail": 3,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1005\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Porto Eng\",\n  \"email\": \"fin@porto.example\",\n  \"amount\": 5000\n }\n}",
+    "sig": "valid",
+    "chat": "flaky"
+   },
+   "expect": {
+    "status": 200,
+    "body": {
+     "status": "ok",
+     "id": "evt_1005",
+     "source": "shop",
+     "delivered": [
+      {
+       "action": "sheet",
+       "attempts": 1
+      },
+      {
+       "action": "mail",
+       "attempts": 1
+      },
+      {
+       "action": "chat",
+       "attempts": 3
+      }
+     ],
+     "dead_letter": []
+    },
+    "sleeps": [
+     0.5,
+     1.0
+    ],
+    "counts": {
+     "sheet": 5,
+     "chat": 3,
+     "mail": 4,
+     "dead": 0
+    }
+   }
+  },
+  {
+   "input": {
+    "event": "{\n \"id\": \"evt_1006\",\n \"type\": \"payment.approved\",\n \"data\": {\n  \"customer\": \"Serra Foods\",\n  \"email\": \"fin@serra.example\",\n  \"amount\": 1500\n }\n}",
+    "sig": "valid",
+    "chat": "down"
+   },
+   "expect": {
+    "status": 202,
+    "body": {
+     "status": "partial",
+     "id": "evt_1006",
+     "source": "shop",
+     "delivered": [
+      {
+       "action": "sheet",
+       "attempts": 1
+      },
+      {
+       "action": "mail",
+       "attempts": 1
+      }
+     ],
+     "dead_letter": [
+      {
+       "action": "chat",
+       "error": "chat: 503 service unavailable",
+       "attempts": 3
+      }
+     ]
+    },
+    "sleeps": [
+     0.5,
+     1.0
+    ],
+    "counts": {
+     "sheet": 6,
+     "chat": 3,
+     "mail": 5,
+     "dead": 1
+    }
+   }
+  }
+ ]
+}

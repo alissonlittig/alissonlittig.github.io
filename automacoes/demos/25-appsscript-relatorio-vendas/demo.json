@@ -1,0 +1,443 @@
+{
+ "slug": "25-appsscript-relatorio-vendas",
+ "title": {
+  "pt": "Google Apps Script: planilha de vendas vira relatório semanal por e-mail",
+  "en": "Google Apps Script: a sales sheet becomes a weekly e-mail report"
+ },
+ "tag": {
+  "pt": "Apps Script · Planilhas · MailApp",
+  "en": "Apps Script · Sheets · MailApp"
+ },
+ "summary": {
+  "pt": "Toda semana um gatilho lê a aba Vendas, ignora o que não está pago, aponta linhas com dado ruim, compara com a semana anterior e manda o resumo ao financeiro. Rodar duas vezes não duplica o e-mail; se a cota do Google estourar, o erro fica no log e o próximo gatilho tenta de novo.",
+  "en": "Every week a trigger reads the Sales tab, ignores what is not paid, flags rows with bad data, compares with the previous week and e-mails the summary to finance. Running twice does not duplicate the e-mail; if Google's quota runs out the error is logged and the next trigger retries."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "Gatilho semanal (Triggers > Time-driven) · sendWeeklyReport()",
+   "en": "Weekly trigger (Triggers > Time-driven) · sendWeeklyReport()"
+  },
+  "note": {
+   "pt": "Uma venda por linha: data;vendedor;produto;valor;status. A aba Relatórios guarda a memória enquanto a página está aberta: clique em Rodar duas vezes para ver a idempotência.",
+   "en": "One sale per line: date;seller;product;value;status. The Reports tab keeps memory while the page is open: click Run twice to see idempotency."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. Semana normal",
+     "en": "1. Normal week"
+    },
+    "values": {
+     "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+     "today": "2026-11-08",
+     "quota": "ok"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Com 3 linhas sujas",
+     "en": "2. With 3 dirty rows"
+    },
+    "values": {
+     "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago\n31/11/2026;Paulo;Plano Pro;1200;pago\n2026-11-05;;Plano Pro;900;pago\n2026-11-06;Rita;Plano Pro;abc;pago",
+     "today": "2026-11-08",
+     "quota": "ok"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Cota de e-mail estourada",
+     "en": "3. E-mail quota exceeded"
+    },
+    "values": {
+     "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+     "today": "2026-11-08",
+     "quota": "quota"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "rows",
+    "type": "textarea",
+    "rows": 7,
+    "value": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+    "label": {
+     "pt": "Aba Vendas (sem cabeçalho)",
+     "en": "Sales tab (no header)"
+    }
+   },
+   {
+    "key": "today",
+    "type": "text",
+    "value": "2026-11-08",
+    "label": {
+     "pt": "Fim da semana (hoje)",
+     "en": "Week end (today)"
+    }
+   },
+   {
+    "key": "quota",
+    "type": "select",
+    "value": "ok",
+    "label": {
+     "pt": "MailApp",
+     "en": "MailApp"
+    },
+    "options": [
+     {
+      "value": "ok",
+      "label": {
+       "pt": "Normal",
+       "en": "Normal"
+      }
+     },
+     {
+      "value": "quota",
+      "label": {
+       "pt": "Cota estourada",
+       "en": "Quota exceeded"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Trigger semanal",
+   "icon": "bell",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "time-driven",
+    "en": "time-driven"
+   }
+  },
+  {
+   "id": "check",
+   "name": "Semana já enviada?",
+   "icon": "if",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "lê aba Relatórios",
+    "en": "reads Relatórios"
+   }
+  },
+  {
+   "id": "skip",
+   "name": "Sai sem enviar",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "idempotente",
+    "en": "idempotent"
+   }
+  },
+  {
+   "id": "read",
+   "name": "Ler Vendas",
+   "icon": "sheet",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "getValues()",
+    "en": "getValues()"
+   }
+  },
+  {
+   "id": "build",
+   "name": "buildReport",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "pagas · semana · variação",
+    "en": "paid · week · delta"
+   }
+  },
+  {
+   "id": "send",
+   "name": "MailApp",
+   "icon": "mail",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "sendEmail()",
+    "en": "sendEmail()"
+   }
+  },
+  {
+   "id": "logok",
+   "name": "Log: OK",
+   "icon": "sheet",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "appendRow",
+    "en": "appendRow"
+   }
+  },
+  {
+   "id": "logerr",
+   "name": "Log: ERRO",
+   "icon": "sheet",
+   "col": 5,
+   "row": 1,
+   "sub": {
+    "pt": "tenta no próximo gatilho",
+    "en": "retries next trigger"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "check"
+  },
+  {
+   "from": "check",
+   "to": "read",
+   "when": "new",
+   "label": "new"
+  },
+  {
+   "from": "check",
+   "to": "skip",
+   "when": "dup",
+   "label": "sent already"
+  },
+  {
+   "from": "read",
+   "to": "build"
+  },
+  {
+   "from": "build",
+   "to": "send"
+  },
+  {
+   "from": "send",
+   "to": "logok",
+   "when": "sent",
+   "label": "sent"
+  },
+  {
+   "from": "send",
+   "to": "logerr",
+   "when": "error",
+   "label": "quota"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Toda segunda alguém abre a planilha, filtra a semana, soma por vendedor, copia para um e-mail e às vezes esquece uma linha ou conta venda pendente como paga.",
+   "en": "Every Monday someone opens the sheet, filters the week, sums per seller, pastes into an e-mail and sometimes misses a row or counts a pending sale as paid."
+  },
+  "solution": {
+   "pt": "Um script ligado à própria planilha (sem servidor, sem custo): só conta vendas pagas, compara com a semana anterior, lista linhas com erro em vez de escondê-las e registra cada envio. Gatilho repetido não duplica; falha de envio não derruba nada.",
+   "en": "A script bound to the sheet itself (no server, no cost): counts paid sales only, compares with the previous week, lists bad rows instead of hiding them and logs every send. A repeated trigger does not duplicate; a send failure breaks nothing."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~20 min por semana montando o relatório à mão ≈ 1h20 por mês, e o risco de somar errado some. A cota gratuita do MailApp (cerca de 100 destinatários/dia em conta Gmail comum) cobre um relatório semanal com folga; confira o limite vigente na documentação do Google.",
+   "en": "An estimate, not a measurement: ~20 min a week building the report by hand ≈ 1h20 a month, and the risk of a wrong sum goes away. MailApp's free quota (about 100 recipients/day on a regular Gmail account) covers a weekly report easily; check the current limit in Google's docs."
+  },
+  "stack": [
+   "Google Apps Script (JavaScript)",
+   "SpreadsheetApp",
+   "MailApp",
+   "Triggers"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "Na planilha: Extensões > Apps Script, cole Code.gs, crie as abas Vendas e Relatórios",
+     "Triggers > Adicionar > sendWeeklyReport > Time-driven > semanal",
+     "Fora do Google: node harness.js (simula SpreadsheetApp/MailApp em memória)",
+     "Testes: node tests/test_report.js"
+    ],
+    "en": [
+     "In the sheet: Extensions > Apps Script, paste Code.gs, create the Vendas and Relatórios tabs",
+     "Triggers > Add > sendWeeklyReport > Time-driven > weekly",
+     "Outside Google: node harness.js (simulates SpreadsheetApp/MailApp in memory)",
+     "Tests: node tests/test_report.js"
+    ]
+   },
+   "files": [
+    {
+     "href": "Code.gs",
+     "label": {
+      "pt": "Baixar Code.gs",
+      "en": "Download Code.gs"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O Code.gs desta demo é o arquivo real, sem alteração; só SpreadsheetApp, MailApp e Utilities são simulados na memória da página (e no harness de testes em Node). Não foi executado dentro de uma conta Google: o runtime do Google pode diferir em detalhes (fuso horário, cotas). Dados e e-mails são fictícios (.example); nada é enviado.",
+   "en": "The Code.gs in this demo is the real file, unchanged; only SpreadsheetApp, MailApp and Utilities are simulated in page memory (and in the Node test harness). It was not run inside a Google account: Google's runtime may differ in details (time zone, quotas). Data and e-mails are fictional (.example); nothing is sent."
+  }
+ },
+ "footer": {
+  "pt": "Dados fictícios. Nada é enviado: tudo roda no seu navegador.",
+  "en": "Fictional data. Nothing is sent: everything runs in your browser."
+ },
+ "recorded": [
+  {
+   "input": {
+    "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+    "today": "2026-11-08",
+    "quota": "ok"
+   },
+   "expect": {
+    "result": {
+     "status": "sent",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "skipped": 0
+    },
+    "log": [
+     [
+      "2026-11-08T12:00:00Z",
+      "2026-11-08",
+      6251.5,
+      "OK",
+      0
+     ]
+    ],
+    "mails_sent": 1,
+    "mail": {
+     "to": "financeiro@empresa.example",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50"
+    }
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+    "today": "2026-11-08",
+    "quota": "ok"
+   },
+   "expect": {
+    "result": {
+     "status": "skipped",
+     "reason": "semana 2026-11-08 já enviada"
+    },
+    "log": [
+     [
+      "2026-11-08T12:00:00Z",
+      "2026-11-08",
+      6251.5,
+      "OK",
+      0
+     ]
+    ],
+    "mails_sent": 1,
+    "mail": {
+     "to": "financeiro@empresa.example",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50"
+    }
+   }
+  },
+  {
+   "input": {
+    "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago\n31/11/2026;Paulo;Plano Pro;1200;pago\n2026-11-05;;Plano Pro;900;pago\n2026-11-06;Rita;Plano Pro;abc;pago",
+    "today": "2026-11-08",
+    "quota": "ok"
+   },
+   "expect": {
+    "result": {
+     "status": "sent",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "skipped": 3
+    },
+    "log": [
+     [
+      "2026-11-08T12:00:00Z",
+      "2026-11-08",
+      6251.5,
+      "OK",
+      3
+     ]
+    ],
+    "mails_sent": 1,
+    "mail": {
+     "to": "financeiro@empresa.example",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50\n\nATENÇÃO: 3 linha(s) ignorada(s) por erro de dado:\n  linha 12: data inválida\n  linha 13: vendedor vazio\n  linha 14: valor inválido"
+    }
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+    "today": "2026-11-08",
+    "quota": "quota"
+   },
+   "expect": {
+    "result": {
+     "status": "error",
+     "error": "Service invoked too many times for one day: email."
+    },
+    "log": [
+     [
+      "2026-11-08T12:00:00Z",
+      "2026-11-08",
+      6251.5,
+      "ERRO: Service invoked too many times for one day: email.",
+      0
+     ]
+    ],
+    "mails_sent": 0,
+    "mail": null
+   },
+   "fresh": true
+  },
+  {
+   "input": {
+    "rows": "2026-11-02;Marina;Plano Pro;1200;pago\n2026-11-03;Paulo;Plano Basic;350.5;pago\n2026-11-04;Rita;Plano Pro;1200;pago\n2026-11-05;Marina;Consultoria;2800;pago\n2026-11-06;Paulo;Plano Pro;1200;pendente\n2026-11-07;Rita;Plano Basic;350.5;pago\n2026-11-08;Marina;Plano Basic;350.5;pago\n2026-10-27;Marina;Plano Pro;1200;pago\n2026-10-29;Paulo;Consultoria;1800;pago\n2026-11-01;Rita;Plano Basic;350.5;pago",
+    "today": "2026-11-08",
+    "quota": "ok"
+   },
+   "expect": {
+    "result": {
+     "status": "sent",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "skipped": 0
+    },
+    "log": [
+     [
+      "2026-11-08T12:00:00Z",
+      "2026-11-08",
+      6251.5,
+      "ERRO: Service invoked too many times for one day: email.",
+      0
+     ],
+     [
+      "2026-11-08T12:00:00Z",
+      "2026-11-08",
+      6251.5,
+      "OK",
+      0
+     ]
+    ],
+    "mails_sent": 1,
+    "mail": {
+     "to": "financeiro@empresa.example",
+     "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+     "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50"
+    }
+   }
+  }
+ ]
+}

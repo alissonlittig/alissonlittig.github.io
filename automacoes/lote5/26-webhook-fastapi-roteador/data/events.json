@@ -1,0 +1,9 @@
+{
+ "big":   {"id": "evt_1001", "type": "payment.approved", "data": {"customer": "Lume Studio", "email": "pay@lume.example", "amount": 2400}},
+ "small": {"id": "evt_1002", "type": "payment.approved", "data": {"customer": "Café Norte", "email": "caf@norte.example", "amount": 89.9}},
+ "refund": {"id": "evt_1003", "type": "payment.refunded", "data": {"customer": "Lume Studio", "amount": 300}},
+ "form":  {"id": "evt_1004", "type": "form.submitted", "data": {"name": "Ana Reis", "email": "ana@reis.example"}},
+ "invalid": {"id": "", "type": "payment.deleted", "data": {"amount": -5}},
+ "flaky": {"id": "evt_1005", "type": "payment.approved", "data": {"customer": "Porto Eng", "email": "fin@porto.example", "amount": 5000}},
+ "down":  {"id": "evt_1006", "type": "payment.approved", "data": {"customer": "Serra Foods", "email": "fin@serra.example", "amount": 1500}}
+}

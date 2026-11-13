@@ -1,0 +1,13 @@
+{
+ "normal": [
+  ["2026-11-02","Marina","Plano Pro",1200,"pago"],["2026-11-03","Paulo","Plano Basic",350.5,"pago"],["2026-11-04","Rita","Plano Pro",1200,"pago"],
+  ["2026-11-05","Marina","Consultoria",2800,"pago"],["2026-11-06","Paulo","Plano Pro",1200,"pendente"],["2026-11-07","Rita","Plano Basic",350.5,"pago"],
+  ["2026-11-08","Marina","Plano Basic",350.5,"pago"],["2026-10-27","Marina","Plano Pro",1200,"pago"],["2026-10-29","Paulo","Consultoria",1800,"pago"],["2026-11-01","Rita","Plano Basic",350.5,"pago"]
+ ],
+ "sujo": [
+  ["2026-11-02","Marina","Plano Pro",1200,"pago"],["2026-11-03","Paulo","Plano Basic",350.5,"pago"],["2026-11-04","Rita","Plano Pro",1200,"pago"],
+  ["2026-11-05","Marina","Consultoria",2800,"pago"],["2026-11-06","Paulo","Plano Pro",1200,"pendente"],["2026-11-07","Rita","Plano Basic",350.5,"pago"],
+  ["2026-11-08","Marina","Plano Basic",350.5,"pago"],["2026-10-27","Marina","Plano Pro",1200,"pago"],["2026-10-29","Paulo","Consultoria",1800,"pago"],["2026-11-01","Rita","Plano Basic",350.5,"pago"],
+  ["31/11/2026","Paulo","Plano Pro",1200,"pago"],["2026-11-05","","Plano Pro",900,"pago"],["2026-11-06","Rita","Plano Pro","abc","pago"]
+ ]
+}

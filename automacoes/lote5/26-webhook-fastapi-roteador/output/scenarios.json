@@ -1,0 +1,373 @@
+{
+ "big": {
+  "input": {
+   "event": "{\"id\": \"evt_1001\", \"type\": \"payment.approved\", \"data\": {\"customer\": \"Lume Studio\", \"email\": \"pay@lume.example\", \"amount\": 2400}}",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 200,
+  "body": {
+   "status": "ok",
+   "id": "evt_1001",
+   "source": "shop",
+   "delivered": [
+    {
+     "action": "sheet",
+     "attempts": 1
+    },
+    {
+     "action": "mail",
+     "attempts": 1
+    },
+    {
+     "action": "chat",
+     "attempts": 1
+    }
+   ],
+   "dead_letter": []
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 1,
+   "chat": 1,
+   "mail": 1,
+   "dead": 0
+  }
+ },
+ "small": {
+  "input": {
+   "event": "{\"id\": \"evt_1002\", \"type\": \"payment.approved\", \"data\": {\"customer\": \"Café Norte\", \"email\": \"caf@norte.example\", \"amount\": 89.9}}",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 200,
+  "body": {
+   "status": "ok",
+   "id": "evt_1002",
+   "source": "shop",
+   "delivered": [
+    {
+     "action": "sheet",
+     "attempts": 1
+    },
+    {
+     "action": "mail",
+     "attempts": 1
+    }
+   ],
+   "dead_letter": []
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 2,
+   "chat": 1,
+   "mail": 2,
+   "dead": 0
+  }
+ },
+ "refund": {
+  "input": {
+   "event": "{\"id\": \"evt_1003\", \"type\": \"payment.refunded\", \"data\": {\"customer\": \"Lume Studio\", \"amount\": 300}}",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 200,
+  "body": {
+   "status": "ok",
+   "id": "evt_1003",
+   "source": "shop",
+   "delivered": [
+    {
+     "action": "sheet",
+     "attempts": 1
+    },
+    {
+     "action": "chat",
+     "attempts": 1
+    }
+   ],
+   "dead_letter": []
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 3,
+   "chat": 2,
+   "mail": 2,
+   "dead": 0
+  }
+ },
+ "form": {
+  "input": {
+   "event": "{\"id\": \"evt_1004\", \"type\": \"form.submitted\", \"data\": {\"name\": \"Ana Reis\", \"email\": \"ana@reis.example\"}}",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 200,
+  "body": {
+   "status": "ok",
+   "id": "evt_1004",
+   "source": "shop",
+   "delivered": [
+    {
+     "action": "sheet",
+     "attempts": 1
+    },
+    {
+     "action": "mail",
+     "attempts": 1
+    }
+   ],
+   "dead_letter": []
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 4,
+   "chat": 2,
+   "mail": 3,
+   "dead": 0
+  }
+ },
+ "duplicate": {
+  "input": {
+   "event": "{\"id\": \"evt_1001\", \"type\": \"payment.approved\", \"data\": {\"customer\": \"Lume Studio\", \"email\": \"pay@lume.example\", \"amount\": 2400}}",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 200,
+  "body": {
+   "status": "duplicate",
+   "id": "evt_1001",
+   "first_result": "ok"
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 4,
+   "chat": 2,
+   "mail": 3,
+   "dead": 0
+  }
+ },
+ "bad_signature": {
+  "input": {
+   "event": "{\"id\": \"evt_1002\", \"type\": \"payment.approved\", \"data\": {\"customer\": \"Café Norte\", \"email\": \"caf@norte.example\", \"amount\": 89.9}}",
+   "sig": "bad",
+   "chat": "up"
+  },
+  "status": 401,
+  "body": {
+   "status": "rejected",
+   "error": "invalid signature"
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 4,
+   "chat": 2,
+   "mail": 3,
+   "dead": 0
+  }
+ },
+ "invalid": {
+  "input": {
+   "event": "{\"id\": \"\", \"type\": \"payment.deleted\", \"data\": {\"amount\": -5}}",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 422,
+  "body": {
+   "status": "rejected",
+   "errors": [
+    "id is required",
+    "type must be payment.approved|payment.refunded|form.submitted",
+    "data.amount must be a number > 0"
+   ]
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 4,
+   "chat": 2,
+   "mail": 3,
+   "dead": 0
+  }
+ },
+ "bad_json": {
+  "input": {
+   "event": "{oops",
+   "sig": "valid",
+   "chat": "up"
+  },
+  "status": 400,
+  "body": {
+   "status": "rejected",
+   "errors": [
+    "malformed JSON"
+   ]
+  },
+  "sleeps": [],
+  "counts": {
+   "sheet": 4,
+   "chat": 2,
+   "mail": 3,
+   "dead": 0
+  }
+ },
+ "flaky": {
+  "input": {
+   "event": "{\"id\": \"evt_1005\", \"type\": \"payment.approved\", \"data\": {\"customer\": \"Porto Eng\", \"email\": \"fin@porto.example\", \"amount\": 5000}}",
+   "sig": "valid",
+   "chat": "flaky"
+  },
+  "status": 200,
+  "body": {
+   "status": "ok",
+   "id": "evt_1005",
+   "source": "shop",
+   "delivered": [
+    {
+     "action": "sheet",
+     "attempts": 1
+    },
+    {
+     "action": "mail",
+     "attempts": 1
+    },
+    {
+     "action": "chat",
+     "attempts": 3
+    }
+   ],
+   "dead_letter": []
+  },
+  "sleeps": [
+   0.5,
+   1.0
+  ],
+  "counts": {
+   "sheet": 5,
+   "chat": 3,
+   "mail": 4,
+   "dead": 0
+  }
+ },
+ "down": {
+  "input": {
+   "event": "{\"id\": \"evt_1006\", \"type\": \"payment.approved\", \"data\": {\"customer\": \"Serra Foods\", \"email\": \"fin@serra.example\", \"amount\": 1500}}",
+   "sig": "valid",
+   "chat": "down"
+  },
+  "status": 202,
+  "body": {
+   "status": "partial",
+   "id": "evt_1006",
+   "source": "shop",
+   "delivered": [
+    {
+     "action": "sheet",
+     "attempts": 1
+    },
+    {
+     "action": "mail",
+     "attempts": 1
+    }
+   ],
+   "dead_letter": [
+    {
+     "action": "chat",
+     "error": "chat: 503 service unavailable",
+     "attempts": 3
+    }
+   ]
+  },
+  "sleeps": [
+   0.5,
+   1.0
+  ],
+  "counts": {
+   "sheet": 6,
+   "chat": 3,
+   "mail": 5,
+   "dead": 1
+  }
+ },
+ "_state": {
+  "sheet": [
+   [
+    "evt_1001",
+    "payment.approved",
+    "Lume Studio",
+    2400
+   ],
+   [
+    "evt_1002",
+    "payment.approved",
+    "Café Norte",
+    89.9
+   ],
+   [
+    "evt_1003",
+    "payment.refunded",
+    "Lume Studio",
+    -300
+   ],
+   [
+    "evt_1004",
+    "form.submitted",
+    "Ana Reis",
+    "ana@reis.example"
+   ],
+   [
+    "evt_1005",
+    "payment.approved",
+    "Porto Eng",
+    5000
+   ],
+   [
+    "evt_1006",
+    "payment.approved",
+    "Serra Foods",
+    1500
+   ]
+  ],
+  "chat": [
+   "Big sale: Lume Studio paid 2400.00",
+   "Refund: Lume Studio 300.00 (check the reason)",
+   "Big sale: Porto Eng paid 5000.00"
+  ],
+  "mail": [
+   {
+    "to": "pay@lume.example",
+    "subject": "Receipt evt_1001"
+   },
+   {
+    "to": "caf@norte.example",
+    "subject": "Receipt evt_1002"
+   },
+   {
+    "to": "ana@reis.example",
+    "subject": "We got your message"
+   },
+   {
+    "to": "fin@porto.example",
+    "subject": "Receipt evt_1005"
+   },
+   {
+    "to": "fin@serra.example",
+    "subject": "Receipt evt_1006"
+   }
+  ],
+  "dead_letter": [
+   {
+    "event": {
+     "id": "evt_1006",
+     "type": "payment.approved",
+     "data": {
+      "customer": "Serra Foods",
+      "email": "fin@serra.example",
+      "amount": 1500
+     }
+    },
+    "action": "chat",
+    "arg": "Big sale: Serra Foods paid 1500.00"
+   }
+  ]
+ }
+}

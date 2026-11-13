@@ -1,0 +1,488 @@
+{
+ "refund_auto": {
+  "input": {
+   "question": "I want a refund for order ORD-1001, it arrived broken.",
+   "model": "good"
+  },
+  "answer": "Refund of 89.90 for ORD-1001 issued.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1001"
+    },
+    "result": {
+     "order_id": "ORD-1001",
+     "status": "delivered",
+     "days": 12,
+     "total": 89.9
+    }
+   },
+   {
+    "n": 2,
+    "tool": "create_refund",
+    "args": {
+     "order_id": "ORD-1001",
+     "amount": 89.9
+    },
+    "result": {
+     "order_id": "ORD-1001",
+     "amount": 89.9,
+     "status": "refunded"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   }
+  ]
+ },
+ "refund_approval": {
+  "input": {
+   "question": "Please refund ORD-1002",
+   "model": "good"
+  },
+  "answer": "Refund of 249.00 for ORD-1002 is above the automatic limit and was sent for human approval.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1002"
+    },
+    "result": {
+     "order_id": "ORD-1002",
+     "status": "delivered",
+     "days": 5,
+     "total": 249.0
+    }
+   },
+   {
+    "n": 2,
+    "tool": "create_refund",
+    "args": {
+     "order_id": "ORD-1002",
+     "amount": 249.0
+    },
+    "result": {
+     "order_id": "ORD-1002",
+     "amount": 249.0,
+     "status": "pending_approval"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "refund_twice": {
+  "input": {
+   "question": "refund ORD-1001 again please",
+   "model": "good"
+  },
+  "answer": "I cannot refund this order: already refunded or pending.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1001"
+    },
+    "result": {
+     "order_id": "ORD-1001",
+     "status": "delivered",
+     "days": 12,
+     "total": 89.9
+    }
+   },
+   {
+    "n": 2,
+    "tool": "create_refund",
+    "args": {
+     "order_id": "ORD-1001",
+     "amount": 89.9
+    },
+    "result": {
+     "error": "already refunded or pending"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "refund_late": {
+  "input": {
+   "question": "Quero reembolso do pedido ORD-1004",
+   "model": "good"
+  },
+  "answer": "I cannot refund this order: not refundable (status delivered, 45 days).",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1004"
+    },
+    "result": {
+     "order_id": "ORD-1004",
+     "status": "delivered",
+     "days": 45,
+     "total": 120.0
+    }
+   },
+   {
+    "n": 2,
+    "tool": "create_refund",
+    "args": {
+     "order_id": "ORD-1004",
+     "amount": 120.0
+    },
+    "result": {
+     "error": "not refundable (status delivered, 45 days)"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "status": {
+  "input": {
+   "question": "Where is my order ORD-1003?",
+   "model": "good"
+  },
+  "answer": "Order ORD-1003 is shipped, expected on 2026-11-14.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "faq": {
+  "input": {
+   "question": "How long does shipping take?",
+   "model": "good"
+  },
+  "answer": "Standard delivery takes 3-7 business days.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "search_faq",
+    "args": {
+     "query": "How long does shipping take?"
+    },
+    "result": {
+     "answer": "Standard delivery takes 3-7 business days."
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "not_found": {
+  "input": {
+   "question": "status of ORD-9999",
+   "model": "good"
+  },
+  "answer": "I could not find order ORD-9999. Please check the id.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-9999"
+    },
+    "result": {
+     "error": "order not found"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "no_id": {
+  "input": {
+   "question": "I need a refund",
+   "model": "good"
+  },
+  "answer": "Which order is this about? Please send the order id (ORD-xxxx).",
+  "steps": [],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "sloppy_model": {
+  "input": {
+   "question": "status ORD-1003",
+   "model": "sloppy"
+  },
+  "answer": "Order ORD-1003 is shipped, expected on 2026-11-14.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {},
+    "result": {
+     "error": "invalid arguments: missing order_id"
+    }
+   },
+   {
+    "n": 2,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "loop_guard": {
+  "input": {
+   "question": "status ORD-1003",
+   "model": "loop"
+  },
+  "answer": "I could not finish within 6 steps, so a human agent will take over.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   },
+   {
+    "n": 2,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   },
+   {
+    "n": 3,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   },
+   {
+    "n": 4,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   },
+   {
+    "n": 5,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   },
+   {
+    "n": 6,
+    "tool": "get_order",
+    "args": {
+     "order_id": "ORD-1003"
+    },
+    "result": {
+     "order_id": "ORD-1003",
+     "status": "shipped",
+     "days": 0,
+     "total": 59.0,
+     "eta": "2026-11-14"
+    }
+   }
+  ],
+  "stopped": true,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ },
+ "unknown_faq": {
+  "input": {
+   "question": "Do you sell gift cards?",
+   "model": "good"
+  },
+  "answer": "I could not find that in the FAQ, so I am handing this to a human agent.",
+  "steps": [
+   {
+    "n": 1,
+    "tool": "search_faq",
+    "args": {
+     "query": "Do you sell gift cards?"
+    },
+    "result": {
+     "error": "no faq match"
+    }
+   }
+  ],
+  "stopped": false,
+  "ledger": [
+   {
+    "order_id": "ORD-1001",
+    "amount": 89.9,
+    "status": "refunded"
+   },
+   {
+    "order_id": "ORD-1002",
+    "amount": 249.0,
+    "status": "pending_approval"
+   }
+  ]
+ }
+}

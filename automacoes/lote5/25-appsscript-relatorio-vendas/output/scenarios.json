@@ -1,0 +1,118 @@
+{
+ "normal": {
+  "today": "2026-11-08",
+  "result": {
+   "status": "sent",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "skipped": 0
+  },
+  "mail": {
+   "to": "financeiro@empresa.example",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50"
+  },
+  "log": [
+   [
+    "2026-11-08T12:00:00Z",
+    "2026-11-08",
+    6251.5,
+    "OK",
+    0
+   ]
+  ],
+  "mails_sent": 1
+ },
+ "repetido": {
+  "today": "2026-11-08",
+  "result": {
+   "status": "skipped",
+   "reason": "semana 2026-11-08 já enviada"
+  },
+  "mail": {
+   "to": "financeiro@empresa.example",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50"
+  },
+  "log": [
+   [
+    "2026-11-08T12:00:00Z",
+    "2026-11-08",
+    6251.5,
+    "OK",
+    0
+   ]
+  ],
+  "mails_sent": 1
+ },
+ "dados_sujos": {
+  "today": "2026-11-08",
+  "result": {
+   "status": "sent",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "skipped": 3
+  },
+  "mail": {
+   "to": "financeiro@empresa.example",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50\n\nATENÇÃO: 3 linha(s) ignorada(s) por erro de dado:\n  linha 12: data inválida\n  linha 13: vendedor vazio\n  linha 14: valor inválido"
+  },
+  "log": [
+   [
+    "2026-11-08T12:00:00Z",
+    "2026-11-08",
+    6251.5,
+    "OK",
+    3
+   ]
+  ],
+  "mails_sent": 1
+ },
+ "cota_estourada": {
+  "today": "2026-11-08",
+  "result": {
+   "status": "error",
+   "error": "Service invoked too many times for one day: email."
+  },
+  "mail": null,
+  "log": [
+   [
+    "2026-11-08T12:00:00Z",
+    "2026-11-08",
+    6251.5,
+    "ERRO: Service invoked too many times for one day: email.",
+    0
+   ]
+  ],
+  "mails_sent": 0
+ },
+ "retentativa_ok": {
+  "today": "2026-11-08",
+  "result": {
+   "status": "sent",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "skipped": 0
+  },
+  "mail": {
+   "to": "financeiro@empresa.example",
+   "subject": "Vendas da semana 2026-11-08: R$ 6.251,50",
+   "body": "Vendas pagas de 2026-11-02 a 2026-11-08: R$ 6.251,50 em 6 vendas.\n+86,6% vs semana anterior (R$ 3.350,50)\n\nPor vendedor:\n  Marina: R$ 4.350,50\n  Rita: R$ 1.550,50\n  Paulo: R$ 350,50\n\nPor produto:\n  Consultoria: R$ 2.800,00\n  Plano Pro: R$ 2.400,00\n  Plano Basic: R$ 1.051,50"
+  },
+  "log": [
+   [
+    "2026-11-08T12:00:00Z",
+    "2026-11-08",
+    6251.5,
+    "ERRO: Service invoked too many times for one day: email.",
+    0
+   ],
+   [
+    "2026-11-08T12:00:00Z",
+    "2026-11-08",
+    6251.5,
+    "OK",
+    0
+   ]
+  ],
+  "mails_sent": 1
+ }
+}

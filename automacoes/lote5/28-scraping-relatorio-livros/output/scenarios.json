@@ -1,0 +1,237 @@
+{
+ "ok": {
+  "input": {
+   "pages": "3",
+   "site": "ok"
+  },
+  "status": "ok",
+  "error": null,
+  "requests": [
+   "page-1.html",
+   "page-2.html",
+   "page-3.html"
+  ],
+  "sleeps": [
+   1.0,
+   1.0
+  ],
+  "http": [
+   "robots.txt",
+   "page-1.html",
+   "page-2.html",
+   "page-3.html"
+  ],
+  "report": {
+   "books": 60,
+   "pages": 3,
+   "avg": 35.0,
+   "median": 33.48,
+   "min": "In Her Wake (12.84)",
+   "max": "Slow States of Collapse: Poems (57.31)",
+   "by_rating": {
+    "1": 15,
+    "2": 8,
+    "3": 13,
+    "4": 10,
+    "5": 14
+   },
+   "out_of_stock": 0,
+   "best_value": [
+    [
+     "Untitled Collection: Sabbath Poems 2014",
+     14.27,
+     4
+    ],
+    [
+     "Sophie's World",
+     15.94,
+     5
+    ],
+    [
+     "Thirst",
+     17.27,
+     5
+    ]
+   ]
+  },
+  "markdown": "# Book price report\n\n60 books from 3 page(s). Average £35.00, median £33.48.\nCheapest: In Her Wake (12.84). Most expensive: Slow States of Collapse: Poems (57.31).\nRatings 1-5: 15 / 8 / 13 / 10 / 14. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Untitled Collection: Sabbath Poems 2014 · £14.27 · 4 stars\n- Sophie's World · £15.94 · 5 stars\n- Thirst · £17.27 · 5 stars",
+  "csv_rows": 60
+ },
+ "one_page": {
+  "input": {
+   "pages": "1",
+   "site": "ok"
+  },
+  "status": "ok",
+  "error": null,
+  "requests": [
+   "page-1.html"
+  ],
+  "sleeps": [],
+  "http": [
+   "robots.txt",
+   "page-1.html"
+  ],
+  "report": {
+   "books": 20,
+   "pages": 1,
+   "avg": 38.05,
+   "median": 41.38,
+   "min": "Starving Hearts (Triangular Trade Trilogy, #1) (13.99)",
+   "max": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25)",
+   "by_rating": {
+    "1": 6,
+    "2": 3,
+    "3": 3,
+    "4": 4,
+    "5": 4
+   },
+   "out_of_stock": 0,
+   "best_value": [
+    [
+     "Set Me Free",
+     17.46,
+     5
+    ],
+    [
+     "Shakespeare's Sonnets",
+     20.66,
+     4
+    ],
+    [
+     "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+     22.6,
+     4
+    ]
+   ]
+  },
+  "markdown": "# Book price report\n\n20 books from 1 page(s). Average £38.05, median £41.38.\nCheapest: Starving Hearts (Triangular Trade Trilogy, #1) (13.99). Most expensive: Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25).\nRatings 1-5: 6 / 3 / 3 / 4 / 4. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Set Me Free · £17.46 · 5 stars\n- Shakespeare's Sonnets · £20.66 · 4 stars\n- The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics · £22.60 · 4 stars",
+  "csv_rows": 20
+ },
+ "layout_changed": {
+  "input": {
+   "pages": "3",
+   "site": "layout"
+  },
+  "status": "partial",
+  "error": "layout changed on page-2.html: no product_pod blocks found",
+  "requests": [
+   "page-1.html",
+   "page-2.html"
+  ],
+  "sleeps": [
+   1.0
+  ],
+  "http": [
+   "robots.txt",
+   "page-1.html",
+   "page-2.html"
+  ],
+  "report": {
+   "books": 20,
+   "pages": 1,
+   "avg": 38.05,
+   "median": 41.38,
+   "min": "Starving Hearts (Triangular Trade Trilogy, #1) (13.99)",
+   "max": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25)",
+   "by_rating": {
+    "1": 6,
+    "2": 3,
+    "3": 3,
+    "4": 4,
+    "5": 4
+   },
+   "out_of_stock": 0,
+   "best_value": [
+    [
+     "Set Me Free",
+     17.46,
+     5
+    ],
+    [
+     "Shakespeare's Sonnets",
+     20.66,
+     4
+    ],
+    [
+     "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+     22.6,
+     4
+    ]
+   ]
+  },
+  "markdown": "# Book price report (PARTIAL)\n\n> layout changed on page-2.html: no product_pod blocks found\n\n20 books from 1 page(s). Average £38.05, median £41.38.\nCheapest: Starving Hearts (Triangular Trade Trilogy, #1) (13.99). Most expensive: Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25).\nRatings 1-5: 6 / 3 / 3 / 4 / 4. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Set Me Free · £17.46 · 5 stars\n- Shakespeare's Sonnets · £20.66 · 4 stars\n- The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics · £22.60 · 4 stars",
+  "csv_rows": 20
+ },
+ "forbidden": {
+  "input": {
+   "pages": "3",
+   "site": "forbidden"
+  },
+  "status": "partial",
+  "error": "HTTP 403 on page-2.html: stopped, not retried",
+  "requests": [
+   "page-1.html",
+   "page-2.html"
+  ],
+  "sleeps": [
+   1.0
+  ],
+  "http": [
+   "robots.txt",
+   "page-1.html",
+   "page-2.html"
+  ],
+  "report": {
+   "books": 20,
+   "pages": 1,
+   "avg": 38.05,
+   "median": 41.38,
+   "min": "Starving Hearts (Triangular Trade Trilogy, #1) (13.99)",
+   "max": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25)",
+   "by_rating": {
+    "1": 6,
+    "2": 3,
+    "3": 3,
+    "4": 4,
+    "5": 4
+   },
+   "out_of_stock": 0,
+   "best_value": [
+    [
+     "Set Me Free",
+     17.46,
+     5
+    ],
+    [
+     "Shakespeare's Sonnets",
+     20.66,
+     4
+    ],
+    [
+     "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+     22.6,
+     4
+    ]
+   ]
+  },
+  "markdown": "# Book price report (PARTIAL)\n\n> HTTP 403 on page-2.html: stopped, not retried\n\n20 books from 1 page(s). Average £38.05, median £41.38.\nCheapest: Starving Hearts (Triangular Trade Trilogy, #1) (13.99). Most expensive: Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25).\nRatings 1-5: 6 / 3 / 3 / 4 / 4. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Set Me Free · £17.46 · 5 stars\n- Shakespeare's Sonnets · £20.66 · 4 stars\n- The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics · £22.60 · 4 stars",
+  "csv_rows": 20
+ },
+ "robots_disallow": {
+  "input": {
+   "pages": "3",
+   "site": "robots"
+  },
+  "status": "blocked",
+  "error": "robots.txt disallows this path",
+  "requests": [],
+  "sleeps": [],
+  "http": [
+   "robots.txt"
+  ],
+  "report": null,
+  "markdown": "# Book price report (NOT COLLECTED)\n\n> robots.txt disallows this path\n",
+  "csv_rows": 0
+ }
+}

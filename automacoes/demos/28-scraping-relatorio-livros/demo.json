@@ -1,0 +1,606 @@
+{
+ "slug": "28-scraping-relatorio-livros",
+ "title": {
+  "pt": "Scraping educado: catálogo público vira relatório de preços",
+  "en": "Polite scraping: a public catalog becomes a price report"
+ },
+ "tag": {
+  "pt": "Python · scraping · relatório",
+  "en": "Python · scraping · report"
+ },
+ "summary": {
+  "pt": "Um robô lê o catálogo de um site de prática (books.toscrape.com), respeita robots.txt, se identifica, espera entre páginas e gera um relatório com preço médio, notas e os melhores custo-benefício. Se o site bloquear ou mudar o layout, ele para e avisa que o relatório é parcial, em vez de entregar número errado.",
+  "en": "A bot reads the catalog of a practice site (books.toscrape.com), respects robots.txt, identifies itself, waits between pages and builds a report with average price, ratings and the best value picks. If the site blocks it or the layout changes, it stops and says the report is partial instead of delivering wrong numbers."
+ },
+ "input": {
+  "nosim": true,
+  "trigger": {
+   "pt": "python scraper.py --live --pages 3",
+   "en": "python scraper.py --live --pages 3"
+  },
+  "note": {
+   "pt": "A demo usa 3 páginas salvas do site (60 livros), sem internet. O seletor 'Estado do site' simula problemas reais: bloqueio 403, layout alterado e robots.txt proibindo.",
+   "en": "The demo uses 3 saved pages of the site (60 books), no internet. The 'Site state' selector simulates real problems: a 403 block, a changed layout and a robots.txt disallow."
+  },
+  "presets": [
+   {
+    "label": {
+     "pt": "1. 3 páginas, tudo certo",
+     "en": "1. 3 pages, all fine"
+    },
+    "values": {
+     "pages": "3",
+     "site": "ok"
+    }
+   },
+   {
+    "label": {
+     "pt": "2. Layout mudou na pág. 2",
+     "en": "2. Layout changed on page 2"
+    },
+    "values": {
+     "pages": "3",
+     "site": "layout"
+    }
+   },
+   {
+    "label": {
+     "pt": "3. Bloqueio 403",
+     "en": "3. 403 block"
+    },
+    "values": {
+     "pages": "3",
+     "site": "forbidden"
+    }
+   },
+   {
+    "label": {
+     "pt": "4. robots.txt proíbe",
+     "en": "4. robots.txt disallows"
+    },
+    "values": {
+     "pages": "3",
+     "site": "robots"
+    }
+   },
+   {
+    "label": {
+     "pt": "5. Só 1 página",
+     "en": "5. Only 1 page"
+    },
+    "values": {
+     "pages": "1",
+     "site": "ok"
+    }
+   }
+  ],
+  "fields": [
+   {
+    "key": "pages",
+    "type": "text",
+    "value": "3",
+    "label": {
+     "pt": "Páginas (1 a 3)",
+     "en": "Pages (1 to 3)"
+    }
+   },
+   {
+    "key": "site",
+    "type": "select",
+    "value": "ok",
+    "label": {
+     "pt": "Estado do site",
+     "en": "Site state"
+    },
+    "options": [
+     {
+      "value": "ok",
+      "label": {
+       "pt": "Normal",
+       "en": "Normal"
+      }
+     },
+     {
+      "value": "layout",
+      "label": {
+       "pt": "Layout mudou na pág. 2",
+       "en": "Layout changed on page 2"
+      }
+     },
+     {
+      "value": "forbidden",
+      "label": {
+       "pt": "Pág. 2 responde 403",
+       "en": "Page 2 answers 403"
+      }
+     },
+     {
+      "value": "robots",
+      "label": {
+       "pt": "robots.txt proíbe /catalogue/",
+       "en": "robots.txt disallows /catalogue/"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nodes": [
+  {
+   "id": "start",
+   "name": "Run",
+   "icon": "webhook",
+   "col": 0,
+   "row": 0,
+   "sub": {
+    "pt": "até N páginas",
+    "en": "up to N pages"
+   }
+  },
+  {
+   "id": "robots",
+   "name": "robots.txt allows?",
+   "icon": "if",
+   "col": 1,
+   "row": 0,
+   "sub": {
+    "pt": "lê antes de coletar",
+    "en": "read before collecting"
+   }
+  },
+  {
+   "id": "blocked",
+   "name": "Stop: NOT COLLECTED",
+   "icon": "respond",
+   "col": 1,
+   "row": 1,
+   "sub": {
+    "pt": "nenhuma página pedida",
+    "en": "no page requested"
+   }
+  },
+  {
+   "id": "fetch",
+   "name": "GET page",
+   "icon": "http",
+   "col": 2,
+   "row": 0,
+   "sub": {
+    "pt": "User-Agent identificado",
+    "en": "identified User-Agent"
+   }
+  },
+  {
+   "id": "parse",
+   "name": "Parse products",
+   "icon": "code",
+   "col": 3,
+   "row": 0,
+   "sub": {
+    "pt": "título · preço · nota · estoque",
+    "en": "title · price · rating · stock"
+   }
+  },
+  {
+   "id": "next",
+   "name": "More pages?",
+   "icon": "if",
+   "col": 4,
+   "row": 0,
+   "sub": {
+    "pt": "link next + limite",
+    "en": "next link + limit"
+   }
+  },
+  {
+   "id": "wait",
+   "name": "Wait 1 s",
+   "icon": "set",
+   "col": 4,
+   "row": 1,
+   "sub": {
+    "pt": "não sobrecarrega o site",
+    "en": "does not hammer the site"
+   }
+  },
+  {
+   "id": "report",
+   "name": "Build report",
+   "icon": "file",
+   "col": 5,
+   "row": 0,
+   "sub": {
+    "pt": "report.md + books.csv",
+    "en": "report.md + books.csv"
+   }
+  },
+  {
+   "id": "partial",
+   "name": "PARTIAL report",
+   "icon": "file",
+   "col": 3,
+   "row": 1,
+   "sub": {
+    "pt": "erro ou layout mudou",
+    "en": "error or layout changed"
+   }
+  }
+ ],
+ "edges": [
+  {
+   "from": "start",
+   "to": "robots"
+  },
+  {
+   "from": "robots",
+   "to": "fetch",
+   "when": "ok",
+   "label": "allowed"
+  },
+  {
+   "from": "robots",
+   "to": "blocked",
+   "when": "no",
+   "label": "disallow"
+  },
+  {
+   "from": "fetch",
+   "to": "parse",
+   "when": "ok",
+   "label": "200"
+  },
+  {
+   "from": "fetch",
+   "to": "partial",
+   "when": "err",
+   "label": "403/5xx"
+  },
+  {
+   "from": "parse",
+   "to": "next",
+   "when": "ok",
+   "label": "ok"
+  },
+  {
+   "from": "parse",
+   "to": "partial",
+   "when": "layout",
+   "label": "layout"
+  },
+  {
+   "from": "next",
+   "to": "report",
+   "when": "done",
+   "label": "done"
+  },
+  {
+   "from": "next",
+   "to": "wait",
+   "when": "more",
+   "label": "more"
+  },
+  {
+   "from": "wait",
+   "to": "fetch",
+   "route": [
+    [
+     4,
+     2,
+     "b"
+    ],
+    [
+     2,
+     2,
+     "b"
+    ]
+   ],
+   "rs": "b",
+   "re": "b"
+  }
+ ],
+ "case": {
+  "problem": {
+   "pt": "Acompanhar preços de um catálogo público à mão é copiar e colar página por página; quando alguém faz um script rápido, ele quebra calado quando o site muda e ninguém percebe os números errados.",
+   "en": "Tracking prices of a public catalog by hand is copy-pasting page by page; when someone writes a quick script, it breaks silently when the site changes and nobody notices the wrong numbers."
+  },
+  "solution": {
+   "pt": "Um coletor pequeno, só biblioteca padrão: lê robots.txt, usa User-Agent com identificação, pausa entre páginas, para em 403/429/5xx sem insistir e levanta erro quando o HTML não tem o formato esperado. A saída é um relatório em Markdown e um CSV.",
+   "en": "A small collector, standard library only: reads robots.txt, uses an identified User-Agent, pauses between pages, stops on 403/429/5xx without insisting and raises an error when the HTML does not have the expected shape. Output is a Markdown report and a CSV."
+  },
+  "gain": {
+   "pt": "Estimativa, não medição: ~30 min por rodada coletando e somando 60 itens à mão; o script leva segundos. Raspagem quebra quando o site muda: conte com manutenção, e prefira a API oficial quando existir. Só use em sites que permitem; este é um site de prática feito para isso.",
+   "en": "An estimate, not a measurement: ~30 min per round collecting and summing 60 items by hand; the script takes seconds. Scrapers break when the site changes: plan for maintenance, and prefer the official API when one exists. Only use it on sites that allow it; this one is a practice site made for it."
+  },
+  "stack": [
+   "Python 3.13",
+   "urllib",
+   "re",
+   "urllib.robotparser",
+   "statistics"
+  ],
+  "run": {
+   "title": {
+    "pt": "Como rodar",
+    "en": "How to run"
+   },
+   "steps": {
+    "pt": [
+     "python scraper.py (usa fixtures/, sem rede)",
+     "python scraper.py --live --pages 3 (3 requisições educadas ao site de prática)",
+     "python run_scenarios.py (5 cenários → output/)",
+     "Testes: python tests/test_scraper.py"
+    ],
+    "en": [
+     "python scraper.py (uses fixtures/, no network)",
+     "python scraper.py --live --pages 3 (3 polite requests to the practice site)",
+     "python run_scenarios.py (5 scenarios → output/)",
+     "Tests: python tests/test_scraper.py"
+    ]
+   },
+   "files": [
+    {
+     "href": "scraper.py",
+     "label": {
+      "pt": "Baixar scraper.py",
+      "en": "Download scraper.py"
+     }
+    }
+   ]
+  },
+  "honesty": {
+   "pt": "O código é o scraper.py portado para JavaScript e conferido contra as saídas gravadas do Python; as páginas são cópias salvas do site de prática, então a demo não acessa a internet. Bloqueio 403 e layout alterado são simulados sobre essas cópias. A execução ao vivo foi feita uma vez (2 páginas) e funcionou. Preços e livros são do site de prática, não são dados reais de venda.",
+   "en": "The code is scraper.py ported to JavaScript and checked against recorded Python outputs; the pages are saved copies of the practice site, so the demo does not touch the internet. The 403 block and the changed layout are simulated on those copies. A live run was done once (2 pages) and worked. Prices and books come from the practice site, they are not real sales data."
+  }
+ },
+ "footer": {
+  "pt": "Nada é enviado: tudo roda no seu navegador, sem acessar nenhum site.",
+  "en": "Nothing is sent: everything runs in your browser, without touching any site."
+ },
+ "recorded": [
+  {
+   "input": {
+    "pages": "3",
+    "site": "ok"
+   },
+   "expect": {
+    "status": "ok",
+    "error": null,
+    "requests": [
+     "page-1.html",
+     "page-2.html",
+     "page-3.html"
+    ],
+    "sleeps": [
+     1.0,
+     1.0
+    ],
+    "http": [
+     "robots.txt",
+     "page-1.html",
+     "page-2.html",
+     "page-3.html"
+    ],
+    "report": {
+     "books": 60,
+     "pages": 3,
+     "avg": 35.0,
+     "median": 33.48,
+     "min": "In Her Wake (12.84)",
+     "max": "Slow States of Collapse: Poems (57.31)",
+     "by_rating": {
+      "1": 15,
+      "2": 8,
+      "3": 13,
+      "4": 10,
+      "5": 14
+     },
+     "out_of_stock": 0,
+     "best_value": [
+      [
+       "Untitled Collection: Sabbath Poems 2014",
+       14.27,
+       4
+      ],
+      [
+       "Sophie's World",
+       15.94,
+       5
+      ],
+      [
+       "Thirst",
+       17.27,
+       5
+      ]
+     ]
+    },
+    "markdown": "# Book price report\n\n60 books from 3 page(s). Average £35.00, median £33.48.\nCheapest: In Her Wake (12.84). Most expensive: Slow States of Collapse: Poems (57.31).\nRatings 1-5: 15 / 8 / 13 / 10 / 14. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Untitled Collection: Sabbath Poems 2014 · £14.27 · 4 stars\n- Sophie's World · £15.94 · 5 stars\n- Thirst · £17.27 · 5 stars",
+    "csv_rows": 60
+   }
+  },
+  {
+   "input": {
+    "pages": "1",
+    "site": "ok"
+   },
+   "expect": {
+    "status": "ok",
+    "error": null,
+    "requests": [
+     "page-1.html"
+    ],
+    "sleeps": [],
+    "http": [
+     "robots.txt",
+     "page-1.html"
+    ],
+    "report": {
+     "books": 20,
+     "pages": 1,
+     "avg": 38.05,
+     "median": 41.38,
+     "min": "Starving Hearts (Triangular Trade Trilogy, #1) (13.99)",
+     "max": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25)",
+     "by_rating": {
+      "1": 6,
+      "2": 3,
+      "3": 3,
+      "4": 4,
+      "5": 4
+     },
+     "out_of_stock": 0,
+     "best_value": [
+      [
+       "Set Me Free",
+       17.46,
+       5
+      ],
+      [
+       "Shakespeare's Sonnets",
+       20.66,
+       4
+      ],
+      [
+       "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+       22.6,
+       4
+      ]
+     ]
+    },
+    "markdown": "# Book price report\n\n20 books from 1 page(s). Average £38.05, median £41.38.\nCheapest: Starving Hearts (Triangular Trade Trilogy, #1) (13.99). Most expensive: Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25).\nRatings 1-5: 6 / 3 / 3 / 4 / 4. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Set Me Free · £17.46 · 5 stars\n- Shakespeare's Sonnets · £20.66 · 4 stars\n- The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics · £22.60 · 4 stars",
+    "csv_rows": 20
+   }
+  },
+  {
+   "input": {
+    "pages": "3",
+    "site": "layout"
+   },
+   "expect": {
+    "status": "partial",
+    "error": "layout changed on page-2.html: no product_pod blocks found",
+    "requests": [
+     "page-1.html",
+     "page-2.html"
+    ],
+    "sleeps": [
+     1.0
+    ],
+    "http": [
+     "robots.txt",
+     "page-1.html",
+     "page-2.html"
+    ],
+    "report": {
+     "books": 20,
+     "pages": 1,
+     "avg": 38.05,
+     "median": 41.38,
+     "min": "Starving Hearts (Triangular Trade Trilogy, #1) (13.99)",
+     "max": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25)",
+     "by_rating": {
+      "1": 6,
+      "2": 3,
+      "3": 3,
+      "4": 4,
+      "5": 4
+     },
+     "out_of_stock": 0,
+     "best_value": [
+      [
+       "Set Me Free",
+       17.46,
+       5
+      ],
+      [
+       "Shakespeare's Sonnets",
+       20.66,
+       4
+      ],
+      [
+       "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+       22.6,
+       4
+      ]
+     ]
+    },
+    "markdown": "# Book price report (PARTIAL)\n\n> layout changed on page-2.html: no product_pod blocks found\n\n20 books from 1 page(s). Average £38.05, median £41.38.\nCheapest: Starving Hearts (Triangular Trade Trilogy, #1) (13.99). Most expensive: Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25).\nRatings 1-5: 6 / 3 / 3 / 4 / 4. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Set Me Free · £17.46 · 5 stars\n- Shakespeare's Sonnets · £20.66 · 4 stars\n- The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics · £22.60 · 4 stars",
+    "csv_rows": 20
+   }
+  },
+  {
+   "input": {
+    "pages": "3",
+    "site": "forbidden"
+   },
+   "expect": {
+    "status": "partial",
+    "error": "HTTP 403 on page-2.html: stopped, not retried",
+    "requests": [
+     "page-1.html",
+     "page-2.html"
+    ],
+    "sleeps": [
+     1.0
+    ],
+    "http": [
+     "robots.txt",
+     "page-1.html",
+     "page-2.html"
+    ],
+    "report": {
+     "books": 20,
+     "pages": 1,
+     "avg": 38.05,
+     "median": 41.38,
+     "min": "Starving Hearts (Triangular Trade Trilogy, #1) (13.99)",
+     "max": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25)",
+     "by_rating": {
+      "1": 6,
+      "2": 3,
+      "3": 3,
+      "4": 4,
+      "5": 4
+     },
+     "out_of_stock": 0,
+     "best_value": [
+      [
+       "Set Me Free",
+       17.46,
+       5
+      ],
+      [
+       "Shakespeare's Sonnets",
+       20.66,
+       4
+      ],
+      [
+       "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+       22.6,
+       4
+      ]
+     ]
+    },
+    "markdown": "# Book price report (PARTIAL)\n\n> HTTP 403 on page-2.html: stopped, not retried\n\n20 books from 1 page(s). Average £38.05, median £41.38.\nCheapest: Starving Hearts (Triangular Trade Trilogy, #1) (13.99). Most expensive: Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991 (57.25).\nRatings 1-5: 6 / 3 / 3 / 4 / 4. Out of stock: 0.\n\nBest value (4+ stars, in stock, cheapest):\n- Set Me Free · £17.46 · 5 stars\n- Shakespeare's Sonnets · £20.66 · 4 stars\n- The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics · £22.60 · 4 stars",
+    "csv_rows": 20
+   }
+  },
+  {
+   "input": {
+    "pages": "3",
+    "site": "robots"
+   },
+   "expect": {
+    "status": "blocked",
+    "error": "robots.txt disallows this path",
+    "requests": [],
+    "sleeps": [],
+    "http": [
+     "robots.txt"
+    ],
+    "report": null,
+    "markdown": "# Book price report (NOT COLLECTED)\n\n> robots.txt disallows this path\n",
+    "csv_rows": 0
+   }
+  }
+ ]
+}
