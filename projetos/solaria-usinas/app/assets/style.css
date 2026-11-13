@@ -116,3 +116,4 @@ footer{max-width:1440px;margin:0 auto;padding:0 24px 30px;color:var(--muted);fon
 .heat-leg{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted)}
 .heat-leg i{display:block;height:8px;width:120px;border-radius:4px;background:linear-gradient(90deg,var(--surface2),var(--primary));border:1px solid var(--border)}
 @media(max-width:640px){.hc{font-size:0;height:28px}.heat{grid-template-columns:30px repeat(13,minmax(0,1fr));gap:2px}.heat .hl{font-size:10px}.heat .h2{visibility:hidden}}
+@media(max-width:640px){.filters-in,.filters-in.f3{grid-template-columns:1fr}.btn-clear{grid-column:auto}.fld select{padding:0 8px;text-overflow:ellipsis}}

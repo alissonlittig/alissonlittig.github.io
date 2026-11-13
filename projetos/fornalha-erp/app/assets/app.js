@@ -53,7 +53,7 @@ function vGeral() {
   s.crit.sort((a, b) => a.q / a.min - b.q / b.min).slice(0, 4).forEach(i => att.push(['estoque', `${i.n}: ${dec(i.q, i.u === 'un' ? 0 : 1)} ${i.u} (mínimo ${i.min})`, C.status(i) === 'critico' ? 'Crítico' : 'Baixo']));
   s.late.forEach(b => att.push(['fin', `${b.desc} venceu em ${dBR(b.venc)}`, R0(b.v)]));
   $('#v-geral').innerHTML = `<div class="vh"><div><h2>Visão geral</h2><p>Hoje, ${dBR(st.today)} · almoço em andamento</p></div></div>
-  <div class="kpis k4" style="grid-template-columns:repeat(6,minmax(0,1fr))">
+  <div class="kpis k6">
     ${kpi('Vendas de hoje', R0(s.vendaTot), `${s.live.length} pedidos · ${R0(s.venda)} entregues`)}
     ${kpi('Pedidos abertos', s.open.length, `${s.open.filter(o => o.st === 'novo').length} novos na fila`)}
     ${kpi('Ticket médio', R(s.ticket), 'por pedido, hoje')}
