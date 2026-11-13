@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Molar — CRM de clínica odontológica (demo)</title>
+<meta name="description" content="Demo de CRM: CRM de clínica odontológica. Funil kanban, agenda, lista com filtros e relatório. Dados fictícios, salvos no navegador.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f766e'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f3f6f6;--bg2:#e7eeee;--card:#fff;--ink:#14282b;--mut:#566b6e;--line:#d9e3e3;--acc:#0f766e;--acc2:#2aa198;--side:#0e2a2e;--sidei:#e6f2f1;--ok:#0b6b3a;--okbg:#dcf3e5;--bad:#a12626;--badbg:#fae1e1}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+h1,h2,h3,.num{font-family:Georgia,"Times New Roman",serif}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{background:var(--side);color:var(--sidei);padding:22px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;margin:0 6px 18px}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--acc);display:grid;place-items:center;color:#fff;font:700 18px Georgia,"Times New Roman",serif}
+.brand b{font:600 21px/1 Georgia,"Times New Roman",serif;letter-spacing:.01em}.brand small{display:block;font-size:11.5px;opacity:.7;margin-top:3px}
+.nav{background:none;border:0;text-align:left;padding:10px 12px;border-radius:10px;color:inherit;opacity:.85;cursor:pointer;display:flex;gap:10px;align-items:center;font-weight:500}
+.nav svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav:hover{background:rgba(255,255,255,.1);opacity:1}
+.nav[aria-current=page]{background:var(--acc);color:#fff;opacity:1}
+.side .foot{margin-top:auto;font-size:12px;opacity:.7;padding:0 8px}
+.main{padding:26px clamp(16px,3.5vw,44px) 60px;min-width:0}
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.top h2{margin:0;font-size:28px;font-weight:600;letter-spacing:-.01em}
+.top p{margin:2px 0 0;color:var(--mut);font-size:13.5px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:9px 16px;font-weight:600;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.g{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:5px 10px;font-size:13px;border-radius:8px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:18px}
+.kpi,.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.kpi small{color:var(--mut);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+.kpi .num{display:block;font-size:30px;font-weight:600;line-height:1.2;margin-top:2px}
+.kpi em{font-style:normal;font-size:12.5px;color:var(--mut)}
+.cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.card h3{margin:0 0 12px;font-size:17px;font-weight:600}
+.bars{display:grid;gap:9px}
+.br{display:grid;grid-template-columns:130px 1fr 92px;gap:10px;align-items:center;font-size:13.5px}
+.br .t{height:12px;background:var(--bg2);border-radius:99px;overflow:hidden}.br .t i{display:block;height:100%;background:var(--acc);border-radius:99px}
+.br span:last-child{text-align:right;color:var(--mut);font-variant-numeric:tabular-nums}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.filters input,.filters select,.f input,.f select,.f textarea{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;width:100%}
+.filters input{flex:1;min-width:200px;width:auto}.filters select{width:auto}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);gap:12px;overflow-x:auto;padding-bottom:10px;align-items:start}
+.col{background:var(--bg2);border-radius:14px;padding:10px;min-height:140px}
+.col.over{outline:2px dashed var(--acc)}
+.col h3{margin:2px 4px 10px;font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;display:flex;justify-content:space-between;gap:6px;color:var(--mut)}
+.col h3 b{color:var(--ink);font-weight:600;white-space:nowrap}
+.dl{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px;cursor:grab}
+.dl:active{cursor:grabbing}.dl.drag{opacity:.4}
+.dl b{display:block}.dl small{color:var(--mut)}
+.dl .r{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:6px}
+.dl select{font-size:12px;padding:3px 4px;border:1px solid var(--line);border-radius:6px;background:var(--card);max-width:120px}
+.val{font-weight:600;font-variant-numeric:tabular-nums}
+.tw{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);cursor:pointer;user-select:none;white-space:nowrap}
+tr:last-child td{border:0}tbody tr:hover{background:var(--bg2)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12.5px;font-weight:600;background:var(--bg2);color:var(--ink);white-space:nowrap}
+.pill.won{background:var(--okbg);color:var(--ok)}.pill.lost{background:var(--badbg);color:var(--bad)}
+.day{margin-bottom:16px}.day h3{font-size:14px;margin:0 0 8px;color:var(--mut);text-transform:uppercase;letter-spacing:.07em}
+.ev{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:12px;padding:10px 14px;margin-bottom:8px;flex-wrap:wrap}
+.ev time{font:600 15px Georgia,"Times New Roman",serif;min-width:52px}.ev div{flex:1;min-width:180px}.ev small{color:var(--mut);display:block}
+dialog{border:0;border-radius:16px;padding:24px;width:min(460px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.3);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(20,20,20,.45)}
+.f{display:grid;gap:10px}.f label{display:grid;gap:3px;font-size:13px;color:var(--mut)}.f .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.empty{padding:30px;text-align:center;color:var(--mut)}
+.demo{font-size:12.5px;color:var(--mut);margin-top:26px}
+@media(max-width:860px){
+ .app{grid-template-columns:1fr}
+ .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}
+ .brand{margin:0 8px 0 0}.brand small{display:none}.side .foot{display:none}.nav{padding:8px 10px}.nav span{display:none}
+ .br{grid-template-columns:96px 1fr 76px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+ <div class="brand"><div class="logo" aria-hidden="true">M</div><div><b>Molar</b><small>CRM de clínica odontológica</small></div></div>
+ <nav style="display:contents" aria-label="Seções" id="nav"></nav>
+ <div class="foot">Demo com dados fictícios.<br>Tudo fica salvo neste navegador.</div>
+</aside>
+<main class="main" id="main" tabindex="-1"></main>
+</div>
+<dialog id="dlg"><form method="dialog" class="f" id="form">
+ <h3 style="margin:0" id="dt">Novo</h3>
+ <label>Paciente<input name="name" required maxlength="60"></label>
+ <label>Procedimento<select name="item" id="fitem"></select></label>
+ <div class="row"><label>Valor (R$)<input name="value" type="number" min="0" step="10" required></label>
+ <label>Próximo contato<input name="date" type="date" required></label></div>
+ <div class="row"><label>Origem<select name="source" id="fsrc"></select></label><label>Responsável<select name="owner" id="fown"></select></label></div>
+ <label>Etapa<select name="stage" id="fstage"></select></label>
+ <label>Observação<textarea name="note" rows="2" maxlength="160"></textarea></label>
+ <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px"><button class="btn g" value="cancel" formnovalidate>Cancelar</button><button class="btn" value="ok">Salvar</button></div>
+</form></dialog>
+<script>
+const C={"slug": "molar", "seed": 4417, "funilLabel": "Funil de pacientes", "newLabel": "Novo paciente", "itemWord": "procedimento", "dealsWord": "orçamentos", "wonLabel": "Tratamentos fechados", "sub": "Pacientes, orçamentos e retornos da clínica Molar Odontologia (fictícia).", "stages": ["Novo contato", "Avaliação marcada", "Orçamento enviado", "Em negociação", "Tratamento fechado", "Perdido"], "owners": ["Dra. Helena", "Dr. Rafael", "Camila (recepção)"], "sources": ["Indicação", "Instagram", "Google", "Convênio", "Retorno de paciente"], "slots": ["08:30", "09:15", "10:00", "11:00", "14:00", "15:30", "16:45"], "items": [["Limpeza e profilaxia", 280], ["Clareamento", 1400], ["Implante unitário", 4200], ["Aparelho ortodôntico", 3600], ["Facetas (4 dentes)", 5800], ["Canal", 950], ["Prótese total", 3200]], "names": ["Marina Albuquerque", "João Pedro Siqueira", "Luciana Teixeira", "Carlos Eduardo Ramos", "Beatriz Nogueira", "Tiago Fontoura", "Patrícia Moraes", "Rodrigo Valente", "Aline Cordeiro", "Fábio Medeiros", "Renata Quintela", "Gustavo Lacerda", "Débora Pimentel", "Henrique Salgado", "Vanessa Prado", "Leandro Bittencourt", "Sofia Amaral", "Marcelo Dutra", "Isadora Veloso", "Paulo Roberto Cunha", "Natália Seabra", "Eduardo Linhares", "Cláudia Rezende", "Bruno Tavares", "Letícia Magalhães", "Sérgio Antunes", "Fernanda Coutinho", "Ricardo Paiva", "Juliana Barreto", "André Wolff", "Larissa Cavalcanti", "Márcio Guedes", "Tatiane Ferraz", "Otávio Brandão", "Simone Araújo", "Diego Camargo"], "notes": ["Pediu parcelamento em 10x", "Prefere horário à tarde", "Indicado por paciente antigo", "Aguardando resposta do convênio", "Tem receio de dor, explicar sedação", "Quer ver fotos de casos", "Retornar após o pagamento do 13º", "Comparando com outra clínica", "Já fez raio-X, falta avaliação"]};
+const KEY='demo-'+C.slug+'-v1';
+const R=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const iso=d=>{const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
+const addDays=n=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return iso(d)};
+const fmtDay=s=>new Date(s+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'});
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const WON=C.stages.length-2, LOST=C.stages.length-1;
+function seed(){let s=C.seed;const rnd=()=>(s=(s*1664525+1013904223)%4294967296)/4294967296;const pick=a=>a[Math.floor(rnd()*a.length)];
+ return C.names.map((n,i)=>{const it=pick(C.items);const st=Math.min(C.stages.length-1,Math.floor(Math.pow(rnd(),1.3)*C.stages.length));
+  return{id:i+1,name:n,item:it[0],value:Math.round(it[1]*(0.8+rnd()*0.5)/10)*10,stage:st,source:pick(C.sources),owner:pick(C.owners),
+  date:addDays(st>=WON?-Math.floor(rnd()*60):Math.floor(rnd()*13)-(rnd()<.25?3:0)),note:pick(C.notes)}})}
+let deals=null;
+try{deals=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){deals=null}
+if(!Array.isArray(deals))deals=seed();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(deals))}catch(e){/* storage bloqueado: segue só em memória */}}
+let view='painel',q='',fOwner='',fSrc='',sort={k:'date',d:1},editing=null,keepQ=false;
+const ICON={painel:'<path d="M4 13h6V4H4zM14 20h6V4h-6zM4 20h6v-4H4z"/>',funil:'<path d="M3 5h18l-7 8v6l-4-2v-4z"/>',lista:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',agenda:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/>',relatorio:'<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>'};
+const TABS=[['painel','Painel'],['funil',C.funilLabel],['lista','Lista'],['agenda','Agenda'],['relatorio','Relatório']];
+document.getElementById('nav').innerHTML=TABS.map(([k,l])=>`<button class="nav" data-v="${k}" title="${l}" aria-label="${l}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg><span>${l}</span></button>`).join('');
+document.getElementById('nav').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(b){view=b.dataset.v;keepQ=false;render();document.getElementById('main').focus()}});
+const filt=()=>deals.filter(d=>(!q||(d.name+' '+d.item+' '+d.note).toLowerCase().includes(q))&&(!fOwner||d.owner===fOwner)&&(!fSrc||d.source===fSrc));
+const opts=(a,v,all)=>(all?`<option value="">${all}</option>`:'')+a.map(x=>`<option${x===v?' selected':''}>${esc(x)}</option>`).join('');
+const filterBar=()=>`<div class="filters"><input type="search" id="q" placeholder="Buscar por nome, ${C.itemWord} ou observação" value="${esc(q)}" aria-label="Buscar"><select id="fo" aria-label="Responsável">${opts(C.owners,fOwner,'Todos os responsáveis')}</select><select id="fs" aria-label="Origem">${opts(C.sources,fSrc,'Todas as origens')}</select></div>`;
+const head=(t,s)=>`<div class="top"><div><h2>${t}</h2><p>${s}</p></div><div style="display:flex;gap:8px"><button class="btn" id="add">+ ${C.newLabel}</button><button class="btn g" id="rst" title="Restaurar dados de exemplo">Restaurar exemplo</button></div></div>`;
+function bars(rows,fmt){const m=Math.max(1,...rows.map(r=>r[1]));return `<div class="bars">${rows.map(r=>`<div class="br"><span>${esc(r[0])}</span><span class="t"><i style="width:${r[1]/m*100}%"></i></span><span>${fmt(r[1])}</span></div>`).join('')||'<p class="empty">Sem dados.</p>'}</div>`}
+const sum=a=>a.reduce((s,d)=>s+d.value,0);
+function vPainel(L){const open=L.filter(d=>d.stage<WON),won=L.filter(d=>d.stage===WON),lost=L.filter(d=>d.stage===LOST);
+ const closed=won.length+lost.length,rate=closed?Math.round(won.length/closed*100):0,today=addDays(0);
+ const late=open.filter(d=>d.date<today).length;
+ return head('Painel',C.sub)+filterBar()+`<div class="kpis"><div class="kpi"><small>Em aberto</small><span class="num">${R(sum(open))}</span><em>${open.length} ${C.dealsWord}</em></div><div class="kpi"><small>${C.wonLabel}</small><span class="num">${R(sum(won))}</span><em>${won.length} ${C.dealsWord}</em></div><div class="kpi"><small>Taxa de conversão</small><span class="num">${rate}%</span><em>${closed} encerrados</em></div><div class="kpi"><small>Contatos atrasados</small><span class="num" style="color:${late?'var(--bad)':'inherit'}">${late}</span><em>precisam de retorno</em></div></div>
+ <div class="cols2"><div class="card"><h3>Funil por etapa</h3>${bars(C.stages.map((s,i)=>[s,L.filter(d=>d.stage===i).length]),n=>n)}</div><div class="card"><h3>Valor em aberto por origem</h3>${bars(C.sources.map(s=>[s,sum(open.filter(d=>d.source===s))]),R)}</div></div>`}
+function card(d){return `<div class="dl" draggable="true" data-id="${d.id}"><b>${esc(d.name)}</b><small>${esc(d.item)}</small><div class="r"><span class="val">${R(d.value)}</span><small>${fmtDay(d.date)}</small></div><div class="r"><small>${esc(d.owner)}</small><select data-mv="${d.id}" aria-label="Mover ${esc(d.name)}">${C.stages.map((s,i)=>`<option value="${i}"${i===d.stage?' selected':''}>${esc(s)}</option>`).join('')}</select></div></div>`}
+function vFunil(L){return head(C.funilLabel,'Arraste os cartões entre as etapas, ou use o seletor em cada cartão.')+filterBar()+`<div class="board">${C.stages.map((s,i)=>{const c=L.filter(d=>d.stage===i);return `<section class="col" data-st="${i}"><h3>${esc(s)} <b>${c.length} · ${R(sum(c))}</b></h3>${c.map(card).join('')}</section>`}).join('')}</div>`}
+function vLista(L){const k=sort.k,f=sort.d;const S=[...L].sort((a,b)=>(a[k]>b[k]?1:a[k]<b[k]?-1:0)*f);const th=(k,l)=>`<th data-s="${k}" aria-sort="${sort.k===k?(sort.d>0?'ascending':'descending'):'none'}">${l}${sort.k===k?(sort.d>0?' ▲':' ▼'):''}</th>`;
+ return head('Lista',S.length+' registros. Clique no cabeçalho para ordenar.')+filterBar()+`<div class="tw"><table><thead><tr>${th('name','Nome')}${th('item',C.itemWord[0].toUpperCase()+C.itemWord.slice(1))}${th('value','Valor')}${th('stage','Etapa')}${th('owner','Responsável')}${th('date','Próx. contato')}<th></th></tr></thead><tbody>${S.map(d=>`<tr><td><b>${esc(d.name)}</b><br><small style="color:var(--mut)">${esc(d.source)}</small></td><td>${esc(d.item)}</td><td class="val">${R(d.value)}</td><td><span class="pill ${d.stage===WON?'won':d.stage===LOST?'lost':''}">${esc(C.stages[d.stage])}</span></td><td>${esc(d.owner)}</td><td>${fmtDay(d.date)}</td><td style="white-space:nowrap"><button class="btn g sm" data-ed="${d.id}">Editar</button> <button class="btn g sm" data-del="${d.id}" aria-label="Excluir ${esc(d.name)}">Excluir</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Nada encontrado com esses filtros.</td></tr>'}</tbody></table></div>`}
+function vAgenda(L){const today=addDays(0),end=addDays(13);const ev=L.filter(d=>d.stage<WON&&d.date<=end).sort((a,b)=>a.date.localeCompare(b.date)||a.name.localeCompare(b.name));
+ const by={};ev.forEach(d=>{const k=d.date<today?'atrasado':d.date;(by[k]=by[k]||[]).push(d)});const keys=Object.keys(by).sort((a,b)=>a==='atrasado'?-1:b==='atrasado'?1:a.localeCompare(b));
+ return head('Agenda','Próximos 14 dias, mais o que ficou atrasado.')+filterBar()+(keys.map(k=>`<div class="day"><h3>${k==='atrasado'?'Atrasados':k===today?'Hoje':fmtDay(k)}</h3>${by[k].map(d=>`<div class="ev" ${k==='atrasado'?'style="border-left-color:var(--bad)"':''}><time>${C.slots[d.id%C.slots.length]}</time><div><b>${esc(d.name)}</b><small>${esc(d.item)} · ${esc(d.owner)} · ${esc(C.stages[d.stage])}</small></div><span class="val">${R(d.value)}</span><button class="btn g sm" data-mv2="${d.id}">Avançar etapa</button></div>`).join('')}</div>`).join('')||'<div class="empty">Nada agendado.</div>')}
+function vRel(L){const won=L.filter(d=>d.stage===WON);const m={};won.forEach(d=>{const k=d.date.slice(0,7);m[k]=(m[k]||0)+d.value});const ks=Object.keys(m).sort();
+ const conv=C.stages.slice(0,WON+1).map((s,i)=>[s,L.filter(d=>d.stage>=i&&d.stage<=WON).length]);
+ return head('Relatório','Resultado do que está filtrado.')+filterBar()+`<div class="cols2"><div class="card"><h3>Avanço no funil (cumulativo)</h3>${bars(conv,n=>n)}</div><div class="card"><h3>${C.wonLabel} por mês</h3>${bars(ks.map(k=>[new Date(k+'-15T12:00:00').toLocaleDateString('pt-BR',{month:'short',year:'2-digit'}),m[k]]),R)}</div><div class="card"><h3>${C.wonLabel} por responsável</h3>${bars(C.owners.map(o=>[o,sum(won.filter(d=>d.owner===o))]),R)}</div><div class="card"><h3>${C.wonLabel} por ${C.itemWord}</h3>${bars(C.items.map(i=>[i[0],sum(won.filter(d=>d.item===i[0]))]).filter(r=>r[1]),R)}</div></div><p class="demo">Ticket médio: ${won.length?R(sum(won)/won.length):'sem fechamentos'} · Perdidos: ${L.filter(d=>d.stage===LOST).length}</p>`}
+function render(){const L=filt();
+ document.querySelectorAll('.nav').forEach(b=>b.dataset.v===view?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
+ const f={painel:vPainel,funil:vFunil,lista:vLista,agenda:vAgenda,relatorio:vRel}[view];document.getElementById('main').innerHTML=f(L)+'<p class="demo">Demo com nomes e valores fictícios.</p>';
+ const qi=document.getElementById('q');if(qi&&keepQ){qi.focus();qi.setSelectionRange(qi.value.length,qi.value.length)}}
+const M=document.getElementById('main');
+M.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value.toLowerCase();keepQ=true;render()}});
+M.addEventListener('change',e=>{const t=e.target;keepQ=false;if(t.id==='fo'){fOwner=t.value;render()}else if(t.id==='fs'){fSrc=t.value;render()}else if(t.dataset.mv){move(+t.dataset.mv,+t.value)}});
+function move(id,st){const d=deals.find(x=>x.id===id);if(d){d.stage=st;save();render()}}
+M.addEventListener('click',e=>{const t=e.target.closest('button,th');if(!t)return;keepQ=false;
+ if(t.id==='add')openDlg(null);else if(t.id==='rst'){if(confirm('Restaurar os dados de exemplo?')){deals=seed();save();render()}}
+ else if(t.dataset.s){sort={k:t.dataset.s,d:sort.k===t.dataset.s?-sort.d:1};render()}
+ else if(t.dataset.ed)openDlg(+t.dataset.ed);
+ else if(t.dataset.del){if(confirm('Excluir este registro?')){deals=deals.filter(x=>x.id!==+t.dataset.del);save();render()}}
+ else if(t.dataset.mv2){const d=deals.find(x=>x.id===+t.dataset.mv2);d.stage=Math.min(WON,d.stage+1);d.date=addDays(d.stage>=WON?0:3);save();render()}});
+let dragId=null;
+M.addEventListener('dragstart',e=>{const c=e.target.closest('.dl');if(c){dragId=+c.dataset.id;c.classList.add('drag');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',dragId)}});
+M.addEventListener('dragend',()=>{document.querySelectorAll('.drag,.over').forEach(x=>x.classList.remove('drag','over'))});
+M.addEventListener('dragover',e=>{const c=e.target.closest('.col');if(c){e.preventDefault();c.classList.add('over')}});
+M.addEventListener('dragleave',e=>{const c=e.target.closest('.col');if(c&&!c.contains(e.relatedTarget))c.classList.remove('over')});
+M.addEventListener('drop',e=>{const c=e.target.closest('.col');if(c&&dragId){e.preventDefault();move(dragId,+c.dataset.st);dragId=null}});
+const dlg=document.getElementById('dlg'),form=document.getElementById('form');
+function openDlg(id){editing=id;const d=id?deals.find(x=>x.id===id):{name:'',item:C.items[0][0],value:C.items[0][1],stage:0,source:C.sources[0],owner:C.owners[0],date:addDays(2),note:''};
+ document.getElementById('dt').textContent=id?'Editar registro':C.newLabel;
+ document.getElementById('fitem').innerHTML=opts(C.items.map(i=>i[0]),d.item);document.getElementById('fsrc').innerHTML=opts(C.sources,d.source);document.getElementById('fown').innerHTML=opts(C.owners,d.owner);
+ document.getElementById('fstage').innerHTML=C.stages.map((s,i)=>`<option value="${i}"${i===d.stage?' selected':''}>${esc(s)}</option>`).join('');
+ ['name','value','date','note'].forEach(k=>form.elements[k].value=d[k]);dlg.showModal();form.elements.name.focus()}
+form.addEventListener('submit',e=>{if(e.submitter&&e.submitter.value!=='ok')return;const f=form.elements;
+ const o={name:f.name.value.trim(),item:f.item.value,value:Math.max(0,+f.value.value||0),stage:+f.stage.value,source:f.source.value,owner:f.owner.value,date:f.date.value,note:f.note.value.trim()};
+ if(!o.name)return;if(editing)Object.assign(deals.find(x=>x.id===editing),o);else deals.push({id:Math.max(0,...deals.map(x=>x.id))+1,...o});save();render()});
+render();
+</script>
+</body>
+</html>
