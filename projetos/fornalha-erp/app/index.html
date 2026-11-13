@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fornalha ERP · Gestão de restaurante (demonstração)</title>
+<meta name="description" content="ERP de restaurante e food service: pedidos com baixa automática de estoque pela ficha técnica, cardápio com margem, compras com sugestão por fornecedor e financeiro com fluxo de caixa. Dados fictícios. Funciona no navegador.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23a3361a'/%3E%3Cpath d='M16 6c1 4 6 6 6 11a6 6 0 01-12 0c0-2 1-3.500 2-4.500 0 2 1 3 2 3 0-4-1-6 2-9.500z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/erp.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.8 3.200 5 4.800 5 9a5 5 0 01-10 0c0-1.600.8-2.800 1.600-3.600 0 1.600.8 2.400 1.600 2.400 0-3.200-.8-4.800 1.800-7.800z"/></svg></div>
+    <div><h1>Fornalha ERP</h1><p>Cantina Fornalha · restaurante e delivery</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados de exemplo</span>
+  <button class="icon-btn" id="reset" type="button">Restaurar exemplo</button>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span></button>
+</div></header>
+
+<nav class="nav" aria-label="Módulos"><div class="nav-in" role="tablist" id="nav">
+  <button role="tab" data-v="geral" aria-selected="true">Visão geral</button>
+  <button role="tab" data-v="pedidos" aria-selected="false">Pedidos<b id="n-ped"></b></button>
+  <button role="tab" data-v="cardapio" aria-selected="false">Cardápio</button>
+  <button role="tab" data-v="estoque" aria-selected="false">Estoque<b id="n-est" class="warn"></b></button>
+  <button role="tab" data-v="compras" aria-selected="false">Compras<b id="n-com"></b></button>
+  <button role="tab" data-v="fin" aria-selected="false">Financeiro<b id="n-fin" class="warn"></b></button>
+</div></nav>
+
+<main>
+  <section id="v-geral" class="view" role="tabpanel"></section>
+  <section id="v-pedidos" class="view" role="tabpanel" hidden></section>
+  <section id="v-cardapio" class="view" role="tabpanel" hidden></section>
+  <section id="v-estoque" class="view" role="tabpanel" hidden></section>
+  <section id="v-compras" class="view" role="tabpanel" hidden></section>
+  <section id="v-fin" class="view" role="tabpanel" hidden></section>
+</main>
+<footer>Cantina Fornalha é uma empresa fictícia criada para demonstração. Os dados ficam só neste navegador (nada é enviado) e “Restaurar exemplo” volta tudo ao início. Regras: iniciar o preparo dá baixa no estoque pela ficha técnica e é barrado se faltar insumo; cancelar depois do preparo vira perda; receber uma compra atualiza o custo médio e gera a conta a pagar no prazo do fornecedor; pedido de app entra como conta a receber já descontada a taxa de 23%.</footer>
+
+<dialog id="dlg" aria-labelledby="dlg-t"><form method="dialog" id="dlg-f"><h2 id="dlg-t"></h2><div id="dlg-b"></div><div class="dlg-act"><button type="button" class="btn-clear" id="dlg-x">Cancelar</button><button type="submit" class="btn-p" id="dlg-ok">Salvar</button></div></form></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/core.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

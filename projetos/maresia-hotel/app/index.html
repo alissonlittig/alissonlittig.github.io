@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maresia Hotéis · Painel de hotelaria (demonstração)</title>
+<meta name="description" content="Dashboard interativo de hotelaria: ocupação, diária média, RevPAR, canais de venda, antecedência de reserva, cancelamentos e reservas dos próximos meses. Dados fictícios.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b6e8a'/%3E%3Cpath d='M6 21c3-3 5 3 8 0s5 3 8 0 3-1 4-1' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18c2.5-2.6 4.5 2.6 7 0s4.5 2.6 7 0 3.5-1 6-1M4 13V6h16v7M8 10h3"/></svg></div>
+    <div><h1>Maresia Hotéis</h1><p>Painel de receita · 3 unidades</p></div>
+  </div>
+  <span class="badge">Empresa fictícia · dados sintéticos</span>
+  <button class="icon-btn" id="theme" type="button" aria-label="Alternar tema claro e escuro">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path id="theme-i" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg><span id="theme-t">Escuro</span>
+  </button>
+</div></header>
+
+<div class="filters" role="search" aria-label="Filtros do painel"><div class="filters-in f3">
+  <div class="fld"><label for="f-per">Período</label><select id="f-per"></select></div>
+  <div class="fld"><label for="f-uni">Unidade</label><select id="f-uni"></select></div>
+  <div class="fld"><label for="f-can">Canal de venda</label><select id="f-can"></select></div>
+  <button class="btn-clear" id="clear" type="button">Limpar filtros</button>
+</div></div>
+
+<main>
+  <div class="ctx"><span id="range" class="num"></span><div class="chips" id="chips" aria-live="polite"></div><span class="hint">Clique nos gráficos de canal e unidade para filtrar.</span></div>
+  <section class="kpis" id="kpis" aria-label="Indicadores principais"></section>
+
+  <section class="grid">
+    <div class="card panel c8"><h2>RevPAR e ocupação mensal</h2><p class="sub">Últimos 12 meses · barras = RevPAR (receita por quarto disponível) · tracejado = mesmo mês do ano anterior · linha = ocupação</p><div class="cv"><canvas id="ch-mes" role="img" aria-label="RevPAR e ocupação por mês, com comparação ao ano anterior"></canvas></div></div>
+    <div class="card panel c4"><h2>Receita por canal</h2><p class="sub">Clique numa fatia para filtrar</p><div class="cv"><canvas id="ch-can" role="img" aria-label="Participação dos canais na receita de hospedagem"></canvas></div></div>
+
+    <div class="card panel c7"><h2>Ocupação por dia da semana</h2><p class="sub">Últimos 12 meses · ocupação média de cada dia da semana em cada mês (unidade filtrada)</p><div id="heat" class="heat" role="img" aria-label="Mapa de calor da ocupação por dia da semana e mês"></div><div class="heat-leg"><span>baixa</span><i></i><span>cheia</span></div></div>
+    <div class="card panel c5"><h2>Unidades: RevPAR</h2><p class="sub">Clique numa barra para filtrar a unidade</p><div class="cv"><canvas id="ch-uni" role="img" aria-label="RevPAR por unidade"></canvas></div></div>
+
+    <div class="card panel c8"><h2>Reservas dos próximos 3 meses</h2><p class="sub">Ocupação já confirmada por semana de hospedagem, contra o mesmo ponto do ano passado e a previsão final</p><div class="cv tall"><canvas id="ch-pace" role="img" aria-label="Ocupação confirmada para as próximas semanas contra o ano anterior"></canvas></div></div>
+    <div class="card panel c4"><h2>Diária por tipo de quarto</h2><p class="sub">Diária média (barras) e ocupação (linha)</p><div class="cv tall"><canvas id="ch-room" role="img" aria-label="Diária média e ocupação por tipo de quarto"></canvas></div></div>
+
+    <div class="card panel c6"><h2>Antecedência de reserva</h2><p class="sub">Quantos dias antes da chegada o hóspede reserva</p><div class="cv"><canvas id="ch-lead" role="img" aria-label="Distribuição da antecedência de reserva"></canvas></div></div>
+    <div class="card panel c6"><h2>Cancelamentos e comissão por canal</h2><p class="sub">Percentual sobre as reservas e sobre a receita do canal</p><div class="cv"><canvas id="ch-cx" role="img" aria-label="Taxa de cancelamento e comissão por canal"></canvas></div></div>
+
+    <div class="card panel c12">
+      <h2>Detalhamento</h2>
+      <div class="tbar">
+        <div class="tabs" role="tablist"><button role="tab" id="tab-u" aria-selected="true">Unidades</button><button role="tab" id="tab-c" aria-selected="false">Canais</button></div>
+        <input class="search" id="q" type="search" placeholder="Buscar na tabela…" aria-label="Buscar na tabela">
+        <button class="icon-btn" id="csv" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>Exportar CSV</button>
+      </div>
+      <div class="tw"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+</main>
+<footer>Maresia Hotéis é uma empresa fictícia criada para demonstração. Todos os números são sintéticos (gerados com semente fixa) e coerentes entre si. Ocupação = diárias vendidas ÷ diárias disponíveis; com um canal filtrado, a ocupação mostra a parcela daquele canal. Receita líquida = receita de hospedagem menos comissão do canal. O mapa de calor e as reservas futuras consideram todos os canais.</footer>
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
