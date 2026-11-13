@@ -1,0 +1,158 @@
+[
+ {
+  "id": "r1",
+  "split": "dev",
+  "q": "Quantos livros posso emprestar e por quanto tempo?",
+  "answer": "Cada sócio pode levar até 5 livros por vez. O prazo de empréstimo é de 14 dias e pode ser renovado uma vez. A renovação também pode ser feita por telefone.",
+  "gold": [
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "id": "r2",
+  "split": "dev",
+  "q": "Qual é a multa por atraso na biblioteca?",
+  "answer": "O atraso na devolução gera multa de R$ 1,00 por dia e por livro. A multa fica limitada ao preço do livro.",
+  "gold": [
+   0,
+   1
+  ]
+ },
+ {
+  "id": "r3",
+  "split": "dev",
+  "q": "A biblioteca abre aos domingos?",
+  "answer": "A biblioteca abre aos domingos, das 9h às 13h. A sala de estudos fica aberta até as 21h nos dias de semana.",
+  "gold": [
+   0,
+   1
+  ]
+ },
+ {
+  "id": "r4",
+  "split": "dev",
+  "q": "Quanto custa o ingresso do parque Serra Azul?",
+  "answer": "O ingresso custa R$ 20,00 para adultos. Crianças até 7 anos e pessoas com mais de 60 anos não pagam. Estudantes têm meia-entrada.",
+  "gold": [
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "id": "r5",
+  "split": "dev",
+  "q": "Posso levar meu cachorro ao parque?",
+  "answer": "É proibido levar animais de estimação ao parque. Quem quiser pode deixar o animal na portaria durante a visita.",
+  "gold": [
+   1,
+   0
+  ]
+ },
+ {
+  "id": "r6",
+  "split": "dev",
+  "q": "Como funciona a Trilha da Cachoeira Grande?",
+  "answer": "A Trilha da Cachoeira Grande tem 8 km e nível difícil. Ela exige guia credenciado. A trilha leva cerca de 3 horas.",
+  "gold": [
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "id": "t1",
+  "split": "test",
+  "q": "Como faço o cadastro na biblioteca?",
+  "answer": "O cadastro é gratuito e exige documento com foto e comprovante de endereço de Vale Claro. A carteirinha vale por 5 anos. A segunda via custa R$ 5,00.",
+  "gold": [
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "id": "t2",
+  "split": "test",
+  "q": "Posso usar a sala de estudos à noite?",
+  "answer": "A sala de estudos fica aberta até as 21h nos dias de semana. Para usar a sala depois das 18h é preciso reservar com um dia de antecedência.",
+  "gold": [
+   1,
+   1
+  ]
+ },
+ {
+  "id": "t3",
+  "split": "test",
+  "q": "Como reservo uma vaga no camping?",
+  "answer": "O camping tem 30 vagas e funciona apenas com reserva feita com pelo menos 3 dias de antecedência. A diária por pessoa é de R$ 35,00. O pagamento pode ser feito por Pix.",
+  "gold": [
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "id": "t4",
+  "split": "test",
+  "q": "Posso fazer fogueira no parque?",
+  "answer": "Fazer fogueira é permitido na área de camping. Fogareiros a gás só podem ser usados na área de camping.",
+  "gold": [
+   0,
+   1
+  ]
+ },
+ {
+  "id": "t5",
+  "split": "test",
+  "q": "Quem tem multa pode pegar livros?",
+  "answer": "Quem tem multa em aberto não pode fazer novos empréstimos até pagar. A multa pode ser paga no balcão em dinheiro ou no cartão. Revistas podem ser emprestadas por 7 dias.",
+  "gold": [
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "id": "t6",
+  "split": "test",
+  "q": "Qual o horário de funcionamento do parque?",
+  "answer": "O parque recebe visitantes todos os dias, das 7h às 17h. A última entrada é às 16h30. As trilhas fecham em dias de chuva forte.",
+  "gold": [
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "id": "t7",
+  "split": "test",
+  "q": "Como funciona o camping?",
+  "answer": "O camping tem 30 vagas. Ele funciona sem reserva prévia, mas só aos sábados.",
+  "gold": [
+   1,
+   0
+  ]
+ },
+ {
+  "id": "t8",
+  "split": "test",
+  "q": "Quem não paga ingresso no parque?",
+  "answer": "Crianças até 7 anos não pagam. Pessoas com mais de 65 anos também não pagam.",
+  "gold": [
+   1,
+   0
+  ]
+ },
+ {
+  "id": "t9",
+  "split": "test",
+  "q": "Quanto tempo posso ficar com um livro?",
+  "answer": "O prazo de empréstimo é de 14 dias e pode ser renovado duas vezes.",
+  "gold": [
+   0
+  ]
+ }
+]

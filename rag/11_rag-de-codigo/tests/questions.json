@@ -1,0 +1,12 @@
+[
+ {"q": "como calcular o valor do frete?", "ref": "frete/tarifas.py:19"},
+ {"q": "como validar um CEP?", "ref": "frete/cep.py:13"},
+ {"q": "qual o prazo de entrega para o nordeste?", "ref": "frete/prazos.py:4"},
+ {"q": "onde é aplicado o cupom de desconto?", "ref": "frete/tarifas.py:29"},
+ {"q": "como fechar um pedido?", "ref": "frete/pedido.py:42"},
+ {"q": "como gerar o código de rastreio?", "ref": "frete/rastreio.py:8"},
+ {"q": "como formatar valor em reais?", "ref": "frete/utils.py:10"},
+ {"q": "como descobrir a região pelo CEP?", "ref": "frete/cep.py:18"},
+ {"q": "como enviar e-mail de confirmação?", "refuse": true},
+ {"q": "como autenticar usuário com senha?", "refuse": true}
+]

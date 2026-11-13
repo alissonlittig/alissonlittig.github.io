@@ -1,0 +1,17 @@
+{
+"Instituto Marambaia": {"tipo": "organização", "alias": ["Instituto Marambaia", "Marambaia"]},
+"Fundação Costa Viva": {"tipo": "organização", "alias": ["Fundação Costa Viva", "Costa Viva"]},
+"Universidade do Litoral": {"tipo": "organização", "alias": ["Universidade do Litoral"]},
+"Laboratório de Instrumentação": {"tipo": "organização", "alias": ["Laboratório de Instrumentação"]},
+"Associação Amigos do Rio": {"tipo": "organização", "alias": ["Associação Amigos do Rio", "Amigos do Rio"]},
+"Helena Duarte": {"tipo": "pessoa", "alias": ["Helena Duarte", "Helena"]},
+"Otávio Brandão": {"tipo": "pessoa", "alias": ["Otávio Brandão", "Otávio"]},
+"Caio Seixas": {"tipo": "pessoa", "alias": ["Caio Seixas", "Caio"]},
+"Marta Lacerda": {"tipo": "pessoa", "alias": ["Marta Lacerda", "Marta"]},
+"Iuri Mendes": {"tipo": "pessoa", "alias": ["Iuri Mendes", "Iuri"]},
+"Projeto Maré Alta": {"tipo": "projeto", "alias": ["Projeto Maré Alta", "Maré Alta"]},
+"Projeto Recife Vivo": {"tipo": "projeto", "alias": ["Projeto Recife Vivo", "Recife Vivo"]},
+"Baía de Itaúna": {"tipo": "lugar", "alias": ["Baía de Itaúna"]},
+"Ilha do Farol": {"tipo": "lugar", "alias": ["Ilha do Farol"]},
+"Rio Pardo": {"tipo": "lugar", "alias": ["Rio Pardo"]}
+}

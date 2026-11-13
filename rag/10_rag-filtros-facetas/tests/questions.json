@@ -1,0 +1,10 @@
+[
+ {"q": "banco de dados", "f": {}, "expect_any": [21, 0]},
+ {"q": "banco de dados", "f": {"cats": ["infraestrutura"], "frm": "2026-01"}, "expect_any": [21]},
+ {"q": "backup", "f": {"cats": ["segurança"]}, "expect_any": [30]},
+ {"q": "como reduzimos custos?", "f": {"authors": ["Bruno Tavares"], "years": ["2026"]}, "expect_any": [25]},
+ {"q": "autenticação em dois fatores", "f": {"years": ["2025"]}, "expect_any": [2]},
+ {"q": "", "f": {"cats": ["produto"], "frm": "2026-01"}},
+ {"q": "quem ganhou a copa de 2014?", "f": {}, "refuse": true},
+ {"q": "backup", "f": {"cats": ["pessoas"]}, "refuse": true}
+]

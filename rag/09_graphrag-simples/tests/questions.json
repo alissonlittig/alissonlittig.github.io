@@ -1,0 +1,11 @@
+[
+ {"q": "Qual rio influencia o lugar estudado por Marta Lacerda?", "hops": 2, "gold": [11, 9, 12]},
+ {"q": "Que voluntários acompanham o rio que chega à baía estudada por Caio Seixas?", "hops": 2, "gold": [12, 9, 11]},
+ {"q": "Qual projeto usa equipamentos do laboratório onde Iuri Mendes trabalha?", "hops": 1, "gold": [6, 7]},
+ {"q": "Que laboratório fabrica sensores para o projeto de Helena Duarte?", "hops": 1, "gold": [8, 2]},
+ {"q": "Quem preside a fundação que financia o projeto de Helena Duarte?", "hops": 1, "gold": [5, 1, 2]},
+ {"q": "Onde fica a estação de campo usada pelo técnico Iuri Mendes?", "hops": 1, "gold": [6, 10]},
+ {"q": "Quem financia o projeto de Caio Seixas?", "hops": 1, "gold": [3, 1]},
+ {"q": "O que liga Otávio Brandão ao Projeto Maré Alta?", "hops": 2, "gold": [5, 1]},
+ {"q": "quem ganhou a copa de 2014?", "hops": 1, "refuse": true}
+]

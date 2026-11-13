@@ -62,7 +62,7 @@
     <h2 class="sec-head" id="h-proj"><span lang="pt">Projetos</span><span lang="en">Projects</span></h2>
     <div class="tabs" role="tablist" aria-label="Tipo de trabalho" data-en-aria="Type of work">
       <a role="tab" id="t-automacoes" href="#automacoes" aria-controls="automacoes" aria-selected="false">Automações<small>40</small></a>
-      <a role="tab" id="t-rag" href="#rag" aria-controls="rag" aria-selected="false">RAG<small>4</small></a>
+      <a role="tab" id="t-rag" href="#rag" aria-controls="rag" aria-selected="false">RAG<small>8</small></a>
       <a role="tab" id="t-crms" href="#crms" aria-controls="crms" aria-selected="false">CRMs<small>25</small></a>
       <a role="tab" id="t-dashboards" href="#dashboards" aria-controls="dashboards" aria-selected="false">Dashboards<small>22</small></a>
       <a role="tab" id="t-websites" href="#websites" aria-controls="websites" aria-selected="false">Websites<small>34</small></a>
@@ -433,6 +433,38 @@
         <p class="d"><span lang="pt">Onze jeitos de cortar os mesmos documentos (por seção, janelas, sentenças, com e sem sobreposição), medidos em hit@1, hit@3, MRR, teto de acerto e custo de contexto. A demo mostra onde cada estratégia corta o texto e qual pergunta ela acerta ou perde. 6 grupos de testes.</span><span lang="en">Eleven ways to cut the same documents (by section, windows, sentences, with and without overlap), measured on hit@1, hit@3, MRR, the hit ceiling and context cost. The demo shows where each strategy cuts the text and which question it gets right or misses. 6 test groups.</span></p>
         <p class="pend"><span lang="pt">Demo interativa no navegador, com os mesmos resultados do código Python. Estudo com documentos fictícios, sem modelo de linguagem.</span><span lang="en">Interactive in-browser demo, giving the same results as the Python code. A study with fictional documents, no language model.</span></p>
         <p class="links"><a class="lnk" href="rag/04_avaliacao-chunking/demo/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/rag/04_avaliacao-chunking"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="rag/09_graphrag-simples/demo/index.html" tabindex="-1" aria-hidden="true"><span class="sel">RAG</span><img src="assets/img/rag-graphrag-simples-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="rag/09_graphrag-simples/demo/index.html"><span lang="pt">GraphRAG simples: perguntas pelo grafo de entidades</span><span lang="en">Simple GraphRAG: questions through an entity graph</span></a></h3>
+        <p class="tag"><span lang="pt">Python · grafo · BFS</span><span lang="en">Python · grafo · BFS</span></p>
+        <p class="d"><span lang="pt">Treze parágrafos fictícios viram um grafo de pessoas, organizações, projetos e lugares. A pergunta marca as entidades citadas, uma busca em largura abre 0 a 2 saltos e o parágrafo achado só pelo grafo mostra o caminho. A demo desenha o grafo. Resultado honesto: neste corpus pequeno o recall@3 é 0,854 na busca comum e 0,812 com o grafo; ele explica, não melhora o acerto. 6 testes.</span><span lang="en">Thirteen fictional paragraphs become a graph of people, organizations, projects and places. The question marks the entities it names, a breadth-first search opens 0 to 2 hops, and a paragraph found only through the graph shows its path. The demo draws the graph. Honest result: on this small corpus recall@3 is 0.854 for plain search and 0.812 with the graph; it explains, it does not improve hits. 6 tests.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa no navegador, com os mesmos resultados do código Python. Estudo com documentos fictícios, sem modelo de linguagem.</span><span lang="en">Interactive in-browser demo, giving the same results as the Python code. A study with fictional documents, no language model.</span></p>
+        <p class="links"><a class="lnk" href="rag/09_graphrag-simples/demo/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/rag/09_graphrag-simples"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="rag/10_rag-filtros-facetas/demo/index.html" tabindex="-1" aria-hidden="true"><span class="sel">RAG</span><img src="assets/img/rag-filtros-facetas-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="rag/10_rag-filtros-facetas/demo/index.html"><span lang="pt">Busca com filtros e facetas antes do ranking</span><span lang="en">Search with filters and facets before ranking</span></a></h3>
+        <p class="tag"><span lang="pt">Python · pré-filtro · facetas</span><span lang="en">Python · pré-filtro · facetas</span></p>
+        <p class="d"><span lang="pt">Trinta e um posts fictícios de um blog com autor, categoria e data. Os filtros valem antes do ranking, então a busca ainda devolve resultados; as facetas contam o que sobra em cada valor ignorando o próprio filtro. A demo compara com o filtro aplicado depois do top 5, que perde resultados. Recusa quando a pergunta não tem base. 6 testes.</span><span lang="en">Thirty-one fictional blog posts with author, category and date. Filters apply before ranking, so the search still returns results; facets count what is left for each value, ignoring their own filter. The demo compares this with filtering after the top 5, which loses results. It refuses when the question has no support. 6 tests.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa no navegador, com os mesmos resultados do código Python. Estudo com documentos fictícios, sem modelo de linguagem.</span><span lang="en">Interactive in-browser demo, giving the same results as the Python code. A study with fictional documents, no language model.</span></p>
+        <p class="links"><a class="lnk" href="rag/10_rag-filtros-facetas/demo/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/rag/10_rag-filtros-facetas"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="rag/11_rag-de-codigo/demo/index.html" tabindex="-1" aria-hidden="true"><span class="sel">RAG</span><img src="assets/img/rag-codigo-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="rag/11_rag-de-codigo/demo/index.html"><span lang="pt">Perguntas sobre código com arquivo:linha conferido</span><span lang="en">Questions about code with a verified file:line</span></a></h3>
+        <p class="tag"><span lang="pt">Python · AST · BM25</span><span lang="en">Python · AST · BM25</span></p>
+        <p class="d"><span lang="pt">Pergunte sobre um pacote Python fictício de frete. O código é cortado pela AST em módulo, classe, função, método e constante, e a resposta cita arquivo:linha. Um teste abre cada arquivo e confere que a linha citada é mesmo o def, a classe ou a constante. A demo mostra o código com a linha destacada. 6 testes.</span><span lang="en">Ask about a fictional Python shipping package. Code is split by the AST into module, class, function, method and constant chunks, and the answer cites file:line. A test opens each file and checks that the cited line really is the def, class or constant. The demo shows the code with the line highlighted. 6 tests.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa no navegador, com os mesmos resultados do código Python. Estudo com documentos fictícios, sem modelo de linguagem.</span><span lang="en">Interactive in-browser demo, giving the same results as the Python code. A study with fictional documents, no language model.</span></p>
+        <p class="links"><a class="lnk" href="rag/11_rag-de-codigo/demo/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/rag/11_rag-de-codigo"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="rag/12_rag-deteccao-alucinacao/demo/index.html" tabindex="-1" aria-hidden="true"><span class="sel">RAG</span><img src="assets/img/rag-deteccao-alucinacao-d.webp" width="1200" height="675" loading="lazy" alt=""></a>
+        <h3><a href="rag/12_rag-deteccao-alucinacao/demo/index.html"><span lang="pt">Detecção de alucinação frase a frase</span><span lang="en">Sentence-by-sentence hallucination check</span></a></h3>
+        <p class="tag"><span lang="pt">Python · verificação · evidência</span><span lang="en">Python · verificação · evidência</span></p>
+        <p class="d"><span lang="pt">Dada uma pergunta e uma resposta candidata, o verificador busca as passagens, compara cada frase com a melhor evidência e marca como suportada, parcial ou sem suporte, checando também número ausente e polaridade oposta. Em 15 respostas escritas à mão: no conjunto de teste precisão 1,00 e recall 0,86; no de desenvolvimento, 1,00 e 0,67. Limiares fixados antes de medir. 5 testes.</span><span lang="en">Given a question and a candidate answer, the checker retrieves passages, compares each sentence with its best evidence and marks it supported, partial or unsupported, also checking missing numbers and opposite polarity. On 15 hand-written answers: precision 1.00 and recall 0.86 on the test split; 1.00 and 0.67 on development. Thresholds fixed before measuring. 5 tests.</span></p>
+        <p class="pend"><span lang="pt">Demo interativa no navegador, com os mesmos resultados do código Python. Estudo com documentos fictícios, sem modelo de linguagem.</span><span lang="en">Interactive in-browser demo, giving the same results as the Python code. A study with fictional documents, no language model.</span></p>
+        <p class="links"><a class="lnk" href="rag/12_rag-deteccao-alucinacao/demo/index.html"><span lang="pt">Testar a demo</span><span lang="en">Try the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/alissonlittig.github.io/tree/main/rag/12_rag-deteccao-alucinacao"><span lang="pt">Código</span><span lang="en">Code</span></a></p>
       </article>
     </div>
   </div>
@@ -1196,7 +1228,7 @@
       <div><dt><span lang="pt">automações com demo</span><span lang="en">automations with demo</span></dt><dd>40</dd></div>
       <div><dt><span lang="pt">CRMs</span><span lang="en">CRMs</span></dt><dd>25</dd></div>
       <div><dt><span lang="pt">dashboards</span><span lang="en">dashboards</span></dt><dd>22</dd></div>
-      <div><dt><span lang="pt">projetos de RAG</span><span lang="en">RAG projects</span></dt><dd>4</dd></div>
+      <div><dt><span lang="pt">projetos de RAG</span><span lang="en">RAG projects</span></dt><dd>8</dd></div>
     </dl>
   </div>
 </section>
