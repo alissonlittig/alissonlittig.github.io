@@ -1,0 +1,29 @@
+# Kickoff do app Rota Leve | reunião de produto, 04/03/2026 (fictícia) | 14:20
+00:00 Marina: Bom dia, pessoal. Vamos abrir o kickoff do Rota Leve. A meta de hoje é fechar o escopo do beta e as datas.
+00:18 Marina: O beta público sai no dia 18 de maio. Vai ficar limitado a 200 usuários, para a gente aguentar o suporte.
+00:41 Caio: Sobre mapas, eu comparei as opções. O Google Maps ia custar uns 1.800 reais por mês no volume que a gente espera.
+01:05 Caio: O OpenStreetMap com tiles próprios sai praticamente de graça. Minha proposta é usar OpenStreetMap no beta.
+01:30 Marina: Concordo. Se o volume crescer depois do beta, a gente reavalia o Google. Decidido: OpenStreetMap.
+01:52 Bia: No design, quero começar pelo onboarding. São quatro telas: boas-vindas, permissão de localização, escolha do tipo de rota e resumo.
+02:20 Bia: As cores seguem o verde-folha do logo, e o botão principal fica sempre no rodapé, ao alcance do polegar.
+02:48 Teo: Do lado de QA, o maior risco hoje é o GPS. No Android 12 a localização trava depois de uns dez minutos com a tela apagada.
+03:15 Caio: Isso é por causa da economia de bateria do sistema. Preciso de um serviço em primeiro plano com notificação fixa.
+03:40 Teo: Se resolver, eu rodo o teste de rota longa em três aparelhos diferentes antes do beta.
+04:05 Marina: Login: vamos usar só o login com Google no beta. E-mail e senha ficam para depois, para não gastar tempo com recuperação de senha.
+04:33 Bia: Então a tela de cadastro some e o onboarding fica mais curto. Ótimo.
+04:50 Marina: Notificações push ficam para a versão 1.1. No beta, o usuário só vê o aviso dentro do app.
+05:14 Caio: Faz sentido, push exige configurar o serviço de mensagens nas duas lojas e isso toma uma semana.
+05:40 Marina: Falando de prioridade, o que é obrigatório no beta é rota a pé, rota de bicicleta e salvar rotas favoritas.
+06:10 Marina: Rota de carro e transporte público ficam fora. Quem pedir, a gente anota no formulário de feedback.
+06:38 Teo: Quantas rotas favoritas cada pessoa pode salvar?
+06:46 Marina: Até 20 por usuário no beta. Depois a gente decide se o limite sobe no plano pago.
+07:12 Bia: Plano pago já está no roadmap? Preciso saber se desenho a tela de assinatura.
+07:30 Marina: Não. Assinatura só depois do beta. Nenhuma tela de pagamento por enquanto.
+07:55 Caio: Sobre infraestrutura, vou montar a integração contínua até 12 de maio, com build automático e testes a cada commit.
+08:25 Teo: Eu preparo o plano de testes e entrego junto, no dia 12 também.
+08:50 Bia: Eu entrego as telas de onboarding na sexta-feira, em Figma, pra o Caio começar a implementar.
+09:15 Marina: Reunião semanal toda terça às 10h, quinze minutos, em pé. Quem tiver bloqueio fala na hora.
+09:42 Marina: Dúvida que ficou aberta: o nome na loja. Rota Leve já existe em outra categoria, vou verificar com o jurídico.
+10:10 Caio: Se precisar trocar, o nome fica em um arquivo de configuração só, então não é problema técnico.
+10:34 Marina: Perfeito. Resumindo as ações: Caio, CI até 12 de maio. Bia, onboarding na sexta. Teo, plano de testes dia 12. Eu, o nome com o jurídico.
+11:05 Marina: Alguém tem mais algum ponto? Sem mais pontos, encerramos. Obrigada, pessoal.

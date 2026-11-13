@@ -1,0 +1,19 @@
+[
+{"q":"meu cachorro tá com a barriga ruim desde ontem","gold":"diarreia"},
+{"q":"minha gata não quer nem olhar pra comida","gold":"inapetencia"},
+{"q":"o cachorro comeu uns bombons, e agora?","gold":"intoxicacao"},
+{"q":"quanto eu gasto pra levar o bichinho no doutor?","gold":"consulta"},
+{"q":"meu cão balança a cabeça toda hora e fede o ouvido","gold":"otite"},
+{"q":"de quanto em quanto tempo dou remédio de lombriga no filhote?","gold":"vermes"},
+{"q":"depois que castra, quanto tempo fica com aquele cone?","gold":"castracao-pos"},
+{"q":"a partir de quando dá pra esterilizar a cachorrinha?","gold":"castracao-idade"},
+{"q":"o bicho tá todo se coçando e perdendo pelo","gold":"pele"},
+{"q":"preciso de algum papel pra viajar com o cachorro?","gold":"viagem"},
+{"q":"tem como parcelar o atendimento?","gold":"pagamento"},
+{"q":"meu cachorro caiu tremendo todo, o que faço?","gold":"convulsao"},
+{"q":"até que horas abre a clínica?","gold":"agenda"},
+{"q":"quanto custa deixar o animal dormindo na clínica?","gold":"internacao"},
+{"q":"meu gato precisa tomar quais injeções?","gold":"vac-gatos"},
+{"q":"o cachorro tá ofegando muito e muito quente","gold":"calor"},
+{"q":"dá pra colocar uma identificação eletrônica nele?","gold":"microchip"}
+]

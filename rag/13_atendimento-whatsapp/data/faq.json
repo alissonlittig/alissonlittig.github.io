@@ -1,0 +1,18 @@
+[
+{"id":"faq-prazo","q":"Qual o prazo de entrega?","a":"Capitais: 2 a 5 dias úteis. Interior: 5 a 10 dias úteis, contados da confirmação do pagamento."},
+{"id":"faq-frete","q":"Qual o valor do frete? Tem frete grátis?","a":"Frete grátis em compras acima de R$ 250,00. Abaixo disso, o frete é calculado pelo CEP no carrinho, a partir de R$ 14,90."},
+{"id":"faq-troca","q":"Como faço para trocar ou devolver um produto?","a":"Você pode devolver em até 7 dias corridos depois de receber, sem precisar explicar o motivo. Produto com defeito: até 30 dias. Plantas não entram na devolução por arrependimento."},
+{"id":"faq-garantia-planta","q":"A planta chegou murcha ou morta, e agora?","a":"Plantas têm garantia de 15 dias de chegada viva. Mande uma foto em até 48 horas depois do recebimento e fazemos a troca ou o reembolso."},
+{"id":"faq-pagamento","q":"Quais as formas de pagamento?","a":"Pix com 5% de desconto, cartão de crédito em até 6x sem juros e boleto à vista."},
+{"id":"faq-nf","q":"Vocês emitem nota fiscal?","a":"Sim. A nota fiscal eletrônica segue por e-mail junto com o código de rastreio."},
+{"id":"faq-retirada","q":"Posso retirar o pedido na loja?","a":"Pode, sem custo. Rua das Acácias, 120, Curitiba-PR, de segunda a sábado, das 9h às 18h. Espere o aviso de pedido pronto."},
+{"id":"faq-rastreio","q":"Como rastrear meu pedido?","a":"O código de rastreio chega por e-mail em até 24 horas depois do envio. Digite o código em Meus pedidos, no site."},
+{"id":"faq-cancelar","q":"Posso cancelar o pedido?","a":"Antes do envio, sim, com reembolso integral. Depois do envio, vale a política de devolução."},
+{"id":"faq-presente","q":"Tem embalagem de presente?","a":"Tem, por R$ 8,00 por pedido, com cartão escrito à mão. Marque a opção no carrinho."},
+{"id":"faq-cupom","q":"Tem cupom de desconto na primeira compra?","a":"Tem: BEMVINDO10 dá 10% de desconto na primeira compra e não acumula com o desconto do Pix."},
+{"id":"faq-atacado","q":"Vocês vendem no atacado para lojas e eventos?","a":"Para compras acima de 20 peças, mande a lista e um atendente responde com uma proposta de preço especial."},
+{"id":"faq-horario","q":"Qual o horário de atendimento?","a":"Atendimento humano de segunda a sexta, das 9h às 18h. Fora desse horário, o chamado fica na fila para o próximo dia útil."},
+{"id":"faq-reembolso","q":"Quanto tempo demora o reembolso?","a":"Até 10 dias úteis depois de recebermos o produto devolvido. No cartão, o valor pode aparecer na fatura seguinte."},
+{"id":"faq-cuidado-jiboia","q":"Como cuidar da jiboia?","a":"Luz indireta, e regue quando o topo do substrato estiver seco, cerca de uma vez por semana. Evite sol direto, que queima as folhas."},
+{"id":"faq-cuidado-zamioculca","q":"Como cuidar da zamioculca?","a":"Aguenta pouca luz e rega a cada 15 dias. O excesso de água apodrece a raiz, então sempre confira o fundo do pote."}
+]

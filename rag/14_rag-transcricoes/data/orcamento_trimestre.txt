@@ -1,0 +1,26 @@
+# Revisão de orçamento do segundo trimestre | reunião financeira, 21/04/2026 (fictícia) | 12:50
+00:00 Helena: Boa tarde. Vamos rever o orçamento do segundo trimestre. O total aprovado foi de 240 mil reais.
+00:22 Helena: Até agora gastamos 118 mil, ou seja, cerca de 49 por cento, e ainda falta mais da metade do trimestre.
+00:48 Renato: O maior desvio está em infraestrutura em nuvem. A fatura passou de 7.700 para 9.400 reais por mês, uma alta de 22 por cento.
+01:15 Renato: A causa principal são os backups duplicados e duas máquinas de teste que ninguém desligou.
+01:40 Helena: Então a primeira decisão: desligar as máquinas ociosas ainda esta semana. Renato, você faz isso?
+01:55 Renato: Faço hoje. Isso já derruba uns 900 reais por mês.
+02:20 Paula: Em marketing, o plano era gastar 60 mil. Gastei 31 mil e as campanhas de busca estão com custo por clique mais alto.
+02:48 Paula: Pelo desempenho, eu sugiro cortar 15 por cento do orçamento de marketing e concentrar na campanha que converte melhor.
+03:15 Helena: Corte aprovado. O orçamento de marketing do trimestre passa de 60 para 51 mil reais.
+03:42 Helena: Sobre contratação: as duas vagas de desenvolvedor ficam adiadas para o terceiro trimestre.
+04:08 Renato: Isso atrasa o módulo de relatórios, que dependia de uma dessas pessoas. Eu aviso o time de produto hoje.
+04:35 Paula: Tem o evento de clientes em junho. O fornecedor passou um orçamento de 18 mil reais com buffet e som.
+05:02 Helena: Aprovo os 18 mil, mas com uma condição: o fornecedor precisa de contrato fechado até 15 de maio.
+05:30 Helena: Reserva de caixa. Hoje temos o equivalente a quatro meses de despesa fixa. A política da empresa é nunca ficar abaixo de três.
+06:00 Renato: Com o corte de marketing e as máquinas desligadas, a gente chega no fim do trimestre com quatro meses e meio.
+06:28 Paula: E o reajuste salarial? O pessoal já está perguntando.
+06:40 Helena: O reajuste de 6 por cento fica para julho, junto com o início do terceiro trimestre. Não vamos antecipar.
+07:10 Renato: Outra coisa: o contrato do servidor vence em agosto. Vale renegociar agora, com o volume que temos.
+07:38 Helena: Combinado. Renato, peça duas cotações até o fim do mês e traga comparativo na próxima reunião.
+08:05 Paula: Preciso de uma decisão sobre a ferramenta de e-mail marketing. A licença de 400 reais por mês renova dia primeiro.
+08:30 Helena: Cancelem. Usem a ferramenta gratuita até 2 mil contatos, que cobre a nossa lista atual.
+08:58 Renato: Resumo das ações: eu desligo as máquinas hoje e peço duas cotações do servidor até o fim do mês.
+09:20 Paula: Eu reduzo o marketing para 51 mil, fecho contrato do evento até 15 de maio e cancelo a licença de e-mail.
+09:48 Helena: E eu comunico o adiamento das vagas e o reajuste de julho para a diretoria. Próxima revisão em 19 de maio.
+10:15 Helena: Mais alguma coisa? Então está encerrado. Obrigada a todos.

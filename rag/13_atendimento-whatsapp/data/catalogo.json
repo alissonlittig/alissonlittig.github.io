@@ -1,0 +1,16 @@
+[
+{"id":"prod-aurora-m","nome":"Vaso Cerâmica Aurora","variante":"Médio","cat":"Vasos","desc":"Vaso de cerâmica off-white, 22 cm de altura, com furo de drenagem e prato removível.","preco":89.90,"estoque":14},
+{"id":"prod-aurora-g","nome":"Vaso Cerâmica Aurora","variante":"Grande","cat":"Vasos","desc":"Vaso de cerâmica off-white, 32 cm de altura, com furo de drenagem e prato removível.","preco":139.90,"estoque":6},
+{"id":"prod-cachepo","nome":"Kit 3 Cachepôs de Linho","cat":"Vasos","desc":"Três cachepôs de linho natural para vasos de até 15 cm, lavam à mão.","preco":64.00,"estoque":0,"reposicao":"cerca de 20 dias"},
+{"id":"prod-macrame","nome":"Suporte de Macramê para Parede","cat":"Suportes","desc":"Suporte de corda de algodão cru com 60 cm, aguenta um vaso de até 3 kg.","preco":42.50,"estoque":23},
+{"id":"prod-substrato","nome":"Substrato Orgânico 5 kg","cat":"Terra e adubo","desc":"Mistura de terra vegetal, húmus e fibra de coco, para vasos de interior.","preco":36.90,"estoque":40},
+{"id":"prod-regador","nome":"Regador de Inox 1,5 L","cat":"Ferramentas","desc":"Regador de aço inox escovado com bico longo, 1,5 litro.","preco":78.00,"estoque":9},
+{"id":"prod-jiboia","nome":"Jiboia no Pote 15","cat":"Plantas","desc":"Planta jiboia em pote de 15 cm, cerca de 30 cm de altura, aceita luz indireta.","preco":49.90,"estoque":17},
+{"id":"prod-zamioculca","nome":"Zamioculca no Pote 17","cat":"Plantas","desc":"Zamioculca em pote de 17 cm, cerca de 45 cm de altura, aguenta pouca luz.","preco":79.90,"estoque":8},
+{"id":"prod-espada","nome":"Espada-de-São-Jorge no Pote 15","cat":"Plantas","desc":"Espada-de-são-jorge em pote de 15 cm, folhas verticais, cerca de 50 cm.","preco":54.90,"estoque":0,"reposicao":"cerca de 10 dias"},
+{"id":"prod-pulverizador","nome":"Pulverizador de Vidro 300 ml","cat":"Ferramentas","desc":"Borrifador de vidro âmbar com bico de latão, 300 ml, para folhagens.","preco":29.90,"estoque":31},
+{"id":"prod-prato","nome":"Prato de Cerâmica 25 cm","cat":"Vasos","desc":"Prato de cerâmica esmaltada de 25 cm, serve de base para vasos grandes.","preco":34.90,"estoque":12},
+{"id":"prod-tesoura","nome":"Tesoura de Poda","cat":"Ferramentas","desc":"Tesoura de poda com lâmina de aço carbono e trava de segurança.","preco":58.00,"estoque":11},
+{"id":"prod-cesto","nome":"Cesto de Vime Redondo","cat":"Suportes","desc":"Cesto de vime trançado de 35 cm de diâmetro, para vasos grandes ou revistas.","preco":119.00,"estoque":4},
+{"id":"prod-adubo","nome":"Adubo Líquido NPK 500 ml","cat":"Terra e adubo","desc":"Adubo líquido NPK para folhagens, diluir 5 ml em 1 litro de água a cada 15 dias.","preco":27.50,"estoque":26}
+]

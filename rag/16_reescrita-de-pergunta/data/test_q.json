@@ -1,0 +1,22 @@
+[
+{"q":"meu cachorrinho acabou de nascer, quando começa as vacinas dele?","gold":"vac-caes"},
+{"q":"ele ficou molinho e quente depois da vacina, é normal?","gold":"vac-reacao"},
+{"q":"como faço pra tirar as pulgas do meu cachorro?","gold":"pulgas"},
+{"q":"a boca do meu gato tá cheirando mal","gold":"dentes"},
+{"q":"posso dar comida pra ele de manhã antes de operar?","gold":"castracao-preparo"},
+{"q":"minha cachorra tá sangrando, é normal?","gold":"cio"},
+{"q":"se eu voltar na semana que vem precisa pagar de novo?","gold":"consulta"},
+{"q":"fora do horário comum, dá pra levar ele de madrugada?","gold":"plantao"},
+{"q":"quanto tempo demora pra sair o exame de sangue?","gold":"exames"},
+{"q":"vocês dão banho em cachorro grande? quanto é?","gold":"banho"},
+{"q":"quero mudar a comida do meu cachorro, como faço?","gold":"racao"},
+{"q":"meu cachorro já é velhinho, devo fazer algum exame?","gold":"idoso"},
+{"q":"minha cachorra tá gordinha demais, vocês ajudam?","gold":"peso"},
+{"q":"o gato comeu uva, tem problema?","gold":"intoxicacao"},
+{"q":"tem plano mensal pra consultas?","gold":"pagamento"},
+{"q":"o cachorro tá com a orelha vermelha e coçando muito","gold":"otite"},
+{"q":"meu cachorro vomitou três vezes hoje","gold":"diarreia"},
+{"q":"que dia posso visitar meu bichinho internado?","gold":"internacao"},
+{"q":"de quanto em quanto tempo vermifuga cachorro adulto?","gold":"vermes"},
+{"q":"meu cachorro tá espumando e se debatendo no chão","gold":"convulsao"}
+]

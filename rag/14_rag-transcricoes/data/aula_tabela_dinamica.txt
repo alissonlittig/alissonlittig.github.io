@@ -1,0 +1,28 @@
+# Aula em vídeo: tabelas dinâmicas em planilhas | vídeo-aula, roteiro original fictício | 13:40
+00:00 Lúcia: Olá! Nesta aula você vai aprender a usar tabelas dinâmicas para resumir milhares de linhas em poucos cliques.
+00:22 Lúcia: Uma tabela dinâmica agrupa e soma os dados de uma planilha sem alterar a planilha original.
+00:45 Lúcia: Antes de começar, prepare os dados. Precisa de uma linha de cabeçalho única e nenhuma linha ou coluna totalmente em branco no meio.
+01:12 Lúcia: Evite células mescladas. Elas são a causa número um de erro ao criar a tabela dinâmica.
+01:38 Lúcia: Para criar, selecione qualquer célula dos dados, vá no menu Inserir e escolha Tabela dinâmica. Aceite a opção de nova planilha.
+02:05 Lúcia: Do lado direito aparece a lista de campos. Cada coluna dos seus dados vira um campo que você pode arrastar.
+02:30 Lúcia: Arraste Região para Linhas. Agora cada região aparece em uma linha, sem repetição.
+02:52 Lúcia: Arraste Vendas para Valores. Por padrão, o valor numérico é somado, então você vê o total de vendas por região.
+03:20 Lúcia: Se o campo for texto, a tabela mostra a contagem em vez da soma. Você pode trocar clicando em Configurações do campo de valor.
+03:50 Lúcia: Dá para trocar soma por média, mínimo, máximo ou contagem. Para saber quantos pedidos foram feitos, use contagem.
+04:18 Lúcia: Agora arraste Data para Colunas. A planilha vai sugerir agrupar as datas automaticamente por mês.
+04:45 Lúcia: Se não agrupar sozinha, clique com o botão direito em uma data e escolha Agrupar. Marque meses e anos.
+05:15 Lúcia: Cuidado: se você agrupar só por mês e tiver dois anos de dados, janeiro de dois anos diferentes será somado junto. Marque também anos.
+05:48 Lúcia: Para filtrar, arraste Vendedor para a área de Filtros. Um seletor aparece acima da tabela.
+06:15 Lúcia: A segmentação de dados é um filtro visual com botões. Vá em Analisar tabela dinâmica e escolha Inserir segmentação.
+06:50 Lúcia: Você pode ligar a mesma segmentação a várias tabelas dinâmicas, e todas filtram juntas.
+07:20 Lúcia: Um ponto importante: a tabela dinâmica não atualiza sozinha. Se você mudar os dados, clique na tabela e aperte Alt mais F5.
+07:52 Lúcia: Para que novas linhas entrem automaticamente, transforme os dados em Tabela com Ctrl mais T antes de criar a dinâmica.
+08:25 Lúcia: Quer ver percentual em vez de valor? Em Configurações do campo de valor, vá em Mostrar valores como e escolha Percentual do total geral.
+09:00 Lúcia: Também dá para mostrar o percentual por linha, que é ótimo para ver quanto cada produto pesa dentro de cada região.
+09:34 Lúcia: Para destacar números, aplique formatação condicional na área de valores. Barras de dados funcionam bem aqui.
+10:08 Lúcia: Dica de apresentação: clique com o botão direito, escolha Opções da tabela dinâmica e desmarque Ajustar largura das colunas ao atualizar.
+10:42 Lúcia: Para um gráfico, selecione a tabela e vá em Inserir gráfico dinâmico. Ele acompanha os filtros da tabela.
+11:20 Lúcia: Erro comum: o campo aparece como contagem em vez de soma. Quase sempre existe uma célula com texto no meio dos números.
+11:55 Lúcia: Outro erro: a tabela dinâmica mostra dados velhos. Lembre de atualizar com Alt mais F5.
+12:30 Lúcia: Exercício: monte uma tabela com vendas por mês e por região, depois insira uma segmentação por vendedor.
+13:05 Lúcia: Na próxima aula, vamos ligar duas planilhas com PROCV. Obrigada por assistir e até lá!
