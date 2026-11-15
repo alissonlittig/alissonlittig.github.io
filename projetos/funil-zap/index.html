@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funil Zap · CRM de leads de WhatsApp com retorno agendado</title>
+<meta name="description" content="Demo de CRM para pequenos negócios que vendem pelo WhatsApp: funil por etapa, retorno agendado com alerta de atraso e mensagem pronta. Dados no navegador, fictícios.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#f2f5f1;--card:#fff;--ink:#16231c;--mut:#5d6b62;--line:#dde5df;--g:#157347;--g2:#e3f3ea;--warn:#b25e09;--bad:#b3261e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 22px;background:#fff;border-bottom:1px solid var(--line)}
+h1{font-size:20px;margin:0;letter-spacing:-.01em}h1 small{display:block;font-weight:500;color:var(--mut);font-size:13px}
+.kp{display:flex;gap:10px;flex-wrap:wrap}.kp div{background:var(--g2);border-radius:12px;padding:8px 14px}.kp b{display:block;font-size:19px;font-variant-numeric:tabular-nums}.kp span{font-size:12px;color:var(--mut)}
+.kp .late{background:#fdeceb}.kp .late b{color:var(--bad)}
+main{padding:18px 22px 60px}
+form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+input,select{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:0;flex:1 1 150px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--g);outline-offset:1px}
+.btn{background:var(--g);color:#fff;border:0;border-radius:10px;padding:0 20px;min-height:44px;font-weight:700;cursor:pointer;font:inherit;font-weight:700}
+.err{color:var(--bad);font-size:14px;margin:-8px 0 12px;min-height:1em}
+.board{display:grid;grid-template-columns:repeat(5,minmax(210px,1fr));gap:12px;overflow-x:auto;padding-bottom:8px}
+.col{background:#e8eee9;border-radius:14px;padding:10px;min-height:160px}
+.col h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:2px 4px 10px;display:flex;justify-content:space-between}
+.c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px}
+.c b{display:block}.c .v{color:var(--g);font-weight:700;font-variant-numeric:tabular-nums}.c .m{color:var(--mut);font-size:13px}
+.c.late{border-color:#e6b0ab}.c .d{font-size:12.5px;font-weight:600;color:var(--mut)}.c.late .d{color:var(--bad)}.c.today .d{color:var(--warn)}
+.act{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.act button,.act a{font:inherit;font-size:13px;font-weight:600;padding:0 10px;min-height:34px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.act .wa{background:var(--g2);border-color:#b7dcc7;color:var(--g)}
+.fine{color:var(--mut);font-size:13px;margin-top:20px;max-width:70ch}
+.sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<header><h1>Funil Zap<small>Leads de WhatsApp, do primeiro contato ao fechamento</small></h1><div class="kp" id="kp"></div></header>
+<main>
+<form id="f" novalidate>
+ <label class="sr" for="n">Nome</label><input id="n" placeholder="Nome do lead">
+ <label class="sr" for="t">WhatsApp</label><input id="t" inputmode="tel" placeholder="WhatsApp com DDD">
+ <label class="sr" for="v">Valor</label><input id="v" inputmode="decimal" placeholder="Valor estimado (R$)">
+ <label class="sr" for="r">Retorno</label><input id="r" type="date">
+ <button class="btn">Adicionar lead</button>
+</form>
+<p class="err" id="e" role="alert"></p>
+<div class="board" id="b"></div>
+<p class="fine">Demonstração com dados fictícios e telefones de exemplo, guardados só neste navegador. "Chamar" abre o WhatsApp com a mensagem pronta; nada é enviado sem você tocar em enviar lá. Retorno vencido fica em vermelho.</p>
+</main>
+<script>
+const ST=['Novo','Conversando','Proposta','Fechado','Perdido'],KEY='funilzap-v1';
+const $=s=>document.querySelector(s),brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const add=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let L;try{L=JSON.parse(localStorage.getItem(KEY))}catch(e){L=null}
+if(!Array.isArray(L))L=[{id:1,n:'Carla Mendes',t:'5541900000001',v:1800,s:0,r:add(-1)},{id:2,n:'Oficina do Beto',t:'5541900000002',v:4200,s:1,r:add(0)},{id:3,n:'Studio Lia',t:'5541900000003',v:950,s:1,r:add(3)},{id:4,n:'Mercado Bom Preço',t:'5541900000004',v:7600,s:2,r:add(2)},{id:5,n:'Dr. Paulo Reis',t:'5541900000005',v:3100,s:3,r:''}];
+const save=()=>localStorage.setItem(KEY,JSON.stringify(L));
+const msg=l=>`Oi, ${l.n.split(' ')[0]}! Tudo bem? Passando para saber se você conseguiu ver a nossa conversa. Posso te ajudar com alguma dúvida?`;
+function dl(l){if(!l.r||l.s>=3)return{c:'',t:l.s>=3?'':'sem retorno marcado'};const d=Math.round((new Date(l.r+'T00:00')-new Date(iso(new Date())+'T00:00'))/864e5);return d<0?{c:'late',t:'atrasado '+(-d)+(d===-1?' dia':' dias')}:d===0?{c:'today',t:'retornar hoje'}:{c:'',t:'retorno em '+d+(d===1?' dia':' dias')}}
+function render(){const open=L.filter(l=>l.s<3),late=open.filter(l=>dl(l).c==='late').length;
+ $('#kp').innerHTML=`<div><b>${open.length}</b><span>em andamento</span></div><div><b>${brl(open.reduce((s,l)=>s+l.v,0))}</b><span>no funil</span></div><div class="${late?'late':''}"><b>${late}</b><span>retornos atrasados</span></div><div><b>${brl(L.filter(l=>l.s===3).reduce((s,l)=>s+l.v,0))}</b><span>fechado</span></div>`;
+ $('#b').innerHTML=ST.map((n,i)=>{const xs=L.filter(l=>l.s===i);return `<section class="col" aria-label="${n}"><h2>${n}<span>${xs.length}</span></h2>${xs.map(l=>{const d=dl(l);return `<article class="c ${d.c}"><b>${esc(l.n)}</b><span class="v">${brl(l.v)}</span><div class="d">${d.t}</div><div class="act">${i>0?`<button data-m="${l.id}" data-d="-1" aria-label="Mover ${esc(l.n)} para ${ST[i-1]}">←</button>`:''}${i<4?`<button data-m="${l.id}" data-d="1" aria-label="Mover ${esc(l.n)} para ${ST[i+1]}">→</button>`:''}${l.s<3?`<a class="wa" target="_blank" rel="noopener" href="https://wa.me/${l.t}?text=${encodeURIComponent(msg(l))}">Chamar</a><button data-r="${l.id}">+2 dias</button>`:''}<button data-x="${l.id}" aria-label="Remover ${esc(l.n)}">Remover</button></div></article>`}).join('')}</section>`}).join('')}
+$('#b').onclick=e=>{const b=e.target.closest('button');if(!b)return;const g=k=>L.find(l=>l.id==b.dataset[k]);
+ if(b.dataset.m){const l=g('m');l.s=Math.max(0,Math.min(4,l.s+ +b.dataset.d));if(l.s>=3)l.r=''}
+ else if(b.dataset.r){g('r').r=add(2)}
+ else if(b.dataset.x){L=L.filter(l=>l.id!=b.dataset.x)}
+ save();render()};
+$('#f').onsubmit=e=>{e.preventDefault();const n=$('#n').value.trim(),t=$('#t').value.replace(/\D/g,''),v=parseFloat($('#v').value.replace(/\./g,'').replace(',','.')||'0');
+ const er=!n?'Informe o nome.':(t.length<10||t.length>13)?'WhatsApp com DDD, de 10 a 13 dígitos.':isNaN(v)||v<0?'Valor inválido.':'';
+ $('#e').textContent=er;if(er)return;
+ L.push({id:Date.now(),n,t:t.length<=11?'55'+t:t,v,s:0,r:$('#r').value||add(1)});save();e.target.reset();render()};
+render();
+</script></body></html>

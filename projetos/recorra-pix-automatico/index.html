@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recorra · cobrança recorrente por Pix Automático para mensalidades</title>
+<meta name="description" content="Landing page de demonstração: cobrança de mensalidades por Pix Automático, com simulador de quanto sua escola, academia ou clínica deixa de perder com atraso e tarifa. Marca fictícia.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b3d3a">
+<style>
+:root{--ink:#0e2321;--mut:#51675f;--bg:#fbfaf6;--deep:#0b3d3a;--ac:#12b886;--ac-d:#0a7d5c;--line:#dfe6e0;--sand:#f1efe6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:1080px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:20;background:rgba(251,250,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .w{display:flex;justify-content:space-between;align-items:center;min-height:62px}
+.lg{font:700 21px Georgia,serif;color:var(--deep);text-decoration:none;display:flex;align-items:center;gap:8px}.lg i{width:22px;height:22px;border-radius:7px;background:var(--ac);display:inline-block}
+.b{display:inline-flex;align-items:center;justify-content:center;background:var(--ac-d);color:#fff;text-decoration:none;font-weight:700;border-radius:12px;padding:0 22px;min-height:46px;border:0;font-size:16px;cursor:pointer}
+.b.o{background:none;color:var(--deep);border:1.5px solid var(--deep)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+.hero{padding:64px 22px 54px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
+@media(max-width:820px){.hero{grid-template-columns:minmax(0,1fr);padding-top:36px}}
+.eb{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ac-d);margin:0 0 12px}
+h1{font:700 clamp(34px,5.6vw,58px)/1.05 Georgia,serif;margin:0 0 18px;letter-spacing:-.02em;color:var(--deep)}
+.lead{font-size:19px;color:var(--mut);margin:0 0 26px;max-width:36em}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.ph{background:var(--deep);border-radius:28px;padding:22px;color:#e6f3ee;max-width:360px;margin-left:auto;box-shadow:0 40px 70px -40px rgba(11,61,58,.7)}
+@media(max-width:820px){.ph{margin:0 auto}}
+.ph small{color:#9fc9bc}.ph .row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #1f5a55}.ph .row:last-of-type{border:0}
+.ph .ok{display:inline-block;background:#12b88633;color:#6fe3bd;border-radius:99px;padding:1px 10px;font-size:12.5px;font-weight:700}
+.ph h3{margin:0 0 4px;font:600 19px Georgia,serif}
+section{padding:60px 0}.alt{background:var(--sand)}
+h2{font:700 clamp(27px,4vw,38px)/1.15 Georgia,serif;margin:0 0 14px;color:var(--deep);letter-spacing:-.01em}
+.sub{color:var(--mut);max-width:40em;margin:0 0 30px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s;padding:0;list-style:none}
+@media(max-width:760px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps li{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--deep);color:#fff;font-weight:700;margin-bottom:12px}
+.steps b{display:block;font:600 20px Georgia,serif;margin-bottom:4px}.steps span{color:var(--mut);font-size:15.5px}
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}@media(max-width:760px){.sim{grid-template-columns:minmax(0,1fr)}}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
+.f{margin-bottom:16px}label{display:block;font-weight:600;font-size:15px;margin-bottom:6px}
+input[type=number]{width:100%;font:inherit;padding:12px 14px;border:1px solid #c8d3cb;border-radius:12px;background:#fff;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--ac-d)}.val{float:right;font-weight:700;color:var(--ac-d)}
+.res{background:var(--deep);color:#fff;border-radius:20px;padding:26px;display:flex;flex-direction:column;justify-content:center}
+.res small{color:#9fc9bc}.res b{display:block;font:700 clamp(34px,6vw,52px)/1.1 Georgia,serif;color:#6fe3bd;margin:4px 0 14px;font-variant-numeric:tabular-nums}
+.res ul{margin:0;padding:0;list-style:none;font-size:15.5px}.res li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #1f5a55}
+details{border-bottom:1px solid var(--line);padding:18px 0}summary{cursor:pointer;font:600 20px Georgia,serif;list-style:none;display:flex;justify-content:space-between;gap:14px}
+summary::after{content:"+";color:var(--ac-d);font-size:26px;line-height:1}details[open] summary::after{content:"–"}details p{color:var(--mut);margin:10px 0 0;max-width:46em}
+.fin{background:var(--deep);color:#cfe3dc;padding:60px 0;text-align:center}.fin h2{color:#fff}.fin p{max-width:34em;margin:0 auto 24px}
+.form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto}.form input{flex:1 1 240px;font:inherit;padding:14px 16px;border-radius:12px;border:0;min-width:0}
+.msg{min-height:1.5em;margin-top:12px;color:#6fe3bd;font-weight:600}.msg.e{color:#ffb4a8}
+footer{padding:26px 0 40px;font-size:13.5px;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="w"><a class="lg" href="#topo"><i aria-hidden="true"></i>Recorra</a><a class="b" href="#simulador">Simular</a></div></header>
+<main id="topo">
+<div class="w hero">
+ <div><p class="eb">Pix Automático para mensalidades</p><h1>Cobrança que chega sozinha, todo mês.</h1>
+ <p class="lead">Seu aluno ou paciente autoriza uma vez no app do banco. Depois disso, a mensalidade é cobrada na data certa, sem boleto para reenviar e sem cobrança manual por WhatsApp.</p>
+ <div class="cta"><a class="b" href="#simulador">Ver quanto eu recupero</a><a class="b o" href="#como">Como funciona</a></div></div>
+ <div class="ph" aria-hidden="true"><h3>Mensalidades de novembro</h3><small>Vencimento dia 10 · Pix Automático</small>
+  <div class="row"><span>Ana Beatriz</span><span class="ok">Pago</span></div><div class="row"><span>Marcos T.</span><span class="ok">Pago</span></div><div class="row"><span>Livia R.</span><span class="ok">Agendado</span></div><div class="row"><span>Pedro H.</span><span class="ok">Pago</span></div></div>
+</div>
+<section id="como" class="alt"><div class="w"><h2>Três passos, uma vez só.</h2><p class="sub">O cliente decide e o banco dele executa. Você acompanha tudo em um painel.</p>
+ <ol class="steps"><li><b>Convite</b><span>Você envia um link ou QR Code de autorização com valor, dia e duração da recorrência.</span></li><li><b>Autorização</b><span>O cliente confere os dados no app do próprio banco e aceita. Ele pode cancelar quando quiser.</span></li><li><b>Cobrança automática</b><span>No vencimento, a cobrança é enviada ao banco e o resultado aparece no painel.</span></li></ol></div></section>
+<section id="simulador"><div class="w"><h2>Quanto você recupera por mês?</h2><p class="sub">Ajuste com os números do seu negócio. Os valores iniciais são só um exemplo; confira a tarifa real com o seu banco ou PSP.</p>
+ <div class="sim"><div class="card">
+  <div class="f"><label for="n">Mensalistas</label><input id="n" type="number" min="1" max="5000" value="120"></div>
+  <div class="f"><label for="t">Mensalidade média (R$)</label><input id="t" type="number" min="1" max="20000" value="180"></div>
+  <div class="f"><label for="a">Pagam com atraso hoje <span class="val" id="av"></span></label><input id="a" type="range" min="0" max="60" value="18"></div>
+  <div class="f"><label for="c">Tarifa atual por cobrança (R$)</label><input id="c" type="number" min="0" step="0.05" value="3.5"></div>
+  <div class="f"><label for="p">Tarifa do Pix por cobrança (R$)</label><input id="p" type="number" min="0" step="0.05" value="0.8"></div>
+  <p class="sub" style="margin:0;font-size:14px">Premissa: 70% dos que atrasam passam a pagar em dia com a cobrança automática.</p></div>
+  <div class="res" aria-live="polite"><small>Estimativa por mês</small><b id="r">R$ 0</b><ul id="ul"></ul></div></div></div></section>
+<section class="alt"><div class="w"><h2>Dúvidas comuns</h2>
+ <details><summary>O cliente perde o controle do dinheiro?</summary><p>Não. A autorização fica visível no app do banco dele, com valor e periodicidade, e ele pode cancelar ou recusar uma cobrança pelo próprio app.</p></details>
+ <details><summary>Serve para valor que muda todo mês?</summary><p>Serve para mensalidades de valor fixo ou com variação dentro de um limite autorizado. Consulte as regras do seu banco para o seu caso.</p></details>
+ <details><summary>E se o saldo não for suficiente?</summary><p>A cobrança não é paga e aparece como pendente no painel, para você reenviar o convite de pagamento. O simulador acima não considera esse caso.</p></details>
+ <details><summary>Isto é um produto real?</summary><p>Não. Recorra é uma marca fictícia, criada como landing page de demonstração com simulador. Nenhum dado é enviado.</p></details></div></section>
+<section class="fin" id="lista"><div class="w"><h2>Entre na lista de espera</h2><p>Deixe seu e-mail e a gente avisa quando abrir. Demonstração: o campo valida o formato, mas nada é enviado.</p>
+ <form class="form" id="f" novalidate><label for="em" style="position:absolute;left:-9999px">E-mail</label><input id="em" type="email" placeholder="voce@empresa.com.br" autocomplete="email"><button class="b" style="background:var(--ac)">Quero entrar</button></form><p class="msg" id="m" role="status"></p></div></section>
+</main>
+<footer><div class="w">Recorra é uma marca fictícia. Valores do simulador são ilustrativos e não constituem proposta comercial.</div></footer>
+<script>
+const $=s=>document.querySelector(s),brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),v=id=>Math.max(0,parseFloat($(id).value)||0);
+function calc(){const n=Math.min(v('#n'),5000),t=v('#t'),a=$('#a').value/100,c=v('#c'),p=v('#p');$('#av').textContent=$('#a').value+'%';
+ const rec=n*a*.7*t*.02,tar=n*Math.max(0,c-p),tot=rec+tar; // 2% de encargos/juros e custo de cobrar atraso, premissa ilustrativa
+ $('#r').textContent=brl(tot);$('#ul').innerHTML='<li><span>Menos tarifa por cobrança</span><b>'+brl(tar)+'</b></li><li><span>Atraso evitado (custo de cobrar + encargos, 2%)</span><b>'+brl(rec)+'</b></li><li><span>Cobranças por mês</span><b>'+n+'</b></li><li><span>Em um ano</span><b>'+brl(tot*12)+'</b></li>'}
+document.querySelectorAll('.card input').forEach(i=>i.oninput=calc);calc();
+$('#f').onsubmit=e=>{e.preventDefault();const ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('#em').value.trim());const m=$('#m');m.className='msg'+(ok?'':' e');m.textContent=ok?'Pronto, você está na lista (demonstração, nada foi enviado).':'Confira o e-mail: falta algo antes ou depois do @.'};
+</script></body></html>

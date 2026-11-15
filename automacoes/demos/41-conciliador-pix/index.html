@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conciliador de Pix · cobranças x extrato em um clique</title>
+<meta name="description" content="Demo: cola as cobranças e o extrato do banco e o conciliador marca o que foi pago, o que veio com valor diferente, o que está duplicado e o que ainda está em aberto. Dados fictícios.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0f1720;--card:#16212d;--line:#26364a;--tx:#e8eef5;--mut:#9fb0c3;--ac:#3ddc97;--warn:#f5b942;--bad:#ff6b6b;--info:#6ab0ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 70px}
+.eb{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:700;margin:0}
+h1{font-size:clamp(26px,4.4vw,40px);line-height:1.12;margin:8px 0 10px;letter-spacing:-.02em}
+.lead{color:var(--mut);max-width:60ch;margin:0 0 26px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media(max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}small.h{display:block;color:var(--mut);font-weight:400;margin-top:2px}
+textarea{width:100%;min-height:200px;background:#0c141c;color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:12px;font:13px/1.55 ui-monospace,Consolas,monospace;resize:vertical}
+textarea:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+button{background:var(--ac);color:#06281a;border:0;border-radius:10px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer;min-height:44px}
+button.g{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:8px 0 16px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}.k b{display:block;font-size:24px;font-variant-numeric:tabular-nums}.k span{color:var(--mut);font-size:13px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:#121c27}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border:0}
+.t{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;border:1px solid}
+.t.ok{color:var(--ac);border-color:#2a7a58}.t.w{color:var(--warn);border-color:#7a5d22}.t.b{color:var(--bad);border-color:#7a3333}.t.i{color:var(--info);border-color:#2f5584}
+.err{color:var(--bad);margin:8px 0}.fine{color:var(--mut);font-size:13px;margin-top:22px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body><div class="wrap">
+<p class="eb">Automação · financeiro</p>
+<h1>Conciliador de Pix</h1>
+<p class="lead">Cole as cobranças emitidas e o extrato do banco. O conciliador cruza nome e valor, e separa o que está certo do que precisa de olho humano. Tudo roda no seu navegador, com dados fictícios.</p>
+<div class="grid">
+ <div class="card"><label for="cob">Cobranças emitidas <small class="h">ID;Cliente;Valor</small></label><textarea id="cob" spellcheck="false"></textarea></div>
+ <div class="card"><label for="ext">Extrato do banco <small class="h">Data;Descrição;Valor</small></label><textarea id="ext" spellcheck="false"></textarea></div>
+</div>
+<div class="bar"><button id="run">Conciliar</button><button class="g" id="rst">Restaurar exemplo</button></div>
+<p class="err" id="err" role="alert"></p>
+<div id="out" aria-live="polite"></div>
+<p class="fine">Regras: 1) o nome do cliente aparece na descrição e o valor bate = conciliado; 2) nome bate e valor não = divergente (mostra a diferença); 3) só o valor bate e é único entre as cobranças em aberto = provável, confirmar; 4) cobrança já paga recebendo de novo = duplicado; 5) o resto é crédito sem cobrança. Projeto de demonstração, sem integração bancária.</p>
+</div>
+<script>
+const COB=`C-101;Padaria Estrela do Sul;480,00
+C-102;Mecânica Rocha;1250,50
+C-103;Clínica Vitta;890,00
+C-104;Studio Bruna Lima;320,00
+C-105;Distribuidora Norte;2100,00
+C-106;Escola Girassol;760,00`;
+const EXT=`03/11;PIX RECEBIDO PADARIA ESTRELA DO SUL;480,00
+03/11;PIX RECEBIDO MECANICA ROCHA LTDA;1250,50
+04/11;PIX RECEBIDO CLINICA VITTA;850,00
+04/11;PIX RECEBIDO J SILVA;320,00
+05/11;PIX RECEBIDO PADARIA ESTRELA DO SUL;480,00
+05/11;PIX RECEBIDO ESCOLA GIRASSOL;760,00
+06/11;PIX RECEBIDO RENATO M;175,90`;
+const $=s=>document.querySelector(s),brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const STOP=new Set(['ltda','epp','sul','norte','studio','escola','clinica','mecanica','padaria','distribuidora']);
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function num(v){const n=parseFloat(String(v).trim().replace(/\./g,'').replace(',','.'));return isNaN(n)?null:n}
+function parse(txt,k){const rows=[],bad=[];txt.split(/\r?\n/).forEach((l,i)=>{if(!l.trim())return;const p=l.split(';').map(x=>x.trim());const v=num(p[2]);if(p.length<3||v===null||!p[1]){bad.push(k+' linha '+(i+1));return}rows.push({a:p[0],b:p[1],v})});return{rows,bad}}
+function toks(s){return norm(s).split(/[^a-z0-9]+/).filter(t=>t.length>=3&&!STOP.has(t))}
+function nameHit(client,desc){const d=norm(desc),t=toks(client);return t.length>0&&t.some(x=>d.includes(x))}
+function run(){const c=parse($('#cob').value,'Cobranças'),e=parse($('#ext').value,'Extrato'),bad=[...c.bad,...e.bad];
+ $('#err').textContent=bad.length?'Linhas ignoradas por formato inválido: '+bad.join(', ')+'.':'';
+ const cob=c.rows.map(r=>({id:r.a,cli:r.b,v:r.v,paid:null})),res=[];
+ e.rows.forEach(x=>{const open=cob.filter(q=>!q.paid);
+  let q=open.find(q=>nameHit(q.cli,x.b)&&Math.abs(q.v-x.v)<.005);
+  if(q){q.paid=x;res.push({x,q,s:'ok',t:'Conciliado'});return}
+  const done=cob.find(q=>q.paid&&nameHit(q.cli,x.b)&&Math.abs(q.v-x.v)<.005);
+  if(done){res.push({x,q:done,s:'b',t:'Duplicado'});return}
+  q=open.find(q=>nameHit(q.cli,x.b));
+  if(q){q.paid=x;res.push({x,q,s:'w',t:'Valor divergente',d:x.v-q.v});return}
+  const same=open.filter(q=>Math.abs(q.v-x.v)<.005);
+  if(same.length===1){same[0].paid=x;res.push({x,q:same[0],s:'i',t:'Provável (só valor)'});return}
+  res.push({x,s:'b',t:'Sem cobrança'})});
+ const aberto=cob.filter(q=>!q.paid);
+ const dup=res.filter(r=>r.t==='Duplicado'),sem=res.filter(r=>r.t==='Sem cobrança'),ok=res.filter(r=>r.t==='Conciliado');
+ const k=(b,s)=>'<div class="k"><b>'+b+'</b><span>'+s+'</span></div>';
+ let h='<div class="kpis">'+k(ok.length,'conciliados')+k(res.filter(r=>r.s==='w'||r.s==='i').length,'para conferir')+k(dup.length+sem.length,'duplicados / sem cobrança')+k(aberto.length,'cobranças em aberto')+k(brl(aberto.reduce((s,q)=>s+q.v,0)),'valor em aberto')+'</div>';
+ h+='<div class="tw"><table><thead><tr><th>Data</th><th>Descrição no extrato</th><th class="n">Valor</th><th>Cobrança</th><th>Situação</th></tr></thead><tbody>'+res.map(r=>'<tr><td>'+esc(r.x.a)+'</td><td>'+esc(r.x.b)+'</td><td class="n">'+brl(r.x.v)+'</td><td>'+(r.q?esc(r.q.id+' · '+r.q.cli):'—')+'</td><td><span class="t '+r.s+'">'+r.t+'</span>'+(r.d!==undefined?' <small>'+(r.d>0?'+':'')+brl(r.d)+'</small>':'')+'</td></tr>').join('')+'</tbody></table></div>';
+ if(aberto.length)h+='<h2 style="font-size:18px;margin:22px 0 8px">Em aberto</h2><div class="tw"><table><thead><tr><th>ID</th><th>Cliente</th><th class="n">Valor</th></tr></thead><tbody>'+aberto.map(q=>'<tr><td>'+esc(q.id)+'</td><td>'+esc(q.cli)+'</td><td class="n">'+brl(q.v)+'</td></tr>').join('')+'</tbody></table></div>';
+ $('#out').innerHTML=h}
+function rst(){$('#cob').value=COB;$('#ext').value=EXT;run()}
+$('#run').onclick=run;$('#rst').onclick=rst;rst();
+</script></body></html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pergunte à política de privacidade · RAG com citação e recusa</title>
+<meta name="description" content="Demo de RAG sobre uma política de privacidade fictícia (LGPD): a resposta cita o artigo exato, mostra a pontuação e recusa quando a política não cobre a pergunta. Sem modelo de linguagem.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#1d2433;--mut:#5f6879;--line:#e3dccd;--ac:#1f4fd8;--ac2:#e8eeff;--ok:#16794c;--bad:#a3261d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:30px 20px 70px}
+.eb{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:700;margin:0}
+h1{font:600 clamp(28px,4.6vw,44px)/1.1 Georgia,serif;margin:8px 0 10px;letter-spacing:-.01em}
+.lead{color:var(--mut);max-width:62ch;margin:0 0 22px}
+form{display:flex;gap:10px;flex-wrap:wrap}
+input{flex:1 1 280px;min-width:0;padding:14px 16px;font:inherit;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+input:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+button{background:var(--ac);color:#fff;border:0;border-radius:12px;padding:0 24px;min-height:50px;font:600 16px inherit;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 24px}
+.chips button{background:var(--ac2);color:var(--ac);min-height:40px;padding:0 14px;font-size:14px;font-weight:600;border-radius:99px}
+.ans{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:18px}
+.ans.no{border-color:#e4bcb8;background:#fff6f5}
+.ans h2{font:600 13px system-ui;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px;color:var(--ok)}.ans.no h2{color:var(--bad)}
+.ans blockquote{margin:0;font:19px/1.55 Georgia,serif;padding-left:14px;border-left:3px solid var(--ac)}
+.src{margin-top:12px;color:var(--mut);font-size:14px}.src b{color:var(--ink)}
+h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:26px 0 10px}
+.art{display:grid;grid-template-columns:70px minmax(0,1fr) 64px;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:8px;font-size:14.5px}
+.art.hit{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}
+.art b{font-variant-numeric:tabular-nums}.art .sc{text-align:right;color:var(--mut);font-variant-numeric:tabular-nums}
+mark{background:#ffe7a3;padding:0 2px;border-radius:3px}
+.fine{color:var(--mut);font-size:13px;margin-top:26px}
+</style>
+</head>
+<body><div class="wrap">
+<p class="eb">RAG · conformidade</p>
+<h1>Pergunte à política de privacidade</h1>
+<p class="lead">Uma política fictícia (LGPD) da loja Mercearia Alvorada vira perguntas e respostas. Cada resposta cita o artigo, e o que a política não diz é recusado em vez de inventado.</p>
+<form id="f"><label class="sr" for="q" style="position:absolute;left:-9999px">Pergunta</label><input id="q" placeholder="Ex.: por quanto tempo vocês guardam meus dados?" autocomplete="off"><button>Perguntar</button></form>
+<div class="chips" id="chips" aria-label="Exemplos"></div>
+<div id="out" aria-live="polite"></div>
+<h3>Trechos da política</h3><div id="docs"></div>
+<p class="fine">Busca lexical (TF-IDF com acentos e plural normalizados), sem modelo de linguagem: a resposta é o trecho mais pontuado, copiado literalmente. Abaixo de 0,18 de pontuação a demo recusa. Texto e empresa fictícios; não é aconselhamento jurídico.</p>
+</div>
+<script>
+const D=[
+['Art. 1','Quais dados coletamos','Coletamos nome, e-mail, telefone, endereço de entrega e histórico de compras. Não coletamos dados sensíveis, como saúde, religião ou biometria.'],
+['Art. 2','Para que usamos os dados','Usamos os dados para processar pedidos, emitir nota fiscal, entregar as compras e responder ao suporte. Só enviamos promoções se você marcar a opção de receber ofertas.'],
+['Art. 3','Por quanto tempo guardamos','Guardamos os dados de compra por 5 anos, por exigência fiscal. Dados de cadastro sem compras são apagados após 24 meses de inatividade.'],
+['Art. 4','Compartilhamento com terceiros','Compartilhamos dados apenas com transportadoras e com o processador de pagamentos, no limite do necessário para a entrega e a cobrança. Não vendemos dados.'],
+['Art. 5','Seus direitos','Você pode pedir acesso, correção, portabilidade, anonimização ou exclusão dos seus dados. A resposta é dada em até 15 dias corridos.'],
+['Art. 6','Como pedir a exclusão','Envie o pedido pelo formulário Privacidade no site, com o e-mail do cadastro. Dados exigidos por lei, como notas fiscais, permanecem até o fim do prazo legal.'],
+['Art. 7','Cookies','Usamos cookies essenciais para o carrinho e cookies de medição de audiência. Você pode recusar os de medição no aviso exibido no primeiro acesso.'],
+['Art. 8','Segurança','Os dados trafegam com criptografia e o acesso interno é restrito por função. Em caso de incidente com risco ao titular, avisamos você e a ANPD.'],
+['Art. 9','Crianças e adolescentes','Não vendemos a menores de 18 anos sem a presença de responsável e não tratamos dados de crianças para publicidade.'],
+['Art. 10','Encarregado (DPO)','O encarregado pelo tratamento de dados responde pelo canal Privacidade do site e atende titulares e a ANPD.']];
+const STOP=new Set('a o as os de da do das dos e em um uma que para por com se me meu minha meus seu sua voces voce vcs ja pedido nao eu ao na no nas nos como qual quais quanto quando onde ser tem ter sao pode posso vocês'.split(' '));
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const stem=t=>t.replace(/(coes|oes|s)$/,'').replace(/(ar|er|ir|ando|endo|indo|am|em)$/,'');
+const tok=s=>norm(s).split(/[^a-z0-9]+/).filter(t=>t.length>2&&!STOP.has(t)).map(stem);
+const SYN={apagar:'exclu',deletar:'exclu',excluir:'exclu',remov:'exclu',apag:'exclu',delet:'exclu',tempo:'prazo',armazen:'guard',mant:'guard',vend:'compartilh',repass:'compartilh',ceder:'compartilh',anuncio:'promoc',propaganda:'promoc',marketing:'promoc',email:'e-mail',vaz:'incidente',invas:'incidente',hack:'incidente',filho:'menor',crianc:'menor',respond:'respost'};
+const docs=D.map(([id,t,x])=>({id,t,x,w:tok(t+' '+t+' '+x),tt:tok(t)}));
+const N=docs.length,df={};docs.forEach(d=>new Set(d.w).forEach(w=>df[w]=(df[w]||0)+1));
+const idf=w=>Math.log(1+N/(df[w]||0.5));
+function qt(q){return tok(q).map(w=>{for(const k in SYN)if(w.startsWith(k))return docs.some(d=>d.w.some(x=>x.startsWith(SYN[k])))?SYN[k]:w;return w})}
+function score(q,d){const qs=[...new Set(q)];if(!qs.length)return{s:0,hit:[]};let s=0,tot=0,hit=[];qs.forEach(w=>{const i=idf(w);tot+=i;const m=d.w.some(x=>x.startsWith(w)||w.startsWith(x)&&x.length>3);if(m){s+=i+(d.tt.some(x=>x.startsWith(w))?i*.5:0);hit.push(w)}});return{s:Math.min(1,s/tot),hit}}
+const $=s=>document.querySelector(s),esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hl(x,hit){let h=esc(x);hit.forEach(w=>{h=h.replace(new RegExp('('+w.replace(/[^a-z0-9-]/g,'')+'[a-zà-ú]*)','gi'),'<mark>$1</mark>')});return h}
+function ask(q){const t=qt(q);const r=docs.map(d=>({d,...score(t,d)})).sort((a,b)=>b.s-a.s);const top=r[0],ok=t.length>0&&top.s>=.18;
+ let h=ok?`<div class="ans"><h2>Resposta da política</h2><blockquote>${hl(top.d.x,top.hit)}</blockquote><p class="src">Fonte: <b>${top.d.id}, ${esc(top.d.t)}</b> · pontuação ${top.s.toFixed(2).replace('.',',')}</p></div>`:`<div class="ans no"><h2>Sem base na política</h2><blockquote>A política não trata disso, então não vou inventar uma resposta.</blockquote><p class="src">Melhor trecho encontrado: ${top.d.id} (pontuação ${top.s.toFixed(2).replace('.',',')}, abaixo de 0,18).</p></div>`;
+ $('#out').innerHTML=h;
+ $('#docs').innerHTML=r.map(x=>`<div class="art${ok&&x===top?' hit':''}"><b>${x.d.id}</b><span><b style="font-weight:600">${esc(x.d.t)}.</b> ${esc(x.d.x)}</span><span class="sc">${x.s.toFixed(2).replace('.',',')}</span></div>`).join('')}
+$('#f').onsubmit=e=>{e.preventDefault();if($('#q').value.trim())ask($('#q').value)};
+['Por quanto tempo vocês guardam meus dados?','Como faço para apagar meus dados?','Vocês vendem meus dados?','Quanto custa o frete?'].forEach(q=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.onclick=()=>{$('#q').value=q;ask(q)};$('#chips').append(b)});
+$('#q').value='Por quanto tempo vocês guardam meus dados?';ask($('#q').value);
+</script></body></html>
