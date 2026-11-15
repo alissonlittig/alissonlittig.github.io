@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boletos do e-mail na planilha · com alerta de vencimento</title>
+<meta name="description" content="Demo de fluxo n8n: lê boletos que chegam por e-mail, valida a linha digitável, lança na planilha sem duplicar e avisa antes de vencer. Dados fictícios.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0f1720;--card:#16212d;--line:#26364a;--tx:#e8eef5;--mut:#9fb0c3;--ac:#3ddc97;--warn:#f5b942;--bad:#ff6b6b;--info:#6ab0ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 70px}
+.eb{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:700;margin:0}
+h1{font-size:clamp(26px,4.4vw,40px);line-height:1.12;margin:8px 0 10px;letter-spacing:-.02em}
+h2{font-size:18px;margin:26px 0 10px}
+.lead{color:var(--mut);max-width:64ch;margin:0 0 22px}
+.flow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:0 0 22px;padding:0;list-style:none}
+.flow li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600}
+.flow li+li:before{content:"→";color:var(--mut);margin-right:8px;font-weight:400}
+.ctl{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:16px}
+.ctl label{font-size:13px;font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{background:#0c141c;color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:14px system-ui;min-height:44px}
+textarea{width:100%;min-height:92px;font:13px/1.5 ui-monospace,Consolas,monospace;resize:vertical}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+button{background:var(--ac);color:#06281a;border:0;border-radius:10px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer;min-height:44px}
+button.g{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0 6px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}.k b{display:block;font-size:24px;font-variant-numeric:tabular-nums}.k span{color:var(--mut);font-size:13px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media(max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+.mail{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.mail .h{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.mail b{font-size:14px}.mail .f{color:var(--mut);font-size:12px}
+.mail p{margin:6px 0 8px;font-size:13px;color:var(--mut);overflow-wrap:anywhere}
+.st{display:flex;gap:4px;flex-wrap:wrap}
+.st span{font-size:11px;border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--mut)}
+.st .ok{color:var(--ac);border-color:#2a7a58}.st .no{color:var(--bad);border-color:#7a3333}.st .sk{opacity:.5}
+.t{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;border:1px solid}
+.t.ok{color:var(--ac);border-color:#2a7a58}.t.w{color:var(--warn);border-color:#7a5d22}.t.b{color:var(--bad);border-color:#7a3333}.t.i{color:var(--info);border-color:#2f5584}.t.m{color:var(--mut);border-color:var(--line)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:#121c27}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border:0}
+.al{border:1px solid var(--line);border-left-width:4px;border-radius:12px;background:var(--card);padding:10px 14px;margin-bottom:8px;font-size:14px}
+.al.b{border-left-color:var(--bad)}.al.w{border-left-color:var(--warn)}.al small{display:block;color:var(--mut)}
+.err{color:var(--bad);margin:8px 0}.fine{color:var(--mut);font-size:13px;margin-top:22px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body><div class="wrap">
+<p class="eb">Automação · n8n · contas a pagar</p>
+<h1>Boletos do e-mail na planilha, com aviso antes de vencer</h1>
+<p class="lead">A caixa de entrada recebe de tudo. O fluxo separa o que é boleto, confere a linha digitável, lança na planilha sem duplicar e avisa o que vence logo. O que não bate vai para uma fila de revisão em vez de entrar errado. Roda no navegador com a mesma lógica do fluxo, dados fictícios.</p>
+<ol class="flow" aria-label="Nós do fluxo"><li>Gmail Trigger</li><li>IF tem boleto</li><li>Code: extrair e validar</li><li>IF já lançado</li><li>Google Sheets: append</li><li>IF vence em até N dias</li><li>Telegram / e-mail</li></ol>
+<div class="ctl">
+ <div><label for="hoje">Hoje</label><input type="date" id="hoje" value="2026-11-15"></div>
+ <div><label for="jan">Avisar com até</label><select id="jan"><option value="3">3 dias</option><option value="7">7 dias</option><option value="1">1 dia</option></select></div>
+ <button id="run">Processar caixa de entrada</button><button class="g" id="rst">Restaurar exemplo</button>
+</div>
+<div id="kp" class="kpis" aria-live="polite"></div>
+<div class="two">
+ <div><h2>Caixa de entrada</h2><div id="mails"></div>
+  <details class="mail"><summary><b>Colar outro e-mail</b></summary><p>Texto do e-mail com a linha digitável (47 dígitos). Ele entra no fim da fila e é processado junto.</p><textarea id="ex" spellcheck="false" aria-label="Corpo do e-mail"></textarea><div style="margin-top:8px"><button class="g" id="add">Adicionar e processar</button></div><p class="err" id="err" role="alert"></p></details>
+ </div>
+ <div><h2>Alertas enviados</h2><div id="als" aria-live="polite"></div><h2>Planilha “Contas a pagar”</h2><div class="tw" id="sheet"></div></div>
+</div>
+<p class="fine">Regras: 1) sem linha digitável de 47 dígitos no corpo, o e-mail é ignorado; 2) os três dígitos verificadores (módulo 10) precisam bater, senão vai para revisão; 3) o valor escrito no e-mail precisa ser igual ao valor embutido na linha digitável; 4) linha já lançada = duplicado, não entra de novo; 5) vencido ou vencendo dentro da janela gera alerta. O vencimento sai do fator da linha (contagem reiniciada em 22/02/2025). Projeto de demonstração, sem conexão com e-mail, banco ou Telegram.</p>
+</div>
+<script>
+const MAILS=[
+{de:'Energia Sul',ass:'Sua fatura de novembro',txt:'Olá! Segue o boleto da sua fatura. Valor: R$ 1.840,00. Linha digitável: 34196.60489 76475.938247 21948.924119 6 16320000184000'},
+{de:'Fibra Empresas',ass:'Boleto internet - novembro',txt:'Boleto do plano empresarial. Total R$ 620,35. Pague até o vencimento: 23792.91418 77763.170667 90743.915002 1 16340000062035'},
+{de:'Promoções da Loja Beta',ass:'Black Friday começou!',txt:'Até 60% off em tudo. Aproveite o cupom NOV60. Não perca!'},
+{de:'Imobiliária Centro',ass:'Aluguel do escritório',txt:'Aluguel de novembro: R$ 4.200,00. Código: 00190.11527 44939.092662 85878.400572 6 16410000420000'},
+{de:'Contabilidade Prado',ass:'Mensalidade em atraso',txt:'Mensalidade do mês: R$ 389,90. 10493.98256 97919.074837 37887.623280 7 16280000038990'},
+{de:'Energia Sul',ass:'Reenvio: fatura de novembro',txt:'Reenviamos o boleto caso não tenha recebido. R$ 1.840,00. 34196.60489 76475.938247 21948.924119 6 16320000184000'},
+{de:'Papelaria Central',ass:'Pedido 4471',txt:'Boleto do pedido. Valor R$ 951,00. 03393.41679 21106.840388 85421.430449 4 16560000091500'},
+{de:'Seguradora Norte',ass:'Apólice empresarial',txt:'Parcela de R$ 4.200,00. 00190.11517 44939.092662 85878.400572 6 16410000420000'}];
+const EXTRA=[];
+const $=s=>document.querySelector(s),brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const RX=/\d{5}[.\s]?\d{5}\s+\d{5}[.\s]?\d{6}\s+\d{5}[.\s]?\d{6}\s+\d\s+\d{14}/;
+function dv10(s){let t=0,w=2;for(let i=s.length-1;i>=0;i--){const p=+s[i]*w;t+=Math.floor(p/10)+p%10;w=w===2?1:2}return String((10-t%10)%10)}
+const BASE=Date.UTC(2025,1,22);
+const fdate=d=>new Date(d).toISOString().slice(0,10);
+const br=d=>d.split('-').reverse().join('/');
+function parseLinha(txt){const m=txt.match(RX);if(!m)return null;const d=m[0].replace(/\D/g,'');if(d.length!==47)return null;
+ const ok=dv10(d.slice(0,9))===d[9]&&dv10(d.slice(10,20))===d[20]&&dv10(d.slice(21,31))===d[31];
+ const fator=+d.slice(33,37),val=+d.slice(37)/100,venc=fator>=1000?fdate(BASE+(fator-1000)*864e5):null;
+ return{d,ok,val,venc,banco:d.slice(0,3)}}
+function textVal(t){const m=t.match(/R\$\s*([\d.]+,\d{2})/);return m?parseFloat(m[1].replace(/\./g,'').replace(',','.')):null}
+function proc(all,hoje,jan){const sheet=[],seen=new Set(),als=[],out=[];
+ all.forEach(m=>{const st=[],r={m,st};out.push(r);
+  st.push(['Gmail Trigger','ok']);const L=parseLinha(m.txt);
+  if(!L){st.push(['IF tem boleto','no'],['Code','sk'],['IF já lançado','sk'],['Sheets','sk'],['Alerta','sk']);r.s='m';r.t='Ignorado (não é boleto)';return}
+  st.push(['IF tem boleto','ok']);
+  const tv=textVal(m.txt);
+  if(!L.ok||!L.venc){st.push(['Code','no'],['IF já lançado','sk'],['Sheets','sk'],['Alerta','sk']);r.s='b';r.t='Revisão: dígito verificador inválido';return}
+  if(tv!==null&&Math.abs(tv-L.val)>.005){st.push(['Code','no'],['IF já lançado','sk'],['Sheets','sk'],['Alerta','sk']);r.s='w';r.t='Revisão: e-mail diz '+brl(tv)+', código diz '+brl(L.val);return}
+  st.push(['Code','ok']);
+  if(seen.has(L.d)){st.push(['IF já lançado','no'],['Sheets','sk'],['Alerta','sk']);r.s='i';r.t='Duplicado (já na planilha)';return}
+  seen.add(L.d);st.push(['IF já lançado','ok'],['Sheets','ok']);
+  const dias=Math.round((Date.parse(L.venc)-Date.parse(hoje))/864e5);
+  const row={forn:m.de,ass:m.ass,venc:L.venc,val:L.val,dias,banco:L.banco};sheet.push(row);
+  r.s='ok';r.t='Lançado · vence '+br(L.venc);
+  if(dias<=jan){st.push(['Alerta','ok']);als.push({...row,k:dias<0?'b':'w'})}else st.push(['Alerta','sk'])});
+ sheet.sort((a,b)=>a.venc<b.venc?-1:1);als.sort((a,b)=>a.dias-b.dias);return{out,sheet,als}}
+function render(){const hoje=$('#hoje').value||'2026-11-15',jan=+$('#jan').value;
+ const R=proc([...MAILS,...EXTRA],hoje,jan),n=s=>R.out.filter(r=>r.s===s).length;
+ const k=(b,s)=>'<div class="k"><b>'+b+'</b><span>'+s+'</span></div>';
+ $('#kp').innerHTML=k(n('ok'),'lançados na planilha')+k(n('b')+n('w'),'em revisão')+k(n('i')+n('m'),'duplicados / ignorados')+k(R.als.length,'alertas de vencimento')+k(brl(R.als.reduce((s,a)=>s+a.val,0)),'a pagar na janela');
+ $('#mails').innerHTML=R.out.map(r=>'<div class="mail"><div class="h"><div><b>'+esc(r.m.ass)+'</b><div class="f">'+esc(r.m.de)+'</div></div><span class="t '+r.s+'">'+esc(r.t)+'</span></div><p>'+esc(r.m.txt.slice(0,92))+(r.m.txt.length>92?'…':'')+'</p><div class="st">'+r.st.map(x=>'<span class="'+x[1]+'">'+(x[1]==='ok'?'✓ ':x[1]==='no'?'✕ ':'– ')+x[0]+'</span>').join('')+'</div></div>').join('');
+ $('#als').innerHTML=R.als.length?R.als.map(a=>'<div class="al '+a.k+'"><b>'+(a.dias<0?'Vencido há '+(-a.dias)+' d':a.dias===0?'Vence hoje':'Vence em '+a.dias+' d')+'</b> · '+esc(a.forn)+' · '+brl(a.val)+'<small>'+esc(a.ass)+' · vencimento '+br(a.venc)+'</small></div>').join(''):'<p class="fine">Nada vence dentro da janela.</p>';
+ $('#sheet').innerHTML='<table><thead><tr><th>Vencimento</th><th>Fornecedor</th><th class="n">Valor</th><th>Situação</th></tr></thead><tbody>'+R.sheet.map(a=>'<tr><td>'+br(a.venc)+'</td><td>'+esc(a.forn)+'</td><td class="n">'+brl(a.val)+'</td><td><span class="t '+(a.dias<0?'b':a.dias<=jan?'w':'ok')+'">'+(a.dias<0?'Vencido':a.dias<=jan?'Vence logo':'Agendado')+'</span></td></tr>').join('')+'</tbody></table>'}
+$('#run').onclick=render;$('#hoje').onchange=render;$('#jan').onchange=render;
+$('#rst').onclick=()=>{EXTRA.length=0;$('#hoje').value='2026-11-15';$('#jan').value='3';$('#err').textContent='';render()};
+$('#add').onclick=()=>{const t=$('#ex').value.trim();if(!t){$('#err').textContent='Cole o texto do e-mail.';return}$('#err').textContent='';EXTRA.push({de:'Remetente colado',ass:'E-mail colado '+(EXTRA.length+1),txt:t});$('#ex').value='';render()};
+$('#ex').value='Boleto da mensalidade. R$ 915,00. 03393.41679 21106.840388 85421.430449 4 16560000091500';
+render();
+</script></body></html>
