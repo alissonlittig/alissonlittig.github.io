@@ -1,0 +1,46 @@
+{
+  "_ajuda": "Edite so este arquivo. Cada tema e um negocio. Preco em numero. Para trocar o tema abra ?tema=barbearia | salao | loja",
+  "fim": "2026-11-27T23:59:59-03:00",
+  "temas": {
+    "barbearia": {
+      "nome": "Barbearia Navalha", "slogan": "Corte e barba no ponto, com preço de Black Friday.",
+      "cor": "#c8a24a", "fundo": "#0f0f10", "texto": "#f4efe6", "fonte": "serif",
+      "whatsapp": "5500000000000", "msg": "Oi! Vim pela página da Black Friday e quero aproveitar a oferta.",
+      "cupom": "NAVALHA27", "cupom_desc": "Mostre o código no balcão e ganhe 10% extra em qualquer oferta.",
+      "ofertas": [
+        {"titulo": "Corte + barba", "de": 85, "por": 59, "nota": "Toalha quente inclusa"},
+        {"titulo": "Corte masculino", "de": 50, "por": 35, "nota": "Degradê ou social"},
+        {"titulo": "Pacote 4 cortes", "de": 200, "por": 129, "nota": "Válido por 60 dias"}
+      ],
+      "horario": ["Seg a Sex: 9h às 20h", "Sábado: 9h às 18h", "Black Friday: 9h às 21h"],
+      "endereco": "Rua XV de Novembro, 100, Centro, Curitiba - PR", "agendamento": true
+    },
+    "salao": {
+      "nome": "Studio Aurora", "slogan": "Cabelo, unhas e cuidado: a semana mais bonita do ano.",
+      "cor": "#d9577f", "fundo": "#fff6f4", "texto": "#2a1a20", "fonte": "serif",
+      "whatsapp": "5500000000000", "msg": "Oi! Vim pela página da Black Friday e quero agendar.",
+      "cupom": "AURORA27", "cupom_desc": "Informe o código ao agendar e ganhe uma hidratação de cortesia.",
+      "ofertas": [
+        {"titulo": "Escova + hidratação", "de": 120, "por": 89, "nota": "Cabelos até o ombro"},
+        {"titulo": "Mãos e pés", "de": 70, "por": 49, "nota": "Esmaltação inclusa"},
+        {"titulo": "Coloração completa", "de": 260, "por": 199, "nota": "Produto incluso"}
+      ],
+      "horario": ["Ter a Sex: 9h às 19h", "Sábado: 8h às 17h", "Black Friday: 8h às 20h"],
+      "endereco": "Av. Sete de Setembro, 2000, Batel, Curitiba - PR", "agendamento": true
+    },
+    "loja": {
+      "nome": "Casa Nova Utilidades", "slogan": "Preços que só aparecem uma vez por ano. Até acabar o estoque.",
+      "cor": "#ff5a1f", "fundo": "#101418", "texto": "#f3f5f7", "fonte": "sans",
+      "whatsapp": "5500000000000", "msg": "Oi! Vi a Black Friday no site. Ainda tem estoque?",
+      "cupom": "CASA27", "cupom_desc": "Use o código no WhatsApp e ganhe frete grátis na cidade.",
+      "ofertas": [
+        {"titulo": "Jogo de panelas 5 peças", "de": 299, "por": 189, "nota": "Antiaderente"},
+        {"titulo": "Air fryer 4 L", "de": 399, "por": 289, "nota": "Garantia de 1 ano"},
+        {"titulo": "Kit cama queen", "de": 189, "por": 129, "nota": "4 peças, 200 fios"},
+        {"titulo": "Liquidificador 900 W", "de": 149, "por": 99, "nota": "Jarra de vidro"}
+      ],
+      "horario": ["Seg a Sáb: 9h às 19h", "Black Friday: 9h às 22h"],
+      "endereco": "Rua Marechal Deodoro, 500, Centro, Curitiba - PR", "agendamento": false
+    }
+  }
+}
