@@ -67,6 +67,7 @@
       <a role="tab" id="t-dashboards" href="#dashboards" aria-controls="dashboards" aria-selected="false">Dashboards<small>25</small></a>
       <a role="tab" id="t-websites" href="#websites" aria-controls="websites" aria-selected="false">Websites<small>36</small></a>
       <a role="tab" id="t-landing-pages" href="#landing-pages" aria-controls="landing-pages" aria-selected="false">Landing pages<small>22</small></a>
+      <a role="tab" id="t-apps-e-codigo" href="#apps-e-codigo" aria-controls="apps-e-codigo" aria-selected="false">Apps e código<small>3</small></a>
     </div>
     <div class="filt" role="search">
       <label class="sr" for="q"><span lang="pt">Buscar projetos</span><span lang="en">Search projects</span></label>
@@ -1391,6 +1392,32 @@
       </article>
     </div>
   </div>
+  <div class="panel" id="apps-e-codigo" role="tabpanel" aria-labelledby="t-apps-e-codigo" tabindex="-1">
+    <p class="fict"><span lang="pt">Apps instaláveis, experimentos com número real e bibliotecas testadas, com dados fictícios</span><span lang="en">Installable apps, experiments with real numbers and tested libraries, with fictional data</span></p>
+    <div class="grid">
+      <article class="tile">
+        <a class="pic" href="https://alissonlittig.github.io/prancheta-vistoria-pwa/" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/prancheta-d.webp" width="1200" height="750" loading="lazy" alt=""></a>
+        <h3><a href="https://alissonlittig.github.io/prancheta-vistoria-pwa/" rel="noopener">Prancheta: vistoria no celular, com ou sem internet</a></h3>
+        <p class="tag"><span lang="pt">App que se instala e funciona offline · PWA + IndexedDB + Service Worker</span><span lang="en">App you install that works offline · PWA + IndexedDB + Service Worker</span></p>
+        <p class="d"><span lang="pt">Checklist de vistoria com carimbo OK, Atenção ou Reprovado, notas, fotos, assinatura na tela e relatório. O service worker guarda o app inteiro e os dados ficam no aparelho, sem servidor. Instalável na tela inicial. Testes automatizados e código aberto.</span><span lang="en">An inspection checklist with OK, Attention or Failed stamps, notes, photos, an on-screen signature and a report. The service worker caches the whole app and the data stays on the device, with no server. Installable on the home screen. Automated tests and open source.</span></p>
+        <p class="links"><a class="lnk" href="https://alissonlittig.github.io/prancheta-vistoria-pwa/" rel="noopener"><span lang="pt">Abrir o app</span><span lang="en">Open the app</span></a><a class="lnk" href="https://github.com/alissonlittig/prancheta-vistoria-pwa" rel="noopener"><span lang="pt">Código no GitHub</span><span lang="en">Code on GitHub</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="https://ab-na-borda.alissondelittig.workers.dev/" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/ab-na-borda-d.webp" width="1200" height="750" loading="lazy" alt=""></a>
+        <h3><a href="https://ab-na-borda.alissondelittig.workers.dev/" rel="noopener">Teste A/B na borda com painel de estatística</a></h3>
+        <p class="tag"><span lang="pt">Landing com duas versões e contagem real · Cloudflare Workers + Durable Objects</span><span lang="en">Landing page with two variants and real counts · Cloudflare Workers + Durable Objects</span></p>
+        <p class="d"><span lang="pt">A versão é sorteada no servidor e guardada em cookie; visitas e conversões são contadas num Durable Object com SQLite. O painel mostra taxa, ganho, intervalo de Wilson, valor-p, chance de vencer e checagem de divisão 50/50. Tráfego simulado fica rotulado. Plano grátis e código aberto.</span><span lang="en">The variant is drawn on the server and kept in a cookie; visits and conversions are counted in a SQLite-backed Durable Object. The dashboard shows rate, uplift, Wilson interval, p-value, chance to win and a 50/50 split check. Simulated traffic is labeled. Free plan and open source.</span></p>
+        <p class="links"><a class="lnk" href="https://ab-na-borda.alissondelittig.workers.dev/" rel="noopener"><span lang="pt">Abrir a demo</span><span lang="en">Open the demo</span></a><a class="lnk" href="https://github.com/alissonlittig/ab-na-borda" rel="noopener"><span lang="pt">Código no GitHub</span><span lang="en">Code on GitHub</span></a></p>
+      </article>
+      <article class="tile">
+        <a class="pic" href="https://alissonlittig.github.io/brcode-pix/" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/brcode-pix-d.webp" width="1200" height="750" loading="lazy" alt=""></a>
+        <h3><a href="https://alissonlittig.github.io/brcode-pix/" rel="noopener">brcode-pix: biblioteca do Pix copia e cola</a></h3>
+        <p class="tag"><span lang="pt">Biblioteca sem dependência · JavaScript + testes + GitHub Actions</span><span lang="en">Zero-dependency library · JavaScript + tests + GitHub Actions</span></p>
+        <p class="d"><span lang="pt">Gera, lê e valida o Pix copia e cola (BR Code) conforme o manual do Banco Central: CRC16, campos, tipos de chave e limites. Testada contra o exemplo oficial, com 15 testes no CI e um playground com QR Code e tabela campo a campo. Tudo roda no navegador. Código aberto.</span><span lang="en">Generates, parses and validates Pix copy-and-paste codes (BR Code) per the Central Bank manual: CRC16, fields, key types and limits. Tested against the official example, with 15 CI tests and a playground with QR Code and a field-by-field table. Everything runs in the browser. Open source.</span></p>
+        <p class="links"><a class="lnk" href="https://alissonlittig.github.io/brcode-pix/" rel="noopener"><span lang="pt">Abrir o playground</span><span lang="en">Open the playground</span></a><a class="lnk" href="https://github.com/alissonlittig/brcode-pix" rel="noopener"><span lang="pt">Código no GitHub</span><span lang="en">Code on GitHub</span></a></p>
+      </article>
+    </div>
+  </div>
     </div>
 </section>
 
@@ -1401,6 +1428,7 @@
       <div><dt><span lang="pt">CRMs</span><span lang="en">CRMs</span></dt><dd>25</dd></div>
       <div><dt><span lang="pt">dashboards</span><span lang="en">dashboards</span></dt><dd>24</dd></div>
       <div><dt><span lang="pt">projetos de RAG</span><span lang="en">RAG projects</span></dt><dd>20</dd></div>
+      <div><dt><span lang="pt">apps e bibliotecas</span><span lang="en">apps and libraries</span></dt><dd>3</dd></div>
     </dl>
   </div>
 </section>
